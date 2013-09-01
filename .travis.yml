@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "0.6"
+  - "0.10"
+git:
+  depth: 1
+branches:
+  only:
+    - master
+script:
+  - "git clone --depth=1 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash/"
+  - "node ./node_modules/lodash/test/test.js ./lodash.js"
