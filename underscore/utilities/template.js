@@ -106,7 +106,7 @@ var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
  */
 function template(text, data, options) {
   var _ = templateSettings.imports._,
-      settings = _.templateSettings;
+      settings = _.templateSettings || templateSettings;
 
   text || (text = '');
   options = defaults({}, options, settings);
