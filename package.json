@@ -4,6 +4,7 @@
   "description": "A collection of Lo-Dash methods as Node.js modules.",
   "homepage": "http://lodash.com/custom-builds",
   "license": "MIT",
+  "main": "./modern/lodash.js",
   "keywords": [
     "lodash",
     "modules",
