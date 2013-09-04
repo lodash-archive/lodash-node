@@ -1,0 +1,44 @@
+/**
+ * @license
+ * Lo-Dash 1.3.1 <http://lodash.com/>
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.1 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var createBound = require('../internals/createBound');
+
+/**
+ * Creates a function which accepts one or more arguments of `func` that when
+ * invoked either executes `func` returning its result, if all `func` arguments
+ * have been provided, or returns a function that accepts one or more of the
+ * remaining `func` arguments, and so on. The arity of `func` can be specified
+ * if `func.length` is not sufficient.
+ *
+ * @static
+ * @memberOf _
+ * @category Functions
+ * @param {Function} func The function to curry.
+ * @param {number} [arity=func.length] The arity of `func`.
+ * @returns {Function} Returns the new curried function.
+ * @example
+ *
+ * var curried = _.curry(function(a, b, c) {
+ *   console.log(a + b + c);
+ * });
+ *
+ * curried(1)(2)(3);
+ * // => 6
+ *
+ * curried(1, 2)(3);
+ * // => 6
+ *
+ * curried(1, 2, 3);
+ * // => 6
+ */
+function curry(func, arity) {
+  arity = typeof arity == 'number' ? arity : (+arity || func.length);
+  return createBound(func, 4, null, null, null, arity);
+}
+
+module.exports = curry;

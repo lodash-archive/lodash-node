@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - "0.6"
   - "0.10"
+env:
+  - TEST_COMMAND="node ./node_modules/lodash/test/test.js ./compat/lodash.js"
+  - TEST_COMMAND="node ./node_modules/lodash/test/test.js ./modern/lodash.js"
 git:
   depth: 1
 branches:
@@ -9,4 +12,4 @@ branches:
     - master
 script:
   - "git clone --depth=1 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash/"
-  - "node ./node_modules/lodash/test/test.js ./lodash.js"
+  - $TEST_COMMAND

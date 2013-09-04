@@ -29,7 +29,7 @@ var defineProperty = (function() {
  * @param {Function} func The function to set data on.
  * @param {*} value The value to set.
  */
-var setBindData = !defineProperty ? noop : function(func, value) {
+var setBindData = function(func, value) {
   var descriptor = getObject();
   descriptor.value = value;
   defineProperty(func, '__bindData__', descriptor);

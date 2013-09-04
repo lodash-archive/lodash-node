@@ -1,0 +1,32 @@
+/**
+ * @license
+ * Lo-Dash 1.3.1 <http://lodash.com/>
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.1 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+module.exports = {
+  'compact': require('./arrays/compact'),
+  'difference': require('./arrays/difference'),
+  'findIndex': require('./arrays/findIndex'),
+  'findLastIndex': require('./arrays/findLastIndex'),
+  'first': require('./arrays/first'),
+  'flatten': require('./arrays/flatten'),
+  'indexOf': require('./arrays/indexOf'),
+  'initial': require('./arrays/initial'),
+  'intersection': require('./arrays/intersection'),
+  'last': require('./arrays/last'),
+  'lastIndexOf': require('./arrays/lastIndexOf'),
+  'pull': require('./arrays/pull'),
+  'range': require('./arrays/range'),
+  'remove': require('./arrays/remove'),
+  'rest': require('./arrays/rest'),
+  'sortedIndex': require('./arrays/sortedIndex'),
+  'union': require('./arrays/union'),
+  'uniq': require('./arrays/uniq'),
+  'without': require('./arrays/without'),
+  'zip': require('./arrays/zip'),
+  'zipObject': require('./arrays/zipObject')
+};
