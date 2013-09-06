@@ -4,7 +4,7 @@
   "description": "A collection of Lo-Dash methods as Node.js modules.",
   "homepage": "http://lodash.com/custom-builds",
   "license": "MIT",
-  "main": "./modern/lodash.js",
+  "main": "modern/lodash.js",
   "keywords": [
     "lodash",
     "modules",
@@ -17,14 +17,9 @@
     "Kit Cambridge <github@kitcambridge.be> (http://kitcambridge.be/)",
     "Mathias Bynens <mathias@qiwi.be> (http://mathiasbynens.be/)"
   ],
-  "bugs": {
-    "url": "https://github.com/lodash/lodash-cli/issues"
-  },
+  "bugs": "https://github.com/lodash/lodash-cli/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/lodash/lodash-node.git"
-  },
-  "engines": [
-    "node"
-  ]
+  }
 }
