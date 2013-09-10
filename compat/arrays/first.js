@@ -2,12 +2,15 @@
  * @license
  * Lo-Dash 1.3.1 <http://lodash.com/>
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.1 <http://underscorejs.org/LICENSE>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
 var createCallback = require('../functions/createCallback'),
     slice = require('../internals/slice');
+
+/** Used as a safe reference for `undefined` in pre ES5 environments */
+var undefined;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeMax = Math.max,
@@ -70,24 +73,22 @@ var nativeMax = Math.max,
  * // => [{ 'name': 'apple', 'type': 'fruit' }, { 'name': 'banana', 'type': 'fruit' }]
  */
 function first(array, callback, thisArg) {
-  if (array) {
-    var n = 0,
-        length = array.length;
+  var n = 0,
+      length = array ? array.length : 0;
 
-    if (typeof callback != 'number' && callback != null) {
-      var index = -1;
-      callback = createCallback(callback, thisArg, 3);
-      while (++index < length && callback(array[index], index, array)) {
-        n++;
-      }
-    } else {
-      n = callback;
-      if (n == null || thisArg) {
-        return array[0];
-      }
+  if (typeof callback != 'number' && callback != null) {
+    var index = -1;
+    callback = createCallback(callback, thisArg, 3);
+    while (++index < length && callback(array[index], index, array)) {
+      n++;
     }
-    return slice(array, 0, nativeMin(nativeMax(0, n), length));
+  } else {
+    n = callback;
+    if (n == null || thisArg) {
+      return array ? array[0] : undefined;
+    }
   }
+  return slice(array, 0, nativeMin(nativeMax(0, n), length));
 }
 
 module.exports = first;

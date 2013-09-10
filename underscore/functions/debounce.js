@@ -2,13 +2,16 @@
  * @license
  * Lo-Dash 1.3.1 <http://lodash.com/>
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.1 <http://underscorejs.org/LICENSE>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
 var isFunction = require('../objects/isFunction'),
     isObject = require('../objects/isObject'),
     reNative = require('../internals/reNative');
+
+/** Used as a safe reference for `undefined` in pre ES5 environments */
+var undefined;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeMax = Math.max;
@@ -54,37 +57,36 @@ var nativeMax = Math.max;
  */
 function debounce(func, wait, options) {
   var args,
+      maxTimeoutId,
       result,
       stamp,
       thisArg,
-      callCount = 0,
+      timeoutId,
+      trailingCall,
       lastCalled = 0,
       maxWait = false,
-      maxTimeoutId = null,
-      timeoutId = null,
       trailing = true;
 
   if (!isFunction(func)) {
     throw new TypeError;
   }
-  wait = nativeMax(0, wait || 0);
+  wait = nativeMax(0, wait) || 0;
   if (options === true) {
     var leading = true;
     trailing = false;
   } else if (isObject(options)) {
     leading = options.leading;
-    maxWait = 'maxWait' in options && nativeMax(wait, options.maxWait || 0);
+    maxWait = 'maxWait' in options && (nativeMax(wait, options.maxWait) || 0);
     trailing = 'trailing' in options ? options.trailing : trailing;
   }
   var delayed = function() {
     var remaining = wait - (new Date - stamp);
     if (remaining <= 0) {
-      var isCalled = trailing && (!leading || callCount > 1);
       if (maxTimeoutId) {
         clearTimeout(maxTimeoutId);
       }
-      callCount = 0;
-      maxTimeoutId = timeoutId = null;
+      var isCalled = trailingCall;
+      maxTimeoutId = timeoutId = trailingCall = undefined;
       if (isCalled) {
         lastCalled = +new Date;
         result = func.apply(thisArg, args);
@@ -98,8 +100,7 @@ function debounce(func, wait, options) {
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
-    callCount = 0;
-    maxTimeoutId = timeoutId = null;
+    maxTimeoutId = timeoutId = trailingCall = undefined;
     if (trailing || (maxWait !== wait)) {
       lastCalled = +new Date;
       result = func.apply(thisArg, args);
@@ -110,12 +111,10 @@ function debounce(func, wait, options) {
     args = arguments;
     stamp = +new Date;
     thisArg = this;
-    callCount++;
+    trailingCall = trailing && (timeoutId || !leading);
 
     if (maxWait === false) {
-      if (leading && callCount < 2) {
-        result = func.apply(thisArg, args);
-      }
+      var leadingCall = leading && !timeoutId;
     } else {
       if (!maxTimeoutId && !leading) {
         lastCalled = stamp;
@@ -123,8 +122,7 @@ function debounce(func, wait, options) {
       var remaining = maxWait - (stamp - lastCalled);
       if (remaining <= 0) {
         if (maxTimeoutId) {
-          clearTimeout(maxTimeoutId);
-          maxTimeoutId = null;
+          maxTimeoutId = clearTimeout(maxTimeoutId);
         }
         lastCalled = stamp;
         result = func.apply(thisArg, args);
@@ -135,6 +133,9 @@ function debounce(func, wait, options) {
     }
     if (!timeoutId && wait !== maxWait) {
       timeoutId = setTimeout(delayed, wait);
+    }
+    if (leadingCall) {
+      result = func.apply(thisArg, args);
     }
     return result;
   };

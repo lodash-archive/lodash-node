@@ -2,7 +2,7 @@
  * @license
  * Lo-Dash 1.3.1 <http://lodash.com/>
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.1 <http://underscorejs.org/LICENSE>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
@@ -82,8 +82,8 @@ var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
  * // => 'hello curly'
  *
  * // using the internal `print` function in "evaluate" delimiters
- * _.template('<% print("hello " + epithet); %>!', { 'epithet': 'stooge' });
- * // => 'hello stooge!'
+ * _.template('<% print("hello " + name); %>!', { 'name': 'larry' });
+ * // => 'hello larry!'
  *
  * // using a custom template delimiters
  * _.templateSettings = {
