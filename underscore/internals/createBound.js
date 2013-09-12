@@ -1,6 +1,6 @@
 /**
  * @license
- * Lo-Dash 1.3.1 <http://lodash.com/>
+ * Lo-Dash 2.0.0 <http://lodash.com/>
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -29,7 +29,8 @@ var push = arrayRef.push,
     unshift = arrayRef.unshift;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeBind = reNative.test(nativeBind = toString.bind) && nativeBind;
+var nativeBind = reNative.test(nativeBind = toString.bind) && nativeBind,
+    nativeSlice = arrayRef.slice;
 
 /**
  * Creates a function that, when called, either curries or invokes `func`
@@ -92,15 +93,18 @@ function createBound(func, bitmask, partialArgs, partialRightArgs, thisArg, arit
       var args = arguments,
           thisBinding = isBind ? thisArg : this;
 
-      if (isPartial) {
-        unshift.apply(args, partialArgs);
-      }
-      if (isPartialRight) {
-        push.apply(args, partialRightArgs);
-      }
-      if (isCurry && args.length < arity) {
-        bitmask |= 16 & ~32;
-        return createBound(func, (isCurryBound ? bitmask : bitmask & ~3), args, null, thisArg, arity);
+      if (isCurry || isPartial || isPartialRight) {
+        args = nativeSlice.call(args);
+        if (isPartial) {
+          unshift.apply(args, partialArgs);
+        }
+        if (isPartialRight) {
+          push.apply(args, partialRightArgs);
+        }
+        if (isCurry && args.length < arity) {
+          bitmask |= 16 & ~32;
+          return createBound(func, (isCurryBound ? bitmask : bitmask & ~3), args, null, thisArg, arity);
+        }
       }
       if (isBindKey) {
         func = thisBinding[key];
