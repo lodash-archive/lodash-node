@@ -1,6 +1,6 @@
 /**
- * @license
- * Lo-Dash 2.0.0 <http://lodash.com/>
+ * Lo-Dash 2.0.0 (Custom Build) <http://lodash.com/>
+ * Build: `lodash underscore modularize exports="node" -o ./underscore/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -10,7 +10,7 @@ var where = require('./where');
 
 /**
  * Examines each element in a `collection`, returning the first that
- * has the given `properties`. When checking `properties`, this method
+ * has the given properties. When checking `properties`, this method
  * performs a deep comparison between values to determine if they are
  * equivalent to each other.
  *

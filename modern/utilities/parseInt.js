@@ -1,6 +1,6 @@
 /**
- * @license
- * Lo-Dash 2.0.0 <http://lodash.com/>
+ * Lo-Dash 2.0.0 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modern modularize exports="node" -o ./modern/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -27,7 +27,7 @@ var reLeadingSpacesAndZeros = RegExp('^[' + whitespace + ']*0+(?=.$)');
 var nativeParseInt = global.parseInt;
 
 /**
- * Converts the given `value` into an integer of the specified `radix`.
+ * Converts the given value into an integer of the specified radix.
  * If `radix` is `undefined` or `0` a `radix` of `10` is used unless the
  * `value` is a hexadecimal, in which case a `radix` of `16` is used.
  *

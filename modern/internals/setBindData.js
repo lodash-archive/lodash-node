@@ -1,6 +1,6 @@
 /**
- * @license
- * Lo-Dash 2.0.0 <http://lodash.com/>
+ * Lo-Dash 2.0.0 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modern modularize exports="node" -o ./modern/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -29,7 +29,7 @@ var defineProperty = (function() {
  * @param {Function} func The function to set data on.
  * @param {*} value The value to set.
  */
-var setBindData = function(func, value) {
+var setBindData = !defineProperty ? noop : function(func, value) {
   var descriptor = getObject();
   descriptor.value = value;
   defineProperty(func, '__bindData__', descriptor);
