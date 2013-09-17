@@ -7,6 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var getObject = require('./getObject'),
+    noop = require('./noop'),
     reNative = require('./reNative'),
     releaseObject = require('./releaseObject');
 
