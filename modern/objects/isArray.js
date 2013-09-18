@@ -38,7 +38,8 @@ var nativeIsArray = reNative.test(nativeIsArray = Array.isArray) && nativeIsArra
  * // => true
  */
 var isArray = nativeIsArray || function(value) {
-  return (value && typeof value == 'object') ? toString.call(value) == arrayClass : false;
+  return value && typeof value == 'object' && typeof value.length == 'number' &&
+    toString.call(value) == arrayClass || false;
 };
 
 module.exports = isArray;

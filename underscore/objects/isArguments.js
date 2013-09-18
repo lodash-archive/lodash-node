@@ -34,12 +34,14 @@ var hasOwnProperty = objectProto.hasOwnProperty,
  * // => false
  */
 function isArguments(value) {
-  return (value && typeof value == 'object') ? toString.call(value) == argsClass : false;
+  return value && typeof value == 'object' && typeof value.length == 'number' &&
+    toString.call(value) == argsClass || false;
 }
 // fallback for browsers that can't detect `arguments` objects by [[Class]]
 if (!isArguments(arguments)) {
   isArguments = function(value) {
-    return (value && typeof value == 'object') ? hasOwnProperty.call(value, 'callee') : false;
+    return value && typeof value == 'object' && typeof value.length == 'number' &&
+      hasOwnProperty.call(value, 'callee') || false;
   };
 }
 
