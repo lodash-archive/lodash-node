@@ -24,11 +24,11 @@ var filter = require('./filter');
  *
  * var stooges = [
  *   { 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
- *   { 'name': 'moe', 'age': '40', 'quotes': ['Spread out!', 'You knucklehead!'] }
+ *   { 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
  * ];
  *
  * _.where(stooges, { 'age': 40 });
- * // => [{ 'name': 'moe', 'age': '40', 'quotes': ['Spread out!', 'You knucklehead!'] }]
+ * // => [{ 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }]
  *
  * _.where(stooges, { 'quotes': ['Poifect!'] });
  * // => [{ 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] }]

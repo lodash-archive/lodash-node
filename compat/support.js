@@ -8,6 +8,9 @@
  */
 var reNative = require('./internals/reNative');
 
+/** Used to detect functions containing a `this` reference */
+var reThis = /\bthis\b/;
+
 /** `Object#toString` result shortcuts */
 var argsClass = '[object Arguments]',
     objectClass = '[object Object]';
@@ -54,20 +57,20 @@ var support = {};
   for (prop in arguments) { }
 
   /**
-   * Detect if `arguments` objects are `Object` objects (all but Narwhal and Opera < 10.5).
-   *
-   * @memberOf _.support
-   * @type boolean
-   */
-  support.argsObject = arguments.constructor == Object && !(arguments instanceof Array);
-
-  /**
    * Detect if an `arguments` object's [[Class]] is resolvable (all but Firefox < 4, IE < 9).
    *
    * @memberOf _.support
    * @type boolean
    */
   support.argsClass = toString.call(arguments) == argsClass;
+
+  /**
+   * Detect if `arguments` objects are `Object` objects (all but Narwhal and Opera < 10.5).
+   *
+   * @memberOf _.support
+   * @type boolean
+   */
+  support.argsObject = arguments.constructor == Object && !(arguments instanceof Array);
 
   /**
    * Detect if `name` or `message` properties of `Error.prototype` are
@@ -98,6 +101,15 @@ var support = {};
    * @type boolean
    */
   support.fastBind = nativeBind && !isV8;
+
+  /**
+   * Detect if functions can be decompiled by `Function#toString`
+   * (all but PS3 and older Opera mobile browsers & avoided in Windows 8 apps).
+   *
+   * @memberOf _.support
+   * @type boolean
+   */
+  support.funcDecomp = !reNative.test(global.WinRTError) && reThis.test(function() { return this; });
 
   /**
    * Detect if `Function#name` is supported (all but IE).

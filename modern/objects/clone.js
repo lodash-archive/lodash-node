@@ -20,7 +20,7 @@ var baseClone = require('../internals/baseClone'),
  * @memberOf _
  * @category Objects
  * @param {*} value The value to clone.
- * @param {boolean} [deep=false] A flag to indicate a deep clone.
+ * @param {boolean} [deep=false] Specify a deep clone.
  * @param {Function} [callback] The function to customize cloning values.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {*} Returns the cloned `value`.

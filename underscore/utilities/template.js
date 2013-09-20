@@ -78,8 +78,8 @@ var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
  * // => 'hello mustache!'
  *
  * // using the `imports` option to import jQuery
- * var list = '<% $.each(people, function(name) { %><li><%= name %></li><% }); %>';
- * _.template(list, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery });
+ * var list = '<% $.each(people, function(name) { %><li><%- name %></li><% }); %>';
+ * _.template(list, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery } });
  * // => '<li>moe</li><li>larry</li>'
  *
  * // using the `sourceURL` option to specify a custom sourceURL for the template

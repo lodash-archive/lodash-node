@@ -15,7 +15,7 @@ var bind = require('../functions/bind'),
 var reFuncName = /^function[ \n\r\t]+\w/;
 
 /** Used to detect functions containing a `this` reference */
-var reThis = (reThis = /\bthis\b/) && reThis.test(function() { return this; }) && reThis;
+var reThis = /\bthis\b/;
 
 /** Native method shortcuts */
 var fnToString = Function.prototype.toString;
@@ -46,7 +46,7 @@ function baseCreateCallback(func, thisArg, argCount) {
     }
     if (support.funcNames || !bindData) {
       // checks if `func` references the `this` keyword and stores the result
-      bindData = !reThis || reThis.test(source);
+      bindData = !support.funcDecomp || reThis.test(source);
       setBindData(func, bindData);
     }
   }

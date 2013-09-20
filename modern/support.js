@@ -8,6 +8,9 @@
  */
 var reNative = require('./internals/reNative');
 
+/** Used to detect functions containing a `this` reference */
+var reThis = /\bthis\b/;
+
 /** Used for native method references */
 var objectProto = Object.prototype;
 
@@ -37,6 +40,15 @@ var support = {};
  * @type boolean
  */
 support.fastBind = nativeBind && !isV8;
+
+/**
+ * Detect if functions can be decompiled by `Function#toString`
+ * (all but PS3 and older Opera mobile browsers & avoided in Windows 8 apps).
+ *
+ * @memberOf _.support
+ * @type boolean
+ */
+support.funcDecomp = !reNative.test(global.WinRTError) && reThis.test(function() { return this; });
 
 /**
  * Detect if `Function#name` is supported (all but IE).
