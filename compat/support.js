@@ -120,14 +120,6 @@ var support = {};
   support.funcNames = typeof Function.name == 'string';
 
   /**
-   * Detect if own properties are iterated after inherited properties (all but IE < 9).
-   *
-   * @memberOf _.support
-   * @type boolean
-   */
-  support.ownLast = props[0] != 'x';
-
-  /**
    * Detect if `arguments` object indexes are non-enumerable
    * (Firefox < 4, IE < 9, PhantomJS, Safari < 5.1).
    *
@@ -146,6 +138,14 @@ var support = {};
    * @type boolean
    */
   support.nonEnumShadows = !/valueOf/.test(props);
+
+  /**
+   * Detect if own properties are iterated after inherited properties (all but IE < 9).
+   *
+   * @memberOf _.support
+   * @type boolean
+   */
+  support.ownLast = props[0] != 'x';
 
   /**
    * Detect if `Array#shift` and `Array#splice` augment array-like objects correctly.
