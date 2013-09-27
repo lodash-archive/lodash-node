@@ -18,23 +18,17 @@ function getObject() {
   return objectPool.pop() || {
     'array': null,
     'cache': null,
-    'configurable': false,
     'criteria': null,
-    'enumerable': false,
     'false': false,
     'index': 0,
-    'leading': false,
-    'maxWait': 0,
     'null': false,
     'number': null,
     'object': null,
     'push': null,
     'string': null,
-    'trailing': false,
     'true': false,
     'undefined': false,
-    'value': null,
-    'writable': false
+    'value': null
   };
 }
 

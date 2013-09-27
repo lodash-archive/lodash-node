@@ -7,14 +7,12 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('./baseCreateCallback'),
-    getObject = require('./getObject'),
     indicatorObject = require('./indicatorObject'),
     isArguments = require('../objects/isArguments'),
     isArray = require('../objects/isArray'),
     isString = require('../objects/isString'),
     iteratorTemplate = require('./iteratorTemplate'),
-    objectTypes = require('./objectTypes'),
-    releaseObject = require('./releaseObject');
+    objectTypes = require('./objectTypes');
 
 /** Used to fix the JScript [[DontEnum]] bug */
 var shadowedProps = [
@@ -32,6 +30,21 @@ var arrayClass = '[object Array]',
     objectClass = '[object Object]',
     regexpClass = '[object RegExp]',
     stringClass = '[object String]';
+
+/** Used as the data object for `iteratorTemplate` */
+var iteratorData = {
+  'args': '',
+  'array': null,
+  'bottom': '',
+  'firstArg': '',
+  'init': '',
+  'keys': null,
+  'loop': '',
+  'shadowedProps': null,
+  'support': null,
+  'top': '',
+  'useHas': false
+};
 
 /** Used for native method references */
 var errorProto = Error.prototype,
@@ -76,39 +89,35 @@ nonEnumProps[objectClass] = { 'constructor': true };
  * @returns {Function} Returns the compiled function.
  */
 function createIterator() {
-  var data = getObject();
-
   // data properties
-  data.shadowedProps = shadowedProps;
+  iteratorData.shadowedProps = shadowedProps;
 
   // iterator options
-  data.array = data.bottom = data.loop = data.top = '';
-  data.init = 'iterable';
-  data.useHas = true;
+  iteratorData.array = iteratorData.bottom = iteratorData.loop = iteratorData.top = '';
+  iteratorData.init = 'iterable';
+  iteratorData.useHas = true;
 
   // merge options into a template data object
   for (var object, index = 0; object = arguments[index]; index++) {
     for (var key in object) {
-      data[key] = object[key];
+      iteratorData[key] = object[key];
     }
   }
-  var args = data.args;
-  data.firstArg = /^[^,]+/.exec(args)[0];
+  var args = iteratorData.args;
+  iteratorData.firstArg = /^[^,]+/.exec(args)[0];
 
   // create the function factory
   var factory = Function(
       'baseCreateCallback, errorClass, errorProto, hasOwnProperty, ' +
       'indicatorObject, isArguments, isArray, isString, keys, objectProto, ' +
       'objectTypes, nonEnumProps, stringClass, stringProto, toString',
-    'return function(' + args + ') {\n' + iteratorTemplate(data) + '\n}'
+    'return function(' + args + ') {\n' + iteratorTemplate(iteratorData) + '\n}'
   );
-
-  releaseObject(data);
 
   // return the compiled function
   return factory(
     baseCreateCallback, errorClass, errorProto, hasOwnProperty,
-    indicatorObject, isArguments, isArray, isString, data.keys, objectProto,
+    indicatorObject, isArguments, isArray, isString, iteratorData.keys, objectProto,
     objectTypes, nonEnumProps, stringClass, stringProto, toString
   );
 }

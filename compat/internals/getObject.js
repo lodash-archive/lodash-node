@@ -16,34 +16,19 @@ var objectPool = require('./objectPool');
  */
 function getObject() {
   return objectPool.pop() || {
-    'args': '',
     'array': null,
-    'bottom': '',
     'cache': null,
-    'configurable': false,
     'criteria': null,
-    'enumerable': false,
     'false': false,
-    'firstArg': '',
     'index': 0,
-    'init': '',
-    'keys': null,
-    'leading': false,
-    'loop': '',
-    'maxWait': 0,
     'null': false,
     'number': null,
     'object': null,
     'push': null,
-    'shadowedProps': null,
     'string': null,
-    'top': '',
-    'trailing': false,
     'true': false,
     'undefined': false,
-    'useHas': false,
-    'value': null,
-    'writable': false
+    'value': null
   };
 }
 

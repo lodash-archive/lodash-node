@@ -65,60 +65,58 @@ ctorByClass[stringClass] = String;
  * @param {Function} [callback] The function to customize cloning values.
  * @param {Array} [stackA=[]] Tracks traversed source objects.
  * @param {Array} [stackB=[]] Associates clones with source counterparts.
- * @returns {*} Returns the cloned `value`.
+ * @returns {*} Returns the cloned value.
  */
 function baseClone(value, deep, callback, stackA, stackB) {
-  var result = value;
-
   if (callback) {
-    result = callback(result);
+    var result = callback(value);
     if (typeof result != 'undefined') {
       return result;
     }
-    result = value;
   }
   // inspect [[Class]]
-  var isObj = isObject(result);
+  var isObj = isObject(value);
   if (isObj) {
-    var className = toString.call(result);
+    var className = toString.call(value);
     if (!cloneableClasses[className]) {
-      return result;
+      return value;
     }
-    var isArr = isArray(result);
-  }
-  // shallow clone
-  if (!isObj || !deep) {
-    return isObj
-      ? (isArr ? slice(result) : assign({}, result))
-      : result;
-  }
-  var ctor = ctorByClass[className];
-  switch (className) {
-    case boolClass:
-    case dateClass:
-      return new ctor(+result);
+    var ctor = ctorByClass[className];
+    switch (className) {
+      case boolClass:
+      case dateClass:
+        return new ctor(+value);
 
-    case numberClass:
-    case stringClass:
-      return new ctor(result);
+      case numberClass:
+      case stringClass:
+        return new ctor(value);
 
-    case regexpClass:
-      return ctor(result.source, reFlags.exec(result));
-  }
-  // check for circular references and return corresponding clone
-  var initedStack = !stackA;
-  stackA || (stackA = getArray());
-  stackB || (stackB = getArray());
-
-  var length = stackA.length;
-  while (length--) {
-    if (stackA[length] == value) {
-      return stackB[length];
+      case regexpClass:
+        result = ctor(value.source, reFlags.exec(value));
+        result.lastIndex = value.lastIndex;
+        return result;
     }
+  } else {
+    return value;
   }
-  // init cloned object
-  result = isArr ? ctor(result.length) : {};
+  var isArr = isArray(value);
+  if (deep) {
+    // check for circular references and return corresponding clone
+    var initedStack = !stackA;
+    stackA || (stackA = getArray());
+    stackB || (stackB = getArray());
 
+    var length = stackA.length;
+    while (length--) {
+      if (stackA[length] == value) {
+        return stackB[length];
+      }
+    }
+    result = isArr ? ctor(value.length) : {};
+  }
+  else {
+    result = isArr ? slice(value) : assign({}, value);
+  }
   // add array properties assigned by `RegExp#exec`
   if (isArr) {
     if (hasOwnProperty.call(value, 'index')) {
@@ -127,6 +125,10 @@ function baseClone(value, deep, callback, stackA, stackB) {
     if (hasOwnProperty.call(value, 'input')) {
       result.input = value.input;
     }
+  }
+  // exit for shallow clone
+  if (!deep) {
+    return result;
   }
   // add the source value to the stack of traversed objects
   // and associate it with its clone

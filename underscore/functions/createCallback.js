@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    isObject = require('../objects/isObject'),
     keys = require('../objects/keys');
 
 /**

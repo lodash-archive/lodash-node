@@ -13,6 +13,12 @@ var isFunction = require('../objects/isFunction'),
 /** Used as a safe reference for `undefined` in pre ES5 environments */
 var undefined;
 
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var now = reNative.test(now = Date.now) && now || function() { return +new Date; };
+
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeMax = Math.max;
 
@@ -80,7 +86,7 @@ function debounce(func, wait, options) {
     trailing = 'trailing' in options ? options.trailing : trailing;
   }
   var delayed = function() {
-    var remaining = wait - (new Date - stamp);
+    var remaining = wait - (now() - stamp);
     if (remaining <= 0) {
       if (maxTimeoutId) {
         clearTimeout(maxTimeoutId);
@@ -88,7 +94,7 @@ function debounce(func, wait, options) {
       var isCalled = trailingCall;
       maxTimeoutId = timeoutId = trailingCall = undefined;
       if (isCalled) {
-        lastCalled = +new Date;
+        lastCalled = now();
         result = func.apply(thisArg, args);
       }
     } else {
@@ -102,14 +108,14 @@ function debounce(func, wait, options) {
     }
     maxTimeoutId = timeoutId = trailingCall = undefined;
     if (trailing || (maxWait !== wait)) {
-      lastCalled = +new Date;
+      lastCalled = now();
       result = func.apply(thisArg, args);
     }
   };
 
   return function() {
     args = arguments;
-    stamp = +new Date;
+    stamp = now();
     thisArg = this;
     trailingCall = trailing && (timeoutId || !leading);
 

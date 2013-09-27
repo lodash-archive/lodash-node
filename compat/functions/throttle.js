@@ -7,10 +7,15 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var debounce = require('./debounce'),
-    getObject = require('../internals/getObject'),
     isFunction = require('../objects/isFunction'),
-    isObject = require('../objects/isObject'),
-    releaseObject = require('../internals/releaseObject');
+    isObject = require('../objects/isObject');
+
+/** Used as an internal `_.debounce` options object */
+var debounceOptions = {
+  'leading': false,
+  'maxWait': 0,
+  'trailing': false
+};
 
 /**
  * Creates a function that, when executed, will only call the `func` function
@@ -56,13 +61,11 @@ function throttle(func, wait, options) {
     leading = 'leading' in options ? options.leading : leading;
     trailing = 'trailing' in options ? options.trailing : trailing;
   }
-  options = getObject();
-  options.leading = leading;
-  options.maxWait = wait;
-  options.trailing = trailing;
+  debounceOptions.leading = leading;
+  debounceOptions.maxWait = wait;
+  debounceOptions.trailing = trailing;
 
-  var result = debounce(func, wait, options);
-  releaseObject(options);
+  var result = debounce(func, wait, debounceOptions);
   return result;
 }
 
