@@ -9,9 +9,6 @@
 var createCallback = require('../functions/createCallback'),
     slice = require('../internals/slice');
 
-/** Used as a safe reference for `undefined` in pre ES5 environments */
-var undefined;
-
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeMax = Math.max;
 

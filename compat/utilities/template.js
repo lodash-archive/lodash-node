@@ -14,9 +14,6 @@ var defaults = require('../objects/defaults'),
     templateSettings = require('./templateSettings'),
     values = require('../objects/values');
 
-/** Used as a safe reference for `undefined` in pre ES5 environments */
-var undefined;
-
 /** Used to match empty string literals in compiled template source */
 var reEmptyStringLeading = /\b__p \+= '';/g,
     reEmptyStringMiddle = /\b(__p \+=) '' \+/g,

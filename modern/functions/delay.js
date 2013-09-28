@@ -8,9 +8,6 @@
  */
 var isFunction = require('../objects/isFunction');
 
-/** Used as a safe reference for `undefined` in pre ES5 environments */
-var undefined;
-
 /**
  * Used for `Array` method references.
  *

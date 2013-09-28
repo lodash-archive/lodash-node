@@ -7,8 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var bind = require('../functions/bind'),
-    identity = require('../utilities/identity'),
-    support = require('../support');
+    identity = require('../utilities/identity');
 
 /**
  * The base implementation of `_.createCallback` without support for creating

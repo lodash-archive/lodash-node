@@ -10,9 +10,6 @@ var isFunction = require('../objects/isFunction'),
     objectTypes = require('../internals/objectTypes'),
     reNative = require('../internals/reNative');
 
-/** Used as a safe reference for `undefined` in pre ES5 environments */
-var undefined;
-
 /** Detect free variable `exports` */
 var freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports;
 

@@ -10,9 +10,6 @@ var filter = require('./filter'),
     find = require('./find'),
     isEmpty = require('../objects/isEmpty');
 
-/** Used as a safe reference for `undefined` in pre ES5 environments */
-var undefined;
-
 /**
  * Performs a deep comparison of each element in a `collection` to the given
  * `properties` object, returning an array of all elements that have equivalent
