@@ -1,5 +1,5 @@
 /**
- * Lo-Dash 2.1.0 (Custom Build) <http://lodash.com/>
+ * Lo-Dash 2.2.0 (Custom Build) <http://lodash.com/>
  * Build: `lodash underscore modularize exports="node" -o ./underscore/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
