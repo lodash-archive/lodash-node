@@ -9,7 +9,8 @@
 var lodashWrapper = require('../internals/lodashWrapper');
 
 /**
- * Creates a `lodash` object that wraps the given value.
+ * Creates a `lodash` object that wraps the given value with explicit
+ * method chaining enabled.
  *
  * @static
  * @memberOf _
@@ -25,9 +26,10 @@ var lodashWrapper = require('../internals/lodashWrapper');
  * ];
  *
  * var youngest = _.chain(stooges)
- *     .sortBy(function(stooge) { return stooge.age; })
+ *     .sortBy('age')
  *     .map(function(stooge) { return stooge.name + ' is ' + stooge.age; })
- *     .first();
+ *     .first()
+ *     .value();
  * // => 'moe is 40'
  */
 function chain(value) {
