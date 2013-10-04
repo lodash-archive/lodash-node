@@ -108,7 +108,7 @@ function template(text, data, options) {
   var _ = templateSettings.imports._,
       settings = _.templateSettings || templateSettings;
 
-  text || (text = '');
+  text = String(text || '');
   options = defaults({}, options, settings);
 
   var index = 0,
