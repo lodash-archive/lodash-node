@@ -17,9 +17,6 @@ var descriptor = {
   'writable': false
 };
 
-/** Used for native method references */
-var objectProto = Object.prototype;
-
 var defineProperty = (function() {
   try {
     var o = {},

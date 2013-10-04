@@ -10,9 +10,6 @@ var isFunction = require('../objects/isFunction'),
     isObject = require('../objects/isObject'),
     reNative = require('../internals/reNative');
 
-/** Used for native method references */
-var objectProto = Object.prototype;
-
 /** Native method shortcuts */
 var now = reNative.test(now = Date.now) && now || function() { return +new Date; };
 

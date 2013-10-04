@@ -10,9 +10,6 @@ var isObject = require('../objects/isObject'),
     noop = require('./noop'),
     reNative = require('./reNative');
 
-/** Used for native method references */
-var objectProto = Object.prototype;
-
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeCreate = reNative.test(nativeCreate = Object.create) && nativeCreate;
 

@@ -10,9 +10,6 @@ var isObject = require('./isObject'),
     reNative = require('../internals/reNative'),
     shimKeys = require('../internals/shimKeys');
 
-/** Used for native method references */
-var objectProto = Object.prototype;
-
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeKeys = reNative.test(nativeKeys = Object.keys) && nativeKeys;
 
