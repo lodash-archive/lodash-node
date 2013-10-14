@@ -16,21 +16,21 @@
  * @returns {*} Returns the wrapper object.
  * @example
  *
- * var stooges = [
- *   { 'name': 'moe', 'age': 40 },
- *   { 'name': 'larry', 'age': 50 }
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
  * ];
  *
  * // without explicit chaining
- * _(stooges).first();
- * // => { 'name': 'moe', 'age': 40 }
+ * _(characters).first();
+ * // => { 'name': 'barney', 'age': 36 }
  *
  * // with explicit chaining
- * _(stooges).chain()
+ * _(characters).chain()
  *   .first()
  *   .pick('age')
  *   .value()
- * // => { 'age': 40 }
+ * // => { 'age': 36 }
  */
 function wrapperChain() {
   this.__chain__ = true;

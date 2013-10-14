@@ -22,7 +22,7 @@ var isFunction = require('../objects/isFunction');
  * @example
  *
  * var realNameMap = {
- *   'curly': 'jerome'
+ *   'pebbles': 'jerome'
  * };
  *
  * var format = function(name) {
@@ -35,7 +35,7 @@ var isFunction = require('../objects/isFunction');
  * };
  *
  * var welcome = _.compose(greet, format);
- * welcome('curly');
+ * welcome('pebbles');
  * // => 'Hiya Jerome!'
  */
 function compose() {

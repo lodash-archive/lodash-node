@@ -35,10 +35,10 @@ var nativeMax = Math.max;
  * _.contains([1, 2, 3], 1, 2);
  * // => false
  *
- * _.contains({ 'name': 'moe', 'age': 40 }, 'moe');
+ * _.contains({ 'name': 'fred', 'age': 40 }, 'fred');
  * // => true
  *
- * _.contains('curly', 'ur');
+ * _.contains('pebbles', 'ur');
  * // => true
  */
 function contains(collection, target, fromIndex) {

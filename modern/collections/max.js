@@ -41,17 +41,17 @@ var charAtCallback = require('../internals/charAtCallback'),
  * _.max([4, 2, 8, 6]);
  * // => 8
  *
- * var stooges = [
- *   { 'name': 'moe', 'age': 40 },
- *   { 'name': 'larry', 'age': 50 }
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
  * ];
  *
- * _.max(stooges, function(stooge) { return stooge.age; });
- * // => { 'name': 'larry', 'age': 50 };
+ * _.max(characters, function(chr) { return chr.age; });
+ * // => { 'name': 'fred', 'age': 40 };
  *
  * // using "_.pluck" callback shorthand
- * _.max(stooges, 'age');
- * // => { 'name': 'larry', 'age': 50 };
+ * _.max(characters, 'age');
+ * // => { 'name': 'fred', 'age': 40 };
  */
 function max(collection, callback, thisArg) {
   var computed = -Infinity,

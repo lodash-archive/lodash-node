@@ -29,13 +29,13 @@ var baseFlatten = require('../internals/baseFlatten'),
  * @returns {Object} Returns an object without the omitted properties.
  * @example
  *
- * _.omit({ 'name': 'moe', 'age': 40 }, 'age');
- * // => { 'name': 'moe' }
+ * _.omit({ 'name': 'fred', 'age': 40 }, 'age');
+ * // => { 'name': 'fred' }
  *
- * _.omit({ 'name': 'moe', 'age': 40 }, function(value) {
+ * _.omit({ 'name': 'fred', 'age': 40 }, function(value) {
  *   return typeof value == 'number';
  * });
- * // => { 'name': 'moe' }
+ * // => { 'name': 'fred' }
  */
 function omit(object, callback, thisArg) {
   var indexOf = baseIndexOf,

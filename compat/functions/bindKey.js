@@ -36,7 +36,7 @@ var nativeSlice = arrayRef.slice;
  * @example
  *
  * var object = {
- *   'name': 'moe',
+ *   'name': 'fred',
  *   'greet': function(greeting) {
  *     return greeting + ' ' + this.name;
  *   }
@@ -44,14 +44,14 @@ var nativeSlice = arrayRef.slice;
  *
  * var func = _.bindKey(object, 'greet', 'hi');
  * func();
- * // => 'hi moe'
+ * // => 'hi fred'
  *
  * object.greet = function(greeting) {
- *   return greeting + ', ' + this.name + '!';
+ *   return greeting + 'ya ' + this.name + '!';
  * };
  *
  * func();
- * // => 'hi, moe!'
+ * // => 'hiya fred!'
  */
 function bindKey(object, key) {
   return arguments.length > 2

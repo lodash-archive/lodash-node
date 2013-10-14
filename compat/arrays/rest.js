@@ -50,24 +50,19 @@ var nativeMax = Math.max;
  * });
  * // => [3]
  *
- * var food = [
- *   { 'name': 'banana', 'organic': true },
- *   { 'name': 'beet',   'organic': false },
+ * var characters = [
+ *   { 'name': 'barney',  'blocked': true,  'employer': 'slate' },
+ *   { 'name': 'fred',    'blocked': false,  'employer': 'slate' },
+ *   { 'name': 'pebbles', 'blocked': true, 'employer': 'na' }
  * ];
  *
  * // using "_.pluck" callback shorthand
- * _.rest(food, 'organic');
- * // => [{ 'name': 'beet', 'organic': false }]
- *
- * var food = [
- *   { 'name': 'apple',  'type': 'fruit' },
- *   { 'name': 'banana', 'type': 'fruit' },
- *   { 'name': 'beet',   'type': 'vegetable' }
- * ];
+ * _.pluck(_.rest(characters, 'blocked'), 'name');
+ * // => ['fred', 'pebbles']
  *
  * // using "_.where" callback shorthand
- * _.rest(food, { 'type': 'fruit' });
- * // => [{ 'name': 'beet', 'type': 'vegetable' }]
+ * _.rest(characters, { 'employer': 'slate' });
+ * // => [{ 'name': 'pebbles', 'blocked': true, 'employer': 'na' }]
  */
 function rest(array, callback, thisArg) {
   if (typeof callback != 'number' && callback != null) {

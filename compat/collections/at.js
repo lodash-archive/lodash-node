@@ -28,8 +28,8 @@ var baseFlatten = require('../internals/baseFlatten'),
  * _.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
  * // => ['a', 'c', 'e']
  *
- * _.at(['moe', 'larry', 'curly'], 0, 2);
- * // => ['moe', 'curly']
+ * _.at(['fred', 'barney', 'pebbles'], 0, 2);
+ * // => ['fred', 'pebbles']
  */
 function at(collection) {
   var args = arguments,

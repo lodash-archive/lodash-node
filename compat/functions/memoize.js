@@ -36,17 +36,17 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * });
  *
  * var data = {
- *   'moe': { 'name': 'moe', 'age': 40 },
- *   'curly': { 'name': 'curly', 'age': 60 }
+ *   'fred': { 'name': 'fred', 'age': 40 },
+ *   'pebbles': { 'name': 'pebbles', 'age': 60 }
  * };
  *
  * // modifying the result cache
  * var stooge = _.memoize(function(name) { return data[name]; }, _.identity);
- * stooge('curly');
- * // => { 'name': 'curly', 'age': 60 }
+ * stooge('pebbles');
+ * // => { 'name': 'pebbles', 'age': 60 }
  *
- * stooge.cache.curly.name = 'jerome';
- * stooge('curly');
+ * stooge.cache.pebbles.name = 'jerome';
+ * stooge('pebbles');
  * // => { 'name': 'jerome', 'age': 60 }
  */
 function memoize(func, resolver) {

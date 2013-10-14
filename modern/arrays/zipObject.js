@@ -22,8 +22,8 @@
  *  corresponding values.
  * @example
  *
- * _.zipObject(['moe', 'larry'], [30, 40]);
- * // => { 'moe': 30, 'larry': 40 }
+ * _.zipObject(['fred', 'barney'], [30, 40]);
+ * // => { 'fred': 30, 'barney': 40 }
  */
 function zipObject(keys, values) {
   var index = -1,

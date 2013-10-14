@@ -27,13 +27,13 @@ var baseFlatten = require('../internals/baseFlatten');
  * @returns {Object} Returns an object composed of the picked properties.
  * @example
  *
- * _.pick({ 'name': 'moe', '_userid': 'moe1' }, 'name');
- * // => { 'name': 'moe' }
+ * _.pick({ 'name': 'fred', '_userid': 'fred1' }, 'name');
+ * // => { 'name': 'fred' }
  *
- * _.pick({ 'name': 'moe', '_userid': 'moe1' }, function(value, key) {
+ * _.pick({ 'name': 'fred', '_userid': 'fred1' }, function(value, key) {
  *   return key.charAt(0) != '_';
  * });
- * // => { 'name': 'moe' }
+ * // => { 'name': 'fred' }
  */
 function pick(object) {
   var index = -1,

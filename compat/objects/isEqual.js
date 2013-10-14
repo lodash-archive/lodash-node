@@ -26,13 +26,13 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
  * @example
  *
- * var moe = { 'name': 'moe', 'age': 40 };
- * var copy = { 'name': 'moe', 'age': 40 };
+ * var object = { 'name': 'fred' };
+ * var copy = { 'name': 'fred' };
  *
- * moe == copy;
+ * object == copy;
  * // => false
  *
- * _.isEqual(moe, copy);
+ * _.isEqual(object, copy);
  * // => true
  *
  * var words = ['hello', 'goodbye'];

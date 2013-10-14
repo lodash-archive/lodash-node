@@ -62,8 +62,8 @@ var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
  *
  * // using the "interpolate" delimiter to create a compiled template
  * var compiled = _.template('hello <%= name %>');
- * compiled({ 'name': 'moe' });
- * // => 'hello moe'
+ * compiled({ 'name': 'fred' });
+ * // => 'hello fred'
  *
  * // using the "escape" delimiter to escape HTML in data property values
  * _.template('<b><%- value %></b>', { 'value': '<script>' });
@@ -71,16 +71,16 @@ var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
  *
  * // using the "evaluate" delimiter to generate HTML
  * var list = '<% _.forEach(people, function(name) { %><li><%- name %></li><% }); %>';
- * _.template(list, { 'people': ['moe', 'larry'] });
- * // => '<li>moe</li><li>larry</li>'
+ * _.template(list, { 'people': ['fred', 'barney'] });
+ * // => '<li>fred</li><li>barney</li>'
  *
  * // using the ES6 delimiter as an alternative to the default "interpolate" delimiter
- * _.template('hello ${ name }', { 'name': 'curly' });
- * // => 'hello curly'
+ * _.template('hello ${ name }', { 'name': 'pebbles' });
+ * // => 'hello pebbles'
  *
  * // using the internal `print` function in "evaluate" delimiters
- * _.template('<% print("hello " + name); %>!', { 'name': 'larry' });
- * // => 'hello larry!'
+ * _.template('<% print("hello " + name); %>!', { 'name': 'barney' });
+ * // => 'hello barney!'
  *
  * // using a custom template delimiters
  * _.templateSettings = {
@@ -92,8 +92,8 @@ var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
  *
  * // using the `imports` option to import jQuery
  * var list = '<% $.each(people, function(name) { %><li><%- name %></li><% }); %>';
- * _.template(list, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery } });
- * // => '<li>moe</li><li>larry</li>'
+ * _.template(list, { 'people': ['fred', 'barney'] }, { 'imports': { '$': jQuery } });
+ * // => '<li>fred</li><li>barney</li>'
  *
  * // using the `sourceURL` option to specify a custom sourceURL for the template
  * var compiled = _.template('hello <%= name %>', null, { 'sourceURL': '/basic/greeting.jst' });

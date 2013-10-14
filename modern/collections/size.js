@@ -25,7 +25,7 @@ var keys = require('../objects/keys');
  * _.size({ 'one': 1, 'two': 2, 'three': 3 });
  * // => 3
  *
- * _.size('curly');
+ * _.size('pebbles');
  * // => 5
  */
 function size(collection) {

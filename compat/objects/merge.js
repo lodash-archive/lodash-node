@@ -43,21 +43,21 @@ var nativeSlice = arrayRef.slice;
  * @example
  *
  * var names = {
- *   'stooges': [
- *     { 'name': 'moe' },
- *     { 'name': 'larry' }
+ *   'characters': [
+ *     { 'name': 'barney' },
+ *     { 'name': 'fred' }
  *   ]
  * };
  *
  * var ages = {
- *   'stooges': [
- *     { 'age': 40 },
- *     { 'age': 50 }
+ *   'characters': [
+ *     { 'age': 36 },
+ *     { 'age': 40 }
  *   ]
  * };
  *
  * _.merge(names, ages);
- * // => { 'stooges': [{ 'name': 'moe', 'age': 40 }, { 'name': 'larry', 'age': 50 }] }
+ * // => { 'characters': [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred', 'age': 40 }] }
  *
  * var food = {
  *   'fruits': ['apple'],

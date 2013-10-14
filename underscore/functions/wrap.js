@@ -35,10 +35,10 @@ var push = arrayRef.push;
  *
  * var hello = function(name) { return 'hello ' + name; };
  * hello = _.wrap(hello, function(func) {
- *   return 'before, ' + func('moe') + ', after';
+ *   return 'before, ' + func('fred') + ', after';
  * });
  * hello();
- * // => 'before, hello moe, after'
+ * // => 'before, hello fred, after'
  */
 function wrap(value, wrapper) {
   if (!isFunction(wrapper)) {

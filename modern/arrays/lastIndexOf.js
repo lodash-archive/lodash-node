@@ -16,6 +16,13 @@ var nativeMax = Math.max,
  * equality for comparisons, i.e. `===`. If `fromIndex` is negative, it is used
  * as the offset from the end of the collection.
  *
+ * If a property name is provided for `callback` the created "_.pluck" style
+ * callback will return the property value of the given element.
+ *
+ * If an object is provided for `callback` the created "_.where" style callback
+ * will return `true` for elements that have the properties of the given object,
+ * else `false`.
+ *
  * @static
  * @memberOf _
  * @category Arrays

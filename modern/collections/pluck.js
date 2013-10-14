@@ -9,7 +9,7 @@
 var map = require('./map');
 
 /**
- * Retrieves the value of a specified property from all elements in the `collection`.
+ * Retrieves the value of a specified property from all elements in the collection.
  *
  * @static
  * @memberOf _
@@ -20,13 +20,13 @@ var map = require('./map');
  * @returns {Array} Returns a new array of property values.
  * @example
  *
- * var stooges = [
- *   { 'name': 'moe', 'age': 40 },
- *   { 'name': 'larry', 'age': 50 }
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
  * ];
  *
- * _.pluck(stooges, 'name');
- * // => ['moe', 'larry']
+ * _.pluck(characters, 'name');
+ * // => ['barney', 'fred']
  */
 function pluck(collection, property) {
   var index = -1,

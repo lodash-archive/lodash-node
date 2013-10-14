@@ -25,9 +25,9 @@ var keys = require('./keys'),
  * @returns {Object} Returns the destination object.
  * @example
  *
- * var food = { 'name': 'apple' };
- * _.defaults(food, { 'name': 'banana', 'type': 'fruit' });
- * // => { 'name': 'apple', 'type': 'fruit' }
+ * var object = { 'name': 'barney' };
+ * _.defaults(object, { 'name': 'fred', 'employer': 'slate' });
+ * // => { 'name': 'barney', 'employer': 'slate' }
  */
 var defaults = function(object, source, guard) {
   var index, iterable = object, result = iterable;

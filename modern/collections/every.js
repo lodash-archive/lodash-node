@@ -34,20 +34,20 @@ var createCallback = require('../functions/createCallback'),
  *  else `false`.
  * @example
  *
- * _.every([true, 1, null, 'yes'], Boolean);
+ * _.every([true, 1, null, 'yes']);
  * // => false
  *
- * var stooges = [
- *   { 'name': 'moe', 'age': 40 },
- *   { 'name': 'larry', 'age': 50 }
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
  * ];
  *
  * // using "_.pluck" callback shorthand
- * _.every(stooges, 'age');
+ * _.every(characters, 'age');
  * // => true
  *
  * // using "_.where" callback shorthand
- * _.every(stooges, { 'age': 50 });
+ * _.every(characters, { 'age': 36 });
  * // => false
  */
 function every(collection, callback, thisArg) {

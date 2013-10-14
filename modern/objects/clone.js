@@ -26,17 +26,17 @@ var baseClone = require('../internals/baseClone'),
  * @returns {*} Returns the cloned value.
  * @example
  *
- * var stooges = [
- *   { 'name': 'moe', 'age': 40 },
- *   { 'name': 'larry', 'age': 50 }
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
  * ];
  *
- * var shallow = _.clone(stooges);
- * shallow[0] === stooges[0];
+ * var shallow = _.clone(characters);
+ * shallow[0] === characters[0];
  * // => true
  *
- * var deep = _.clone(stooges, true);
- * deep[0] === stooges[0];
+ * var deep = _.clone(characters, true);
+ * deep[0] === characters[0];
  * // => false
  *
  * _.mixin({

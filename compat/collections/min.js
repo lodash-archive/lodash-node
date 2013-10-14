@@ -40,17 +40,17 @@ var baseEach = require('../internals/baseEach'),
  * _.min([4, 2, 8, 6]);
  * // => 2
  *
- * var stooges = [
- *   { 'name': 'moe', 'age': 40 },
- *   { 'name': 'larry', 'age': 50 }
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
  * ];
  *
- * _.min(stooges, function(stooge) { return stooge.age; });
- * // => { 'name': 'moe', 'age': 40 };
+ * _.min(characters, function(chr) { return chr.age; });
+ * // => { 'name': 'barney', 'age': 36 };
  *
  * // using "_.pluck" callback shorthand
- * _.min(stooges, 'age');
- * // => { 'name': 'moe', 'age': 40 };
+ * _.min(characters, 'age');
+ * // => { 'name': 'barney', 'age': 36 };
  */
 function min(collection, callback, thisArg) {
   var computed = Infinity,

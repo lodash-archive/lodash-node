@@ -27,7 +27,7 @@ var toString = objectProto.toString;
  * @returns {boolean} Returns `true` if the `value` is a regular expression, else `false`.
  * @example
  *
- * _.isRegExp(/moe/);
+ * _.isRegExp(/fred/);
  * // => true
  */
 function isRegExp(value) {

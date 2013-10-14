@@ -34,8 +34,8 @@ var nativeSlice = arrayRef.slice;
  *
  * var greet = function(greeting, name) { return greeting + ' ' + name; };
  * var hi = _.partial(greet, 'hi');
- * hi('moe');
- * // => 'hi moe'
+ * hi('fred');
+ * // => 'hi fred'
  */
 function partial(func) {
   return createBound(func, 16, nativeSlice.call(arguments, 1));

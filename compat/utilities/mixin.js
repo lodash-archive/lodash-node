@@ -38,11 +38,11 @@ var push = arrayRef.push;
  *   }
  * });
  *
- * _.capitalize('moe');
- * // => 'Moe'
+ * _.capitalize('fred');
+ * // => 'Fred'
  *
- * _('moe').capitalize();
- * // => 'Moe'
+ * _('fred').capitalize();
+ * // => 'Fred'
  */
 function mixin(object, source) {
   var ctor = object,

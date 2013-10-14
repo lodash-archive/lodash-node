@@ -29,16 +29,16 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * @returns {Object} Returns the destination object.
  * @example
  *
- * _.assign({ 'name': 'moe' }, { 'age': 40 });
- * // => { 'name': 'moe', 'age': 40 }
+ * _.assign({ 'name': 'fred' }, { 'employer': 'slate' });
+ * // => { 'name': 'fred', 'employer': 'slate' }
  *
  * var defaults = _.partialRight(_.assign, function(a, b) {
  *   return typeof a == 'undefined' ? b : a;
  * });
  *
- * var food = { 'name': 'apple' };
- * defaults(food, { 'name': 'banana', 'type': 'fruit' });
- * // => { 'name': 'apple', 'type': 'fruit' }
+ * var object = { 'name': 'barney' };
+ * defaults(object, { 'name': 'fred', 'employer': 'slate' });
+ * // => { 'name': 'barney', 'employer': 'slate' }
  */
 function assign(object) {
   if (!object) {

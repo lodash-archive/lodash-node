@@ -29,13 +29,13 @@ var baseClone = require('../internals/baseClone'),
  * @returns {*} Returns the deep cloned value.
  * @example
  *
- * var stooges = [
- *   { 'name': 'moe', 'age': 40 },
- *   { 'name': 'larry', 'age': 50 }
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
  * ];
  *
- * var deep = _.cloneDeep(stooges);
- * deep[0] === stooges[0];
+ * var deep = _.cloneDeep(characters);
+ * deep[0] === characters[0];
  * // => false
  *
  * var view = {

@@ -19,18 +19,18 @@ var lodashWrapper = require('../internals/lodashWrapper');
  * @returns {Object} Returns the wrapper object.
  * @example
  *
- * var stooges = [
- *   { 'name': 'moe', 'age': 40 },
- *   { 'name': 'larry', 'age': 50 },
- *   { 'name': 'curly', 'age': 60 }
+ * var characters = [
+ *   { 'name': 'barney',  'age': 36 },
+ *   { 'name': 'fred',    'age': 40 },
+ *   { 'name': 'pebbles', 'age': 1 }
  * ];
  *
- * var youngest = _.chain(stooges)
+ * var youngest = _.chain(characters)
  *     .sortBy('age')
  *     .map(function(stooge) { return stooge.name + ' is ' + stooge.age; })
  *     .first()
  *     .value();
- * // => 'moe is 40'
+ * // => 'pebbles is 1'
  */
 function chain(value) {
   value = new lodashWrapper(value);
