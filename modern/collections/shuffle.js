@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var forEach = require('./forEach'),
-    random = require('../utilities/random');
+var baseRandom = require('../internals/baseRandom'),
+    forEach = require('./forEach');
 
 /**
  * Creates an array of shuffled values, using a version of the Fisher-Yates
@@ -29,7 +29,7 @@ function shuffle(collection) {
       result = Array(typeof length == 'number' ? length : 0);
 
   forEach(collection, function(value) {
-    var rand = random(++index);
+    var rand = baseRandom(0, ++index);
     result[index] = result[rand];
     result[rand] = value;
   });

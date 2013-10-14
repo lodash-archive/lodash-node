@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isString = require('../objects/isString'),
-    random = require('../utilities/random'),
+var baseRandom = require('../internals/baseRandom'),
+    isString = require('../objects/isString'),
     shuffle = require('./shuffle'),
     values = require('../objects/values');
 
@@ -35,12 +35,11 @@ var nativeMax = Math.max,
  * // => [3, 1]
  */
 function sample(collection, n, guard) {
-  var length = collection ? collection.length : 0;
-  if (typeof length != 'number') {
+  if (collection && typeof collection.length != 'number') {
     collection = values(collection);
   }
   if (n == null || guard) {
-    return collection ? collection[random(length - 1)] : undefined;
+    return collection ? collection[baseRandom(0, collection.length - 1)] : undefined;
   }
   var result = shuffle(collection);
   result.length = nativeMin(nativeMax(0, n), result.length);
