@@ -16,6 +16,10 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * (value, index|key, collection). Callbacks may exit iteration early by
  * explicitly returning `false`.
  *
+ * Note: As with other "Collections" methods, objects with a `length` property
+ * are iterated like arrays. To avoid this behavior `_.forIn` or `_.forOwn`
+ * may be used for object iteration.
+ *
  * @static
  * @memberOf _
  * @alias each
