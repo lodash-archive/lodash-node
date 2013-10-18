@@ -33,12 +33,11 @@ var push = arrayRef.push;
  * @returns {Function} Returns the new function.
  * @example
  *
- * var hello = function(name) { return 'hello ' + name; };
- * hello = _.wrap(hello, function(func) {
- *   return 'before, ' + func('fred') + ', after';
+ * var pre= _.wrap(_.escape, function(func, text) {
+ *   return '<div>' + func(text) + '</div>';
  * });
- * hello();
- * // => 'before, hello fred, after'
+ * pre('Fred, Wilma, & Pebbles');
+ * // => '<div>Fred, Wilma, &amp; Pebbles</div>'
  */
 function wrap(value, wrapper) {
   if (!isFunction(wrapper)) {
