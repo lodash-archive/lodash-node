@@ -11,6 +11,7 @@ module.exports = {
   'assign': require('./objects/assign'),
   'clone': require('./objects/clone'),
   'cloneDeep': require('./objects/cloneDeep'),
+  'create': require('./objects/create'),
   'defaults': require('./objects/defaults'),
   'findKey': require('./objects/findKey'),
   'findLastKey': require('./objects/findLastKey'),

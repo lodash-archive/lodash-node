@@ -22,18 +22,20 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * @returns {Object} Returns `object`.
  * @example
  *
- * function Dog(name) {
- *   this.name = name;
+ * function Shape() {
+ *   this.x = 0;
+ *   this.y = 0;
  * }
  *
- * Dog.prototype.bark = function() {
- *   console.log('Woof, woof!');
+ * Shape.prototype.move = function(x, y) {
+ *   this.x += x;
+ *   this.y += y;
  * };
  *
- * _.forInRight(new Dog('Dagny'), function(value, key) {
+ * _.forInRight(new Shape, function(value, key) {
  *   console.log(key);
  * });
- * // => logs 'name' and 'bark' assuming `_.forIn ` logs 'bark' and 'name'
+ * // => logs 'move', 'y', and 'x' assuming `_.forIn ` logs 'x', 'y', and 'move'
  */
 function forInRight(object, callback, thisArg) {
   var pairs = [];

@@ -46,7 +46,7 @@ var nativeParseInt = global.parseInt;
  * // => 8
  */
 var parseInt = nativeParseInt(whitespace + '08') == 8 ? nativeParseInt : function(value, radix) {
-  // Firefox and Opera still follow the ES3 specified implementation of `parseInt`
+  // Firefox < 21 and Opera < 15 follow the ES3 specified implementation of `parseInt`
   return nativeParseInt(isString(value) ? value.replace(reLeadingSpacesAndZeros, '') : value, radix || 0);
 };
 

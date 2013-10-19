@@ -129,6 +129,7 @@ lodash.chain = chaining.chain;
 lodash.compact = arrays.compact;
 lodash.compose = functions.compose;
 lodash.countBy = collections.countBy;
+lodash.create = objects.create;
 lodash.createCallback = functions.createCallback;
 lodash.curry = functions.curry;
 lodash.debounce = functions.debounce;

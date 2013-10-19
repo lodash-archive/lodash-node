@@ -8,7 +8,7 @@
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
     baseEach = require('../internals/baseEach'),
-    createObject = require('../internals/createObject'),
+    create = require('./create'),
     forOwn = require('./forOwn'),
     isArray = require('./isArray');
 
@@ -23,7 +23,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * @static
  * @memberOf _
  * @category Objects
- * @param {Array|Object} collection The collection to iterate over.
+ * @param {Array|Object} object The object to iterate over.
  * @param {Function} [callback=identity] The function called per iteration.
  * @param {*} [accumulator] The custom accumulator value.
  * @param {*} [thisArg] The `this` binding of `callback`.
@@ -45,8 +45,6 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  */
 function transform(object, callback, accumulator, thisArg) {
   var isArr = isArray(object);
-  callback = baseCreateCallback(callback, thisArg, 4);
-
   if (accumulator == null) {
     if (isArr) {
       accumulator = [];
@@ -54,12 +52,15 @@ function transform(object, callback, accumulator, thisArg) {
       var ctor = object && object.constructor,
           proto = ctor && ctor.prototype;
 
-      accumulator = createObject(proto);
+      accumulator = create(proto);
     }
   }
-  (isArr ? baseEach : forOwn)(object, function(value, index, object) {
-    return callback(accumulator, value, index, object);
-  });
+  if (callback) {
+    callback = baseCreateCallback(callback, thisArg, 4);
+    (isArr ? baseEach : forOwn)(object, function(value, index, object) {
+      return callback(accumulator, value, index, object);
+    });
+  }
   return accumulator;
 }
 

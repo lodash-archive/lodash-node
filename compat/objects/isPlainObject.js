@@ -31,18 +31,18 @@ var getPrototypeOf = reNative.test(getPrototypeOf = Object.getPrototypeOf) && ge
  * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
  * @example
  *
- * function Person(name, age) {
- *   this.name = name;
- *   this.age = age;
+ * function Shape() {
+ *   this.x = 0;
+ *   this.y = 0;
  * }
  *
- * _.isPlainObject(new Person('fred', 40));
+ * _.isPlainObject(new Shape);
  * // => false
  *
  * _.isPlainObject([1, 2, 3]);
  * // => false
  *
- * _.isPlainObject({ 'name': 'fred', 'age': 40 });
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
  * // => true
  */
 var isPlainObject = !getPrototypeOf ? shimIsPlainObject : function(value) {
