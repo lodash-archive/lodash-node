@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var create = require('../objects/create'),
+var baseCreate = require('./baseCreate'),
     isFunction = require('../objects/isFunction'),
     isObject = require('../objects/isObject'),
     reNative = require('./reNative'),
@@ -132,7 +132,7 @@ function createBound(func, bitmask, partialArgs, partialRightArgs, thisArg, arit
       }
       if (this instanceof bound) {
         // ensure `new bound` is an instance of `func`
-        thisBinding = create(func.prototype);
+        thisBinding = baseCreate(func.prototype);
 
         // mimic the constructor's `return` behavior
         // http://es5.github.io/#x13.2.2

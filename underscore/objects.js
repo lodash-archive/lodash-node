@@ -10,7 +10,6 @@
 module.exports = {
   'assign': require('./objects/assign'),
   'clone': require('./objects/clone'),
-  'create': require('./objects/create'),
   'defaults': require('./objects/defaults'),
   'forIn': require('./objects/forIn'),
   'forOwn': require('./objects/forOwn'),

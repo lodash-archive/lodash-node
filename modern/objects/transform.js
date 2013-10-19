@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseCreateCallback = require('../internals/baseCreateCallback'),
-    create = require('./create'),
+var baseCreate = require('../internals/baseCreate'),
+    baseCreateCallback = require('../internals/baseCreateCallback'),
     forEach = require('../collections/forEach'),
     forOwn = require('./forOwn'),
     isArray = require('./isArray');
@@ -52,7 +52,7 @@ function transform(object, callback, accumulator, thisArg) {
       var ctor = object && object.constructor,
           proto = ctor && ctor.prototype;
 
-      accumulator = create(proto);
+      accumulator = baseCreate(proto);
     }
   }
   if (callback) {

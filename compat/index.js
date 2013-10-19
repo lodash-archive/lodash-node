@@ -47,15 +47,16 @@ var hasOwnProperty = objectProto.hasOwnProperty,
  *
  * The chainable wrapper functions are:
  * `after`, `assign`, `bind`, `bindAll`, `bindKey`, `chain`, `compact`,
- * `compose`, `concat`, `countBy`, `createCallback`, `curry`, `debounce`,
- * `defaults`, `defer`, `delay`, `difference`, `filter`, `flatten`, `forEach`,
- * `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`, `functions`,
- * `groupBy`, `indexBy`, `initial`, `intersection`, `invert`, `invoke`, `keys`,
- * `map`, `max`, `memoize`, `merge`, `min`, `object`, `omit`, `once`, `pairs`,
- * `partial`, `partialRight`, `pick`, `pluck`, `pull`, `push`, `range`, `reject`,
- * `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`, `sortBy`, `splice`,
- * `tap`, `throttle`, `times`, `toArray`, `transform`, `union`, `uniq`, `unshift`,
- * `unzip`, `values`, `where`, `without`, `wrap`, and `zip`
+ * `compose`, `concat`, `countBy`, `create`, `createCallback`, `curry`,
+ * `debounce`, `defaults`, `defer`, `delay`, `difference`, `filter`, `flatten`,
+ * `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`,
+ * `functions`, `groupBy`, `indexBy`, `initial`, `intersection`, `invert`,
+ * `invoke`, `keys`, `map`, `max`, `memoize`, `merge`, `min`, `object`, `omit`,
+ * `once`, `pairs`, `partial`, `partialRight`, `pick`, `pluck`, `pull`, `push`,
+ * `range`, `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`,
+ * `sortBy`, `splice`, `tap`, `throttle`, `times`, `toArray`, `transform`,
+ * `union`, `uniq`, `unshift`, `unzip`, `values`, `where`, `without`, `wrap`,
+ * and `zip`
  *
  * The non-chainable wrapper functions are:
  * `clone`, `cloneDeep`, `contains`, `escape`, `every`, `find`, `findIndex`,

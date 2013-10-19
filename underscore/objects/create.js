@@ -6,7 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isObject = require('./isObject'),
+var assign = require('./assign'),
+    isObject = require('./isObject'),
     noop = require('../internals/noop'),
     reNative = require('../internals/reNative');
 
@@ -14,12 +15,15 @@ var isObject = require('./isObject'),
 var nativeCreate = reNative.test(nativeCreate = Object.create) && nativeCreate;
 
 /**
- * Creates a new object with the specified `prototype`.
+ * Creates an object that inherits from the given `prototype` object. If a
+ * `properties` object is provided its own enumerable properties are assigned
+ * to the created object.
  *
  * @static
  * @memberOf _
  * @category Objects
- * @param {Object} prototype The prototype object.
+ * @param {Object} prototype The object to inherit from.
+ * @param {Object} [properties] The properties to assign to the object.
  * @returns {Object} Returns the new object.
  * @example
  *
@@ -32,8 +36,7 @@ var nativeCreate = reNative.test(nativeCreate = Object.create) && nativeCreate;
  *   Shape.call(this);
  * }
  *
- * Circle.prototype = _.create(Shape.prototype);
- * Circle.prototype.constructor = Circle;
+ * Circle.prototype = _.create(Shape.prototype, { 'constructor': Circle });
  *
  * var circle = new Circle;
  * circle instanceof Circle
@@ -42,8 +45,9 @@ var nativeCreate = reNative.test(nativeCreate = Object.create) && nativeCreate;
  * circle instanceof Shape
  * // => true
  */
-function create(prototype) {
-  return isObject(prototype) ? nativeCreate(prototype) : {};
+function create(prototype, properties) {
+  var result = isObject(prototype) ? nativeCreate(prototype) : {};
+  return properties ? assign(result, properties) : result;
 }
 // fallback for browsers without `Object.create`
 if (!nativeCreate) {
@@ -53,7 +57,8 @@ if (!nativeCreate) {
       var result = new noop;
       noop.prototype = null;
     }
-    return result || {};
+    result || (result = {});
+    return properties ? assign(result, properties) : result;
   };
 }
 
