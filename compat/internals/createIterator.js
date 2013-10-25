@@ -51,9 +51,11 @@ var errorProto = Error.prototype,
     objectProto = Object.prototype,
     stringProto = String.prototype;
 
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
 /** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty,
-    toString = objectProto.toString;
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /** Used to avoid iterating non-enumerable properties in IE < 9 */
 var nonEnumProps = {};

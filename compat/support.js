@@ -6,7 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var reNative = require('./internals/reNative');
+var isV8 = require('./internals/isV8'),
+    nativeBind = require('./internals/nativeBind'),
+    reNative = require('./internals/reNative');
 
 /** Used to detect functions containing a `this` reference */
 var reThis = /\bthis\b/;
@@ -27,16 +29,11 @@ var arrayRef = [];
 var errorProto = Error.prototype,
     objectProto = Object.prototype;
 
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
 /** Native method shortcuts */
-var propertyIsEnumerable = objectProto.propertyIsEnumerable,
-    toString = objectProto.toString;
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeBind = reNative.test(nativeBind = toString.bind) && nativeBind;
-
-/** Detect various environments */
-var isIeOpera = reNative.test(global.attachEvent),
-    isV8 = nativeBind && !/\n|true/.test(nativeBind + isIeOpera);
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
 
 /**
  * An object used to flag environments features.

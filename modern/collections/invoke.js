@@ -6,18 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var forEach = require('./forEach');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeSlice = arrayRef.slice;
+var forEach = require('./forEach'),
+    slice = require('../internals/slice');
 
 /**
  * Invokes the method named by `methodName` on each element in the `collection`
@@ -42,7 +32,7 @@ var nativeSlice = arrayRef.slice;
  * // => [['1', '2', '3'], ['4', '5', '6']]
  */
 function invoke(collection, methodName) {
-  var args = nativeSlice.call(arguments, 2),
+  var args = slice(arguments, 2),
       index = -1,
       isFunc = typeof methodName == 'function',
       length = collection ? collection.length : 0,

@@ -6,18 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createBound = require('../internals/createBound');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeSlice = arrayRef.slice;
+var createBound = require('../internals/createBound'),
+    slice = require('../internals/slice');
 
 /**
  * This method is like `_.partial` except that `partial` arguments are
@@ -47,7 +37,7 @@ var nativeSlice = arrayRef.slice;
  * // => { '_': _, 'jq': $ }
  */
 function partialRight(func) {
-  return createBound(func, 32, null, nativeSlice.call(arguments, 1));
+  return createBound(func, 32, null, slice(arguments, 1));
 }
 
 module.exports = partialRight;

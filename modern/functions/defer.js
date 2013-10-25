@@ -7,8 +7,11 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isFunction = require('../objects/isFunction'),
+    isV8 = require('../internals/isV8'),
+    nativeBind = require('../internals/nativeBind'),
     objectTypes = require('../internals/objectTypes'),
-    reNative = require('../internals/reNative');
+    reNative = require('../internals/reNative'),
+    slice = require('../internals/slice');
 
 /** Detect free variable `exports` */
 var freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports;
@@ -18,28 +21,6 @@ var freeModule = objectTypes[typeof module] && module && !module.nodeType && mod
 
 /** Detect the popular CommonJS extension `module.exports` */
 var moduleExports = freeModule && freeModule.exports === freeExports && freeExports;
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Native method shortcuts */
-var toString = objectProto.toString;
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeBind = reNative.test(nativeBind = toString.bind) && nativeBind,
-    nativeSlice = arrayRef.slice;
-
-/** Detect various environments */
-var isIeOpera = reNative.test(global.attachEvent),
-    isV8 = nativeBind && !/\n|true/.test(nativeBind + isIeOpera);
 
 /**
  * Defers executing the `func` function until the current call stack has cleared.
@@ -60,7 +41,7 @@ function defer(func) {
   if (!isFunction(func)) {
     throw new TypeError;
   }
-  var args = nativeSlice.call(arguments, 1);
+  var args = slice(arguments, 1);
   return setTimeout(function() { func.apply(undefined, args); }, 1);
 }
 // use `setImmediate` if available in Node.js

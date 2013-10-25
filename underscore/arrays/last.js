@@ -6,19 +6,11 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createCallback = require('../functions/createCallback');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
+var createCallback = require('../functions/createCallback'),
+    slice = require('../internals/slice');
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeMax = Math.max,
-    nativeSlice = arrayRef.slice;
+var nativeMax = Math.max;
 
 /**
  * Gets the last element or last `n` elements of an array. If a callback is
@@ -86,7 +78,7 @@ function last(array, callback, thisArg) {
       return array ? array[length - 1] : undefined;
     }
   }
-  return nativeSlice.call(array, nativeMax(0, length - n));
+  return slice(array, nativeMax(0, length - n));
 }
 
 module.exports = last;

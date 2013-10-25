@@ -10,18 +10,8 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
     baseMerge = require('../internals/baseMerge'),
     getArray = require('../internals/getArray'),
     isObject = require('./isObject'),
-    releaseArray = require('../internals/releaseArray');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeSlice = arrayRef.slice;
+    releaseArray = require('../internals/releaseArray'),
+    slice = require('../internals/slice');
 
 /**
  * Recursively merges own enumerable properties of the source object(s), that
@@ -91,7 +81,7 @@ function merge(object) {
   } else if (length > 2 && typeof args[length - 1] == 'function') {
     callback = args[--length];
   }
-  var sources = nativeSlice.call(arguments, 1, length),
+  var sources = slice(arguments, 1, length),
       index = -1,
       stackA = getArray(),
       stackB = getArray();

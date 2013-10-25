@@ -35,19 +35,22 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  *   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
  * });
  *
+ * fibonacci(9)
+ * // => 34
+ *
  * var data = {
  *   'fred': { 'name': 'fred', 'age': 40 },
- *   'pebbles': { 'name': 'pebbles', 'age': 60 }
+ *   'pebbles': { 'name': 'pebbles', 'age': 1 }
  * };
  *
  * // modifying the result cache
- * var stooge = _.memoize(function(name) { return data[name]; }, _.identity);
- * stooge('pebbles');
- * // => { 'name': 'pebbles', 'age': 60 }
+ * var get = _.memoize(function(name) { return data[name]; }, _.identity);
+ * get('pebbles');
+ * // => { 'name': 'pebbles', 'age': 1 }
  *
- * stooge.cache.pebbles.name = 'jerome';
- * stooge('pebbles');
- * // => { 'name': 'jerome', 'age': 60 }
+ * get.cache.pebbles.name = 'penelope';
+ * get('pebbles');
+ * // => { 'name': 'penelope', 'age': 1 }
  */
 function memoize(func, resolver) {
   if (!isFunction(func)) {

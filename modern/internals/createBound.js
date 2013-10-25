@@ -9,8 +9,10 @@
 var baseCreate = require('./baseCreate'),
     isFunction = require('../objects/isFunction'),
     isObject = require('../objects/isObject'),
+    nativeBind = require('./nativeBind'),
     reNative = require('./reNative'),
     setBindData = require('./setBindData'),
+    slice = require('./slice'),
     support = require('../support');
 
 /**
@@ -21,17 +23,9 @@ var baseCreate = require('./baseCreate'),
  */
 var arrayRef = [];
 
-/** Used for native method references */
-var objectProto = Object.prototype;
-
 /** Native method shortcuts */
 var push = arrayRef.push,
-    toString = objectProto.toString,
     unshift = arrayRef.unshift;
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeBind = reNative.test(nativeBind = toString.bind) && nativeBind,
-    nativeSlice = arrayRef.slice;
 
 /**
  * Creates a function that, when called, either curries or invokes `func`
@@ -77,21 +71,29 @@ function createBound(func, bitmask, partialArgs, partialRightArgs, thisArg, arit
   }
   var bindData = func && func.__bindData__;
   if (bindData && bindData !== true) {
+    bindData = bindData.slice();
+
+    // set `thisBinding` is not previously bound
     if (isBind && !(bindData[1] & 1)) {
       bindData[4] = thisArg;
     }
+    // set if previously bound but not currently (subsequent curried functions)
     if (!isBind && bindData[1] & 1) {
       bitmask |= 8;
     }
+    // set curried arity if not yet set
     if (isCurry && !(bindData[1] & 4)) {
       bindData[5] = arity;
     }
+    // append partial left arguments
     if (isPartial) {
       push.apply(bindData[2] || (bindData[2] = []), partialArgs);
     }
+    // append partial right arguments
     if (isPartialRight) {
       push.apply(bindData[3] || (bindData[3] = []), partialRightArgs);
     }
+    // merge flags
     bindData[1] |= bitmask;
     return createBound.apply(null, bindData);
   }
@@ -115,7 +117,7 @@ function createBound(func, bitmask, partialArgs, partialRightArgs, thisArg, arit
           thisBinding = isBind ? thisArg : this;
 
       if (isCurry || isPartial || isPartialRight) {
-        args = nativeSlice.call(args);
+        args = slice(args);
         if (isPartial) {
           unshift.apply(args, partialArgs);
         }
@@ -142,7 +144,7 @@ function createBound(func, bitmask, partialArgs, partialRightArgs, thisArg, arit
       return func.apply(thisBinding, args);
     };
   }
-  setBindData(bound, nativeSlice.call(arguments));
+  setBindData(bound, slice(arguments));
   return bound;
 }
 

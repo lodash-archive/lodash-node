@@ -22,12 +22,10 @@
  * @example
  *
  * _([1, 2, 3, 4])
- *  .filter(function(num) { return num % 2 == 0; })
- *  .tap(function(array) { console.log(array); })
- *  .map(function(num) { return num * num; })
+ *  .tap(function(array) { array.pop(); })
+ *  .reverse()
  *  .value();
- * // => // [2, 4] (logged)
- * // => [4, 16]
+ * // => [3, 2, 1]
  */
 function tap(value, interceptor) {
   interceptor(value);

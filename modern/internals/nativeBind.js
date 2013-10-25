@@ -13,11 +13,13 @@ var objectProto = Object.prototype;
 /** Used to resolve the internal [[Class]] of values */
 var toString = objectProto.toString;
 
-/** Used to detect if a method is native */
-var reNative = RegExp('^' +
-  String(toString)
-    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    .replace(/toString| for [^\]]+/g, '.*?') + '$'
-);
+var nativeBind = (function() {
+  // Narwhal doesn't accept `undefined` as the `thisArg`
+  try {
+    var result = toString.bind;
+    return reNative.test(result) && result.bind() && result;
+  } catch(e) { }
+  return false;
+}());
 
-module.exports = reNative;
+module.exports = nativeBind;

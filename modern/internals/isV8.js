@@ -6,18 +6,11 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
+var nativeBind = require('./nativeBind'),
+    reNative = require('./reNative');
 
-/** Used for native method references */
-var objectProto = Object.prototype;
+/** Detect various environments */
+var isIeOpera = reNative.test(global.attachEvent),
+    isV8 = nativeBind && !/\n|true/.test(nativeBind + isIeOpera);
 
-/** Used to resolve the internal [[Class]] of values */
-var toString = objectProto.toString;
-
-/** Used to detect if a method is native */
-var reNative = RegExp('^' +
-  String(toString)
-    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    .replace(/toString| for [^\]]+/g, '.*?') + '$'
-);
-
-module.exports = reNative;
+module.exports = isV8;

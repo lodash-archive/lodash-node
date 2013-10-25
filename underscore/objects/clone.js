@@ -9,18 +9,8 @@
 var assign = require('./assign'),
     baseCreateCallback = require('../internals/baseCreateCallback'),
     isArray = require('./isArray'),
-    isObject = require('./isObject');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeSlice = arrayRef.slice;
+    isObject = require('./isObject'),
+    slice = require('../internals/slice');
 
 /**
  * Creates a clone of `value`. If `deep` is `true` nested objects will also
@@ -64,7 +54,7 @@ var nativeSlice = arrayRef.slice;
  */
 function clone(value) {
   return isObject(value)
-    ? (isArray(value) ? nativeSlice.call(value) : assign({}, value))
+    ? (isArray(value) ? slice(value) : assign({}, value))
     : value;
 }
 

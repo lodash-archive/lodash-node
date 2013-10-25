@@ -15,9 +15,11 @@ var objectClass = '[object Object]';
 /** Used for native method references */
 var objectProto = Object.prototype;
 
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
 /** Native method shortcuts */
-var getPrototypeOf = reNative.test(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf,
-    toString = objectProto.toString;
+var getPrototypeOf = reNative.test(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf;
 
 /**
  * Checks if `value` is an object created by the `Object` constructor.

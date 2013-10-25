@@ -27,7 +27,7 @@ var lodashWrapper = require('../internals/lodashWrapper');
  *
  * var youngest = _.chain(characters)
  *     .sortBy('age')
- *     .map(function(stooge) { return stooge.name + ' is ' + stooge.age; })
+ *     .map(function(chr) { return chr.name + ' is ' + chr.age; })
  *     .first()
  *     .value();
  * // => 'pebbles is 1'

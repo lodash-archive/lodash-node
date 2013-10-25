@@ -7,18 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createBound = require('../internals/createBound'),
-    reNative = require('../internals/reNative');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeSlice = arrayRef.slice;
+    reNative = require('../internals/reNative'),
+    slice = require('../internals/slice');
 
 /**
  * Creates a function that, when called, invokes `func` with the `this`
@@ -44,7 +34,7 @@ var nativeSlice = arrayRef.slice;
  */
 function bind(func, thisArg) {
   return arguments.length > 2
-    ? createBound(func, 17, nativeSlice.call(arguments, 2), null, thisArg)
+    ? createBound(func, 17, slice(arguments, 2), null, thisArg)
     : createBound(func, 1, null, null, thisArg);
 }
 
