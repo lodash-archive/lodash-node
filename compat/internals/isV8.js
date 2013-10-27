@@ -9,8 +9,7 @@
 var nativeBind = require('./nativeBind'),
     reNative = require('./reNative');
 
-/** Detect various environments */
-var isIeOpera = reNative.test(global.attachEvent),
-    isV8 = nativeBind && !/\n|true/.test(nativeBind + isIeOpera);
+/** Used to enable optimizations for V8 */
+var isV8 = nativeBind && !/\n/.test(nativeBind) && !reNative.test(global.attachEvent);
 
 module.exports = isV8;
