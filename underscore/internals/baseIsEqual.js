@@ -79,8 +79,11 @@ function baseIsEqual(a, b, stackA, stackB) {
   }
   var isArr = className == arrayClass;
   if (!isArr) {
-    if (hasOwnProperty.call(a, '__wrapped__ ') || hasOwnProperty.call(b, '__wrapped__')) {
-      return baseIsEqual(a.__wrapped__ || a, b.__wrapped__ || b, stackA, stackB);
+    var aWrapped = hasOwnProperty.call(a, '__wrapped__'),
+        bWrapped = hasOwnProperty.call(b, '__wrapped__');
+
+    if (aWrapped || bWrapped) {
+      return baseIsEqual(aWrapped ? a.__wrapped__ : a, bWrapped ? b.__wrapped__ : b, stackA, stackB);
     }
     if (className != objectClass) {
       return false;
