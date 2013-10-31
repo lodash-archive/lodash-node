@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createBound = require('../internals/createBound'),
+var createWrapper = require('../internals/createWrapper'),
     slice = require('../internals/slice');
 
 /**
@@ -28,7 +28,7 @@ var createBound = require('../internals/createBound'),
  * // => 'hi fred'
  */
 function partial(func) {
-  return createBound(func, 16, slice(arguments, 1));
+  return createWrapper(func, 16, slice(arguments, 1));
 }
 
 module.exports = partial;

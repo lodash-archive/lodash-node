@@ -18,7 +18,8 @@ var objectProto = Object.prototype;
 var toString = objectProto.toString;
 
 /** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
+var hasOwnProperty = objectProto.hasOwnProperty,
+    propertyIsEnumerable = objectProto.propertyIsEnumerable;
 
 /**
  * Checks if `value` is an `arguments` object.
@@ -44,7 +45,7 @@ function isArguments(value) {
 if (!support.argsClass) {
   isArguments = function(value) {
     return value && typeof value == 'object' && typeof value.length == 'number' &&
-      hasOwnProperty.call(value, 'callee') || false;
+      hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee') || false;
   };
 }
 

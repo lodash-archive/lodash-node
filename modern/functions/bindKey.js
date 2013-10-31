@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createBound = require('../internals/createBound'),
+var createWrapper = require('../internals/createWrapper'),
     slice = require('../internals/slice');
 
 /**
@@ -45,8 +45,8 @@ var createBound = require('../internals/createBound'),
  */
 function bindKey(object, key) {
   return arguments.length > 2
-    ? createBound(key, 19, slice(arguments, 2), null, object)
-    : createBound(key, 3, null, null, object);
+    ? createWrapper(key, 19, slice(arguments, 2), null, object)
+    : createWrapper(key, 3, null, null, object);
 }
 
 module.exports = bindKey;

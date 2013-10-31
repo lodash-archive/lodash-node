@@ -7,8 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isFunction = require('../objects/isFunction'),
-    isV8 = require('../internals/isV8'),
-    nativeBind = require('../internals/nativeBind'),
     objectTypes = require('../internals/objectTypes'),
     reNative = require('../internals/reNative'),
     slice = require('../internals/slice');
@@ -21,6 +19,16 @@ var freeModule = objectTypes[typeof module] && module && !module.nodeType && mod
 
 /** Detect the popular CommonJS extension `module.exports` */
 var moduleExports = freeModule && freeModule.exports === freeExports && freeExports;
+
+/** Detect free variable `global` from Node.js or Browserified code and use it as `root` */
+var freeGlobal = objectTypes[typeof global] && global;
+if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal)) {
+  root = freeGlobal;
+}
+
+/** Used to detect `setImmediate` in Node.js */
+var setImmediate = typeof (setImmediate = freeGlobal && moduleExports && freeGlobal.setImmediate) == 'function' &&
+  !reNative.test(setImmediate) && setImmediate;
 
 /**
  * Defers executing the `func` function until the current call stack has cleared.
@@ -45,7 +53,7 @@ function defer(func) {
   return setTimeout(function() { func.apply(undefined, args); }, 1);
 }
 // use `setImmediate` if available in Node.js
-if (isV8 && moduleExports && typeof setImmediate == 'function') {
+if (setImmediate) {
   defer = function(func) {
     if (!isFunction(func)) {
       throw new TypeError;

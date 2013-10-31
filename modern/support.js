@@ -6,9 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isV8 = require('./internals/isV8'),
-    nativeBind = require('./internals/nativeBind'),
-    reNative = require('./internals/reNative');
+var reNative = require('./internals/reNative');
 
 /** Used to detect functions containing a `this` reference */
 var reThis = /\bthis\b/;
@@ -21,14 +19,6 @@ var reThis = /\bthis\b/;
  * @type Object
  */
 var support = {};
-
-/**
- * Detect if `Function#bind` exists and is inferred to be fast (all but V8).
- *
- * @memberOf _.support
- * @type boolean
- */
-support.fastBind = nativeBind && !isV8;
 
 /**
  * Detect if functions can be decompiled by `Function#toString`

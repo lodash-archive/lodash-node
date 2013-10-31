@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isFunction = require('../objects/isFunction'),
-    isV8 = require('../internals/isV8'),
     slice = require('../internals/slice');
 
 /**

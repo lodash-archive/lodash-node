@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createBound = require('../internals/createBound'),
+var createWrapper = require('../internals/createWrapper'),
     reNative = require('../internals/reNative'),
     slice = require('../internals/slice'),
     support = require('../support');
@@ -35,8 +35,8 @@ var createBound = require('../internals/createBound'),
  */
 function bind(func, thisArg) {
   return arguments.length > 2
-    ? createBound(func, 17, slice(arguments, 2), null, thisArg)
-    : createBound(func, 1, null, null, thisArg);
+    ? createWrapper(func, 17, slice(arguments, 2), null, thisArg)
+    : createWrapper(func, 1, null, null, thisArg);
 }
 
 module.exports = bind;

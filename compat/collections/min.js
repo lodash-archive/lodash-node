@@ -56,7 +56,12 @@ function min(collection, callback, thisArg) {
   var computed = Infinity,
       result = computed;
 
-  if (!callback && isArray(collection)) {
+  // allows working with functions like `_.map` without using
+  // their `index` argument as a callback
+  if (typeof callback != 'function' && thisArg && thisArg[callback] === collection) {
+    callback = null;
+  }
+  if (callback == null && isArray(collection)) {
     var index = -1,
         length = collection.length;
 
@@ -67,7 +72,7 @@ function min(collection, callback, thisArg) {
       }
     }
   } else {
-    callback = (!callback && isString(collection))
+    callback = (callback == null && isString(collection))
       ? charAtCallback
       : createCallback(callback, thisArg, 3);
 

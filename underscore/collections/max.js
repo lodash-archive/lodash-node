@@ -54,10 +54,15 @@ function max(collection, callback, thisArg) {
   var computed = -Infinity,
       result = computed;
 
+  // allows working with functions like `_.map` without using
+  // their `index` argument as a callback
+  if (typeof callback != 'function' && thisArg && thisArg[callback] === collection) {
+    callback = null;
+  }
   var index = -1,
       length = collection ? collection.length : 0;
 
-  if (!callback && typeof length == 'number') {
+  if (callback == null && typeof length == 'number') {
     while (++index < length) {
       var value = collection[index];
       if (value > result) {
@@ -65,7 +70,9 @@ function max(collection, callback, thisArg) {
       }
     }
   } else {
-    callback = createCallback(callback, thisArg, 3);
+    callback = (callback == null && isString(collection))
+      ? charAtCallback
+      : createCallback(callback, thisArg, 3);
 
     forEach(collection, function(value, index, collection) {
       var current = callback(value, index, collection);

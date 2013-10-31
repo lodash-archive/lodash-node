@@ -54,7 +54,7 @@ function flatten(array, isShallow, callback, thisArg) {
   // juggle arguments
   if (typeof isShallow != 'boolean' && isShallow != null) {
     thisArg = callback;
-    callback = !(thisArg && thisArg[isShallow] === array) ? isShallow : null;
+    callback = (typeof isShallow != 'function' && thisArg && thisArg[isShallow] === array) ? null : isShallow;
     isShallow = false;
   }
   if (callback != null) {

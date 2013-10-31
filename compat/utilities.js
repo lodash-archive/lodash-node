@@ -12,6 +12,7 @@ module.exports = {
   'identity': require('./utilities/identity'),
   'mixin': require('./utilities/mixin'),
   'noConflict': require('./utilities/noConflict'),
+  'noop': require('./utilities/noop'),
   'parseInt': require('./utilities/parseInt'),
   'random': require('./utilities/random'),
   'result': require('./utilities/result'),

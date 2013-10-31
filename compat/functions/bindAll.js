@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseFlatten = require('../internals/baseFlatten'),
-    createBound = require('../internals/createBound'),
+    createWrapper = require('../internals/createWrapper'),
     functions = require('../objects/functions');
 
 /**
@@ -41,7 +41,7 @@ function bindAll(object) {
 
   while (++index < length) {
     var key = funcs[index];
-    object[key] = createBound(object[key], 1, null, null, object);
+    object[key] = createWrapper(object[key], 1, null, null, object);
   }
   return object;
 }

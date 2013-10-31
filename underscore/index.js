@@ -16,7 +16,8 @@ var arrays = require('./arrays'),
     forOwn = require('./objects/forOwn'),
     lodashWrapper = require('./internals/lodashWrapper'),
     mixin = require('./utilities/mixin'),
-    support = require('./support');
+    support = require('./support'),
+    templateSettings = require('./utilities/templateSettings');
 
 /**
  * Used for `Array` method references.
@@ -216,6 +217,7 @@ lodash.isUndefined = objects.isUndefined;
 lodash.lastIndexOf = arrays.lastIndexOf;
 lodash.mixin = mixin;
 lodash.noConflict = utilities.noConflict;
+lodash.noop = utilities.noop;
 lodash.parseInt = utilities.parseInt;
 lodash.random = utilities.random;
 lodash.reduce = collections.reduce;
