@@ -7,8 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreate = require('../internals/baseCreate'),
-    baseCreateCallback = require('../internals/baseCreateCallback'),
     baseEach = require('../internals/baseEach'),
+    createCallback = require('../functions/createCallback'),
     forOwn = require('./forOwn'),
     isArray = require('./isArray');
 
@@ -56,7 +56,7 @@ function transform(object, callback, accumulator, thisArg) {
     }
   }
   if (callback) {
-    callback = baseCreateCallback(callback, thisArg, 4);
+    callback = createCallback(callback, thisArg, 4);
     (isArr ? baseEach : forOwn)(object, function(value, index, object) {
       return callback(accumulator, value, index, object);
     });

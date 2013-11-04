@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseCreateCallback = require('../internals/baseCreateCallback'),
+var createCallback = require('../functions/createCallback'),
     forOwn = require('../objects/forOwn');
 
 /**
@@ -42,7 +42,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
 function reduce(collection, callback, accumulator, thisArg) {
   if (!collection) return accumulator;
   var noaccum = arguments.length < 3;
-  callback = baseCreateCallback(callback, thisArg, 4);
+  callback = createCallback(callback, thisArg, 4);
 
   var index = -1,
       length = collection.length;

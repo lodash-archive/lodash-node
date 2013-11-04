@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseCreateCallback = require('../internals/baseCreateCallback'),
-    baseEach = require('../internals/baseEach'),
+var baseEach = require('../internals/baseEach'),
+    createCallback = require('../functions/createCallback'),
     isArray = require('../objects/isArray');
 
 /**
@@ -42,7 +42,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  */
 function reduce(collection, callback, accumulator, thisArg) {
   var noaccum = arguments.length < 3;
-  callback = baseCreateCallback(callback, thisArg, 4);
+  callback = createCallback(callback, thisArg, 4);
 
   if (isArray(collection)) {
     var index = -1,
