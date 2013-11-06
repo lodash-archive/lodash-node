@@ -70,9 +70,7 @@ function max(collection, callback, thisArg) {
       }
     }
   } else {
-    callback = (callback == null && isString(collection))
-      ? charAtCallback
-      : createCallback(callback, thisArg, 3);
+    callback = createCallback(callback, thisArg, 3);
 
     forEach(collection, function(value, index, collection) {
       var current = callback(value, index, collection);
