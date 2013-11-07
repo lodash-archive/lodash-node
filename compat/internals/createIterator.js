@@ -67,10 +67,10 @@ nonEnumProps[objectClass] = { 'constructor': true };
 (function() {
   var length = shadowedProps.length;
   while (length--) {
-    var prop = shadowedProps[length];
+    var key = shadowedProps[length];
     for (var className in nonEnumProps) {
-      if (hasOwnProperty.call(nonEnumProps, className) && !hasOwnProperty.call(nonEnumProps[className], prop)) {
-        nonEnumProps[className][prop] = false;
+      if (hasOwnProperty.call(nonEnumProps, className) && !hasOwnProperty.call(nonEnumProps[className], key)) {
+        nonEnumProps[className][key] = false;
       }
     }
   }

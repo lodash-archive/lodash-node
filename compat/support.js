@@ -48,8 +48,8 @@ var support = {};
       props = [];
 
   ctor.prototype = { 'valueOf': 1, 'y': 1 };
-  for (var prop in new ctor) { props.push(prop); }
-  for (prop in arguments) { }
+  for (var key in new ctor) { props.push(key); }
+  for (key in arguments) { }
 
   /**
    * Detect if an `arguments` object's [[Class]] is resolvable (all but Firefox < 4, IE < 9).
@@ -113,7 +113,7 @@ var support = {};
    * @memberOf _.support
    * @type boolean
    */
-  support.nonEnumArgs = prop != 0;
+  support.nonEnumArgs = key != 0;
 
   /**
    * Detect if properties shadowing those on `Object.prototype` are non-enumerable.

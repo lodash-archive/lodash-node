@@ -42,9 +42,9 @@ function pick(object) {
       result = {};
 
   while (++index < length) {
-    var prop = props[index];
-    if (prop in object) {
-      result[prop] = object[prop];
+    var key = props[index];
+    if (key in object) {
+      result[key] = object[key];
     }
   }
   return result;

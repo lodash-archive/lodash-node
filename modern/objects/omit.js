@@ -7,8 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseFlatten = require('../internals/baseFlatten'),
-    baseIndexOf = require('../internals/baseIndexOf'),
     createCallback = require('../functions/createCallback'),
+    difference = require('../arrays/difference'),
     forIn = require('./forIn');
 
 /**
@@ -38,23 +38,29 @@ var baseFlatten = require('../internals/baseFlatten'),
  * // => { 'name': 'fred' }
  */
 function omit(object, callback, thisArg) {
-  var indexOf = baseIndexOf,
-      isFunc = typeof callback == 'function',
-      result = {};
+  var result = {};
+  if (typeof callback != 'function') {
+    var props = [];
+    forIn(object, function(value, key) {
+      props.push(key);
+    });
+    props = difference(props, baseFlatten(arguments, true, false, 1));
 
-  if (isFunc) {
-    callback = createCallback(callback, thisArg, 3);
-  } else {
-    var props = baseFlatten(arguments, true, false, 1);
-  }
-  forIn(object, function(value, key, object) {
-    if (isFunc
-          ? !callback(value, key, object)
-          : indexOf(props, key) < 0
-        ) {
-      result[key] = value;
+    var index = -1,
+        length = props.length;
+
+    while (++index < length) {
+      var key = props[index];
+      result[key] = object[key];
     }
-  });
+  } else {
+    callback = createCallback(callback, thisArg, 3);
+    forIn(object, function(value, key, object) {
+      if (!callback(value, key, object)) {
+        result[key] = value;
+      }
+    });
+  }
   return result;
 }
 
