@@ -16,11 +16,11 @@ var isArguments = require('../objects/isArguments'),
  * @private
  * @param {Array} array The array to flatten.
  * @param {boolean} [isShallow=false] A flag to restrict flattening to a single level.
- * @param {boolean} [isArgArrays=false] A flag to restrict flattening to arrays and `arguments` objects.
+ * @param {boolean} [isStrict=false] A flag to restrict flattening to arrays and `arguments` objects.
  * @param {number} [fromIndex=0] The index to start from.
  * @returns {Array} Returns a new flattened array.
  */
-function baseFlatten(array, isShallow, isArgArrays, fromIndex) {
+function baseFlatten(array, isShallow, isStrict, fromIndex) {
   var index = (fromIndex || 0) - 1,
       length = array ? array.length : 0,
       result = [];
@@ -32,7 +32,7 @@ function baseFlatten(array, isShallow, isArgArrays, fromIndex) {
         && (isArray(value) || isArguments(value))) {
       // recursively flatten arrays (susceptible to call stack limits)
       if (!isShallow) {
-        value = baseFlatten(value, isShallow, isArgArrays);
+        value = baseFlatten(value, isShallow, isStrict);
       }
       var valIndex = -1,
           valLength = value.length,
@@ -42,7 +42,7 @@ function baseFlatten(array, isShallow, isArgArrays, fromIndex) {
       while (++valIndex < valLength) {
         result[resIndex++] = value[valIndex];
       }
-    } else if (!isArgArrays) {
+    } else if (!isStrict) {
       result.push(value);
     }
   }

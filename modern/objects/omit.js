@@ -6,9 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseFlatten = require('../internals/baseFlatten'),
+var baseDifference = require('../internals/baseDifference'),
+    baseFlatten = require('../internals/baseFlatten'),
     createCallback = require('../functions/createCallback'),
-    difference = require('../arrays/difference'),
     forIn = require('./forIn');
 
 /**
@@ -44,7 +44,7 @@ function omit(object, callback, thisArg) {
     forIn(object, function(value, key) {
       props.push(key);
     });
-    props = difference(props, baseFlatten(arguments, true, false, 1));
+    props = baseDifference(props, baseFlatten(arguments, true, false, 1));
 
     var index = -1,
         length = props.length;

@@ -13,7 +13,7 @@ var assign = require('./assign'),
     slice = require('../internals/slice');
 
 /**
- * Creates a clone of `value`. If `deep` is `true` nested objects will also
+ * Creates a clone of `value`. If `isDeep` is `true` nested objects will also
  * be cloned, otherwise they will be assigned by reference. If a callback
  * is provided it will be executed to produce the cloned values. If the
  * callback returns `undefined` cloning will be handled by the method instead.
@@ -23,7 +23,7 @@ var assign = require('./assign'),
  * @memberOf _
  * @category Objects
  * @param {*} value The value to clone.
- * @param {boolean} [deep=false] Specify a deep clone.
+ * @param {boolean} [isDeep=false] Specify a deep clone.
  * @param {Function} [callback] The function to customize cloning values.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {*} Returns the cloned value.

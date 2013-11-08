@@ -65,13 +65,13 @@ ctorByClass[stringClass] = String;
  *
  * @private
  * @param {*} value The value to clone.
- * @param {boolean} [deep=false] Specify a deep clone.
+ * @param {boolean} [isDeep=false] Specify a deep clone.
  * @param {Function} [callback] The function to customize cloning values.
  * @param {Array} [stackA=[]] Tracks traversed source objects.
  * @param {Array} [stackB=[]] Associates clones with source counterparts.
  * @returns {*} Returns the cloned value.
  */
-function baseClone(value, deep, callback, stackA, stackB) {
+function baseClone(value, isDeep, callback, stackA, stackB) {
   if (callback) {
     var result = callback(value);
     if (typeof result != 'undefined') {
@@ -104,7 +104,7 @@ function baseClone(value, deep, callback, stackA, stackB) {
     return value;
   }
   var isArr = isArray(value);
-  if (deep) {
+  if (isDeep) {
     // check for circular references and return corresponding clone
     var initedStack = !stackA;
     stackA || (stackA = getArray());
@@ -131,7 +131,7 @@ function baseClone(value, deep, callback, stackA, stackB) {
     }
   }
   // exit for shallow clone
-  if (!deep) {
+  if (!isDeep) {
     return result;
   }
   // add the source value to the stack of traversed objects
@@ -141,7 +141,7 @@ function baseClone(value, deep, callback, stackA, stackB) {
 
   // recursively populate clone (susceptible to call stack limits)
   (isArr ? baseEach : forOwn)(value, function(objValue, key) {
-    result[key] = baseClone(objValue, deep, callback, stackA, stackB);
+    result[key] = baseClone(objValue, isDeep, callback, stackA, stackB);
   });
 
   if (initedStack) {

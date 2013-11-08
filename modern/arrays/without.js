@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var difference = require('./difference'),
+var baseDifference = require('../internals/baseDifference'),
     slice = require('../internals/slice');
 
 /**
@@ -25,7 +25,7 @@ var difference = require('./difference'),
  * // => [2, 3, 4]
  */
 function without(array) {
-  return difference(array, slice(arguments, 1));
+  return baseDifference(array, slice(arguments, 1));
 }
 
 module.exports = without;
