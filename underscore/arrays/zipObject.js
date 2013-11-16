@@ -6,6 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
+var isArray = require('../objects/isArray');
 
 /**
  * Creates an object composed from arrays of `keys` and `values`. Provide
@@ -30,6 +31,9 @@ function zipObject(keys, values) {
       length = keys ? keys.length : 0,
       result = {};
 
+  if (!values && length && !isArray(keys[0])) {
+    values = [];
+  }
   while (++index < length) {
     var key = keys[index];
     if (values) {
