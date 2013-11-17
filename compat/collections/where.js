@@ -18,7 +18,7 @@ var filter = require('./filter');
  * @type Function
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Object} properties The object of property values to filter by.
+ * @param {Object} props The object of property values to filter by.
  * @returns {Array} Returns a new array of elements that have the given properties.
  * @example
  *

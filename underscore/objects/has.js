@@ -14,22 +14,22 @@ var objectProto = Object.prototype;
 var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
- * Checks if the specified object `property` exists and is a direct property,
+ * Checks if the specified property name exists as a direct property of `object`,
  * instead of an inherited property.
  *
  * @static
  * @memberOf _
  * @category Objects
- * @param {Object} object The object to check.
- * @param {string} property The property to check for.
+ * @param {Object} object The object to inspect.
+ * @param {string} prop The name of the property to check.
  * @returns {boolean} Returns `true` if key is a direct property, else `false`.
  * @example
  *
  * _.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
  * // => true
  */
-function has(object, property) {
-  return object ? hasOwnProperty.call(object, property) : false;
+function has(object, prop) {
+  return object ? hasOwnProperty.call(object, prop) : false;
 }
 
 module.exports = has;

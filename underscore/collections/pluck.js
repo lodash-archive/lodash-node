@@ -16,7 +16,7 @@ var map = require('./map');
  * @type Function
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
- * @param {string} property The property to pluck.
+ * @param {string} property The name of the property to pluck.
  * @returns {Array} Returns a new array of property values.
  * @example
  *
@@ -28,17 +28,6 @@ var map = require('./map');
  * _.pluck(characters, 'name');
  * // => ['barney', 'fred']
  */
-function pluck(collection, property) {
-  var index = -1,
-      length = collection ? collection.length : 0;
-
-  if (typeof length == 'number') {
-    var result = Array(length);
-    while (++index < length) {
-      result[index] = collection[index][property];
-    }
-  }
-  return result || map(collection, property);
-}
+var pluck = map;
 
 module.exports = pluck;

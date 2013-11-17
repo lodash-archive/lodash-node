@@ -7,7 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    keys = require('../objects/keys');
+    keys = require('../objects/keys'),
+    property = require('./property');
 
 /**
  * Produces a callback bound to an optional `thisArg`. If `func` is a property
@@ -47,9 +48,7 @@ function createCallback(func, thisArg, argCount) {
   }
   // handle "_.pluck" style callback shorthands
   if (type != 'object') {
-    return function(object) {
-      return object[func];
-    };
+    return property(func);
   }
   var props = keys(func);
   return function(object) {

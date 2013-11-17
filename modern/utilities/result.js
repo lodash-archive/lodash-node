@@ -9,7 +9,7 @@
 var isFunction = require('../objects/isFunction');
 
 /**
- * Resolves the value of `property` on `object`. If `property` is a function
+ * Resolves the value of `prop` on `object`. If `prop` is a function
  * it will be invoked with the `this` binding of `object` and its result returned,
  * else the property value is returned. If `object` is falsey then `undefined`
  * is returned.
@@ -18,7 +18,7 @@ var isFunction = require('../objects/isFunction');
  * @memberOf _
  * @category Utilities
  * @param {Object} object The object to inspect.
- * @param {string} property The property to get the value of.
+ * @param {string} prop The name of the property to resolve.
  * @returns {*} Returns the resolved value.
  * @example
  *
@@ -35,10 +35,10 @@ var isFunction = require('../objects/isFunction');
  * _.result(object, 'stuff');
  * // => 'nonsense'
  */
-function result(object, property) {
+function result(object, prop) {
   if (object) {
-    var value = object[property];
-    return isFunction(value) ? object[property]() : value;
+    var value = object[prop];
+    return isFunction(value) ? object[prop]() : value;
   }
 }
 
