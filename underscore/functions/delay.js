@@ -22,9 +22,8 @@ var isFunction = require('../objects/isFunction'),
  * @returns {number} Returns the timer id.
  * @example
  *
- * var log = _.bind(console.log, console);
- * _.delay(log, 1000, 'logged later');
- * // => 'logged later' (Appears after one second.)
+ * _.delay(function(text) { console.log(text); }, 1000, 'later');
+ * // => logs 'later' after one second
  */
 function delay(func, wait) {
   if (!isFunction(func)) {

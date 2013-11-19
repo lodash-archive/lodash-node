@@ -8,10 +8,8 @@
  */
 var isFunction = require('../objects/isFunction'),
     isObject = require('../objects/isObject'),
+    now = require('../utilities/now'),
     reNative = require('../internals/reNative');
-
-/** Native method shortcuts */
-var now = reNative.test(now = Date.now) && now || function() { return +new Date; };
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeMax = Math.max;

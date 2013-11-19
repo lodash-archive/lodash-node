@@ -241,6 +241,7 @@ lodash.lastIndexOf = arrays.lastIndexOf;
 lodash.mixin = mixin;
 lodash.noConflict = utilities.noConflict;
 lodash.noop = utilities.noop;
+lodash.now = utilities.now;
 lodash.parseInt = utilities.parseInt;
 lodash.random = utilities.random;
 lodash.reduce = collections.reduce;

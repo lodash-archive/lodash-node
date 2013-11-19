@@ -13,6 +13,7 @@ module.exports = {
   'mixin': require('./utilities/mixin'),
   'noConflict': require('./utilities/noConflict'),
   'noop': require('./utilities/noop'),
+  'now': require('./utilities/now'),
   'random': require('./utilities/random'),
   'result': require('./utilities/result'),
   'template': require('./utilities/template'),
