@@ -17,13 +17,13 @@ var baseFlatten = require('../internals/baseFlatten'),
  * @memberOf _
  * @category Arrays
  * @param {...Array} [array] The arrays to inspect.
- * @returns {Array} Returns an array of composite values.
+ * @returns {Array} Returns an array of combined values.
  * @example
  *
- * _.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
- * // => [1, 2, 3, 101, 10]
+ * _.union([1, 2, 3], [5, 2, 1, 4], [2, 1]);
+ * // => [1, 2, 3, 5, 4]
  */
-function union(array) {
+function union() {
   return baseUniq(baseFlatten(arguments, true, true));
 }
 

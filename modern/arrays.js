@@ -27,6 +27,7 @@ module.exports = {
   'union': require('./arrays/union'),
   'uniq': require('./arrays/uniq'),
   'without': require('./arrays/without'),
+  'xor': require('./arrays/xor'),
   'zip': require('./arrays/zip'),
   'zipObject': require('./arrays/zipObject')
 };

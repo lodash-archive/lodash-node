@@ -14,11 +14,11 @@ var baseCreate = require('../internals/baseCreate'),
 
 /**
  * An alternative to `_.reduce` this method transforms `object` to a new
- * `accumulator` object which is the result of running each of its elements
- * through a callback, with each callback execution potentially mutating
- * the `accumulator` object. The callback is bound to `thisArg` and invoked
- * with four arguments; (accumulator, value, key, object). Callbacks may exit
- * iteration early by explicitly returning `false`.
+ * `accumulator` object which is the result of running each of its own
+ * enumerable properties through a callback, with each callback execution
+ * potentially mutating the `accumulator` object. The callback is bound to
+ * `thisArg` and invoked with four arguments; (accumulator, value, key, object).
+ * Callbacks may exit iteration early by explicitly returning `false`.
  *
  * @static
  * @memberOf _

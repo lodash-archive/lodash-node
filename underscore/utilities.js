@@ -8,12 +8,14 @@
  */
 
 module.exports = {
+  'createCallback': require('./functions/createCallback'),
   'escape': require('./utilities/escape'),
   'identity': require('./utilities/identity'),
   'mixin': require('./utilities/mixin'),
   'noConflict': require('./utilities/noConflict'),
   'noop': require('./utilities/noop'),
   'now': require('./utilities/now'),
+  'property': require('./utilities/property'),
   'random': require('./utilities/random'),
   'result': require('./utilities/result'),
   'template': require('./utilities/template'),

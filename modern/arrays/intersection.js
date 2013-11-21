@@ -10,6 +10,8 @@ var baseIndexOf = require('../internals/baseIndexOf'),
     cacheIndexOf = require('../internals/cacheIndexOf'),
     createCache = require('../internals/createCache'),
     getArray = require('../internals/getArray'),
+    isArguments = require('../objects/isArguments'),
+    isArray = require('../objects/isArray'),
     largeArraySize = require('../internals/largeArraySize'),
     releaseArray = require('../internals/releaseArray'),
     releaseObject = require('../internals/releaseObject');
@@ -22,29 +24,34 @@ var baseIndexOf = require('../internals/baseIndexOf'),
  * @memberOf _
  * @category Arrays
  * @param {...Array} [array] The arrays to inspect.
- * @returns {Array} Returns an array of composite values.
+ * @returns {Array} Returns an array of shared values.
  * @example
  *
- * _.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+ * _.intersection([1, 2, 3], [5, 2, 1, 4], [2, 1]);
  * // => [1, 2]
  */
-function intersection(array) {
-  var args = arguments,
-      argsLength = args.length,
+function intersection() {
+  var args = [],
       argsIndex = -1,
+      argsLength = arguments.length,
       caches = getArray(),
-      index = -1,
       indexOf = baseIndexOf,
-      length = array ? array.length : 0,
-      result = [],
+      trustIndexOf = indexOf === baseIndexOf,
       seen = getArray();
 
   while (++argsIndex < argsLength) {
-    var value = args[argsIndex];
-    caches[argsIndex] = indexOf === baseIndexOf &&
-      (value ? value.length : 0) >= largeArraySize &&
-      createCache(argsIndex ? args[argsIndex] : seen);
+    var value = arguments[argsIndex];
+    if (isArray(value) || isArguments(value)) {
+      args.push(value);
+      caches.push(trustIndexOf && value.length >= largeArraySize &&
+        createCache(argsIndex ? args[argsIndex] : seen));
+    }
   }
+  var array = args[0],
+      index = -1,
+      length = array ? array.length : 0,
+      result = [];
+
   outer:
   while (++index < length) {
     var cache = caches[0];

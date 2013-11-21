@@ -21,15 +21,15 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @memberOf _
  * @category Objects
  * @param {Object} object The object to inspect.
- * @param {string} prop The name of the property to check.
+ * @param {string} key The name of the property to check.
  * @returns {boolean} Returns `true` if key is a direct property, else `false`.
  * @example
  *
  * _.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
  * // => true
  */
-function has(object, prop) {
-  return object ? hasOwnProperty.call(object, prop) : false;
+function has(object, key) {
+  return object ? hasOwnProperty.call(object, key) : false;
 }
 
 module.exports = has;

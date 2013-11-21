@@ -8,7 +8,7 @@
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
     keys = require('../objects/keys'),
-    property = require('./property');
+    property = require('../utilities/property');
 
 /**
  * Produces a callback bound to an optional `thisArg`. If `func` is a property
@@ -18,7 +18,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  *
  * @static
  * @memberOf _
- * @category Functions
+ * @category Utilities
  * @param {*} [func=identity] The value to convert to a callback.
  * @param {*} [thisArg] The `this` binding of the created callback.
  * @param {number} [argCount] The number of arguments the callback accepts.

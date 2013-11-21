@@ -8,6 +8,8 @@
  */
 
 module.exports = {
+  'constant': require('./utilities/constant'),
+  'createCallback': require('./functions/createCallback'),
   'escape': require('./utilities/escape'),
   'identity': require('./utilities/identity'),
   'mixin': require('./utilities/mixin'),
@@ -15,6 +17,7 @@ module.exports = {
   'noop': require('./utilities/noop'),
   'now': require('./utilities/now'),
   'parseInt': require('./utilities/parseInt'),
+  'property': require('./utilities/property'),
   'random': require('./utilities/random'),
   'result': require('./utilities/result'),
   'template': require('./utilities/template'),

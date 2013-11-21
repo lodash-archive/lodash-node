@@ -22,7 +22,6 @@ module.exports = {
   'once': require('./functions/once'),
   'partial': require('./functions/partial'),
   'partialRight': require('./functions/partialRight'),
-  'property': require('./functions/property'),
   'throttle': require('./functions/throttle'),
   'wrap': require('./functions/wrap')
 };

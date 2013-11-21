@@ -19,7 +19,6 @@ module.exports = {
   'memoize': require('./functions/memoize'),
   'once': require('./functions/once'),
   'partial': require('./functions/partial'),
-  'property': require('./functions/property'),
   'throttle': require('./functions/throttle'),
   'wrap': require('./functions/wrap')
 };
