@@ -41,7 +41,7 @@ var push = arrayRef.push;
  * _.capitalize('fred');
  * // => 'Fred'
  *
- * _('fred').capitalize();
+ * _('fred').capitalize().value();
  * // => 'Fred'
  */
 function mixin(object, source) {
