@@ -7,28 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isFunction = require('../objects/isFunction'),
-    objectTypes = require('../internals/objectTypes'),
-    reNative = require('../internals/reNative'),
     slice = require('../internals/slice');
-
-/** Detect free variable `exports` */
-var freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module` */
-var freeModule = objectTypes[typeof module] && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports` */
-var moduleExports = freeModule && freeModule.exports === freeExports && freeExports;
-
-/** Detect free variable `global` from Node.js or Browserified code and use it as `root` */
-var freeGlobal = objectTypes[typeof global] && global;
-if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal)) {
-  root = freeGlobal;
-}
-
-/** Used to detect `setImmediate` in Node.js */
-var setImmediate = typeof (setImmediate = freeGlobal && moduleExports && freeGlobal.setImmediate) == 'function' &&
-  !reNative.test(setImmediate) && setImmediate;
 
 /**
  * Defers executing the `func` function until the current call stack has cleared.
@@ -51,15 +30,6 @@ function defer(func) {
   }
   var args = slice(arguments, 1);
   return setTimeout(function() { func.apply(undefined, args); }, 1);
-}
-// use `setImmediate` if available in Node.js
-if (setImmediate) {
-  defer = function(func) {
-    if (!isFunction(func)) {
-      throw new TypeError;
-    }
-    return setImmediate.apply(root, arguments);
-  };
 }
 
 module.exports = defer;
