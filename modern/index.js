@@ -32,8 +32,7 @@ var arrayRef = [];
 var objectProto = Object.prototype;
 
 /** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty,
-    push = arrayRef.push;
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * Creates a `lodash` object which wraps the given value to enable intuitive
@@ -111,12 +110,16 @@ lodashWrapper.prototype = lodash.prototype;
 
 // wrap `_.mixin` so it works when provided only one argument
 mixin = (function(fn) {
-  return function(object, source) {
-    if (!source) {
+  var functions = objects.functions;
+  return function(object, source, options) {
+    if (!source || (!options && !functions(source).length)) {
+      if (options == null) {
+        options = source;
+      }
       source = object;
       object = lodash;
     }
-    return fn(object, source);
+    return fn(object, source, options);
   };
 }(mixin));
 
@@ -267,20 +270,15 @@ lodash.foldr = collections.reduceRight;
 lodash.include = collections.contains;
 lodash.inject = collections.reduce;
 
-forOwn(lodash, function(func, methodName) {
-  if (!lodash.prototype[methodName]) {
-    lodash.prototype[methodName] = function() {
-      var args = [this.__wrapped__],
-          chainAll = this.__chain__;
-
-      push.apply(args, arguments);
-      var result = func.apply(lodash, args);
-      return chainAll
-        ? new lodashWrapper(result, chainAll)
-        : result;
-    };
-  }
-});
+mixin(function() {
+  var source = {}
+  forOwn(lodash, function(func, methodName) {
+    if (!lodash.prototype[methodName]) {
+      source[methodName] = func;
+    }
+  });
+  return source;
+}(), false);
 
 // add functions capable of returning wrapped and unwrapped values when chaining
 lodash.first = arrays.first;
@@ -333,7 +331,7 @@ forEach(['join', 'pop', 'shift'], function(methodName) {
   };
 });
 
-// add `Array` functions that return the wrapped value
+// add `Array` functions that return the existing wrapped value
 forEach(['push', 'reverse', 'sort', 'unshift'], function(methodName) {
   var func = arrayRef[methodName];
   lodash.prototype[methodName] = function() {
