@@ -1,5 +1,5 @@
 /**
- * Lo-Dash 2.3.0 (Custom Build) <http://lodash.com/>
+ * Lo-Dash 2.4.0 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize underscore exports="node" -o ./underscore/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
@@ -241,7 +241,7 @@ mixin(lodash);
  * @memberOf _
  * @type string
  */
-lodash.VERSION = '2.3.0';
+lodash.VERSION = '2.4.0';
 
 // add "Chaining" functions to the wrapper
 lodash.prototype.chain = chaining.wrapperChain;
