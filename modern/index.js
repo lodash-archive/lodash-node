@@ -1,4 +1,5 @@
 /**
+ * @license
  * Lo-Dash 2.4.0 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="node" -o ./modern/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
