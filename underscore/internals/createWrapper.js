@@ -8,7 +8,8 @@
  */
 var baseBind = require('./baseBind'),
     baseCreateWrapper = require('./baseCreateWrapper'),
-    isFunction = require('../objects/isFunction');
+    isFunction = require('../objects/isFunction'),
+    slice = require('./slice');
 
 /**
  * Creates a function that, when called, either curries or invokes `func`

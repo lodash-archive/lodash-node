@@ -8,7 +8,8 @@
  */
 var baseCreate = require('./baseCreate'),
     isObject = require('../objects/isObject'),
-    setBindData = require('./setBindData');
+    setBindData = require('./setBindData'),
+    slice = require('./slice');
 
 /**
  * Used for `Array` method references.
@@ -38,7 +39,7 @@ function baseBind(bindData) {
     // `Function#bind` spec
     // http://es5.github.io/#x15.3.4.5
     if (partialArgs) {
-      var args = partialArgs.slice();
+      var args = slice(partialArgs);
       push.apply(args, arguments);
     }
     // mimic the constructor's `return` behavior
