@@ -45,7 +45,7 @@ var getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getProt
  * _.isPlainObject({ 'x': 0, 'y': 0 });
  * // => true
  */
-var isPlainObject = function(value) {
+var isPlainObject = !getPrototypeOf ? shimIsPlainObject : function(value) {
   if (!(value && toString.call(value) == objectClass)) {
     return false;
   }
