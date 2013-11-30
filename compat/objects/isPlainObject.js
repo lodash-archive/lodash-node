@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isArguments = require('./isArguments'),
-    reNative = require('../internals/reNative'),
+    isNative = require('../internals/isNative'),
     shimIsPlainObject = require('../internals/shimIsPlainObject'),
     support = require('../support');
 
@@ -21,7 +21,7 @@ var objectProto = Object.prototype;
 var toString = objectProto.toString;
 
 /** Native method shortcuts */
-var getPrototypeOf = reNative.test(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf;
+var getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf;
 
 /**
  * Checks if `value` is an object created by the `Object` constructor.
@@ -52,7 +52,7 @@ var isPlainObject = !getPrototypeOf ? shimIsPlainObject : function(value) {
     return false;
   }
   var valueOf = value.valueOf,
-      objProto = typeof valueOf == 'function' && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
+      objProto = isNative(valueOf) && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
 
   return objProto
     ? (value == objProto || getPrototypeOf(value) == objProto)

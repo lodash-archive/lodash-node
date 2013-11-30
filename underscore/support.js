@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var reNative = require('./internals/reNative');
+var isNative = require('./internals/isNative');
 
 /**
  * Used for `Array` method references.

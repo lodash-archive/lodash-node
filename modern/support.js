@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var reNative = require('./internals/reNative');
+var isNative = require('./internals/isNative');
 
 /** Used to detect functions containing a `this` reference */
 var reThis = /\bthis\b/;
@@ -27,7 +27,7 @@ var support = {};
  * @memberOf _.support
  * @type boolean
  */
-support.funcDecomp = !reNative.test(global.WinRTError) && reThis.test(function() { return this; });
+support.funcDecomp = !isNative(global.WinRTError) && reThis.test(function() { return this; });
 
 /**
  * Detect if `Function#name` is supported (all but IE).

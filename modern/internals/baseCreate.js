@@ -6,12 +6,12 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isObject = require('../objects/isObject'),
-    noop = require('../utilities/noop'),
-    reNative = require('./reNative');
+var isNative = require('./isNative'),
+    isObject = require('../objects/isObject'),
+    noop = require('../utilities/noop');
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeCreate = reNative.test(nativeCreate = Object.create) && nativeCreate;
+var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate;
 
 /**
  * The base implementation of `_.create` without support for assigning

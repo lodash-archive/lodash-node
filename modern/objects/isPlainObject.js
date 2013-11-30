@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var reNative = require('../internals/reNative'),
+var isNative = require('../internals/isNative'),
     shimIsPlainObject = require('../internals/shimIsPlainObject');
 
 /** `Object#toString` result shortcuts */
@@ -19,7 +19,7 @@ var objectProto = Object.prototype;
 var toString = objectProto.toString;
 
 /** Native method shortcuts */
-var getPrototypeOf = reNative.test(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf;
+var getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf;
 
 /**
  * Checks if `value` is an object created by the `Object` constructor.
@@ -50,7 +50,7 @@ var isPlainObject = function(value) {
     return false;
   }
   var valueOf = value.valueOf,
-      objProto = typeof valueOf == 'function' && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
+      objProto = isNative(valueOf) && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
 
   return objProto
     ? (value == objProto || getPrototypeOf(value) == objProto)

@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createWrapper = require('../internals/createWrapper'),
-    reNative = require('../internals/reNative'),
     slice = require('../internals/slice'),
     support = require('../support');
 

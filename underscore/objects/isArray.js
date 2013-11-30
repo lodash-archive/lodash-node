@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var reNative = require('../internals/reNative');
+var isNative = require('../internals/isNative');
 
 /** `Object#toString` result shortcuts */
 var arrayClass = '[object Array]';
@@ -18,7 +18,7 @@ var objectProto = Object.prototype;
 var toString = objectProto.toString;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeIsArray = reNative.test(nativeIsArray = Array.isArray) && nativeIsArray;
+var nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray;
 
 /**
  * Checks if `value` is an array.
