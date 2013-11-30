@@ -5,12 +5,16 @@ node_js:
   - "0.10"
 env:
   global:
-    - MAKE=false
+    - BIN="node" MAKE=false
   matrix:
     - BUILD="compat"
     - BUILD="modern"
     - BUILD="legacy"
     - BUILD="mobile"
+matrix:
+  include:
+    - node_js: "0.10"
+      env: BIN="istanbul" BUILD="modern"
 git:
   depth: 10
 branches:
@@ -19,8 +23,10 @@ branches:
 before_install:
   - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash"
   - "[ $BUILD != 'compat' ] && [ $BUILD != 'modern' ] && MAKE=true || true"
+  - "[ $BIN == 'istanbul' ] && sudo npm i -g coveralls@\"~2.5.0\" istanbul@\"~0.1.0\" || true"
   - "[ $MAKE != false ] && git clone --depth=10 --branch=master git://github.com/lodash/lodash-cli.git ./node_modules/lodash-cli || true"
   - "[ $MAKE != false ] && mkdir ./node_modules/lodash-cli/node_modules && cd ./node_modules/lodash-cli/node_modules/ && ln -s ../../lodash ./lodash && cd ../../../ || true"
   - "[ $MAKE != false ] && node ./node_modules/lodash-cli/bin/lodash modularize $BUILD exports=node -o ./$BUILD || true"
 script:
-  - "node ./node_modules/lodash/test/test.js ./$BUILD"
+  - "[ $BIN == 'istanbul' ] && $BIN cover --report lcovonly ./test/test.js -- ./modern/index.js && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage || true"
+  - "[ $BIN != 'node' ] && true || $BIN ./node_modules/lodash/test/test.js ./$BUILD"
