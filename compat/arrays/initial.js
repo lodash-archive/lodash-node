@@ -41,9 +41,11 @@ var nativeMax = Math.max,
  * _.initial([1, 2, 3]);
  * // => [1, 2]
  *
+ * // excludes the last two elements
  * _.initial([1, 2, 3], 2);
  * // => [1]
  *
+ * // excludes elements from the end until the callback fails
  * _.initial([1, 2, 3], function(num) {
  *   return num > 1;
  * });

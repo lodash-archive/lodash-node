@@ -40,9 +40,11 @@ var nativeMax = Math.max;
  * _.last([1, 2, 3]);
  * // => 3
  *
+ * // returns the last two elements
  * _.last([1, 2, 3], 2);
  * // => [2, 3]
  *
+ * // returns elements from the end until the callback fails
  * _.last([1, 2, 3], function(num) {
  *   return num > 1;
  * });

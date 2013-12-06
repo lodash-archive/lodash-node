@@ -37,6 +37,7 @@ var baseFlatten = require('../internals/baseFlatten');
  * _.flatten([1, [2], [3, [[4]]]]);
  * // => [1, 2, 3, 4];
  *
+ * // using `isShallow`
  * _.flatten([1, [2], [3, [[4]]]], true);
  * // => [1, 2, 3, [[4]]];
  *

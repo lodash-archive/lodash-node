@@ -39,22 +39,24 @@ var createCallback = require('../functions/createCallback'),
  * _.sortedIndex([20, 30, 50], 40);
  * // => 2
  *
- * // using "_.pluck" callback shorthand
- * _.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
- * // => 2
- *
  * var dict = {
  *   'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
  * };
  *
+ * // using `callback`
  * _.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function(word) {
  *   return dict.wordToNumber[word];
  * });
  * // => 2
  *
+ * // using `callback` with `thisArg`
  * _.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function(word) {
  *   return this.wordToNumber[word];
  * }, dict);
+ * // => 2
+ *
+ * // using "_.pluck" callback shorthand
+ * _.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
  * // => 2
  */
 function sortedIndex(array, value, callback, thisArg) {

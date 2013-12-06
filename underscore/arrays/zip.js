@@ -10,9 +10,10 @@ var max = require('../collections/max'),
     pluck = require('../collections/pluck');
 
 /**
- * Creates an array of grouped elements, the first of which contains the first
- * elements of the given arrays, the second of which contains the second
- * elements of the given arrays, and so on.
+ * Creates an array of grouped elements, the first of which contains the
+ * first elements of the given arrays, the second of which contains the second
+ * elements of the given arrays, and so on. If a zipped value is provided its
+ * corresponding unzipped value will be returned.
  *
  * @static
  * @memberOf _
@@ -24,6 +25,9 @@ var max = require('../collections/max'),
  *
  * _.zip(['fred', 'barney'], [30, 40], [true, false]);
  * // => [['fred', 30, true], ['barney', 40, false]]
+ *
+ * _.unzip([['fred', 30, true], ['barney', 40, false]]);
+ * // => [['fred', 'barney'], [30, 40], [true, false]]
  */
 function zip() {
   var index = -1,
