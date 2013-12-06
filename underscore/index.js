@@ -13,6 +13,7 @@ var arrays = require('./arrays'),
     functions = require('./functions'),
     objects = require('./objects'),
     utilities = require('./utilities'),
+    assign = require('./objects/assign'),
     forEach = require('./collections/forEach'),
     forOwn = require('./objects/forOwn'),
     lodashWrapper = require('./internals/lodashWrapper'),
@@ -167,7 +168,7 @@ lodash.zip = arrays.zip;
 lodash.collect = collections.map;
 lodash.drop = arrays.rest;
 lodash.each = forEach;
-lodash.extend = objects.assign;
+lodash.extend = assign;
 lodash.methods = objects.functions;
 lodash.object = arrays.zipObject;
 lodash.select = collections.filter;
@@ -233,7 +234,7 @@ lodash.take = arrays.first;
 lodash.head = arrays.first;
 
 // add functions to `lodash.prototype`
-mixin(lodash);
+mixin(assign({}, lodash));
 
 /**
  * The semantic version number.

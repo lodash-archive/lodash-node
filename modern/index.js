@@ -13,6 +13,7 @@ var arrays = require('./arrays'),
     functions = require('./functions'),
     objects = require('./objects'),
     utilities = require('./utilities'),
+    assign = require('./objects/assign'),
     forEach = require('./collections/forEach'),
     forOwn = require('./objects/forOwn'),
     isArray = require('./objects/isArray'),
@@ -126,7 +127,7 @@ mixin = (function(fn) {
 
 // add functions that return wrapped values when chaining
 lodash.after = functions.after;
-lodash.assign = objects.assign;
+lodash.assign = assign;
 lodash.at = collections.at;
 lodash.bind = functions.bind;
 lodash.bindAll = functions.bindAll;
@@ -201,7 +202,7 @@ lodash.collect = collections.map;
 lodash.drop = arrays.rest;
 lodash.each = forEach;
 lodash.eachRight = collections.forEachRight;
-lodash.extend = objects.assign;
+lodash.extend = assign;
 lodash.methods = objects.functions;
 lodash.object = arrays.zipObject;
 lodash.select = collections.filter;
@@ -210,7 +211,7 @@ lodash.unique = arrays.uniq;
 lodash.unzip = arrays.zip;
 
 // add functions to `lodash.prototype`
-mixin(lodash);
+mixin(assign({}, lodash));
 
 // add functions that return unwrapped values when chaining
 lodash.clone = objects.clone;
