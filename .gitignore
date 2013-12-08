@@ -1,5 +1,7 @@
 .coveralls.yml
 .DS_Store
+*.log
+coverage
 legacy
-node_modules
 mobile
+node_modules
