@@ -6,19 +6,10 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
+var reNative = require('./reNative');
 
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Used to resolve the internal [[Class]] of values */
-var toString = objectProto.toString;
-
-/** Used to detect if a method is native */
-var reNative = RegExp('^' +
-  String(toString)
-    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    .replace(/toString| for [^\]]+/g, '.*?') + '$'
-);
+/** Native method shortcuts */
+var fnToString = Function.prototype.toString;
 
 /**
  * Checks if `value` is a native function.
@@ -28,7 +19,7 @@ var reNative = RegExp('^' +
  * @returns {boolean} Returns `true` if the `value` is a native function, else `false`.
  */
 function isNative(value) {
-  return typeof value == 'function' && reNative.test(value);
+  return typeof value == 'function' && reNative.test(fnToString.call(value));
 }
 
 module.exports = isNative;
