@@ -6,6 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
+var isPlainObject = require('./isPlainObject'),
+    support = require('../support'),
+    toString = require('../internals/toString');
 
 /**
  * Checks if `value` is a DOM element.
@@ -21,7 +24,15 @@
  * // => true
  */
 function isElement(value) {
-  return value && value.nodeType === 1 || false;
+  return value && typeof value == 'object' && value.nodeType === 1 &&
+    toString.call(value).indexOf('Element') > -1 || false;
+}
+// fallback for environments without DOM support
+if (!support.dom) {
+  isElement = function(value) {
+    return value && typeof value == 'object' && value.nodeType === 1 &&
+      !isPlainObject(value) || false;
+  };
 }
 
 module.exports = isElement;
