@@ -6,20 +6,16 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
+var toString = require('../internals/toString');
 
 /** `Object#toString` result shortcuts */
 var numberClass = '[object Number]';
 
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Used to resolve the internal [[Class]] of values */
-var toString = objectProto.toString;
-
 /**
  * Checks if `value` is a number.
  *
- * Note: `NaN` is considered a number. See http://es5.github.io/#x8.5.
+ * Note: `NaN` is considered a number. See the [ES5 spec](http://es5.github.io/#x8.5)
+ * for more details.
  *
  * @static
  * @memberOf _

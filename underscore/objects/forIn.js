@@ -41,14 +41,17 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * });
  * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
  */
-var forIn = function(collection, callback) {
-  var index, iterable = collection, result = iterable;
-  if (!iterable) return result;
-  if (!objectTypes[typeof iterable]) return result;
-    for (index in iterable) {
-      if (callback(iterable[index], index, collection) === indicatorObject) return result;
+var forIn = function(object, callback) {
+  var result = object;
+  if (!(object && objectTypes[typeof object])) {
+    return result;
+  }
+  for (var key in object) {
+    if (callback(object[key], key, object) === indicatorObject) {
+      return result;
     }
-  return result
+  }
+  return result;
 };
 
 module.exports = forIn;

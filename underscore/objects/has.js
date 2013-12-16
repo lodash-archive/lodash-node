@@ -6,12 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
+var hasOwnProperty = require('../internals/hasOwnProperty');
 
 /**
  * Checks if the specified property name exists as a direct property of `object`,

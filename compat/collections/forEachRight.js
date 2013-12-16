@@ -48,7 +48,7 @@ function forEachRight(collection, callback, thisArg) {
     } else if (support.unindexedChars && isString(collection)) {
       iterable = collection.split('');
     }
-    baseEach(collection, function(value, key, collection) {
+    baseEach(iterable, function(value, key) {
       key = props ? props[--length] : --length;
       return callback(iterable[key], key, collection);
     });

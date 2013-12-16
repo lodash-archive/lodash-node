@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseFlatten = require('../internals/baseFlatten'),
-    isString = require('../objects/isString');
+var baseFlatten = require('../internals/baseFlatten');
 
 /**
  * Creates an array of elements from the specified indexes, or keys, of the

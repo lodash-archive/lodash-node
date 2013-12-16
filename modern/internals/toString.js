@@ -6,23 +6,11 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var toString = require('../internals/toString');
 
-/**
- * Checks if `value` is a function.
- *
- * @static
- * @memberOf _
- * @category Objects
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is a function, else `false`.
- * @example
- *
- * _.isFunction(_);
- * // => true
- */
-function isFunction(value) {
-  return typeof value == 'function';
-}
+/** Used for native method references */
+var objectProto = Object.prototype;
 
-module.exports = isFunction;
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
+module.exports = toString;

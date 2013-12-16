@@ -6,16 +6,11 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var objectTypes = require('../internals/objectTypes');
+var objectTypes = require('../internals/objectTypes'),
+    toString = require('../internals/toString');
 
 /** `Object#toString` result shortcuts */
 var regexpClass = '[object RegExp]';
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Used to resolve the internal [[Class]] of values */
-var toString = objectProto.toString;
 
 /**
  * Checks if `value` is a regular expression.

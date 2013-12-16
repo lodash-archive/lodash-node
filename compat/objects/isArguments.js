@@ -6,7 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var support = require('../support');
+var hasOwnProperty = require('../internals/hasOwnProperty'),
+    support = require('../support'),
+    toString = require('../internals/toString');
 
 /** `Object#toString` result shortcuts */
 var argsClass = '[object Arguments]';
@@ -14,12 +16,8 @@ var argsClass = '[object Arguments]';
 /** Used for native method references */
 var objectProto = Object.prototype;
 
-/** Used to resolve the internal [[Class]] of values */
-var toString = objectProto.toString;
-
 /** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty,
-    propertyIsEnumerable = objectProto.propertyIsEnumerable;
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
 
 /**
  * Checks if `value` is an `arguments` object.

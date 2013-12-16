@@ -16,6 +16,7 @@ var arrays = require('./arrays'),
     assign = require('./objects/assign'),
     forEach = require('./collections/forEach'),
     forOwn = require('./objects/forOwn'),
+    hasOwnProperty = require('./internals/hasOwnProperty'),
     lodashWrapper = require('./internals/lodashWrapper'),
     mixin = require('./utilities/mixin'),
     support = require('./support'),
@@ -42,16 +43,16 @@ var arrayRef = [];
  *
  * The chainable wrapper functions are:
  * `after`, `assign`, `bind`, `bindAll`, `bindKey`, `chain`, `compact`,
- * `compose`, `concat`, `countBy`, `create`, `createCallback`, `curry`,
- * `debounce`, `defaults`, `defer`, `delay`, `difference`, `filter`, `flatten`,
- * `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`,
- * `functions`, `groupBy`, `indexBy`, `initial`, `intersection`, `invert`,
- * `invoke`, `keys`, `map`, `max`, `memoize`, `merge`, `min`, `object`, `omit`,
- * `once`, `pairs`, `partial`, `partialRight`, `pick`, `pluck`, `pull`, `push`,
- * `range`, `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`,
- * `sortBy`, `splice`, `tap`, `throttle`, `times`, `toArray`, `transform`,
- * `union`, `uniq`, `unshift`, `unzip`, `values`, `where`, `without`, `wrap`,
- * and `zip`
+ * `compose`, `concat`, `constant`, `countBy`, `create`, `createCallback`,
+ * `curry`, `debounce`, `defaults`, `defer`, `delay`, `difference`, `filter`,
+ * `flatten`, `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`,
+ * `forOwnRight`, `functions`, `groupBy`, `indexBy`, `initial`, `intersection`,
+ * `invert`, `invoke`, `keys`, `map`, `mapValues`, `max`, `memoize`, `merge`,
+ * `min`, `noop`, `object`, `omit`, `once`, `pairs`, `partial`, `partialRight`,
+ * `pick`, `pluck`, `property`, `pull`, `push`, `range`, `reject`, `remove`,
+ * `rest`, `reverse`, `shuffle`, `slice`, `sort`, `sortBy`, `splice`, `tap`,
+ * `throttle`, `times`, `toArray`, `transform`, `union`, `uniq`, `unshift`,
+ * `unzip`, `values`, `where`, `without`, `wrap`, `xor`, and `zip`
  *
  * The non-chainable wrapper functions are:
  * `clone`, `cloneDeep`, `contains`, `escape`, `every`, `find`, `findIndex`,
@@ -59,12 +60,12 @@ var arrayRef = [];
  * `indexOf`, `isArguments`, `isArray`, `isBoolean`, `isDate`, `isElement`,
  * `isEmpty`, `isEqual`, `isFinite`, `isFunction`, `isNaN`, `isNull`, `isNumber`,
  * `isObject`, `isPlainObject`, `isRegExp`, `isString`, `isUndefined`, `join`,
- * `lastIndexOf`, `mixin`, `noConflict`, `parseInt`, `pop`, `random`, `reduce`,
- * `reduceRight`, `result`, `shift`, `size`, `some`, `sortedIndex`, `runInContext`,
- * `template`, `unescape`, `uniqueId`, and `value`
+ * `lastIndexOf`, `mixin`, `noConflict`, `now`, `parseInt`, `pop`, `random`,
+ * `reduce`, `reduceRight`, `result`, `shift`, `size`, `some`, `sortedIndex`,
+ * `runInContext`, `template`, `unescape`, `uniqueId`, and `value`
  *
- * The wrapper functions `first` and `last` return wrapped values when `n` is
- * provided, otherwise they return unwrapped values.
+ * The wrapper functions `first`, `last`, and `sample` return wrapped values
+ * when `n` is provided, otherwise they return unwrapped values.
  *
  * Explicit chaining can be enabled by using the `_.chain` method.
  *

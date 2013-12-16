@@ -7,13 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isArray = require('./isArray'),
-    isString = require('./isString');
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
+    isString = require('./isString'),
+    toString = require('../internals/toString');
 
 /**
  * Checks if `value` is empty. Arrays, strings, or `arguments` objects with a

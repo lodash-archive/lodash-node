@@ -6,9 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createIterator = require('../internals/createIterator'),
-    eachIteratorOptions = require('../internals/eachIteratorOptions'),
-    forOwnIteratorOptions = require('../internals/forOwnIteratorOptions');
+var createIterator = require('../internals/createIterator');
 
 /**
  * Iterates over own and inherited enumerable properties of an object,
@@ -41,7 +39,11 @@ var createIterator = require('../internals/createIterator'),
  * });
  * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
  */
-var forIn = createIterator(eachIteratorOptions, forOwnIteratorOptions, {
+var forIn = createIterator({
+  'args': 'object, callback, thisArg',
+  'init': 'object',
+  'top': "callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3)",
+  'loop': 'if (callback(object[key], key, object) === false) {\n    return result;\n  }',
   'useHas': false
 });
 

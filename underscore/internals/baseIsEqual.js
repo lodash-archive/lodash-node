@@ -7,9 +7,11 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var forIn = require('../objects/forIn'),
+    hasOwnProperty = require('./hasOwnProperty'),
     indicatorObject = require('./indicatorObject'),
     isFunction = require('../objects/isFunction'),
-    objectTypes = require('./objectTypes');
+    objectTypes = require('./objectTypes'),
+    toString = require('./toString');
 
 /** `Object#toString` result shortcuts */
 var arrayClass = '[object Array]',
@@ -19,15 +21,6 @@ var arrayClass = '[object Array]',
     objectClass = '[object Object]',
     regexpClass = '[object RegExp]',
     stringClass = '[object String]';
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Used to resolve the internal [[Class]] of values */
-var toString = objectProto.toString;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * The base implementation of `_.isEqual`, without support for `thisArg` binding,

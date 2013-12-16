@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseRandom = require('../internals/baseRandom'),
-    isString = require('../objects/isString'),
     shuffle = require('./shuffle'),
     values = require('../objects/values');
 

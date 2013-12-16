@@ -40,15 +40,18 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * });
  * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
  */
-var forIn = function(collection, callback, thisArg) {
-  var index, iterable = collection, result = iterable;
-  if (!iterable) return result;
-  if (!objectTypes[typeof iterable]) return result;
+var forIn = function(object, callback, thisArg) {
+  var result = object;
+  if (!(object && objectTypes[typeof object])) {
+    return result;
+  }
   callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-    for (index in iterable) {
-      if (callback(iterable[index], index, collection) === false) return result;
+  for (var key in object) {
+    if (callback(object[key], key, object) === false) {
+      return result;
     }
-  return result
+  }
+  return result;
 };
 
 module.exports = forIn;
