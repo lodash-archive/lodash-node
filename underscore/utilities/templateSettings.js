@@ -7,6 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var escape = require('./escape'),
+    reEscape = require('../internals/reEscape'),
+    reEvaluate = require('../internals/reEvaluate'),
     reInterpolate = require('../internals/reInterpolate');
 
 /**
@@ -26,7 +28,7 @@ var templateSettings = {
    * @memberOf _.templateSettings
    * @type RegExp
    */
-  'escape': /<%-([\s\S]+?)%>/g,
+  'escape': reEscape,
 
   /**
    * Used to detect code to be evaluated.
@@ -34,7 +36,7 @@ var templateSettings = {
    * @memberOf _.templateSettings
    * @type RegExp
    */
-  'evaluate': /<%([\s\S]+?)%>/g,
+  'evaluate': reEvaluate,
 
   /**
    * Used to detect `data` property values to inject.
