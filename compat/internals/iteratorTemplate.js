@@ -17,91 +17,58 @@ var support = require('../support');
  */
 var iteratorTemplate = function(obj) {
 
-  var __p = 'var index, iterable = ' +
-  (obj.firstArg) +
-  ', result = ' +
+  var __p = 'var result = ' +
   (obj.init) +
-  ';\nif (!iterable) return result;\n' +
+  ';\nif (!(object && objectTypes[typeof object])) {\n  return result;\n}\n' +
   (obj.top) +
   ';';
-   if (obj.array) {
-  __p += '\nvar length = iterable.length; index = -1;\nif (' +
-  (obj.array) +
-  ') {  ';
-   if (support.unindexedChars) {
-  __p += '\n  if (isString(iterable)) {\n    iterable = iterable.split(\'\')\n  }  ';
-   }
-  __p += '\n  while (++index < length) {\n    ' +
+   if (support.nonEnumArgs) {
+  __p += '\nvar length = object.length;\nif (length && isArguments(object)) {\n  key = -1;\n  while (++key < length) {\n    key += \'\';\n    ' +
   (obj.loop) +
-  ';\n  }\n}\nelse {  ';
-   } else if (support.nonEnumArgs) {
-  __p += '\n  var length = iterable.length; index = -1;\n  if (length && isArguments(iterable)) {\n    while (++index < length) {\n      index += \'\';\n      ' +
-  (obj.loop) +
-  ';\n    }\n  } else {  ';
+  ';\n  }\n  return result;\n}';
    }
 
    if (support.enumPrototypes) {
-  __p += '\n  var skipProto = typeof iterable == \'function\';\n  ';
+  __p += '\nvar skipProto = typeof object == \'function\';\n';
    }
 
    if (support.enumErrorProps) {
-  __p += '\n  var skipErrorProps = iterable === errorProto || iterable instanceof Error;\n  ';
+  __p += '\nvar skipErrorProps = object === errorProto || object instanceof Error;\n';
    }
 
-      var conditions = [];    if (support.enumPrototypes) { conditions.push('!(skipProto && index == "prototype")'); }    if (support.enumErrorProps)  { conditions.push('!(skipErrorProps && (index == "message" || index == "name"))'); }
-
-   if (obj.useHas && obj.keys) {
-  __p += '\n  var ownIndex = -1,\n      ownProps = objectTypes[typeof iterable] && keys(iterable),\n      length = ownProps ? ownProps.length : 0;\n\n  while (++ownIndex < length) {\n    index = ownProps[ownIndex];\n';
-      if (conditions.length) {
-  __p += '    if (' +
+  var conditions = [];
+  if (support.enumPrototypes) { conditions.push('!(skipProto && key == \'prototype\')'); }
+  if (support.enumErrorProps) { conditions.push('!(skipErrorProps && (key == \'message\' || key == \'name\'))'); }
+  __p += '\nfor (var key in object) {\n';
+    if (obj.useHas) { conditions.push('hasOwnProperty.call(object, key)'); }
+    if (conditions.length) {
+  __p += '  if (' +
   (conditions.join(' && ')) +
   ') {\n  ';
    }
   __p +=
   (obj.loop) +
-  ';    ';
+  ';  ';
    if (conditions.length) {
-  __p += '\n    }';
+  __p += '\n  }';
    }
-  __p += '\n  }  ';
-   } else {
-  __p += '\n  for (index in iterable) {\n';
-      if (obj.useHas) { conditions.push("hasOwnProperty.call(iterable, index)"); }    if (conditions.length) {
-  __p += '    if (' +
-  (conditions.join(' && ')) +
-  ') {\n  ';
-   }
-  __p +=
-  (obj.loop) +
-  ';    ';
-   if (conditions.length) {
-  __p += '\n    }';
-   }
-  __p += '\n  }    ';
+  __p += '\n}\n';
    if (support.nonEnumShadows) {
-  __p += '\n\n  if (iterable !== objectProto) {\n    var ctor = iterable.constructor,\n        isProto = iterable === (ctor && ctor.prototype),\n        className = iterable === stringProto ? stringClass : iterable === errorProto ? errorClass : toString.call(iterable),\n        nonEnum = nonEnumProps[className];\n      ';
-   for (k = 0; k < 7; k++) {
-  __p += '\n    index = \'' +
-  (obj.shadowedProps[k]) +
-  '\';\n    if ((!(isProto && nonEnum[index]) && hasOwnProperty.call(iterable, index))';
-          if (!obj.useHas) {
-  __p += ' || (!nonEnum[index] && iterable[index] !== objectProto[index])';
+  __p += '\nif (object !== objectProto) {\n  var ctor = object.constructor,\n      isProto = object === (ctor && ctor.prototype),\n      className = object === stringProto ? stringClass : object === errorProto ? errorClass : toString.call(object),\n      nonEnum = nonEnumProps[className];\n  ';
+   for (var index = 0; index < 7; index++) {
+  __p += '\n  key = \'' +
+  (obj.shadowedProps[index]) +
+  '\';\n  if ((!(isProto && nonEnum[key]) && hasOwnProperty.call(object, key))';
+        if (!obj.useHas) {
+  __p += ' || (!nonEnum[key] && object[key] !== objectProto[key])';
    }
-  __p += ') {\n      ' +
+  __p += ') {\n    ' +
   (obj.loop) +
-  ';\n    }      ';
+  ';\n  }  ';
    }
-  __p += '\n  }    ';
-   }
-
-   }
-
-   if (obj.array || support.nonEnumArgs) {
   __p += '\n}';
    }
-  __p +=
-  (obj.bottom) +
-  ';\nreturn result';
+  __p += '\nreturn result;';
 
   return __p
 };

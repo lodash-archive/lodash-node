@@ -6,13 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var objectTypes = require('./objectTypes');
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
+var hasOwnProperty = require('./hasOwnProperty'),
+    objectTypes = require('./objectTypes');
 
 /**
  * A fallback implementation of `Object.keys` which produces an array of the
@@ -24,15 +19,16 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @returns {Array} Returns an array of property names.
  */
 var shimKeys = function(object) {
-  var index, iterable = object, result = [];
-  if (!iterable) return result;
-  if (!(objectTypes[typeof object])) return result;
-    for (index in iterable) {
-      if (hasOwnProperty.call(iterable, index)) {
-        result.push(index);
-      }
+  var result = [];
+  if (!(object && objectTypes[typeof object])) {
+    return result;
+  }
+  for (var key in object) {
+    if (hasOwnProperty.call(object, key)) {
+      result.push(key);
     }
-  return result
+  }
+  return result;
 };
 
 module.exports = shimKeys;

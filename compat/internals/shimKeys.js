@@ -20,8 +20,9 @@ var createIterator = require('./createIterator');
 var shimKeys = createIterator({
   'args': 'object',
   'init': '[]',
-  'top': 'if (!(objectTypes[typeof object])) return result',
-  'loop': 'result.push(index)'
+  'top': '',
+  'loop': 'result.push(key)',
+  'useHas': true
 });
 
 module.exports = shimKeys;
