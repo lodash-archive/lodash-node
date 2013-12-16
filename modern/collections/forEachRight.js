@@ -8,7 +8,6 @@
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
     forOwn = require('../objects/forOwn'),
-    isArray = require('../objects/isArray'),
     keys = require('../objects/keys');
 
 /**
