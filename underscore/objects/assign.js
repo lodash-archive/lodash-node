@@ -7,8 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    keys = require('./keys'),
-    objectTypes = require('../internals/objectTypes');
+    isObject = require('./isObject'),
+    keys = require('./keys');
 
 /**
  * Assigns own enumerable properties of source object(s) to the destination
@@ -19,7 +19,6 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  *
  * @static
  * @memberOf _
- * @type Function
  * @alias extend
  * @category Objects
  * @param {Object} object The destination object.
@@ -45,10 +44,10 @@ function assign(object) {
     return object;
   }
   for (var argsIndex = 1, argsLength = arguments.length; argsIndex < argsLength; argsIndex++) {
-    var iterable = arguments[argsIndex];
-    if (iterable) {
-      for (var key in iterable) {
-        object[key] = iterable[key];
+    var source = arguments[argsIndex];
+    if (source) {
+      for (var key in source) {
+        object[key] = source[key];
       }
     }
   }

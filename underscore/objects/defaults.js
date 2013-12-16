@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var keys = require('./keys'),
-    objectTypes = require('../internals/objectTypes');
+var isObject = require('./isObject'),
+    keys = require('./keys');
 
 /**
  * Assigns own enumerable properties of source object(s) to the destination
@@ -16,7 +16,6 @@ var keys = require('./keys'),
  *
  * @static
  * @memberOf _
- * @type Function
  * @category Objects
  * @param {Object} object The destination object.
  * @param {...Object} [source] The source objects.
@@ -34,11 +33,11 @@ function defaults(object) {
     return object;
   }
   for (var argsIndex = 1, argsLength = arguments.length; argsIndex < argsLength; argsIndex++) {
-    var iterable = arguments[argsIndex];
-    if (iterable) {
-      for (var key in iterable) {
+    var source = arguments[argsIndex];
+    if (source) {
+      for (var key in source) {
         if (typeof object[key] == 'undefined') {
-          object[key] = iterable[key];
+          object[key] = source[key];
         }
       }
     }

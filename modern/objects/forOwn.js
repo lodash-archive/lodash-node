@@ -7,8 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    keys = require('./keys'),
-    objectTypes = require('../internals/objectTypes');
+    keys = require('./keys');
 
 /**
  * Iterates over own enumerable properties of an object, executing the callback
@@ -18,7 +17,6 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  *
  * @static
  * @memberOf _
- * @type Function
  * @category Objects
  * @param {Object} object The object to iterate over.
  * @param {Function} [callback=identity] The function called per iteration.
@@ -31,20 +29,19 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * });
  * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)
  */
-var forOwn = function(collection, callback, thisArg) {
-  var index, iterable = collection, result = iterable;
-  if (!iterable) return result;
-  if (!objectTypes[typeof iterable]) return result;
-  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-    var ownIndex = -1,
-        ownProps = objectTypes[typeof iterable] && keys(iterable),
-        length = ownProps ? ownProps.length : 0;
+function forOwn(object, callback, thisArg) {
+  var index = -1,
+      props = keys(object),
+      length = props.length;
 
-    while (++ownIndex < length) {
-      index = ownProps[ownIndex];
-      if (callback(iterable[index], index, collection) === false) return result;
+  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
+  while (++index < length) {
+    var key = props[index];
+    if (callback(object[key], key, object) === false) {
+      break;
     }
-  return result
-};
+  }
+  return object;
+}
 
 module.exports = forOwn;
