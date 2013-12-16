@@ -6,10 +6,15 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isNative = require('./internals/isNative');
+var isNative = require('./internals/isNative'),
+    reNative = require('./internals/reNative'),
+    toString = require('./internals/toString');
 
 /** Used to detect functions containing a `this` reference */
 var reThis = /\bthis\b/;
+
+/** Used to detect DOM support */
+var document = (document = global.window) && document.document;
 
 /**
  * An object used to flag environments features.
@@ -19,6 +24,14 @@ var reThis = /\bthis\b/;
  * @type Object
  */
 var support = {};
+
+/**
+ * Detect if the DOM is supported.
+ *
+ * @memberOf _.support
+ * @type boolean
+ */
+support.dom = !!document && typeof document == 'object' && reNative.test(clearTimeout) && reNative.test(setTimeout);
 
 /**
  * Detect if functions can be decompiled by `Function#toString`
