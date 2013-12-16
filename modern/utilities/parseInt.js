@@ -32,7 +32,8 @@ var nativeParseInt = global.parseInt;
  * `value` is a hexadecimal, in which case a `radix` of `16` is used.
  *
  * Note: This method avoids differences in native ES3 and ES5 `parseInt`
- * implementations. See http://es5.github.io/#E.
+ * implementations. See the [ES5 spec](http://es5.github.io/#E)
+ * for more details.
  *
  * @static
  * @memberOf _

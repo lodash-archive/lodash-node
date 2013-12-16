@@ -23,13 +23,13 @@ var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
  * whitespace, and correctly escapes quotes within interpolated code.
  *
  * Note: In the development build, `_.template` utilizes sourceURLs for easier
- * debugging. See http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
+ * debugging. See [HTML5 Rocks' article on sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl).
  *
- * For more information on precompiling templates see:
- * http://lodash.com/custom-builds
+ * For more information on precompiling templates see
+ * [Lo-Dash's custom builds documentation](http://lodash.com/custom-builds).
  *
- * For more information on Chrome extension sandboxes see:
- * http://developer.chrome.com/stable/extensions/sandboxingEval.html
+ * For more information on Chrome extension sandboxes see
+ * [Chrome's extensions documentation](http://developer.chrome.com/stable/extensions/sandboxingEval.html).
  *
  * @static
  * @memberOf _

@@ -11,9 +11,12 @@ var keys = require('../objects/keys'),
     unescapeHtmlChar = require('../internals/unescapeHtmlChar');
 
 /**
- * The inverse of `_.escape` this method converts the HTML entities
+ * The inverse of `_.escape`; this method converts the HTML entities
  * `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&#39;` in `string` to their
  * corresponding characters.
+ *
+ * Note: No other HTML entities are unescaped. To unescape additional HTML
+ * entities use a third-party library like [_he_](http://mths.be/he).
  *
  * @static
  * @memberOf _

@@ -18,7 +18,8 @@ var baseClone = require('../internals/baseClone'),
  * Note: This method is loosely based on the structured clone algorithm. Functions
  * and DOM nodes are **not** cloned. The enumerable properties of `arguments` objects and
  * objects created by constructors other than `Object` are cloned to plain `Object` objects.
- * See http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm.
+ * See the [HTML5 specification](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm)
+ * for more details.
  *
  * @static
  * @memberOf _

@@ -13,7 +13,7 @@ var createCallback = require('../functions/createCallback'),
 var nativeMax = Math.max;
 
 /**
- * The opposite of `_.initial` this method gets all but the first element or
+ * The opposite of `_.initial`; this method gets all but the first element or
  * first `n` elements of an array. If a callback function is provided elements
  * at the beginning of the array are excluded from the result as long as the
  * callback returns truey. The callback is bound to `thisArg` and invoked

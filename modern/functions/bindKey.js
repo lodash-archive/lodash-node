@@ -14,7 +14,8 @@ var createWrapper = require('../internals/createWrapper'),
  * and prepends any additional `bindKey` arguments to those provided to the bound
  * function. This method differs from `_.bind` by allowing bound functions to
  * reference methods that will be redefined or don't yet exist.
- * See http://michaux.ca/articles/lazy-function-definition-pattern.
+ * See [Peter Michaux's article](http://michaux.ca/articles/lazy-function-definition-pattern)
+ * for more details.
  *
  * @static
  * @memberOf _

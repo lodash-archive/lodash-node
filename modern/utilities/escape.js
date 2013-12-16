@@ -14,6 +14,9 @@ var escapeHtmlChar = require('../internals/escapeHtmlChar'),
  * Converts the characters `&`, `<`, `>`, `"`, and `'` in `string` to their
  * corresponding HTML entities.
  *
+ * Note: No other characters are escaped. To escape additional characters
+ * use a third-party library like [_he_](http://mths.be/he).
+ *
  * @static
  * @memberOf _
  * @category Utilities
