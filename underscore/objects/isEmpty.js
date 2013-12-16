@@ -6,9 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isArray = require('./isArray'),
-    isString = require('./isString'),
-    toString = require('../internals/toString');
+var hasOwnProperty = require('../internals/hasOwnProperty'),
+    isArray = require('./isArray'),
+    isString = require('./isString');
 
 /**
  * Checks if `value` is empty. Arrays, strings, or `arguments` objects with a
