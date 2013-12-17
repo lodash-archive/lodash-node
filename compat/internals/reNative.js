@@ -12,7 +12,7 @@ var toString = require('./toString');
 var reNative = RegExp('^' +
   String(toString)
     .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    .replace(/toString| for [^\]]+/g, '.*?') + '$'
+    .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
 );
 
 module.exports = reNative;
