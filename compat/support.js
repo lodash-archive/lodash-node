@@ -70,14 +70,6 @@ var support = {};
   support.argsObject = arguments.constructor == Object && !(arguments instanceof Array);
 
   /**
-   * Detect if the DOM is supported.
-   *
-   * @memberOf _.support
-   * @type boolean
-   */
-  support.dom = !!document && typeof document == 'object' && reNative.test(clearTimeout) && reNative.test(setTimeout);
-
-  /**
    * Detect if `name` or `message` properties of `Error.prototype` are
    * enumerable by default. (IE < 9, Safari < 5.1)
    *
@@ -168,6 +160,18 @@ var support = {};
    * @type boolean
    */
   support.unindexedChars = ('x'[0] + Object('x')[0]) != 'xx';
+
+  /**
+   * Detect if the DOM is supported.
+   *
+   * @memberOf _.support
+   * @type boolean
+   */
+  try {
+    support.dom = document.createDocumentFragment().nodeType === 11;
+  } catch(e) {
+    support.dom = false;
+  }
 
   /**
    * Detect if a DOM node's [[Class]] is resolvable (all but IE < 9)
