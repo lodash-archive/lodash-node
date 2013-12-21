@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var keys = require('../objects/keys'),
-    reEscapedHtml = require('../internals/reEscapedHtml'),
+var reEscapedHtml = require('../internals/reEscapedHtml'),
     unescapeHtmlChar = require('../internals/unescapeHtmlChar');
 
 /**

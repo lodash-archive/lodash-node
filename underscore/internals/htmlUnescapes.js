@@ -6,10 +6,14 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var htmlEscapes = require('./htmlEscapes'),
-    invert = require('../objects/invert');
 
 /** Used to convert HTML entities to characters */
-var htmlUnescapes = invert(htmlEscapes);
+var htmlUnescapes = {
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#x27;': "'"
+};
 
 module.exports = htmlUnescapes;

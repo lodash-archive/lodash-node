@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var escapeHtmlChar = require('../internals/escapeHtmlChar'),
-    keys = require('../objects/keys'),
     reUnescapedHtml = require('../internals/reUnescapedHtml');
 
 /**
