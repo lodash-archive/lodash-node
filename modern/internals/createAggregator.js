@@ -7,8 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createCallback = require('../functions/createCallback'),
-    forOwn = require('../objects/forOwn'),
-    isArray = require('../objects/isArray');
+    forOwn = require('../objects/forOwn');
 
 /**
  * Creates a function that aggregates a collection, creating an object composed
