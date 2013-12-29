@@ -8,9 +8,7 @@
  */
 var compareAscending = require('../internals/compareAscending'),
     createCallback = require('../functions/createCallback'),
-    forEach = require('./forEach'),
-    isArray = require('../objects/isArray'),
-    map = require('./map');
+    forEach = require('./forEach');
 
 /**
  * Creates an array of elements, sorted in ascending order by the results of
@@ -69,7 +67,7 @@ function sortBy(collection, callback, thisArg) {
   callback = createCallback(callback, thisArg, 3);
   forEach(collection, function(value, key, collection) {
     result[++index] = {
-      'criteria': [callback(value, key, collection)],
+      'criteria': callback(value, key, collection),
       'index': index,
       'value': value
     };
