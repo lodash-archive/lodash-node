@@ -1,7 +1,7 @@
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
@@ -17,23 +17,17 @@ var reThis = /\bthis\b/;
 var argsClass = '[object Arguments]',
     objectClass = '[object Object]';
 
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
 /** Used for native method references */
-var errorProto = Error.prototype,
+var arrayRef = Array.prototype,
+    errorProto = Error.prototype,
     objectProto = Object.prototype;
 
 /** Used to detect DOM support */
 var document = (document = global.window) && document.document;
 
 /** Native method shortcuts */
-var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+var propertyIsEnumerable = objectProto.propertyIsEnumerable,
+    splice = arrayRef.splice;
 
 /**
  * An object used to flag environments features.
@@ -148,7 +142,7 @@ var support = {};
    * @memberOf _.support
    * @type boolean
    */
-  support.spliceObjects = (arrayRef.splice.call(object, 0, 1), !object[0]);
+  support.spliceObjects = (splice.call(object, 0, 1), !object[0]);
 
   /**
    * Detect lack of support for accessing string characters by index.
