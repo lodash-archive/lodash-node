@@ -6,9 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isString = require('../objects/isString');
+var trim = require('../internals/trim');
 
-/** Used to detect and test whitespace */
+/** Used to detect and test whitespace (unicode 6.3.0) */
 var whitespace = (
   // whitespace
   ' \t\x0B\f\xA0\ufeff' +
@@ -17,11 +17,11 @@ var whitespace = (
   '\n\r\u2028\u2029' +
 
   // unicode category "Zs" space separators
-  '\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000'
+  '\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000'
 );
 
-/** Used to match leading whitespace and zeros to be removed */
-var reLeadingSpacesAndZeros = RegExp('^[' + whitespace + ']*0+(?=.$)');
+/** Used to detect hexadecimal string values */
+var reHexPrefix = /^0[xX]/;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeParseInt = global.parseInt;
@@ -47,8 +47,10 @@ var nativeParseInt = global.parseInt;
  * // => 8
  */
 var parseInt = nativeParseInt(whitespace + '08') == 8 ? nativeParseInt : function(value, radix) {
-  // Firefox < 21 and Opera < 15 follow the ES3 specified implementation of `parseInt`
-  return nativeParseInt(isString(value) ? value.replace(reLeadingSpacesAndZeros, '') : value, radix || 0);
+  // Chrome fails to trim leading <BOM> whitespace characters.
+  // Firefox < 21 and Opera < 15 follow the ES3 specified implementation of `parseInt`.
+  value = trim(value);
+  return nativeParseInt(value, +radix || (reHexPrefix.test(value) ? 16 : 10));
 };
 
 module.exports = parseInt;
