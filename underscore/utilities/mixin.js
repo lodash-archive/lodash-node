@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var forEach = require('../collections/forEach'),
-    functions = require('../objects/functions'),
+var functions = require('../objects/functions'),
     isFunction = require('../objects/isFunction');
 
 /** Used for native method references */
@@ -45,25 +44,31 @@ var push = arrayRef.push;
  * // => 'Fred'
  */
 function mixin(object, source) {
-  var ctor = object,
-      isFunc = isFunction(ctor);
+  var index = -1,
+      isFunc = isFunction(object),
+      methodNames = functions(source),
+      length = methodNames.length;
 
-  forEach(functions(source), function(methodName) {
-    var func = object[methodName] = source[methodName];
+  while (++index < length) {
+    var methodName = methodNames[index],
+        func = object[methodName] = source[methodName];
+
     if (isFunc) {
-      ctor.prototype[methodName] = function() {
-        var args = [this.__wrapped__];
-        push.apply(args, arguments);
+      object.prototype[methodName] = (function(func) {
+        return function() {
+          var args = [this.__wrapped__];
+          push.apply(args, arguments);
 
-        var result = func.apply(object, args);
-        if (this.__chain__) {
-          result = new ctor(result);
-          result.__chain__ = true;
-        }
-        return result;
-      };
+          var result = func.apply(object, args);
+          if (this.__chain__) {
+            result = new object(result);
+            result.__chain__ = true;
+          }
+          return result;
+        };
+      }(func));
     }
-  });
+  }
 }
 
 module.exports = mixin;
