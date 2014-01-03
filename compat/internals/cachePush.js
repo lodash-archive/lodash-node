@@ -28,7 +28,12 @@ function cachePush(value) {
         typeCache = cache[type] || (cache[type] = {});
 
     if (type == 'object') {
-      (typeCache[key] || (typeCache[key] = [])).push(value);
+      var array = typeCache[key];
+      if (array) {
+        array.push(value);
+      } else {
+        typeCache[key] = [value];
+      }
     } else {
       typeCache[key] = true;
     }
