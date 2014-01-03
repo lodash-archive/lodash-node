@@ -1,14 +1,13 @@
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
+ * Build: `lodash modularize exports="node" -o ./compat/`
  * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isNative = require('./isNative'),
-    trimmedLeftIndex = require('./trimmedLeftIndex'),
-    trimmedRightIndex = require('./trimmedRightIndex');
+var isNative = require('../internals/isNative'),
+    trimmedRightIndex = require('../internals/trimmedRightIndex');
 
 /** Used to detect and test whitespace (unicode 6.3.0) */
 var whitespace = (
@@ -26,26 +25,32 @@ var whitespace = (
 var stringProto = String.prototype;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeTrim = isNative(nativeTrim = stringProto.trim) && nativeTrim;
+var nativeTrimRight = isNative(nativeTrimRight = stringProto.trimRight) && nativeTrimRight;
 
 /**
- * Removes leading and trailing whitespace from a given string.
+ * Removes trailing whitespace from a given string.
  *
- * @private
+ * @static
+ * @memberOf _
+ * @category Strings
  * @param {string} string The string to trim.
  * @returns {string} Returns the trimmed string.
+ * @example
+ *
+ * _.trimRight('  fred  ');
+ * // => '  fred'
  */
-function trim(string) {
-  return string == null ? '' : nativeTrim.call(string);
+function trimRight(string) {
+  return string == null ? '' : nativeTrimRight.call(string);
 }
-// fallback for environments without a proper `String#trim`
-if (!nativeTrim || nativeTrim.call(whitespace)) {
-  trim = function(string) {
+// fallback for environments without a proper `String#trimRight`
+if (!nativeTrimRight || nativeTrimRight.call(whitespace)) {
+  trimRight = function(string) {
     string = string == null ? '' : String(string);
     return string
-      ? string.slice(trimmedLeftIndex(string), trimmedRightIndex(string) + 1)
+      ? string.slice(0, trimmedRightIndex(string) + 1)
       : string;
   };
 }
 
-module.exports = trim;
+module.exports = trimRight;

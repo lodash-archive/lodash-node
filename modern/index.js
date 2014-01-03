@@ -12,6 +12,7 @@ var arrays = require('./arrays'),
     collections = require('./collections'),
     functions = require('./functions'),
     objects = require('./objects'),
+    strings = require('./strings'),
     utilities = require('./utilities'),
     assign = require('./objects/assign'),
     forEach = require('./collections/forEach'),
@@ -251,6 +252,9 @@ lodash.size = collections.size;
 lodash.some = collections.some;
 lodash.sortedIndex = arrays.sortedIndex;
 lodash.template = utilities.template;
+lodash.trim = strings.trim;
+lodash.trimLeft = strings.trimLeft;
+lodash.trimRight = strings.trimRight;
 lodash.unescape = utilities.unescape;
 lodash.uniqueId = utilities.uniqueId;
 

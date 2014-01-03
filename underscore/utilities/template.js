@@ -33,7 +33,7 @@ var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
  *
  * @static
  * @memberOf _
- * @category Utilities
+ * @category Strings
  * @param {string} text The template text.
  * @param {Object} data The data object used to populate the text.
  * @param {Object} [options] The options object.

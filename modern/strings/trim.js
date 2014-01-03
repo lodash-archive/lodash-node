@@ -1,14 +1,14 @@
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
+ * Build: `lodash modularize modern exports="node" -o ./modern/`
  * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isNative = require('./isNative'),
-    trimmedLeftIndex = require('./trimmedLeftIndex'),
-    trimmedRightIndex = require('./trimmedRightIndex');
+var isNative = require('../internals/isNative'),
+    trimmedLeftIndex = require('../internals/trimmedLeftIndex'),
+    trimmedRightIndex = require('../internals/trimmedRightIndex');
 
 /** Used to detect and test whitespace (unicode 6.3.0) */
 var whitespace = (
@@ -31,9 +31,15 @@ var nativeTrim = isNative(nativeTrim = stringProto.trim) && nativeTrim;
 /**
  * Removes leading and trailing whitespace from a given string.
  *
- * @private
+ * @static
+ * @memberOf _
+ * @category Strings
  * @param {string} string The string to trim.
  * @returns {string} Returns the trimmed string.
+ * @example
+ *
+ * _.trim('  fred  ');
+ * // => 'fred'
  */
 function trim(string) {
   return string == null ? '' : nativeTrim.call(string);

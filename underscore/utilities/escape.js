@@ -18,13 +18,13 @@ var escapeHtmlChar = require('../internals/escapeHtmlChar'),
  *
  * @static
  * @memberOf _
- * @category Utilities
+ * @category Strings
  * @param {string} string The string to escape.
  * @returns {string} Returns the escaped string.
  * @example
  *
- * _.escape('Fred, Wilma, & Pebbles');
- * // => 'Fred, Wilma, &amp; Pebbles'
+ * _.escape('fred, barney, & pebbles');
+ * // => 'fred, barney, &amp; pebbles'
  */
 function escape(string) {
   return string == null ? '' : String(string).replace(reUnescapedHtml, escapeHtmlChar);
