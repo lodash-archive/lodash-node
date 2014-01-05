@@ -53,14 +53,15 @@ var arrayRef = Array.prototype;
  * and `zip`
  *
  * The non-chainable wrapper functions are:
- * `clone`, `cloneDeep`, `contains`, `escape`, `every`, `find`, `findIndex`,
- * `findKey`, `findLast`, `findLastIndex`, `findLastKey`, `has`, `identity`,
- * `indexOf`, `isArguments`, `isArray`, `isBoolean`, `isDate`, `isElement`,
- * `isEmpty`, `isEqual`, `isFinite`, `isFunction`, `isNaN`, `isNull`, `isNumber`,
- * `isObject`, `isPlainObject`, `isRegExp`, `isString`, `isUndefined`, `join`,
- * `lastIndexOf`, `mixin`, `noConflict`, `now`, `parseInt`, `pop`, `random`,
- * `reduce`, `reduceRight`, `result`, `shift`, `size`, `some`, `sortedIndex`,
- * `runInContext`, `template`, `unescape`, `uniqueId`, and `value`
+ * `capitalize`, `clone`, `cloneDeep`, `contains`, `escape`, `every`, `find`,
+ * `findIndex`, `findKey`, `findLast`, `findLastIndex`, `findLastKey`, `has`,
+ * `identity`, `indexOf`, `isArguments`, `isArray`, `isBoolean`, `isDate`,
+ * `isElement`, `isEmpty`, `isEqual`, `isFinite`, `isFunction`, `isNaN`,
+ * `isNull`, `isNumber`, `isObject`, `isPlainObject`, `isRegExp`, `isString`,
+ * `isUndefined`, `join`, `lastIndexOf`, `mixin`, `noConflict`, `now`,
+ * `parseInt`, `pop`, `random`, `reduce`, `reduceRight`, `result`, `shift`,
+ * `size`, `some`, `sortedIndex`, `runInContext`, `template`, `trim`,
+ * `trimLeft`, `trimRight`, `unescape`, `uniqueId`, and `value`
  *
  * The wrapper functions `first`, `last`, and `sample` return wrapped values
  * when `n` is provided, otherwise they return unwrapped values.
@@ -207,6 +208,7 @@ lodash.unzip = arrays.zip;
 mixin(assign({}, lodash));
 
 // add functions that return unwrapped values when chaining
+lodash.capitalize = strings.capitalize;
 lodash.clone = objects.clone;
 lodash.cloneDeep = objects.cloneDeep;
 lodash.contains = collections.contains;

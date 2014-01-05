@@ -8,6 +8,7 @@
  */
 
 module.exports = {
+  'capitalize': require('./strings/capitalize'),
   'escape': require('./utilities/escape'),
   'template': require('./utilities/template'),
   'templateSettings': require('./utilities/templateSettings'),
