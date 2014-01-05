@@ -9,8 +9,8 @@
 var lodashWrapper = require('../internals/lodashWrapper');
 
 /**
- * Creates a `lodash` object that wraps the given value with explicit
- * method chaining enabled.
+ * Creates a `lodash` object that wraps `value` with explicit method
+ * chaining enabled.
  *
  * @static
  * @memberOf _

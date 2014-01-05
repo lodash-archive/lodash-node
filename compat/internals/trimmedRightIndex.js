@@ -8,7 +8,7 @@
  */
 
 /**
- * Gets the index of the last non-whitespace character of a given string.
+ * Gets the index of the last non-whitespace character of `string`.
  *
  * @private
  * @param {string} string The string to inspect.

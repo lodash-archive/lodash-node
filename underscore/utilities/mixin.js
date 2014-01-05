@@ -28,20 +28,22 @@ var push = arrayRef.push;
  * @param {boolean} [options.chain=true] Specify whether the functions added are chainable.
  * @example
  *
- * function capitalize(string) {
- *   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+ * function vowels(string) {
+ *   return _.filter(string, function(v) {
+ *     return /[aeiou]/i.test(v);
+ *   });
  * }
  *
- * _.mixin({ 'capitalize': capitalize });
- * _.capitalize('fred');
- * // => 'Fred'
+ * _.mixin({ 'vowels': vowels });
+ * _.vowels('fred');
+ * // => ['e']
  *
- * _('fred').capitalize().value();
- * // => 'Fred'
+ * _('fred').vowels().value();
+ * // => ['e']
  *
- * _.mixin({ 'capitalize': capitalize }, { 'chain': false });
- * _('fred').capitalize();
- * // => 'Fred'
+ * _.mixin({ 'vowels': vowels }, { 'chain': false });
+ * _('fred').vowels();
+ * // => ['e']
  */
 function mixin(object, source) {
   var index = -1,

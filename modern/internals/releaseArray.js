@@ -10,7 +10,7 @@ var arrayPool = require('./arrayPool'),
     maxPoolSize = require('./maxPoolSize');
 
 /**
- * Releases the given array back to the array pool.
+ * Releases `array` back to the array pool.
  *
  * @private
  * @param {Array} [array] The array to release.

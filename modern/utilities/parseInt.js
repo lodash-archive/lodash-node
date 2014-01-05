@@ -8,7 +8,7 @@
  */
 var trim = require('../strings/trim');
 
-/** Used to detect and test whitespace (unicode 6.3.0) */
+/** Used to detect and test whitespace */
 var whitespace = (
   // whitespace
   ' \t\x0B\f\xA0\ufeff' +
@@ -27,9 +27,9 @@ var reHexPrefix = /^0[xX]/;
 var nativeParseInt = global.parseInt;
 
 /**
- * Converts the given value into an integer of the specified radix.
- * If `radix` is `undefined` or `0` a `radix` of `10` is used unless the
- * `value` is a hexadecimal, in which case a `radix` of `16` is used.
+ * Converts `value` to an integer of the specified radix. If `radix` is
+ * `undefined` or `0` a `radix` of `10` is used unless the `value` is a
+ * hexadecimal, in which case a `radix` of `16` is used.
  *
  * Note: This method avoids differences in native ES3 and ES5 `parseInt`
  * implementations. See the [ES5 spec](http://es5.github.io/#E)

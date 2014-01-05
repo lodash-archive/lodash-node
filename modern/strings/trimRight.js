@@ -9,7 +9,7 @@
 var isNative = require('../internals/isNative'),
     trimmedRightIndex = require('../internals/trimmedRightIndex');
 
-/** Used to detect and test whitespace (unicode 6.3.0) */
+/** Used to detect and test whitespace */
 var whitespace = (
   // whitespace
   ' \t\x0B\f\xA0\ufeff' +
@@ -28,7 +28,7 @@ var stringProto = String.prototype;
 var nativeTrimRight = isNative(nativeTrimRight = stringProto.trimRight) && nativeTrimRight;
 
 /**
- * Removes trailing whitespace from a given string.
+ * Removes trailing whitespace from `string`.
  *
  * @static
  * @memberOf _
