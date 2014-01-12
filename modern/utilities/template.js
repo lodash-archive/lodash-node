@@ -48,7 +48,7 @@ var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
  * @memberOf _
  * @category Strings
  * @param {string} text The template text.
- * @param {Object} data The data object used to populate the text.
+ * @param {Object} [data] The data object used to populate the text.
  * @param {Object} [options] The options object.
  * @param {RegExp} [options.escape] The "escape" delimiter.
  * @param {RegExp} [options.evaluate] The "evaluate" delimiter.
