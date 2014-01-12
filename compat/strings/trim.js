@@ -7,8 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isNative = require('../internals/isNative'),
-    trimmedLeftIndex = require('../internals/trimmedLeftIndex'),
-    trimmedRightIndex = require('../internals/trimmedRightIndex');
+    shimTrim = require('../internals/shimTrim');
 
 /** Used to detect and test whitespace */
 var whitespace = (
@@ -26,32 +25,30 @@ var whitespace = (
 var stringProto = String.prototype;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeTrim = isNative(nativeTrim = stringProto.trim) && nativeTrim;
+var nativeTrim = isNative(nativeTrim = stringProto.trim) && !nativeTrim.call(whitespace) && nativeTrim;
 
 /**
- * Removes leading and trailing whitespace from `string`.
+ * Removes leading and trailing whitespace or specified characters from `string`.
  *
  * @static
  * @memberOf _
  * @category Strings
  * @param {string} string The string to trim.
+ * @param {string} [chars=whitespace] The characters to trim.
  * @returns {string} Returns the trimmed string.
  * @example
  *
  * _.trim('  fred  ');
  * // => 'fred'
+ *
+ * _.trim('-_-fred-_-', '_-');
+ * // => 'fred'
  */
-function trim(string) {
-  return string == null ? '' : nativeTrim.call(string);
-}
-// fallback for environments without a proper `String#trim`
-if (!nativeTrim || nativeTrim.call(whitespace)) {
-  trim = function(string) {
-    string = string == null ? '' : String(string);
-    return string
-      ? string.slice(trimmedLeftIndex(string), trimmedRightIndex(string) + 1)
-      : string;
-  };
-}
+var trim = !nativeTrim ? shimTrim : function(string, chars) {
+  if (string == null) {
+    return '';
+  }
+  return chars == null ? nativeTrim.call(string) : shimTrim(string, chars);
+};
 
 module.exports = trim;
