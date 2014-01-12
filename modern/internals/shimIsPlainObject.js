@@ -30,7 +30,8 @@ function shimIsPlainObject(value) {
 
   // avoid non Object objects, `arguments` objects, and DOM elements
   if (!(value && toString.call(value) == objectClass) ||
-      (ctor = value.constructor, isFunction(ctor) && !(ctor instanceof ctor))) {
+      (!hasOwnProperty.call(value, 'constructor') &&
+        (ctor = value.constructor, isFunction(ctor) && !(ctor instanceof ctor)))) {
     return false;
   }
   // In most environments an object's own properties are iterated before
