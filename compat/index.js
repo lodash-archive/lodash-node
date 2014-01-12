@@ -175,6 +175,7 @@ lodash.reject = collections.reject;
 lodash.remove = arrays.remove;
 lodash.rest = arrays.rest;
 lodash.shuffle = collections.shuffle;
+lodash.slice = arrays.slice;
 lodash.sortBy = collections.sortBy;
 lodash.tap = chaining.tap;
 lodash.throttle = functions.throttle;
@@ -341,7 +342,7 @@ baseEach(['push', 'reverse', 'sort', 'unshift'], function(methodName) {
 });
 
 // add `Array` functions that return new wrapped values
-baseEach(['concat', 'slice', 'splice'], function(methodName) {
+baseEach(['concat', 'splice'], function(methodName) {
   var func = arrayRef[methodName];
   lodash.prototype[methodName] = function() {
     return new lodashWrapper(func.apply(this.__wrapped__, arguments), this.__chain__);

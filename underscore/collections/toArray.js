@@ -8,7 +8,7 @@
  */
 var isArray = require('../objects/isArray'),
     map = require('./map'),
-    slice = require('../internals/slice'),
+    slice = require('../arrays/slice'),
     values = require('../objects/values');
 
 /**

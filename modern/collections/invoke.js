@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var forEach = require('./forEach'),
-    slice = require('../internals/slice');
+    slice = require('../arrays/slice');
 
 /**
  * Invokes the method named by `methodName` on each element in the `collection`

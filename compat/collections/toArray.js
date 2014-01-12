@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isString = require('../objects/isString'),
-    slice = require('../internals/slice'),
+    slice = require('../arrays/slice'),
     support = require('../support'),
     values = require('../objects/values');
 

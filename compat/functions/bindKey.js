@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createWrapper = require('../internals/createWrapper'),
-    slice = require('../internals/slice');
+    slice = require('../arrays/slice');
 
 /**
  * Creates a function that, when called, invokes the method at `object[key]`

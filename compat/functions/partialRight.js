@@ -7,11 +7,14 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createWrapper = require('../internals/createWrapper'),
-    slice = require('../internals/slice');
+    slice = require('../arrays/slice');
 
 /**
  * This method is like `_.partial` except that `partial` arguments are
  * appended to those provided to the new function.
+ *
+ * Note: This method does not set the `length` property of partially applied
+ * functions.
  *
  * @static
  * @memberOf _

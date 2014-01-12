@@ -14,7 +14,7 @@ var assign = require('../objects/assign'),
     isArray = require('../objects/isArray'),
     isObject = require('../objects/isObject'),
     releaseArray = require('./releaseArray'),
-    slice = require('./slice'),
+    slice = require('../arrays/slice'),
     toString = require('./toString');
 
 /** Used to match regexp flags from their coerced string values */

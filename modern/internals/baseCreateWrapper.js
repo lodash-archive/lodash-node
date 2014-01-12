@@ -9,7 +9,7 @@
 var baseCreate = require('./baseCreate'),
     isObject = require('../objects/isObject'),
     setBindData = require('./setBindData'),
-    slice = require('./slice');
+    slice = require('../arrays/slice');
 
 /** Used for native method references */
 var arrayRef = Array.prototype;

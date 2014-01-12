@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseDifference = require('../internals/baseDifference'),
-    slice = require('../internals/slice');
+    slice = require('./slice');
 
 /**
  * Creates an array excluding all provided values using strict equality for

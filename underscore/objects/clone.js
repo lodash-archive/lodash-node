@@ -10,7 +10,7 @@ var assign = require('./assign'),
     baseCreateCallback = require('../internals/baseCreateCallback'),
     isArray = require('./isArray'),
     isObject = require('./isObject'),
-    slice = require('../internals/slice');
+    slice = require('../arrays/slice');
 
 /**
  * Creates a clone of `value`. If `isDeep` is `true` nested objects will also

@@ -7,11 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createCallback = require('../functions/createCallback'),
-    slice = require('../internals/slice');
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeMax = Math.max,
-    nativeMin = Math.min;
+    slice = require('./slice');
 
 /**
  * Gets all but the last element or last `n` elements of an array. If a
@@ -78,7 +74,8 @@ function initial(array, callback, thisArg) {
   } else {
     n = (callback == null || thisArg) ? 1 : callback || n;
   }
-  return slice(array, 0, nativeMin(nativeMax(0, length - n), length));
+  n = length - n;
+  return slice(array, 0, n > 0 ? n : 0);
 }
 
 module.exports = initial;

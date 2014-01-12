@@ -22,6 +22,7 @@ module.exports = {
   'object': require('./arrays/zipObject'),
   'range': require('./arrays/range'),
   'rest': require('./arrays/rest'),
+  'slice': require('./arrays/slice'),
   'sortedIndex': require('./arrays/sortedIndex'),
   'tail': require('./arrays/rest'),
   'take': require('./arrays/first'),

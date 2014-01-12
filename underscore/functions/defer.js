@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isFunction = require('../objects/isFunction'),
-    slice = require('../internals/slice');
+    slice = require('../arrays/slice');
 
 /**
  * Defers executing the `func` function until the current call stack has cleared.

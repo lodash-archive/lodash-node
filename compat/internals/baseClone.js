@@ -15,7 +15,7 @@ var assign = require('../objects/assign'),
     isNode = require('./isNode'),
     isObject = require('../objects/isObject'),
     releaseArray = require('./releaseArray'),
-    slice = require('./slice'),
+    slice = require('../arrays/slice'),
     support = require('../support'),
     toString = require('./toString');
 
