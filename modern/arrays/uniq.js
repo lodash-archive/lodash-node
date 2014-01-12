@@ -7,7 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseUniq = require('../internals/baseUniq'),
-    createCallback = require('../functions/createCallback');
+    createCallback = require('../functions/createCallback'),
+    indexTypes = require('../internals/indexTypes');
 
 /**
  * Creates a duplicate-value-free version of an array using strict equality
@@ -60,7 +61,7 @@ function uniq(array, isSorted, callback, thisArg) {
   // juggle arguments
   if (typeof isSorted != 'boolean' && isSorted != null) {
     thisArg = callback;
-    callback = (typeof isSorted != 'function' && thisArg && thisArg[isSorted] === array) ? null : isSorted;
+    callback = (indexTypes[typeof isSorted] && thisArg && thisArg[isSorted] === array) ? null : isSorted;
     isSorted = false;
   }
   if (callback != null) {

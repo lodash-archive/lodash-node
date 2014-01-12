@@ -9,6 +9,7 @@
 var baseEach = require('../internals/baseEach'),
     charAtCallback = require('../internals/charAtCallback'),
     createCallback = require('../functions/createCallback'),
+    indexTypes = require('../internals/indexTypes'),
     isArray = require('../objects/isArray'),
     isString = require('../objects/isString');
 
@@ -58,7 +59,7 @@ function max(collection, callback, thisArg) {
 
   // allows working with functions like `_.map` without using
   // their `index` argument as a callback
-  if (typeof callback != 'function' && thisArg && thisArg[callback] === collection) {
+  if (indexTypes[typeof callback] && thisArg && thisArg[callback] === collection) {
     callback = null;
   }
   if (callback == null && isArray(collection)) {

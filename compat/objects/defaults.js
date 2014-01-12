@@ -6,7 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isObject = require('./isObject'),
+var indexTypes = require('../internals/indexTypes'),
+    isObject = require('./isObject'),
     keys = require('./keys');
 
 /**
@@ -31,7 +32,7 @@ var isObject = require('./isObject'),
 function defaults(object, source, guard) {
   var args = arguments,
       argsIndex = 0,
-      argsLength = typeof guard == 'number' ? 2 : args.length;
+      argsLength = indexTypes[typeof guard] && args[3] && args[3][guard] === source ? 2 : args.length;
 
   while (++argsIndex < argsLength) {
     source = args[argsIndex];

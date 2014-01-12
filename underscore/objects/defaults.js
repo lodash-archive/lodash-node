@@ -6,7 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isObject = require('./isObject'),
+var indexTypes = require('../internals/indexTypes'),
+    isObject = require('./isObject'),
     keys = require('./keys');
 
 /**
@@ -28,12 +29,16 @@ var isObject = require('./isObject'),
  * _.defaults(object, { 'name': 'fred', 'employer': 'slate' });
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
-function defaults(object) {
+function defaults(object, source, guard) {
   if (!object) {
     return object;
   }
-  for (var argsIndex = 1, argsLength = arguments.length; argsIndex < argsLength; argsIndex++) {
-    var source = arguments[argsIndex];
+  var args = arguments,
+      argsIndex = 0,
+      argsLength = indexTypes[typeof guard] && args[3] && args[3][guard] === source ? 2 : args.length;
+
+  while (++argsIndex < argsLength) {
+    source = args[argsIndex];
     if (source) {
       for (var key in source) {
         if (typeof object[key] == 'undefined') {

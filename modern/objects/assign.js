@@ -7,6 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
+    indexTypes = require('../internals/indexTypes'),
     isObject = require('./isObject'),
     keys = require('./keys');
 
@@ -42,8 +43,9 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
 function assign(object, source, guard) {
   var args = arguments,
       argsIndex = 0,
-      argsLength = typeof guard == 'number' ? 2 : args.length;
+      argsLength = indexTypes[typeof guard] && args[3] && args[3][guard] === source ? 2 : args.length;
 
+  // juggle arguments
   if (argsLength > 3 && typeof args[argsLength - 2] == 'function') {
     var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);
   } else if (argsLength > 2 && typeof args[argsLength - 1] == 'function') {
