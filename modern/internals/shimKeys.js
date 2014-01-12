@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var hasOwnProperty = require('./hasOwnProperty'),
-    objectTypes = require('./objectTypes');
+var objectTypes = require('./objectTypes');
 
 /** Used for native method references */
 var objectProto = Object.prototype;
