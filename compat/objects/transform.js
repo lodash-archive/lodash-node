@@ -13,7 +13,7 @@ var baseCreate = require('../internals/baseCreate'),
     isArray = require('./isArray');
 
 /**
- * An alternative to `_.reduce` this method transforms `object` to a new
+ * An alternative to `_.reduce`; this method transforms `object` to a new
  * `accumulator` object which is the result of running each of its own
  * enumerable properties through a callback, with each callback execution
  * potentially mutating the `accumulator` object. The callback is bound to

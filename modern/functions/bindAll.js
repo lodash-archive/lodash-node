@@ -16,6 +16,8 @@ var baseFlatten = require('../internals/baseFlatten'),
  * of method names. If no method names are provided all the function properties
  * of `object` will be bound.
  *
+ * Note: This method does not set the `length` property of bound functions.
+ *
  * @static
  * @memberOf _
  * @category Functions
