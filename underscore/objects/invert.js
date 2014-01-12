@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var hasOwnProperty = require('../internals/hasOwnProperty'),
-    keys = require('./keys');
+var keys = require('./keys');
 
 /**
  * Creates an object composed of the inverted keys and values of the given
@@ -34,26 +33,15 @@ var hasOwnProperty = require('../internals/hasOwnProperty'),
  * _.invert({ 'first': 'fred', 'second': 'barney', 'third': 'fred' }, true);
  * // => { 'fred': ['first', 'third'], 'barney': ['second'] }
  */
-function invert(object, multiValue) {
+function invert(object) {
   var index = -1,
       props = keys(object),
       length = props.length,
       result = {};
 
   while (++index < length) {
-    var key = props[index],
-        value = object[key];
-
-    if (multiValue) {
-      if (hasOwnProperty.call(result, value)) {
-        result[value].push(key);
-      } else {
-        result[value] = [key];
-      }
-    }
-    else {
-      result[value] = key;
-    }
+    var key = props[index];
+    result[object[key]] = key;
   }
   return result;
 }

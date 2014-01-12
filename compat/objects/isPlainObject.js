@@ -9,11 +9,16 @@
 var isArguments = require('./isArguments'),
     isNative = require('../internals/isNative'),
     shimIsPlainObject = require('../internals/shimIsPlainObject'),
-    support = require('../support'),
-    toString = require('../internals/toString');
+    support = require('../support');
 
 /** `Object#toString` result shortcuts */
 var objectClass = '[object Object]';
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
 
 /** Native method shortcuts */
 var getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf;

@@ -7,11 +7,11 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var forIn = require('../objects/forIn'),
-    hasOwnProperty = require('./hasOwnProperty'),
-    indicatorObject = require('./indicatorObject'),
     isFunction = require('../objects/isFunction'),
-    objectTypes = require('./objectTypes'),
-    toString = require('./toString');
+    objectTypes = require('./objectTypes');
+
+/** Used by methods to exit iteration */
+var breakIndicator = '__lodash_break_1335248838000__';
 
 /** `Object#toString` result shortcuts */
 var arrayClass = '[object Array]',
@@ -21,6 +21,15 @@ var arrayClass = '[object Array]',
     objectClass = '[object Object]',
     regexpClass = '[object RegExp]',
     stringClass = '[object String]';
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * The base implementation of `_.isEqual`, without support for `thisArg` binding,
@@ -130,14 +139,14 @@ function baseIsEqual(a, b, stackA, stackB) {
     forIn(b, function(value, key, b) {
       if (hasOwnProperty.call(b, key)) {
         size++;
-        return !(result = hasOwnProperty.call(a, key) && baseIsEqual(a[key], value, stackA, stackB)) && indicatorObject;
+        return !(result = hasOwnProperty.call(a, key) && baseIsEqual(a[key], value, stackA, stackB)) && breakIndicator;
       }
     });
 
     if (result) {
       forIn(a, function(value, key, a) {
         if (hasOwnProperty.call(a, key)) {
-          return !(result = --size > -1) && indicatorObject;
+          return !(result = --size > -1) && breakIndicator;
         }
       });
     }

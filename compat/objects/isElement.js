@@ -8,8 +8,13 @@
  */
 var isNode = require('../internals/isNode'),
     isPlainObject = require('./isPlainObject'),
-    support = require('../support'),
-    toString = require('../internals/toString');
+    support = require('../support');
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
 
 /**
  * Checks if `value` is a DOM element.

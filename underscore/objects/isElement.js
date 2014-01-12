@@ -6,7 +6,6 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var toString = require('../internals/toString');
 
 /**
  * Checks if `value` is a DOM element.

@@ -6,11 +6,16 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isNative = require('../internals/isNative'),
-    toString = require('../internals/toString');
+var isNative = require('../internals/isNative');
 
 /** `Object#toString` result shortcuts */
 var arrayClass = '[object Array]';
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray;

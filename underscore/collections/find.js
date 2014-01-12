@@ -7,8 +7,10 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createCallback = require('../functions/createCallback'),
-    forOwn = require('../objects/forOwn'),
-    indicatorObject = require('../internals/indicatorObject');
+    forOwn = require('../objects/forOwn');
+
+/** Used by methods to exit iteration */
+var breakIndicator = '__lodash_break_1335248838000__';
 
 /**
  * Iterates over elements of a collection, returning the first element that
@@ -71,7 +73,7 @@ function find(collection, callback, thisArg) {
     forOwn(collection, function(value, index, collection) {
       if (callback(value, index, collection)) {
         result = value;
-        return indicatorObject;
+        return breakIndicator;
       }
     });
     return result;

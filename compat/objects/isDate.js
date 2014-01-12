@@ -6,10 +6,15 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var toString = require('../internals/toString');
 
 /** `Object#toString` result shortcuts */
 var dateClass = '[object Date]';
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
 
 /**
  * Checks if `value` is a date.

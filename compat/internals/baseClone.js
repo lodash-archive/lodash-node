@@ -10,14 +10,12 @@ var assign = require('../objects/assign'),
     baseEach = require('./baseEach'),
     forOwn = require('../objects/forOwn'),
     getArray = require('./getArray'),
-    hasOwnProperty = require('./hasOwnProperty'),
     isArray = require('../objects/isArray'),
     isNode = require('./isNode'),
     isObject = require('../objects/isObject'),
     releaseArray = require('./releaseArray'),
     slice = require('../arrays/slice'),
-    support = require('../support'),
-    toString = require('./toString');
+    support = require('../support');
 
 /** Used to match regexp flags from their coerced string values */
 var reFlags = /\w*$/;
@@ -40,6 +38,15 @@ cloneableClasses[argsClass] = cloneableClasses[arrayClass] =
 cloneableClasses[boolClass] = cloneableClasses[dateClass] =
 cloneableClasses[numberClass] = cloneableClasses[objectClass] =
 cloneableClasses[regexpClass] = cloneableClasses[stringClass] = true;
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /** Used to lookup a built-in constructor by [[Class]] */
 var ctorByClass = {};

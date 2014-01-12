@@ -7,8 +7,10 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createCallback = require('../functions/createCallback'),
-    forOwn = require('../objects/forOwn'),
-    indicatorObject = require('../internals/indicatorObject');
+    forOwn = require('../objects/forOwn');
+
+/** Used by methods to exit iteration */
+var breakIndicator = '__lodash_break_1335248838000__';
 
 /**
  * Checks if the callback returns truey value for **all** elements of a
@@ -66,7 +68,7 @@ function every(collection, callback, thisArg) {
     }
   } else {
     forOwn(collection, function(value, index, collection) {
-      return !(result = !!callback(value, index, collection)) && indicatorObject;
+      return !(result = !!callback(value, index, collection)) && breakIndicator;
     });
   }
   return result;

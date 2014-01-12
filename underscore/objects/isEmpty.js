@@ -10,6 +10,12 @@ var hasOwnProperty = require('../internals/hasOwnProperty'),
     isArray = require('./isArray'),
     isString = require('./isString');
 
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
 /**
  * Checks if `value` is empty. Arrays, strings, or `arguments` objects with a
  * length of `0` and objects with no own enumerable properties are considered

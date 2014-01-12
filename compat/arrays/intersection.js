@@ -12,9 +12,11 @@ var baseIndexOf = require('../internals/baseIndexOf'),
     getArray = require('../internals/getArray'),
     isArguments = require('../objects/isArguments'),
     isArray = require('../objects/isArray'),
-    largeArraySize = require('../internals/largeArraySize'),
     releaseArray = require('../internals/releaseArray'),
     releaseObject = require('../internals/releaseObject');
+
+/** Used as the size when optimizations are enabled for large arrays */
+var largeArraySize = 75;
 
 /**
  * Creates an array of unique values present in all provided arrays using

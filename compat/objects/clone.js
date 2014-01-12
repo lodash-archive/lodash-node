@@ -7,8 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseClone = require('../internals/baseClone'),
-    baseCreateCallback = require('../internals/baseCreateCallback'),
-    indexTypes = require('../internals/indexTypes');
+    baseCreateCallback = require('../internals/baseCreateCallback');
 
 /**
  * Creates a clone of `value`. If `isDeep` is `true` nested objects will also

@@ -9,14 +9,19 @@
 var forOwn = require('./forOwn'),
     isArguments = require('./isArguments'),
     isFunction = require('./isFunction'),
-    support = require('../support'),
-    toString = require('../internals/toString');
+    support = require('../support');
 
 /** `Object#toString` result shortcuts */
 var argsClass = '[object Arguments]',
     arrayClass = '[object Array]',
     objectClass = '[object Object]',
     stringClass = '[object String]';
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
 
 /**
  * Checks if `value` is empty. Arrays, strings, or `arguments` objects with a

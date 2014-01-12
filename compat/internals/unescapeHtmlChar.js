@@ -6,7 +6,15 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var htmlUnescapes = require('./htmlUnescapes');
+
+/** Used to convert HTML entities to characters */
+var htmlUnescapes = {
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#39;': "'"
+};
 
 /**
  * Used by `unescape` to convert HTML entities to characters.

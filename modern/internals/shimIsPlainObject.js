@@ -7,12 +7,19 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var forIn = require('../objects/forIn'),
-    hasOwnProperty = require('./hasOwnProperty'),
-    isFunction = require('../objects/isFunction'),
-    toString = require('./toString');
+    isFunction = require('../objects/isFunction');
 
 /** `Object#toString` result shortcuts */
 var objectClass = '[object Object]';
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * A fallback implementation of `isPlainObject` which checks if a given value

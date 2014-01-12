@@ -17,7 +17,6 @@ var arrays = require('./arrays'),
     assign = require('./objects/assign'),
     forEach = require('./collections/forEach'),
     forOwn = require('./objects/forOwn'),
-    hasOwnProperty = require('./internals/hasOwnProperty'),
     isArray = require('./objects/isArray'),
     lodashWrapper = require('./internals/lodashWrapper'),
     mixin = require('./utilities/mixin'),
@@ -25,7 +24,11 @@ var arrays = require('./arrays'),
     templateSettings = require('./utilities/templateSettings');
 
 /** Used for native method references */
-var arrayRef = Array.prototype;
+var arrayRef = Array.prototype,
+    objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * Creates a `lodash` object which wraps the given value to enable intuitive

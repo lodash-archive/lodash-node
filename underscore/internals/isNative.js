@@ -6,7 +6,19 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var reNative = require('./reNative');
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
+/** Used to detect if a method is native */
+var reNative = RegExp('^' +
+  String(toString)
+    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+);
 
 /** Native method shortcuts */
 var fnToString = Function.prototype.toString;

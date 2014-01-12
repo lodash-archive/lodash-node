@@ -6,9 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isNative = require('./internals/isNative'),
-    reNative = require('./internals/reNative'),
-    toString = require('./internals/toString');
+var isNative = require('./internals/isNative');
 
 /** Used for native method references */
 var arrayRef = Array.prototype;

@@ -7,14 +7,19 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var forOwn = require('./forOwn'),
-    isFunction = require('./isFunction'),
-    toString = require('../internals/toString');
+    isFunction = require('./isFunction');
 
 /** `Object#toString` result shortcuts */
 var argsClass = '[object Arguments]',
     arrayClass = '[object Array]',
     objectClass = '[object Object]',
     stringClass = '[object String]';
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
 
 /**
  * Checks if `value` is empty. Arrays, strings, or `arguments` objects with a

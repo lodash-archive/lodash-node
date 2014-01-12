@@ -9,8 +9,10 @@
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache'),
-    largeArraySize = require('./largeArraySize'),
     releaseObject = require('./releaseObject');
+
+/** Used as the size when optimizations are enabled for large arrays */
+var largeArraySize = 75;
 
 /**
  * The base implementation of `_.difference` that accepts a single array

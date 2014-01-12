@@ -8,11 +8,9 @@
  */
 var forIn = require('../objects/forIn'),
     getArray = require('./getArray'),
-    hasOwnProperty = require('./hasOwnProperty'),
     isFunction = require('../objects/isFunction'),
     objectTypes = require('./objectTypes'),
-    releaseArray = require('./releaseArray'),
-    toString = require('./toString');
+    releaseArray = require('./releaseArray');
 
 /** `Object#toString` result shortcuts */
 var argsClass = '[object Arguments]',
@@ -23,6 +21,15 @@ var argsClass = '[object Arguments]',
     objectClass = '[object Object]',
     regexpClass = '[object RegExp]',
     stringClass = '[object String]';
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * The base implementation of `_.isEqual`, without support for `thisArg` binding,

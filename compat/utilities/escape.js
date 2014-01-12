@@ -6,8 +6,10 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var escapeHtmlChar = require('../internals/escapeHtmlChar'),
-    reUnescapedHtml = require('../internals/reUnescapedHtml');
+var escapeHtmlChar = require('../internals/escapeHtmlChar');
+
+/** Used to match HTML entities and HTML characters */
+var reUnescapedHtml = /[&<>"']/g;
 
 /**
  * Converts the characters `&`, `<`, `>`, `"`, and `'` in `string` to

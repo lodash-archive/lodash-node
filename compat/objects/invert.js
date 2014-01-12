@@ -6,8 +6,13 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var hasOwnProperty = require('../internals/hasOwnProperty'),
-    keys = require('./keys');
+var keys = require('./keys');
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * Creates an object composed of the inverted keys and values of the given
