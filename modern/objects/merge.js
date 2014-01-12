@@ -9,7 +9,6 @@
 var baseCreateCallback = require('../internals/baseCreateCallback'),
     baseMerge = require('../internals/baseMerge'),
     getArray = require('../internals/getArray'),
-    indexTypes = require('../internals/indexTypes'),
     isObject = require('./isObject'),
     releaseArray = require('../internals/releaseArray'),
     slice = require('../arrays/slice');
@@ -70,8 +69,14 @@ function merge(object, source, guard) {
     return object;
   }
   var args = arguments,
-      length = indexTypes[typeof guard] && args[3] && args[3][guard] === source ? 2 : args.length;
+      length = args.length,
+      type = typeof guard;
 
+  // allows working with functions like `_.reduce` without using their
+  // `key` and `object` arguments as sources
+  if ((type == 'number' || type == 'string') && args[3] && args[3][guard] === source) {
+    length = 2;
+  }
   // juggle arguments
   if (length > 3 && typeof args[length - 2] == 'function') {
     var callback = baseCreateCallback(args[--length - 1], args[length--], 2);

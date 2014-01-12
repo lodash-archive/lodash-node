@@ -9,7 +9,6 @@
 var baseEach = require('../internals/baseEach'),
     charAtCallback = require('../internals/charAtCallback'),
     createCallback = require('../functions/createCallback'),
-    indexTypes = require('../internals/indexTypes'),
     isArray = require('../objects/isArray'),
     isString = require('../objects/isString');
 
@@ -55,11 +54,12 @@ var baseEach = require('../internals/baseEach'),
  */
 function min(collection, callback, thisArg) {
   var computed = Infinity,
-      result = computed;
+      result = computed,
+      type = typeof callback;
 
   // allows working with functions like `_.map` without using
   // their `index` argument as a callback
-  if (indexTypes[typeof callback] && thisArg && thisArg[callback] === collection) {
+  if ((type == 'number' || type == 'string') && thisArg && thisArg[callback] === collection) {
     callback = null;
   }
   if (callback == null && isArray(collection)) {

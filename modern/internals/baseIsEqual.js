@@ -9,7 +9,6 @@
 var forIn = require('../objects/forIn'),
     getArray = require('./getArray'),
     isFunction = require('../objects/isFunction'),
-    objectTypes = require('./objectTypes'),
     releaseArray = require('./releaseArray');
 
 /** `Object#toString` result shortcuts */
@@ -62,8 +61,8 @@ function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
 
   // exit early for unlike primitive values
   if (a === a &&
-      !(a && objectTypes[type]) &&
-      !(b && objectTypes[otherType])) {
+      !(a && (type == 'function' || type == 'object')) &&
+      !(b && (otherType == 'function' || otherType == 'object'))) {
     return false;
   }
   // exit early for `null` and `undefined` avoiding ES3's Function#call behavior

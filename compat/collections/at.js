@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseFlatten = require('../internals/baseFlatten'),
-    indexTypes = require('../internals/indexTypes'),
     isString = require('../objects/isString'),
     support = require('../support');
 
@@ -36,12 +35,18 @@ function at(collection, guard) {
   var args = arguments,
       index = -1,
       props = baseFlatten(args, true, false, 1),
-      length = (indexTypes[typeof guard] && args[2] && args[2][guard] === collection) ? 1 : props.length,
-      result = Array(length);
+      length = props.length,
+      type = typeof guard;
 
+  // allows working with functions like `_.map` without using
+  // their `index` arguments
+  if ((type == 'number' || type == 'string') && args[2] && args[2][guard] === collection) {
+    length = 1;
+  }
   if (support.unindexedChars && isString(collection)) {
     collection = collection.split('');
   }
+  var result = Array(length);
   while(++index < length) {
     result[index] = collection[props[index]];
   }

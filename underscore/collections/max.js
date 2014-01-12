@@ -8,8 +8,7 @@
  */
 var createCallback = require('../functions/createCallback'),
     forEach = require('./forEach'),
-    forOwn = require('../objects/forOwn'),
-    indexTypes = require('../internals/indexTypes');
+    forOwn = require('../objects/forOwn');
 
 /**
  * Retrieves the maximum value of a collection. If the collection is empty or
@@ -53,11 +52,12 @@ var createCallback = require('../functions/createCallback'),
  */
 function max(collection, callback, thisArg) {
   var computed = -Infinity,
-      result = computed;
+      result = computed,
+      type = typeof callback;
 
   // allows working with functions like `_.map` without using
   // their `index` argument as a callback
-  if (indexTypes[typeof callback] && thisArg && thisArg[callback] === collection) {
+  if ((type == 'number' || type == 'string') && thisArg && thisArg[callback] === collection) {
     callback = null;
   }
   var index = -1,

@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    objectTypes = require('../internals/objectTypes');
+    isObject = require('./isObject');
 
 /**
  * Iterates over own and inherited enumerable properties of an object,
@@ -42,7 +42,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  */
 var forIn = function(object, callback, thisArg) {
   var result = object;
-  if (!(object && objectTypes[typeof object])) {
+  if (!isObject(object)) {
     return result;
   }
   callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);

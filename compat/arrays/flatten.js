@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseFlatten = require('../internals/baseFlatten'),
-    indexTypes = require('../internals/indexTypes'),
     map = require('../collections/map');
 
 /**
@@ -53,11 +52,19 @@ var baseFlatten = require('../internals/baseFlatten'),
  * // => ['hoppy', 'baby puss', 'dino']
  */
 function flatten(array, isShallow, callback, thisArg) {
+  var type = typeof isShallow;
+
   // juggle arguments
-  if (typeof isShallow != 'boolean' && isShallow != null) {
+  if (type != 'boolean' && isShallow != null) {
     thisArg = callback;
-    callback = (indexTypes[typeof isShallow] && thisArg && thisArg[isShallow] === array) ? null : isShallow;
+    callback = isShallow;
     isShallow = false;
+
+    // allows working with functions like `_.map` without using
+    // their `index` argument as a callback
+    if ((type == 'number' || type == 'string') && thisArg && thisArg[callback] === array) {
+      callback = null;
+    }
   }
   if (callback != null) {
     array = map(array, callback, thisArg);

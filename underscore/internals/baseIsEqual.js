@@ -7,8 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var forIn = require('../objects/forIn'),
-    isFunction = require('../objects/isFunction'),
-    objectTypes = require('./objectTypes');
+    isFunction = require('../objects/isFunction');
 
 /** Used by methods to exit iteration */
 var breakIndicator = '__lodash_break_1335248838000__';
@@ -52,8 +51,8 @@ function baseIsEqual(a, b, stackA, stackB) {
       otherType = typeof b;
 
   if (a === a &&
-      !(a && objectTypes[type]) &&
-      !(b && objectTypes[otherType])) {
+      !(a && (type == 'function' || type == 'object')) &&
+      !(b && (otherType == 'function' || otherType == 'object'))) {
     return false;
   }
   if (a == null || b == null) {

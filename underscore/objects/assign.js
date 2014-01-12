@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    indexTypes = require('../internals/indexTypes'),
     isObject = require('./isObject'),
     keys = require('./keys');
 
@@ -46,8 +45,12 @@ function assign(object, source, guard) {
   }
   var args = arguments,
       argsIndex = 0,
-      argsLength = indexTypes[typeof guard] && args[3] && args[3][guard] === source ? 2 : args.length;
+      argsLength = args.length,
+      type = typeof guard;
 
+  if ((type == 'number' || type == 'string') && args[3] && args[3][guard] === source) {
+    argsLength = 2;
+  }
   while (++argsIndex < argsLength) {
     source = args[argsIndex];
     if (source) {

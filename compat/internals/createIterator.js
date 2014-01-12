@@ -8,8 +8,8 @@
  */
 var baseCreateCallback = require('./baseCreateCallback'),
     isArguments = require('../objects/isArguments'),
-    iteratorTemplate = require('./iteratorTemplate'),
-    objectTypes = require('./objectTypes');
+    isObject = require('../objects/isObject'),
+    iteratorTemplate = require('./iteratorTemplate');
 
 /** Used to fix the JScript [[DontEnum]] bug */
 var shadowedProps = [
@@ -76,14 +76,14 @@ function createIterator(options) {
   // create the function factory
   var factory = Function(
       'baseCreateCallback, errorClass, errorProto, hasOwnProperty, isArguments, ' +
-      'objectProto, objectTypes, nonEnumProps, stringClass, stringProto, toString',
+      'isObject, objectProto, nonEnumProps, stringClass, stringProto, toString',
     'return function(' + options.args + ') {\n' + iteratorTemplate(options) + '\n}'
   );
 
   // return the compiled function
   return factory(
     baseCreateCallback, errorClass, errorProto, hasOwnProperty, isArguments,
-    objectProto, objectTypes, nonEnumProps, stringClass, stringProto, toString
+    isObject, objectProto, nonEnumProps, stringClass, stringProto, toString
   );
 }
 

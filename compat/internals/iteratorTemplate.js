@@ -19,7 +19,7 @@ var iteratorTemplate = function(obj) {
 
   var __p = 'var result = ' +
   (obj.init) +
-  ';\nif (!(object && objectTypes[typeof object])) {\n  return result;\n}\n' +
+  ';\nif (!isObject(object)) {\n  return result;\n}\n' +
   (obj.top) +
   ';';
    if (support.nonEnumArgs) {
