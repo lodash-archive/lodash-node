@@ -21,7 +21,7 @@ var forEach = require('./forEach'),
  * @param {Array|Object|string} collection The collection to iterate over.
  * @param {Function|string} methodName The name of the method to invoke or
  *  the function invoked per iteration.
- * @param {...*} [arg] Arguments to invoke the method with.
+ * @param {...*} [args] Arguments to invoke the method with.
  * @returns {Array} Returns a new array of the results of each invoked method.
  * @example
  *

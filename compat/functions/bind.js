@@ -23,7 +23,7 @@ var createWrapper = require('../internals/createWrapper'),
  * @category Functions
  * @param {Function} func The function to bind.
  * @param {*} [thisArg] The `this` binding of `func`.
- * @param {...*} [arg] Arguments to be partially applied.
+ * @param {...*} [args] Arguments to be partially applied.
  * @returns {Function} Returns the new bound function.
  * @example
  *

@@ -12,7 +12,7 @@
  *
  * @private
  * @param {string} string The string to inspect.
- * @returns {number} Returns the index of the last non-whitespace character.
+ * @returns {number} Returns the index of the last character not found in `chars`.
  */
 function charsRightIndex(string, chars) {
   var index = string.length;

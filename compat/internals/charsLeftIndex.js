@@ -12,7 +12,7 @@
  *
  * @private
  * @param {string} string The string to inspect.
- * @returns {number} Returns the index of the first non-whitespace character.
+ * @returns {number} Returns the index of the first character not found in `chars`.
  */
 function charsLeftIndex(string, chars) {
   var index = -1,

@@ -17,7 +17,7 @@ var isFunction = require('../objects/isFunction'),
  * @memberOf _
  * @category Functions
  * @param {Function} func The function to defer.
- * @param {...*} [arg] Arguments to invoke the function with.
+ * @param {...*} [args] Arguments to invoke the function with.
  * @returns {number} Returns the timer id.
  * @example
  *

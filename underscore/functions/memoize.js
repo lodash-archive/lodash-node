@@ -6,9 +6,13 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var hasOwnProperty = require('../internals/hasOwnProperty'),
-    isFunction = require('../objects/isFunction'),
-    keyPrefix = require('../internals/keyPrefix');
+var isFunction = require('../objects/isFunction');
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * Creates a function that memoizes the result of `func`. If `resolver` is
