@@ -6,14 +6,76 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var compareAscending = require('../internals/compareAscending'),
-    compareMultipleAscending = require('../internals/compareMultipleAscending'),
-    createCallback = require('../functions/createCallback'),
+var createCallback = require('../functions/createCallback'),
     forEach = require('./forEach'),
     getObject = require('../internals/getObject'),
     isArray = require('../objects/isArray'),
     map = require('./map'),
     releaseObject = require('../internals/releaseObject');
+
+/**
+ * The base implementation of `compareAscending` used to compare values and
+ * sort them in ascending order without guaranteeing a stable sort.
+ *
+ * @private
+ * @param {*} a The value to compare to `b`.
+ * @param {*} b The value to compare to `a`.
+ * @returns {number} Returns the sort order indicator for `a`.
+ */
+function baseCompareAscending(a, b) {
+  if (a !== b) {
+    if (a > b || typeof a == 'undefined') {
+      return 1;
+    }
+    if (a < b || typeof b == 'undefined') {
+      return -1;
+    }
+  }
+  return 0;
+}
+
+/**
+ * Used by `sortBy` to compare transformed elements of a collection and stable
+ * sort them in ascending order.
+ *
+ * @private
+ * @param {Object} a The object to compare to `b`.
+ * @param {Object} b The object to compare to `a`.
+ * @returns {number} Returns the sort order indicator for `a`.
+ */
+function compareAscending(a, b) {
+  return baseCompareAscending(a.criteria, b.criteria) || a.index - b.index;
+}
+
+/**
+ * Used by `sortBy` to compare multiple properties of each element in a
+ * collection and stable sort them in ascending order.
+ *
+ * @private
+ * @param {Object} a The object to compare to `b`.
+ * @param {Object} b The object to compare to `a`.
+ * @returns {number} Returns the sort order indicator for `a`.
+ */
+function compareMultipleAscending(a, b) {
+  var ac = a.criteria,
+      bc = b.criteria,
+      index = -1,
+      length = ac.length;
+
+  while (++index < length) {
+    var result = baseCompareAscending(ac[index], bc[index]);
+    if (result) {
+      return result;
+    }
+  }
+  // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
+  // that causes it, under certain circumstances, to provided the same value
+  // for `a` and `b`. See https://github.com/jashkenas/underscore/pull/1247
+  //
+  // This also ensures a stable sort in V8 and other engines.
+  // See http://code.google.com/p/v8/issues/detail?id=90
+  return a.index - b.index;
+}
 
 /**
  * Creates an array of elements, sorted in ascending order by the results of

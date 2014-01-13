@@ -7,11 +7,38 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isNative = require('../internals/isNative'),
-    isObject = require('./isObject'),
-    shimKeys = require('../internals/shimKeys');
+    isObject = require('./isObject');
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
+
+/**
+ * A fallback implementation of `Object.keys` which produces an array of the
+ * given object's own enumerable property names.
+ *
+ * @private
+ * @type Function
+ * @param {Object} object The object to inspect.
+ * @returns {Array} Returns an array of property names.
+ */
+var shimKeys = function(object) {
+  var result = [];
+  if (!isObject(object)) {
+    return result;
+  }
+  for (var key in object) {
+    if (hasOwnProperty.call(object, key)) {
+      result.push(key);
+    }
+  }
+  return result;
+};
 
 /**
  * Creates an array composed of the own enumerable property names of an object.

@@ -8,7 +8,6 @@
  */
 var defaults = require('../objects/defaults'),
     escape = require('./escape'),
-    escapeStringChar = require('../internals/escapeStringChar'),
     reInterpolate = require('../internals/reInterpolate'),
     templateSettings = require('./templateSettings');
 
@@ -17,6 +16,29 @@ var reNoMatch = /($^)/;
 
 /** Used to match unescaped characters in compiled string literals */
 var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
+
+/** Used to escape characters for inclusion in compiled string literals */
+var stringEscapes = {
+  '\\': '\\',
+  "'": "'",
+  '\n': 'n',
+  '\r': 'r',
+  '\t': 't',
+  '\u2028': 'u2028',
+  '\u2029': 'u2029'
+};
+
+/**
+ * Used by `template` to escape characters for inclusion in compiled
+ * string literals.
+ *
+ * @private
+ * @param {string} match The matched character to escape.
+ * @returns {string} Returns the escaped character.
+ */
+function escapeStringChar(match) {
+  return '\\' + stringEscapes[match];
+}
 
 /**
  * A micro-templating method that handles arbitrary delimiters, preserves

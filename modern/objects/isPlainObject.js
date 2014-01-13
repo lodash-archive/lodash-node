@@ -6,8 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isNative = require('../internals/isNative'),
-    shimIsPlainObject = require('../internals/shimIsPlainObject');
+var forIn = require('./forIn'),
+    isFunction = require('./isFunction'),
+    isNative = require('../internals/isNative');
 
 /** `Object#toString` result shortcuts */
 var objectClass = '[object Object]';
@@ -19,7 +20,37 @@ var objectProto = Object.prototype;
 var toString = objectProto.toString;
 
 /** Native method shortcuts */
-var getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf;
+var getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf,
+    hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * A fallback implementation of `isPlainObject` which checks if a given value
+ * is an object created by the `Object` constructor, assuming objects created
+ * by the `Object` constructor have no inherited enumerable properties and that
+ * there are no `Object.prototype` extensions.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ */
+function shimIsPlainObject(value) {
+  var ctor,
+      result;
+
+  // avoid non Object objects, `arguments` objects, and DOM elements
+  if (!(value && toString.call(value) == objectClass) ||
+      (!hasOwnProperty.call(value, 'constructor') &&
+        (ctor = value.constructor, isFunction(ctor) && !(ctor instanceof ctor)))) {
+    return false;
+  }
+  // In most environments an object's own properties are iterated before
+  // its inherited properties. If the last iterated property is an object's
+  // own property then there are no inherited enumerable properties.
+  forIn(value, function(value, key) {
+    result = key;
+  });
+  return typeof result == 'undefined' || hasOwnProperty.call(value, result);
+}
 
 /**
  * Checks if `value` is an object created by the `Object` constructor.

@@ -6,8 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isNative = require('../internals/isNative'),
-    shimTrimLeft = require('../internals/shimTrimLeft');
+var charsLeftIndex = require('../internals/charsLeftIndex'),
+    isNative = require('../internals/isNative'),
+    trimmedLeftIndex = require('../internals/trimmedLeftIndex');
 
 /** Used to detect and test whitespace */
 var whitespace = (
@@ -20,6 +21,27 @@ var whitespace = (
   // unicode category "Zs" space separators
   '\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000'
 );
+
+/**
+ * A fallback implementation of `trimLeft` to remove leading whitespace or
+ * specified characters from `string`.
+ *
+ * @private
+ * @param {string} string The string to trim.
+ * @param {string} [chars=whitespace] The characters to trim.
+ * @returns {string} Returns the trimmed string.
+ */
+function shimTrimLeft(string, chars) {
+  string = string == null ? '' : String(string);
+  if (!string) {
+    return string;
+  }
+  if (chars == null) {
+    return string.slice(trimmedLeftIndex(string))
+  }
+  chars = String(chars);
+  return string.slice(charsLeftIndex(string, chars));
+}
 
 /** Used for native method references */
 var stringProto = String.prototype;
