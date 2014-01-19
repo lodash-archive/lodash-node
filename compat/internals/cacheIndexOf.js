@@ -18,21 +18,7 @@ var baseIndexOf = require('./baseIndexOf');
  * @returns {number} Returns `0` if `value` is found, else `-1`.
  */
 function cacheIndexOf(cache, value) {
-  var type = typeof value;
-  cache = cache.cache;
-
-  if (type == 'boolean' || value == null) {
-    return cache[value] ? 0 : -1;
-  }
-  if (type != 'number' && type != 'string') {
-    type = 'object';
-  }
-  var key = type == 'number' ? value : '_' + value;
-  cache = (cache = cache[type]) && cache[key];
-
-  return type == 'object'
-    ? (cache && baseIndexOf(cache, value) > -1 ? 0 : -1)
-    : (cache ? 0 : -1);
+  return cache.has(value) ? 0 : -1;
 }
 
 module.exports = cacheIndexOf;

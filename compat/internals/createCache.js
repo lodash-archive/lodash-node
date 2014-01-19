@@ -6,40 +6,27 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var cachePush = require('./cachePush'),
-    getObject = require('./getObject'),
-    releaseObject = require('./releaseObject');
+var isNative = require('./isNative');
+
+/** Native method shortcuts */
+var Set = isNative(Set = global.Set) && Set;
 
 /**
  * Creates a cache object to optimize linear searches of large arrays.
  *
  * @private
  * @param {Array} [array=[]] The array to search.
- * @returns {null|Object} Returns the cache object or `null` if caching should not be used.
+ * @returns {Object} Returns the cache object.
  */
-function createCache(array) {
-  var index = -1,
-      length = array.length,
-      first = array[0],
-      mid = array[(length / 2) | 0],
-      last = array[length - 1];
+var createCache = Set && function(array) {
+  var cache = new Set,
+      length = array ? array.length : 0;
 
-  if (first && typeof first == 'object' &&
-      mid && typeof mid == 'object' && last && typeof last == 'object') {
-    return false;
+  cache.push = cache.add;
+  while (length--) {
+    cache.push(array[length]);
   }
-  var cache = getObject();
-  cache['false'] = cache['null'] = cache['true'] = cache['undefined'] = false;
-
-  var result = getObject();
-  result.array = array;
-  result.cache = cache;
-  result.push = cachePush;
-
-  while (++index < length) {
-    result.push(array[index]);
-  }
-  return result;
-}
+  return cache;
+};
 
 module.exports = createCache;
