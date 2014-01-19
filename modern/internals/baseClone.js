@@ -7,8 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var assign = require('../objects/assign'),
-    forEach = require('../collections/forEach'),
-    forOwn = require('../objects/forOwn'),
+    baseEach = require('./baseEach'),
+    baseForOwn = require('./baseForOwn'),
     getArray = require('./getArray'),
     isArray = require('../objects/isArray'),
     isObject = require('../objects/isObject'),
@@ -138,7 +138,7 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
   stackB.push(result);
 
   // recursively populate clone (susceptible to call stack limits)
-  (isArr ? forEach : forOwn)(value, function(objValue, key) {
+  (isArr ? baseEach : baseForOwn)(value, function(objValue, key) {
     result[key] = baseClone(objValue, isDeep, callback, stackA, stackB);
   });
 

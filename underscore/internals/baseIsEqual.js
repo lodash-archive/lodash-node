@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var forIn = require('../objects/forIn'),
+var baseForIn = require('./baseForIn'),
     isFunction = require('../objects/isFunction');
 
 /** Used by methods to exit iteration */
@@ -135,7 +135,7 @@ function baseIsEqual(a, b, stackA, stackB) {
     }
   }
   else {
-    forIn(b, function(value, key, b) {
+    baseForIn(b, function(value, key, b) {
       if (hasOwnProperty.call(b, key)) {
         size++;
         return !(result = hasOwnProperty.call(a, key) && baseIsEqual(a[key], value, stackA, stackB)) && breakIndicator;
@@ -143,7 +143,7 @@ function baseIsEqual(a, b, stackA, stackB) {
     });
 
     if (result) {
-      forIn(a, function(value, key, a) {
+      baseForIn(a, function(value, key, a) {
         if (hasOwnProperty.call(a, key)) {
           return !(result = --size > -1) && breakIndicator;
         }

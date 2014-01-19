@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    forOwn = require('../objects/forOwn');
+    baseEach = require('../internals/baseEach');
 
 /**
  * Iterates over elements of a collection, executing the callback for each
@@ -47,7 +47,7 @@ function forEach(collection, callback, thisArg) {
       }
     }
   } else {
-    forOwn(collection, callback);
+    baseEach(collection, callback);
   }
   return collection;
 }

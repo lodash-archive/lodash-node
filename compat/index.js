@@ -16,7 +16,7 @@ var arrays = require('./arrays'),
     utilities = require('./utilities'),
     assign = require('./objects/assign'),
     baseEach = require('./internals/baseEach'),
-    forOwn = require('./objects/forOwn'),
+    baseForOwn = require('./internals/baseForOwn'),
     isArray = require('./objects/isArray'),
     lodashWrapper = require('./internals/lodashWrapper'),
     mixin = require('./utilities/mixin'),
@@ -147,7 +147,7 @@ lodash.forEach = collections.forEach;
 lodash.forEachRight = collections.forEachRight;
 lodash.forIn = objects.forIn;
 lodash.forInRight = objects.forInRight;
-lodash.forOwn = forOwn;
+lodash.forOwn = objects.forOwn;
 lodash.forOwnRight = objects.forOwnRight;
 lodash.functions = objects.functions;
 lodash.groupBy = collections.groupBy;
@@ -276,7 +276,7 @@ lodash.inject = collections.reduce;
 
 mixin(function() {
   var source = {}
-  forOwn(lodash, function(func, methodName) {
+  baseForOwn(lodash, function(func, methodName) {
     if (!lodash.prototype[methodName]) {
       source[methodName] = func;
     }
@@ -293,7 +293,7 @@ lodash.sample = collections.sample;
 lodash.take = arrays.first;
 lodash.head = arrays.first;
 
-forOwn(lodash, function(func, methodName) {
+baseForOwn(lodash, function(func, methodName) {
   var callbackable = methodName !== 'sample';
   if (!lodash.prototype[methodName]) {
     lodash.prototype[methodName]= function(n, guard) {

@@ -7,8 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseFlatten = require('../internals/baseFlatten'),
+    baseForIn = require('../internals/baseForIn'),
     createCallback = require('../functions/createCallback'),
-    forIn = require('./forIn'),
     isObject = require('./isObject');
 
 /**
@@ -53,7 +53,7 @@ function pick(object, callback, thisArg) {
     }
   } else {
     callback = createCallback(callback, thisArg, 3);
-    forIn(object, function(value, key, object) {
+    baseForIn(object, function(value, key, object) {
       if (callback(value, key, object)) {
         result[key] = value;
       }

@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    isObject = require('./isObject');
+    baseForIn = require('../internals/baseForIn');
 
 /**
  * Iterates over own and inherited enumerable properties of an object,
@@ -40,18 +40,9 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * });
  * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
  */
-var forIn = function(object, callback, thisArg) {
-  var result = object;
-  if (!isObject(object)) {
-    return result;
-  }
+function forIn(object, callback, thisArg) {
   callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-  for (var key in object) {
-    if (callback(object[key], key, object) === false) {
-      return result;
-    }
-  }
-  return result;
-};
+  return baseForIn(object, callback);
+}
 
 module.exports = forIn;

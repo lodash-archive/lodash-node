@@ -12,8 +12,6 @@ module.exports = {
   'clone': require('./objects/clone'),
   'defaults': require('./objects/defaults'),
   'extend': require('./objects/assign'),
-  'forIn': require('./objects/forIn'),
-  'forOwn': require('./objects/forOwn'),
   'functions': require('./objects/functions'),
   'has': require('./objects/has'),
   'invert': require('./objects/invert'),

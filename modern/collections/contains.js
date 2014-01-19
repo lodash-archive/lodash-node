@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseIndexOf = require('../internals/baseIndexOf'),
-    forOwn = require('../objects/forOwn'),
+var baseEach = require('../internals/baseEach'),
+    baseIndexOf = require('../internals/baseIndexOf'),
     isArray = require('../objects/isArray'),
     isNative = require('../internals/isNative'),
     isString = require('../objects/isString');
@@ -66,7 +66,7 @@ function contains(collection, target, fromIndex) {
   var index = -1,
       result = false;
 
-  forOwn(collection, function(value) {
+  baseEach(collection, function(value) {
     if (++index >= fromIndex) {
       return !(result = value === target);
     }

@@ -7,8 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    forEach = require('../collections/forEach'),
-    forOwn = require('./forOwn'),
+    baseEach = require('../internals/baseEach'),
+    baseForOwn = require('../internals/baseForOwn'),
     getArray = require('../internals/getArray'),
     isArray = require('./isArray'),
     isObject = require('./isObject'),
@@ -28,7 +28,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * @param {Array} [stackB=[]] Associates values with source counterparts.
  */
 function baseMerge(object, source, callback, stackA, stackB) {
-  (isArray(source) ? forEach : forOwn)(source, function(source, key) {
+  (isArray(source) ? baseEach : baseForOwn)(source, function(source, key) {
     var found,
         isArr,
         result = source,

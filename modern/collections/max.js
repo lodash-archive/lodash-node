@@ -6,10 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var charAtCallback = require('../internals/charAtCallback'),
+var baseEach = require('../internals/baseEach'),
+    charAtCallback = require('../internals/charAtCallback'),
     createCallback = require('../functions/createCallback'),
-    forEach = require('./forEach'),
-    forOwn = require('../objects/forOwn'),
     isArray = require('../objects/isArray'),
     isString = require('../objects/isString');
 
@@ -78,7 +77,7 @@ function max(collection, callback, thisArg) {
       ? charAtCallback
       : createCallback(callback, thisArg, 3);
 
-    forEach(collection, function(value, index, collection) {
+    baseEach(collection, function(value, index, collection) {
       var current = callback(value, index, collection);
       if (current > computed) {
         computed = current;

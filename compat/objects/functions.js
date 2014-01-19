@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var forIn = require('./forIn'),
+var baseForIn = require('../internals/baseForIn'),
     isFunction = require('./isFunction');
 
 /**
@@ -26,7 +26,7 @@ var forIn = require('./forIn'),
  */
 function functions(object) {
   var result = [];
-  forIn(object, function(value, key) {
+  baseForIn(object, function(value, key) {
     if (isFunction(value)) {
       result.push(key);
     }

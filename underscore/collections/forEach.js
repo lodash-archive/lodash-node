@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    forOwn = require('../objects/forOwn');
+    baseEach = require('../internals/baseEach');
 
 /** Used by methods to exit iteration */
 var breakIndicator = '__lodash_break_1335248838000__';
@@ -50,7 +50,7 @@ function forEach(collection, callback, thisArg) {
       }
     }
   } else {
-    forOwn(collection, callback);
+    baseEach(collection, callback);
   }
 }
 

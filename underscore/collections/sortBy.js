@@ -7,8 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCompareAscending = require('../internals/baseCompareAscending'),
-    createCallback = require('../functions/createCallback'),
-    forEach = require('./forEach');
+    baseEach = require('../internals/baseEach'),
+    createCallback = require('../functions/createCallback');
 
 /**
  * Used by `sortBy` to compare transformed elements of a collection and stable
@@ -78,7 +78,7 @@ function sortBy(collection, callback, thisArg) {
       result = Array(typeof length == 'number' ? length : 0);
 
   callback = createCallback(callback, thisArg, 3);
-  forEach(collection, function(value, key, collection) {
+  baseEach(collection, function(value, key, collection) {
     result[++index] = {
       'criteria': callback(value, key, collection),
       'index': index,

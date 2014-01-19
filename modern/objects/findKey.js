@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createCallback = require('../functions/createCallback'),
-    forOwn = require('./forOwn');
+var baseForOwn = require('../internals/baseForOwn'),
+    createCallback = require('../functions/createCallback');
 
 /**
  * This method is like `_.findIndex` except that it returns the key of the
@@ -53,7 +53,7 @@ var createCallback = require('../functions/createCallback'),
 function findKey(object, callback, thisArg) {
   var result;
   callback = createCallback(callback, thisArg, 3);
-  forOwn(object, function(value, key, object) {
+  baseForOwn(object, function(value, key, object) {
     if (callback(value, key, object)) {
       result = key;
       return false;

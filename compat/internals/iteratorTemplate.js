@@ -19,9 +19,7 @@ var iteratorTemplate = function(obj) {
 
   var __p = 'var result = ' +
   (obj.init) +
-  ';\nif (!isObject(object)) {\n  return result;\n}\n' +
-  (obj.top) +
-  ';';
+  ';\nif (!isObject(object)) {\n  return result;\n}';
    if (support.nonEnumArgs) {
   __p += '\nvar length = object.length;\nif (length && isArguments(object)) {\n  key = -1;\n  while (++key < length) {\n    key += \'\';\n    ' +
   (obj.loop) +

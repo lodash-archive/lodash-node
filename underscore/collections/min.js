@@ -6,9 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createCallback = require('../functions/createCallback'),
-    forEach = require('./forEach'),
-    forOwn = require('../objects/forOwn');
+var baseEach = require('../internals/baseEach'),
+    createCallback = require('../functions/createCallback');
 
 /**
  * Retrieves the minimum value of a collection. If the collection is empty or
@@ -73,7 +72,7 @@ function min(collection, callback, thisArg) {
   } else {
     callback = createCallback(callback, thisArg, 3);
 
-    forEach(collection, function(value, index, collection) {
+    baseEach(collection, function(value, index, collection) {
       var current = callback(value, index, collection);
       if (current < computed) {
         computed = current;

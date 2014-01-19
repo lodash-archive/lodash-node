@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createCallback = require('../functions/createCallback'),
-    forOwn = require('../objects/forOwn');
+var baseEach = require('../internals/baseEach'),
+    createCallback = require('../functions/createCallback');
 
 /**
  * Reduces a collection to a value which is the accumulated result of running
@@ -54,7 +54,7 @@ function reduce(collection, callback, accumulator, thisArg) {
       accumulator = callback(accumulator, collection[index], index, collection);
     }
   } else {
-    forOwn(collection, function(value, index, collection) {
+    baseEach(collection, function(value, index, collection) {
       accumulator = noaccum
         ? (noaccum = false, value)
         : callback(accumulator, value, index, collection)

@@ -8,8 +8,7 @@
  */
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
-    createCache = require('./createCache'),
-    releaseObject = require('./releaseObject');
+    createCache = require('./createCache');
 
 /** Used as the size when optimizations are enabled for large arrays */
 var LARGE_ARRAY_SIZE = 75;
@@ -27,26 +26,17 @@ function baseDifference(array, values) {
   var index = -1,
       indexOf = baseIndexOf,
       length = array ? array.length : 0,
-      isLarge = length >= LARGE_ARRAY_SIZE,
       result = [];
 
-  if (isLarge) {
-    var cache = createCache(values);
-    if (cache) {
-      indexOf = cacheIndexOf;
-      values = cache;
-    } else {
-      isLarge = false;
-    }
+  if (createCache && length >= LARGE_ARRAY_SIZE) {
+    indexOf = cacheIndexOf;
+    values = createCache(values);
   }
   while (++index < length) {
     var value = array[index];
     if (indexOf(values, value) < 0) {
       result.push(value);
     }
-  }
-  if (isLarge) {
-    releaseObject(values);
   }
   return result;
 }

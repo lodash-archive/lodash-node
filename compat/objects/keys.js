@@ -27,7 +27,6 @@ var nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
 var shimKeys = createIterator({
   'args': 'object',
   'init': '[]',
-  'top': '',
   'loop': 'result.push(key)',
   'useHas': true
 });

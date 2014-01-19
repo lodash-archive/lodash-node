@@ -8,8 +8,8 @@
  */
 var baseCreate = require('../internals/baseCreate'),
     baseEach = require('../internals/baseEach'),
+    baseForOwn = require('../internals/baseForOwn'),
     createCallback = require('../functions/createCallback'),
-    forOwn = require('./forOwn'),
     isArray = require('./isArray');
 
 /**
@@ -57,7 +57,7 @@ function transform(object, callback, accumulator, thisArg) {
   }
   if (callback) {
     callback = createCallback(callback, thisArg, 4);
-    (isArr ? baseEach : forOwn)(object, function(value, index, object) {
+    (isArr ? baseEach : baseForOwn)(object, function(value, index, object) {
       return callback(accumulator, value, index, object);
     });
   }

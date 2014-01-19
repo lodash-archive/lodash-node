@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var forEach = require('./forEach'),
+var baseEach = require('../internals/baseEach'),
     slice = require('../arrays/slice');
 
 /**
@@ -38,7 +38,7 @@ function invoke(collection, methodName) {
       length = collection ? collection.length : 0,
       result = Array(typeof length == 'number' ? length : 0);
 
-  forEach(collection, function(value) {
+  baseEach(collection, function(value) {
     result[++index] = (isFunc ? methodName : value[methodName]).apply(value, args);
   });
   return result;

@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseCreateCallback = require('./baseCreateCallback'),
-    isArguments = require('../objects/isArguments'),
+var isArguments = require('../objects/isArguments'),
     isObject = require('../objects/isObject'),
     iteratorTemplate = require('./iteratorTemplate');
 
@@ -65,7 +64,6 @@ nonEnumProps[objectClass] = { 'constructor': true };
  * @param {Object} [options] The compile options object.
  * @param {string} [options.args] A comma separated string of iteration function arguments.
  * @param {string} [options.init] The string representation of the initial `result` value.
- * @param {string} [options.top] Code to execute before the iteration branches.
  * @param {string} [options.loop] Code to execute in the object loop.
  * @param {boolean} [options.useHas] Specify using `hasOwnProperty` checks in the object loop.
  * @returns {Function} Returns the compiled function.
@@ -75,15 +73,15 @@ function createIterator(options) {
 
   // create the function factory
   var factory = Function(
-      'baseCreateCallback, errorClass, errorProto, hasOwnProperty, isArguments, ' +
-      'isObject, objectProto, nonEnumProps, stringClass, stringProto, toString',
+      'errorClass, errorProto, hasOwnProperty, isArguments, isObject, objectProto, ' +
+      'nonEnumProps, stringClass, stringProto, toString',
     'return function(' + options.args + ') {\n' + iteratorTemplate(options) + '\n}'
   );
 
   // return the compiled function
   return factory(
-    baseCreateCallback, errorClass, errorProto, hasOwnProperty, isArguments,
-    isObject, objectProto, nonEnumProps, stringClass, stringProto, toString
+    errorClass, errorProto, hasOwnProperty, isArguments, isObject, objectProto,
+    nonEnumProps, stringClass, stringProto, toString
   );
 }
 

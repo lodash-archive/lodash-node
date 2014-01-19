@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    keys = require('./keys');
+    baseForOwn = require('../internals/baseForOwn');
 
 /**
  * Iterates over own enumerable properties of an object, executing the callback
@@ -30,18 +30,8 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)
  */
 function forOwn(object, callback, thisArg) {
-  var index = -1,
-      props = keys(object),
-      length = props.length;
-
   callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-  while (++index < length) {
-    var key = props[index];
-    if (callback(object[key], key, object) === false) {
-      break;
-    }
-  }
-  return object;
+  return baseForOwn(object, callback);
 }
 
 module.exports = forOwn;

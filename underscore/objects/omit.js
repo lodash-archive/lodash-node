@@ -8,7 +8,7 @@
  */
 var baseDifference = require('../internals/baseDifference'),
     baseFlatten = require('../internals/baseFlatten'),
-    forIn = require('./forIn');
+    baseForIn = require('../internals/baseForIn');
 
 /**
  * Creates a shallow clone of `object` excluding the specified properties.
@@ -38,7 +38,7 @@ var baseDifference = require('../internals/baseDifference'),
  */
 function omit(object) {
   var props = [];
-  forIn(object, function(value, key) {
+  baseForIn(object, function(value, key) {
     props.push(key);
   });
   props = baseDifference(props, baseFlatten(arguments, true, false, 1));

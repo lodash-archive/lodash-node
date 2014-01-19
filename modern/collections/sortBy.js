@@ -6,12 +6,14 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createCallback = require('../functions/createCallback'),
-    forEach = require('./forEach'),
-    getObject = require('../internals/getObject'),
+var baseEach = require('../internals/baseEach'),
+    createCallback = require('../functions/createCallback'),
     isArray = require('../objects/isArray'),
     map = require('./map'),
-    releaseObject = require('../internals/releaseObject');
+    objectPool = require('../internals/objectPool');
+
+/** Used as the max size of the `arrayPool` and `objectPool` */
+var MAX_POOL_SIZE = 40;
 
 /**
  * The base implementation of `compareAscending` used to compare values and
@@ -78,6 +80,33 @@ function compareMultipleAscending(a, b) {
 }
 
 /**
+ * Gets an object from the object pool or creates a new one if the pool is empty.
+ *
+ * @private
+ * @returns {Object} The object from the pool.
+ */
+function getObject() {
+  return objectPool.pop() || {
+    'criteria': null,
+    'index': 0,
+    'value': null
+  };
+}
+
+/**
+ * Releases `object` back to the object pool.
+ *
+ * @private
+ * @param {Object} object The object to release.
+ */
+function releaseObject(object) {
+  object.criteria = object.value = null;
+  if (objectPool.length < MAX_POOL_SIZE) {
+    objectPool.push(object);
+  }
+}
+
+/**
  * Creates an array of elements, sorted in ascending order by the results of
  * running each element in a collection through the callback. This method
  * performs a stable sort, that is, it will preserve the original sort order
@@ -135,7 +164,7 @@ function sortBy(collection, callback, thisArg) {
   if (!multi) {
     callback = createCallback(callback, thisArg, 3);
   }
-  forEach(collection, function(value, key, collection) {
+  baseEach(collection, function(value, key, collection) {
     var object = result[++index] = getObject();
     object.index = index;
     object.value = value;

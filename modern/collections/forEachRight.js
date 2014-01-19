@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    forOwn = require('../objects/forOwn'),
+    baseEach = require('../internals/baseEach'),
     keys = require('../objects/keys');
 
 /**
@@ -39,7 +39,7 @@ function forEachRight(collection, callback, thisArg) {
   } else {
     var props = keys(collection);
     length = props.length;
-    forOwn(collection, function(value, key, collection) {
+    baseEach(collection, function(value, key, collection) {
       key = props ? props[--length] : --length;
       return callback(collection[key], key, collection);
     });

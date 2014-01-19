@@ -1,14 +1,12 @@
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
+ * Build: `lodash modularize modern exports="node" -o ./modern/`
  * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseForOwn = require('./baseForOwn'),
-    isString = require('../objects/isString'),
-    support = require('../support');
+var baseForOwn = require('./baseForOwn');
 
 /**
  * The base implementation of `_.forEach` without support for callback
@@ -25,9 +23,6 @@ function baseEach(collection, callback) {
       length = collection ? collection.length : 0;
 
   if (typeof length == 'number') {
-    if (support.unindexedChars && isString(iterable)) {
-      iterable = iterable.split('');
-    }
     while (++index < length) {
       if (callback(iterable[index], index, collection) === false) {
         break;

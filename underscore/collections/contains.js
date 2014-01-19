@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseIndexOf = require('../internals/baseIndexOf'),
-    forOwn = require('../objects/forOwn');
+var baseEach = require('../internals/baseEach'),
+    baseIndexOf = require('../internals/baseIndexOf');
 
 /** Used by methods to exit iteration */
 var breakIndicator = '__lodash_break_1335248838000__';
@@ -46,7 +46,7 @@ function contains(collection, target) {
   if (length && typeof length == 'number') {
     result = indexOf(collection, target) > -1;
   } else {
-    forOwn(collection, function(value) {
+    baseEach(collection, function(value) {
       return (result = value === target) && breakIndicator;
     });
   }

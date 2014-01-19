@@ -8,8 +8,8 @@
  */
 var baseDifference = require('../internals/baseDifference'),
     baseFlatten = require('../internals/baseFlatten'),
-    createCallback = require('../functions/createCallback'),
-    forIn = require('./forIn');
+    baseForIn = require('../internals/baseForIn'),
+    createCallback = require('../functions/createCallback');
 
 /**
  * Creates a shallow clone of `object` excluding the specified properties.
@@ -41,7 +41,7 @@ function omit(object, callback, thisArg) {
   var result = {};
   if (typeof callback != 'function') {
     var props = [];
-    forIn(object, function(value, key) {
+    baseForIn(object, function(value, key) {
       props.push(key);
     });
     props = baseDifference(props, baseFlatten(arguments, true, false, 1));
@@ -55,7 +55,7 @@ function omit(object, callback, thisArg) {
     }
   } else {
     callback = createCallback(callback, thisArg, 3);
-    forIn(object, function(value, key, object) {
+    baseForIn(object, function(value, key, object) {
       if (!callback(value, key, object)) {
         result[key] = value;
       }

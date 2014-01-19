@@ -6,7 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var forOwn = require('./forOwn'),
+var baseForOwn = require('../internals/baseForOwn'),
     isFunction = require('./isFunction');
 
 /** `Object#toString` result shortcuts */
@@ -54,7 +54,7 @@ function isEmpty(value) {
       (className == objectClass && typeof length == 'number' && isFunction(value.splice))) {
     return !length;
   }
-  forOwn(value, function() {
+  baseForOwn(value, function() {
     return (result = false);
   });
   return result;

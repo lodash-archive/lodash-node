@@ -47,7 +47,7 @@ function forEach(collection, callback, thisArg) {
       }
     }
   } else {
-    baseEach(collection, callback, thisArg);
+    baseEach(collection, baseCreateCallback(callback, thisArg, 3));
   }
   return collection;
 }

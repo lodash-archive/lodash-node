@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    forIn = require('./forIn');
+    baseForIn = require('../internals/baseForIn');
 
 /**
  * This method is like `_.forIn` except that it iterates over elements
@@ -40,7 +40,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
 function forInRight(object, callback, thisArg) {
   var pairs = [];
 
-  forIn(object, function(value, key) {
+  baseForIn(object, function(value, key) {
     pairs.push(key, value);
   });
 
