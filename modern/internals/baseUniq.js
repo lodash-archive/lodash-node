@@ -14,7 +14,7 @@ var baseIndexOf = require('./baseIndexOf'),
     releaseObject = require('./releaseObject');
 
 /** Used as the size when optimizations are enabled for large arrays */
-var largeArraySize = 75;
+var LARGE_ARRAY_SIZE = 75;
 
 /**
  * The base implementation of `_.uniq` without support for callback shorthands
@@ -32,7 +32,7 @@ function baseUniq(array, isSorted, callback) {
       length = array ? array.length : 0,
       result = [];
 
-  var isLarge = !isSorted && length >= largeArraySize,
+  var isLarge = !isSorted && length >= LARGE_ARRAY_SIZE,
       seen = (callback || isLarge) ? getArray() : result;
 
   if (isLarge) {

@@ -9,6 +9,9 @@
 var createWrapper = require('../internals/createWrapper'),
     slice = require('../arrays/slice');
 
+/** Used to compose bitmasks for `__bindData__` */
+var PARTIAL_FLAG = 16;
+
 /**
  * Creates a function that, when called, invokes `func` with any additional
  * `partial` arguments prepended to those provided to the new function. This
@@ -31,7 +34,7 @@ var createWrapper = require('../internals/createWrapper'),
  * // => 'hi fred'
  */
 function partial(func) {
-  return createWrapper(func, 16, slice(arguments, 1));
+  return createWrapper(func, PARTIAL_FLAG, slice(arguments, 1));
 }
 
 module.exports = partial;

@@ -11,13 +11,21 @@ var baseBind = require('./baseBind'),
     isFunction = require('../objects/isFunction'),
     slice = require('../arrays/slice');
 
+/** Used to compose bitmasks for `__bindData__` */
+var BIND_FLAG = 1,
+    BIND_KEY_FLAG = 2,
+    CURRY_FLAG = 4,
+    CURRY_BOUND_FLAG = 8,
+    PARTIAL_FLAG = 16,
+    PARTIAL_RIGHT_FLAG = 32;
+
 /**
  * Creates a function that, when called, either curries or invokes `func`
  * with an optional `this` binding and partially applied arguments.
  *
  * @private
  * @param {Function|string} func The function or method name to reference.
- * @param {number} bitmask The bitmask of method flags to compose.
+ * @param {number} bitmask The bitmask of flags to compose.
  *  The bitmask may be composed of the following flags:
  *  1 - `_.bind`
  *  2 - `_.bindKey`
@@ -34,12 +42,12 @@ var baseBind = require('./baseBind'),
  * @returns {Function} Returns the new function.
  */
 function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, arity) {
-  var isBind = bitmask & 1,
-      isBindKey = bitmask & 2,
-      isCurry = bitmask & 4,
-      isCurryBound = bitmask & 8,
-      isPartial = bitmask & 16,
-      isPartialRight = bitmask & 32;
+  var isBind = bitmask & BIND_FLAG,
+      isBindKey = bitmask & BIND_KEY_FLAG,
+      isCurry = bitmask & CURRY_FLAG,
+      isCurryBound = bitmask & CURRY_BOUND_FLAG,
+      isPartial = bitmask & PARTIAL_FLAG,
+      isPartialRight = bitmask & PARTIAL_RIGHT_FLAG;
 
   if (!isBindKey && !isFunction(func)) {
     throw new TypeError;
@@ -53,7 +61,7 @@ function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, ar
     isPartialRight = partialRightArgs = false;
   }
   // fast path for `_.bind`
-  var creater = (bitmask == 1 || bitmask === 17) ? baseBind : baseCreateWrapper;
+  var creater = (bitmask == BIND_FLAG || bitmask == (BIND_FLAG | PARTIAL_FLAG)) ? baseBind : baseCreateWrapper;
   return creater([func, bitmask, partialArgs, partialRightArgs, thisArg, arity]);
 }
 

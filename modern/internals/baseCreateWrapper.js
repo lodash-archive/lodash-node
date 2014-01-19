@@ -11,6 +11,14 @@ var baseCreate = require('./baseCreate'),
     setBindData = require('./setBindData'),
     slice = require('../arrays/slice');
 
+/** Used to compose bitmasks for `__bindData__` */
+var BIND_FLAG = 1,
+    BIND_KEY_FLAG = 2,
+    CURRY_FLAG = 4,
+    CURRY_BOUND_FLAG = 8,
+    PARTIAL_FLAG = 16,
+    PARTIAL_RIGHT_FLAG = 32;
+
 /** Used for native method references */
 var arrayRef = Array.prototype;
 
@@ -33,10 +41,10 @@ function baseCreateWrapper(bindData) {
       thisArg = bindData[4],
       arity = bindData[5];
 
-  var isBind = bitmask & 1,
-      isBindKey = bitmask & 2,
-      isCurry = bitmask & 4,
-      isCurryBound = bitmask & 8,
+  var isBind = bitmask & BIND_FLAG,
+      isBindKey = bitmask & BIND_KEY_FLAG,
+      isCurry = bitmask & CURRY_FLAG,
+      isCurryBound = bitmask & CURRY_BOUND_FLAG,
       key = func;
 
   function bound() {
@@ -51,8 +59,9 @@ function baseCreateWrapper(bindData) {
         push.apply(args, partialRightArgs);
       }
       if (isCurry && args.length < arity) {
-        bitmask |= 16 & ~32;
-        return baseCreateWrapper([func, (isCurryBound ? bitmask : bitmask & ~3), args, null, thisArg, arity]);
+        bitmask |= PARTIAL_FLAG;
+        bitmask &= ~PARTIAL_RIGHT_FLAG;
+        return baseCreateWrapper([func, (isCurryBound ? bitmask : bitmask & ~(BIND_FLAG | BIND_KEY_FLAG)), args, null, thisArg, arity]);
       }
     }
     args || (args = arguments);

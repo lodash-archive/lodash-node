@@ -9,6 +9,9 @@
 var createWrapper = require('../internals/createWrapper'),
     slice = require('../arrays/slice');
 
+/** Used to compose bitmasks for `__bindData__` */
+var PARTIAL_RIGHT_FLAG = 32;
+
 /**
  * This method is like `_.partial` except that `partial` arguments are
  * appended to those provided to the new function.
@@ -40,7 +43,7 @@ var createWrapper = require('../internals/createWrapper'),
  * // => { '_': _, 'jq': $ }
  */
 function partialRight(func) {
-  return createWrapper(func, 32, null, slice(arguments, 1));
+  return createWrapper(func, PARTIAL_RIGHT_FLAG, null, slice(arguments, 1));
 }
 
 module.exports = partialRight;

@@ -12,7 +12,7 @@ var baseIndexOf = require('./baseIndexOf'),
     releaseObject = require('./releaseObject');
 
 /** Used as the size when optimizations are enabled for large arrays */
-var largeArraySize = 75;
+var LARGE_ARRAY_SIZE = 75;
 
 /**
  * The base implementation of `_.difference` that accepts a single array
@@ -27,7 +27,7 @@ function baseDifference(array, values) {
   var index = -1,
       indexOf = baseIndexOf,
       length = array ? array.length : 0,
-      isLarge = length >= largeArraySize,
+      isLarge = length >= LARGE_ARRAY_SIZE,
       result = [];
 
   if (isLarge) {

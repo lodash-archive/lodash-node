@@ -10,6 +10,9 @@ var baseFlatten = require('../internals/baseFlatten'),
     createWrapper = require('../internals/createWrapper'),
     functions = require('../objects/functions');
 
+/** Used to compose bitmasks for `__bindData__` */
+var BIND_FLAG = 1;
+
 /**
  * Binds methods of an object to the object itself, overwriting the existing
  * method. Method names may be specified as individual arguments or as arrays
@@ -43,7 +46,7 @@ function bindAll(object) {
 
   while (++index < length) {
     var key = funcs[index];
-    object[key] = createWrapper(object[key], 1, null, null, object);
+    object[key] = createWrapper(object[key], BIND_FLAG, null, null, object);
   }
   return object;
 }

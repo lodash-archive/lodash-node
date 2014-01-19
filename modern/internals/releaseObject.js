@@ -9,7 +9,7 @@
 var objectPool = require('./objectPool');
 
 /** Used as the max size of the `arrayPool` and `objectPool` */
-var maxPoolSize = 40;
+var MAX_POOL_SIZE = 40;
 
 /**
  * Releases `object` back to the object pool.
@@ -23,7 +23,7 @@ function releaseObject(object) {
     releaseObject(cache);
   }
   object.array = object.cache = object.criteria = object.object = object.number = object.string = object.value = null;
-  if (objectPool.length < maxPoolSize) {
+  if (objectPool.length < MAX_POOL_SIZE) {
     objectPool.push(object);
   }
 }

@@ -9,7 +9,7 @@
 var arrayPool = require('./arrayPool');
 
 /** Used as the max size of the `arrayPool` and `objectPool` */
-var maxPoolSize = 40;
+var MAX_POOL_SIZE = 40;
 
 /**
  * Releases `array` back to the array pool.
@@ -19,7 +19,7 @@ var maxPoolSize = 40;
  */
 function releaseArray(array) {
   array.length = 0;
-  if (arrayPool.length < maxPoolSize) {
+  if (arrayPool.length < MAX_POOL_SIZE) {
     arrayPool.push(array);
   }
 }
