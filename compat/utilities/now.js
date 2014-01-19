@@ -8,6 +8,9 @@
  */
 var isNative = require('../internals/isNative');
 
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeNow = isNative(nativeNow = Date.now) && nativeNow;
+
 /**
  * Gets the number of milliseconds that have elapsed since the Unix epoch
  * (1 January 1970 00:00:00 UTC).
@@ -21,7 +24,7 @@ var isNative = require('../internals/isNative');
  * _.defer(function() { console.log(_.now() - stamp); });
  * // => logs the number of milliseconds it took for the deferred function to be called
  */
-var now = isNative(now = Date.now) && now || function() {
+var now = nativeNow || function() {
   return new Date().getTime();
 };
 
