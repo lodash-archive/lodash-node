@@ -9,8 +9,10 @@
 var baseEach = require('../internals/baseEach'),
     createCallback = require('../functions/createCallback'),
     isArray = require('../objects/isArray'),
-    map = require('./map'),
-    objectPool = require('../internals/objectPool');
+    map = require('./map');
+
+/** Used to pool arrays and objects used internally */
+var objectPool = [];
 
 /** Used as the max size of the `arrayPool` and `objectPool` */
 var MAX_POOL_SIZE = 40;
