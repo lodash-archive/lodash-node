@@ -28,7 +28,7 @@ function baseDifference(array, values) {
       length = array ? array.length : 0,
       result = [];
 
-  if (createCache && length >= LARGE_ARRAY_SIZE) {
+  if (createCache && values && values.length >= LARGE_ARRAY_SIZE) {
     indexOf = cacheIndexOf;
     values = createCache(values);
   }
