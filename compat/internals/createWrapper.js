@@ -122,10 +122,10 @@ function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightA
     arity = 0;
   }
   // fast path for `_.bind`
-  data = [func, bitmask, arity, thisArg, partialArgs, partialRightArgs];
+  var newData = [func, bitmask, arity, thisArg, partialArgs, partialRightArgs];
   return (bitmask == BIND_FLAG || bitmask == (BIND_FLAG | PARTIAL_FLAG))
-    ? baseBind(data)
-    : baseCreateWrapper(data);
+    ? baseBind(newData)
+    : baseCreateWrapper(newData);
 }
 
 module.exports = createWrapper;
