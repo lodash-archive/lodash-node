@@ -8,6 +8,9 @@
  */
 var trim = require('../strings/trim');
 
+/** Used to detect hexadecimal string values */
+var reHexPrefix = /^0[xX]/;
+
 /** Used to detect and test whitespace */
 var whitespace = (
   // whitespace
@@ -19,9 +22,6 @@ var whitespace = (
   // unicode category "Zs" space separators
   '\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000'
 );
-
-/** Used to detect hexadecimal string values */
-var reHexPrefix = /^0[xX]/;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeParseInt = global.parseInt;
