@@ -10,7 +10,7 @@ var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache');
 
-/** Used as the size when optimizations are enabled for large arrays */
+/** Used as the size when optimizations are enabled for arrays */
 var LARGE_ARRAY_SIZE = 75;
 
 /**

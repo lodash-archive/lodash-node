@@ -21,13 +21,13 @@ var push = arrayRef.push;
  * sets its meta data.
  *
  * @private
- * @param {Array} bindData The bind data array.
+ * @param {Array} data The metadata array.
  * @returns {Function} Returns the new bound function.
  */
-function baseBind(bindData) {
-  var func = bindData[0],
-      partialArgs = bindData[2],
-      thisArg = bindData[4];
+function baseBind(data) {
+  var func = data[0],
+      thisArg = data[3],
+      partialArgs = data[4];
 
   function bound() {
     // `Function#bind` spec

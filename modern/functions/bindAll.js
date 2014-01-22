@@ -10,7 +10,7 @@ var baseFlatten = require('../internals/baseFlatten'),
     createWrapper = require('../internals/createWrapper'),
     functions = require('../objects/functions');
 
-/** Used to compose bitmasks for `__bindData__` */
+/** Used to compose bitmasks for wrapper metadata */
 var BIND_FLAG = 1;
 
 /**
@@ -46,7 +46,7 @@ function bindAll(object) {
 
   while (++index < length) {
     var key = funcs[index];
-    object[key] = createWrapper(object[key], BIND_FLAG, null, null, object);
+    object[key] = createWrapper(object[key], BIND_FLAG, null, object);
   }
   return object;
 }

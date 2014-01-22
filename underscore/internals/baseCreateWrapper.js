@@ -10,7 +10,7 @@ var baseCreate = require('./baseCreate'),
     isObject = require('../objects/isObject'),
     slice = require('../arrays/slice');
 
-/** Used to compose bitmasks for `__bindData__` */
+/** Used to compose bitmasks for wrapper metadata */
 var BIND_FLAG = 1,
     BIND_KEY_FLAG = 2,
     CURRY_FLAG = 4,
@@ -24,21 +24,24 @@ var arrayRef = Array.prototype;
 /** Native method shortcuts */
 var push = arrayRef.push;
 
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeMax = Math.max;
+
 /**
  * The base implementation of `createWrapper` that creates the wrapper and
  * sets its meta data.
  *
  * @private
- * @param {Array} bindData The bind data array.
+ * @param {Array} data The metadata array.
  * @returns {Function} Returns the new function.
  */
-function baseCreateWrapper(bindData) {
-  var func = bindData[0],
-      bitmask = bindData[1],
-      partialArgs = bindData[2],
-      partialRightArgs = bindData[3],
-      thisArg = bindData[4],
-      arity = bindData[5];
+function baseCreateWrapper(data) {
+  var func = data[0],
+      bitmask = data[1],
+      arity = data[2],
+      thisArg = data[3],
+      partialArgs = data[4],
+      partialRightArgs = data[5];
 
   var isBind = bitmask & BIND_FLAG,
       isBindKey = bitmask & BIND_KEY_FLAG,
@@ -57,10 +60,15 @@ function baseCreateWrapper(bindData) {
       if (partialRightArgs) {
         push.apply(args, partialRightArgs);
       }
-      if (isCurry && args.length < arity) {
+      var argsLength = arguments.length;
+      if (isCurry && argsLength < arity) {
         bitmask |= PARTIAL_FLAG;
-        bitmask &= ~PARTIAL_RIGHT_FLAG;
-        return baseCreateWrapper([func, (isCurryBound ? bitmask : bitmask & ~(BIND_FLAG | BIND_KEY_FLAG)), args, null, thisArg, arity]);
+        bitmask &= ~PARTIAL_RIGHT_FLAG
+        if (!isCurryBound) {
+          bitmask &= ~(BIND_FLAG | BIND_KEY_FLAG);
+        }
+        var newArity = nativeMax(0, arity - argsLength);
+        return baseCreateWrapper([func, bitmask, newArity, thisArg, args]);
       }
     }
     args || (args = arguments);

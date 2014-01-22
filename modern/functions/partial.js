@@ -9,8 +9,14 @@
 var createWrapper = require('../internals/createWrapper'),
     slice = require('../arrays/slice');
 
-/** Used to compose bitmasks for `__bindData__` */
+/** Used to compose bitmasks for wrapper metadata */
 var PARTIAL_FLAG = 16;
+
+/** Used as the semantic version number */
+var version = '2.4.1';
+
+/** Used as the property name for wrapper metadata */
+var expando = '__lodash@' + version + '__';
 
 /**
  * Creates a function that, when called, invokes `func` with any additional
@@ -34,7 +40,11 @@ var PARTIAL_FLAG = 16;
  * // => 'hi fred'
  */
 function partial(func) {
-  return createWrapper(func, PARTIAL_FLAG, slice(arguments, 1));
+  var arity = func && (func[expando] ? func[expando][2] : func.length),
+      partialArgs = slice(arguments, 1);
+
+  arity -= partialArgs.length;
+  return createWrapper(func, PARTIAL_FLAG, arity, null, partialArgs);
 }
 
 module.exports = partial;

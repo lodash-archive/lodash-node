@@ -10,9 +10,15 @@ var createWrapper = require('../internals/createWrapper'),
     slice = require('../arrays/slice'),
     support = require('../support');
 
-/** Used to compose bitmasks for `__bindData__` */
+/** Used to compose bitmasks for wrapper metadata */
 var BIND_FLAG = 1,
     PARTIAL_FLAG = 16;
+
+/** Used as the semantic version number */
+var version = '2.4.1';
+
+/** Used as the property name for wrapper metadata */
+var expando = '__lodash@' + version + '__';
 
 /**
  * Creates a function that, when called, invokes `func` with the `this`
@@ -40,9 +46,14 @@ var BIND_FLAG = 1,
  * // => 'hi fred'
  */
 function bind(func, thisArg) {
-  return arguments.length > 2
-    ? createWrapper(func, BIND_FLAG | PARTIAL_FLAG, slice(arguments, 2), null, thisArg)
-    : createWrapper(func, BIND_FLAG, null, null, thisArg);
+  if (arguments.length < 3) {
+    return createWrapper(func, BIND_FLAG, null, thisArg);
+  }
+  var arity = func && (func[expando] ? func[expando][2] : func.length),
+      partialArgs = slice(arguments, 2);
+
+  arity -= partialArgs.length;
+  return createWrapper(func, BIND_FLAG | PARTIAL_FLAG, arity, thisArg, partialArgs);
 }
 
 module.exports = bind;

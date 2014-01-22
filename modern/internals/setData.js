@@ -9,7 +9,13 @@
 var isNative = require('./isNative'),
     noop = require('../utilities/noop');
 
-/** Used as the property descriptor for `__bindData__` */
+/** Used as the semantic version number */
+var version = '2.4.1';
+
+/** Used as the property name for wrapper metadata */
+var expando = '__lodash@' + version + '__';
+
+/** Used as the property descriptor for wrapper metadata */
 var descriptor = {
   'configurable': false,
   'enumerable': false,
@@ -29,15 +35,15 @@ var defineProperty = (function() {
 }());
 
 /**
- * Sets `this` binding data on a given function.
+ * Sets wrapper metadata on a given function.
  *
  * @private
  * @param {Function} func The function to set data on.
  * @param {Array} value The data array to set.
  */
-var setBindData = !defineProperty ? noop : function(func, value) {
+var setData = !defineProperty ? noop : function(func, value) {
   descriptor.value = value;
-  defineProperty(func, '__bindData__', descriptor);
+  defineProperty(func, expando, descriptor);
 };
 
-module.exports = setBindData;
+module.exports = setData;

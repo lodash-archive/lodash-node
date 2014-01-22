@@ -21,6 +21,9 @@ var arrays = require('./arrays'),
     support = require('./support'),
     templateSettings = require('./utilities/templateSettings');
 
+/** Used as the semantic version number */
+var version = '2.4.1';
+
 /** Used for native method references */
 var arrayRef = Array.prototype;
 
@@ -240,7 +243,7 @@ mixin(assign({}, lodash));
  * @memberOf _
  * @type string
  */
-lodash.VERSION = '2.4.1';
+lodash.VERSION = version;
 
 // add "Chaining" functions to the wrapper
 lodash.prototype.chain = chaining.wrapperChain;

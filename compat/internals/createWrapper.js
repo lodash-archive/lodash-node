@@ -11,13 +11,18 @@ var baseBind = require('./baseBind'),
     isFunction = require('../objects/isFunction'),
     slice = require('../arrays/slice');
 
-/** Used to compose bitmasks for `__bindData__` */
+/** Used to compose bitmasks for wrapper metadata */
 var BIND_FLAG = 1,
     BIND_KEY_FLAG = 2,
-    CURRY_FLAG = 4,
     CURRY_BOUND_FLAG = 8,
     PARTIAL_FLAG = 16,
     PARTIAL_RIGHT_FLAG = 32;
+
+/** Used as the semantic version number */
+var version = '2.4.1';
+
+/** Used as the property name for wrapper metadata */
+var expando = '__lodash@' + version + '__';
 
 /** Used for native method references */
 var arrayRef = Array.prototype;
@@ -34,25 +39,23 @@ var push = arrayRef.push,
  * @param {Function|string} func The function or method name to reference.
  * @param {number} bitmask The bitmask of flags to compose.
  *  The bitmask may be composed of the following flags:
- *  1 - `_.bind`
- *  2 - `_.bindKey`
- *  4 - `_.curry`
- *  8 - `_.curry` (bound)
+ *  1  - `_.bind`
+ *  2  - `_.bindKey`
+ *  4  - `_.curry`
+ *  8  - `_.curry` (bound)
  *  16 - `_.partial`
  *  32 - `_.partialRight`
+ * @param {number} [arity] The arity of `func`.
+ * @param {*} [thisArg] The `this` binding of `func`.
  * @param {Array} [partialArgs] An array of arguments to prepend to those
  *  provided to the new function.
  * @param {Array} [partialRightArgs] An array of arguments to append to those
  *  provided to the new function.
- * @param {*} [thisArg] The `this` binding of `func`.
- * @param {number} [arity] The arity of `func`.
  * @returns {Function} Returns the new function.
  */
-function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, arity) {
+function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightArgs) {
   var isBind = bitmask & BIND_FLAG,
       isBindKey = bitmask & BIND_KEY_FLAG,
-      isCurry = bitmask & CURRY_FLAG,
-      isCurryBound = bitmask & CURRY_BOUND_FLAG,
       isPartial = bitmask & PARTIAL_FLAG,
       isPartialRight = bitmask & PARTIAL_RIGHT_FLAG;
 
@@ -60,50 +63,69 @@ function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, ar
     throw new TypeError;
   }
   if (isPartial && !partialArgs.length) {
-    bitmask &= ~16;
+    bitmask &= ~PARTIAL_FLAG;
     isPartial = partialArgs = false;
   }
   if (isPartialRight && !partialRightArgs.length) {
-    bitmask &= ~32;
+    bitmask &= ~PARTIAL_RIGHT_FLAG;
     isPartialRight = partialRightArgs = false;
   }
-  var bindData = func && func.__bindData__;
-  if (bindData && bindData !== true) {
-    // clone `bindData`
-    bindData = slice(bindData);
-    if (bindData[2]) {
-      bindData[2] = slice(bindData[2]);
+  var data = !isBindKey && func[expando];
+  if (data && data !== true) {
+    // shallow clone `data`
+    data = slice(data);
+
+    // clone partial left arguments
+    if (data[4]) {
+      data[4] = slice(data[4]);
     }
-    if (bindData[3]) {
-      bindData[3] = slice(bindData[3]);
+    // clone partial right arguments
+    if (data[5]) {
+      data[5] = slice(data[5]);
     }
-    // set `thisBinding` is not previously bound
-    if (isBind && !(bindData[1] & BIND_FLAG)) {
-      bindData[4] = thisArg;
+    // set arity if provided
+    if (typeof arity == 'number') {
+      data[2] = arity;
     }
-    // set if previously bound but not currently (subsequent curried functions)
-    if (!isBind && bindData[1] & BIND_FLAG) {
-      bitmask |= 8;
+    // set `thisArg` if not previously bound
+    var bound = data[1] & BIND_FLAG;
+    if (isBind && !bound) {
+      data[3] = thisArg;
     }
-    // set curried arity if not yet set
-    if (isCurry && !(bindData[1] & CURRY_FLAG)) {
-      bindData[5] = arity;
+    // set if currying a bound function
+    if (!isBind && bound) {
+      bitmask |= CURRY_BOUND_FLAG;
     }
     // append partial left arguments
     if (isPartial) {
-      push.apply(bindData[2] || (bindData[2] = []), partialArgs);
+      if (data[4]) {
+        push.apply(data[4], partialArgs);
+      } else {
+        data[4] = partialArgs;
+      }
     }
-    // append partial right arguments
+    // prepend partial right arguments
     if (isPartialRight) {
-      unshift.apply(bindData[3] || (bindData[3] = []), partialRightArgs);
+      if (data[5]) {
+        unshift.apply(data[5], partialRightArgs);
+      } else {
+        data[5] = partialRightArgs;
+      }
     }
     // merge flags
-    bindData[1] |= bitmask;
-    return createWrapper.apply(null, bindData);
+    data[1] |= bitmask;
+    return createWrapper.apply(null, data);
+  }
+  if (arity == null) {
+    arity = isBindKey ? 0 : func.length;
+  } else if (arity < 0) {
+    arity = 0;
   }
   // fast path for `_.bind`
-  var creater = (bitmask == BIND_FLAG || bitmask == (BIND_FLAG | PARTIAL_FLAG)) ? baseBind : baseCreateWrapper;
-  return creater([func, bitmask, partialArgs, partialRightArgs, thisArg, arity]);
+  data = [func, bitmask, arity, thisArg, partialArgs, partialRightArgs];
+  return (bitmask == BIND_FLAG || bitmask == (BIND_FLAG | PARTIAL_FLAG))
+    ? baseBind(data)
+    : baseCreateWrapper(data);
 }
 
 module.exports = createWrapper;

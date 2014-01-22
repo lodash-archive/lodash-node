@@ -8,7 +8,7 @@
  */
 var createWrapper = require('../internals/createWrapper');
 
-/** Used to compose bitmasks for `__bindData__` */
+/** Used to compose bitmasks for wrapper metadata */
 var CURRY_FLAG = 4;
 
 /**
@@ -42,8 +42,10 @@ var CURRY_FLAG = 4;
  * // => 6
  */
 function curry(func, arity) {
-  arity = typeof arity == 'number' ? arity : (+arity || func.length);
-  return createWrapper(func, CURRY_FLAG, null, null, null, arity);
+  if (typeof arity != 'number') {
+    arity = +arity || (func ? func.length : 0);
+  }
+  return createWrapper(func, CURRY_FLAG, arity);
 }
 
 module.exports = curry;

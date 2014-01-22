@@ -8,11 +8,17 @@
  */
 var bind = require('../functions/bind'),
     identity = require('../utilities/identity'),
-    setBindData = require('./setBindData'),
+    setData = require('./setData'),
     support = require('../support');
 
-/** Used to compose bitmasks for `__bindData__` */
+/** Used to compose bitmasks for wrapper metadata */
 var BIND_FLAG = 1;
+
+/** Used as the semantic version number */
+var version = '2.4.1';
+
+/** Used as the property name for wrapper metadata */
+var expando = '__lodash@' + version + '__';
 
 /** Used to detected named functions */
 var reFuncName = /^\s*function[ \n\r\t]+\w/;
@@ -41,26 +47,26 @@ function baseCreateCallback(func, thisArg, argCount) {
   if (typeof thisArg == 'undefined' || !('prototype' in func)) {
     return func;
   }
-  var bindData = func.__bindData__;
-  if (typeof bindData == 'undefined') {
+  var data = func[expando];
+  if (typeof data == 'undefined') {
     if (support.funcNames) {
-      bindData = !func.name;
+      data = !func.name;
     }
-    bindData = bindData || !support.funcDecomp;
-    if (!bindData) {
+    data = data || !support.funcDecomp;
+    if (!data) {
       var source = fnToString.call(func);
       if (!support.funcNames) {
-        bindData = !reFuncName.test(source);
+        data = !reFuncName.test(source);
       }
-      if (!bindData) {
+      if (!data) {
         // checks if `func` references the `this` keyword and stores the result
-        bindData = reThis.test(source);
-        setBindData(func, bindData);
+        data = reThis.test(source);
+        setData(func, data);
       }
     }
   }
   // exit early if there are no `this` references or `func` is bound
-  if (bindData === false || (bindData !== true && bindData[1] & BIND_FLAG)) {
+  if (data === false || (data !== true && data[1] & BIND_FLAG)) {
     return func;
   }
   switch (argCount) {

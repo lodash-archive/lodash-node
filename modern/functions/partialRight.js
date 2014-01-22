@@ -9,8 +9,14 @@
 var createWrapper = require('../internals/createWrapper'),
     slice = require('../arrays/slice');
 
-/** Used to compose bitmasks for `__bindData__` */
+/** Used to compose bitmasks for wrapper metadata */
 var PARTIAL_RIGHT_FLAG = 32;
+
+/** Used as the semantic version number */
+var version = '2.4.1';
+
+/** Used as the property name for wrapper metadata */
+var expando = '__lodash@' + version + '__';
 
 /**
  * This method is like `_.partial` except that `partial` arguments are
@@ -43,7 +49,11 @@ var PARTIAL_RIGHT_FLAG = 32;
  * // => { '_': _, 'jq': $ }
  */
 function partialRight(func) {
-  return createWrapper(func, PARTIAL_RIGHT_FLAG, null, slice(arguments, 1));
+  var arity = func && (func[expando] ? func[expando][2] : func.length),
+      partialRightArgs = slice(arguments, 1);
+
+  arity -= partialRightArgs.length;
+  return createWrapper(func, PARTIAL_RIGHT_FLAG, arity, null, null, partialRightArgs);
 }
 
 module.exports = partialRight;
