@@ -9,8 +9,14 @@
 var baseEach = require('../internals/baseEach'),
     createCallback = require('../functions/createCallback');
 
+/** Used as the semantic version number */
+var version = '2.4.1';
+
+/** Used as the property name for wrapper metadata */
+var expando = '__lodash@' + version + '__';
+
 /** Used by methods to exit iteration */
-var breakIndicator = '__lodash_break_1335248838000__';
+var breakIndicator = expando + 'breaker__';
 
 /**
  * Checks if the callback returns truey value for **all** elements of a

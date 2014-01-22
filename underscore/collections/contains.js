@@ -9,8 +9,14 @@
 var baseEach = require('../internals/baseEach'),
     baseIndexOf = require('../internals/baseIndexOf');
 
+/** Used as the semantic version number */
+var version = '2.4.1';
+
+/** Used as the property name for wrapper metadata */
+var expando = '__lodash@' + version + '__';
+
 /** Used by methods to exit iteration */
-var breakIndicator = '__lodash_break_1335248838000__';
+var breakIndicator = expando + 'breaker__';
 
 /**
  * Checks if a given value is present in a collection using strict equality

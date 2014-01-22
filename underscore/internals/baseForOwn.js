@@ -8,8 +8,14 @@
  */
 var keys = require('../objects/keys');
 
+/** Used as the semantic version number */
+var version = '2.4.1';
+
+/** Used as the property name for wrapper metadata */
+var expando = '__lodash@' + version + '__';
+
 /** Used by methods to exit iteration */
-var breakIndicator = '__lodash_break_1335248838000__';
+var breakIndicator = expando + 'breaker__';
 
 /**
  * The base implementation of `_.forOwn` without support for callback
