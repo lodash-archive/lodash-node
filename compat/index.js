@@ -199,6 +199,7 @@ lodash.zip = arrays.zip;
 lodash.zipObject = arrays.zipObject;
 
 // add aliases
+lodash.callback = functions.createCallback;
 lodash.collect = collections.map;
 lodash.drop = arrays.rest;
 lodash.each = collections.forEach;

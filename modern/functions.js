@@ -12,6 +12,7 @@ module.exports = {
   'bind': require('./functions/bind'),
   'bindAll': require('./functions/bindAll'),
   'bindKey': require('./functions/bindKey'),
+  'callback': require('./functions/createCallback'),
   'compose': require('./functions/compose'),
   'createCallback': require('./functions/createCallback'),
   'curry': require('./functions/curry'),

@@ -8,6 +8,7 @@
  */
 
 module.exports = {
+  'callback': require('./functions/createCallback'),
   'constant': require('./utilities/constant'),
   'createCallback': require('./functions/createCallback'),
   'escape': require('./utilities/escape'),

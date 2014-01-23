@@ -11,6 +11,7 @@ module.exports = {
   'after': require('./functions/after'),
   'bind': require('./functions/bind'),
   'bindAll': require('./functions/bindAll'),
+  'callback': require('./functions/createCallback'),
   'compose': require('./functions/compose'),
   'createCallback': require('./functions/createCallback'),
   'debounce': require('./functions/debounce'),
