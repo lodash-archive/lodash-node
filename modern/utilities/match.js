@@ -10,6 +10,12 @@ var baseIsEqual = require('../internals/baseIsEqual'),
     isObject = require('../objects/isObject'),
     keys = require('../objects/keys');
 
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
 /**
  * Creates a "_.where" style function, which performs a deep comparison
  * between a given object and the `props` object, returning `true` if the
@@ -46,6 +52,9 @@ function match(source) {
   // property containing a primitive value
   if (props.length == 1 && a === a && !isObject(a)) {
     return function(object) {
+      if (!hasOwnProperty.call(object, key)) {
+        return false;
+      }
       var b = object[key];
       return a === b && (a !== 0 || (1 / a == 1 / b));
     };
@@ -55,7 +64,9 @@ function match(source) {
         result = false;
 
     while (length--) {
-      if (!(result = baseIsEqual(object[props[length]], source[props[length]], null, true))) {
+      var key = props[length];
+      if (!(result = hasOwnProperty.call(object, key) &&
+            baseIsEqual(object[key], source[key], null, true))) {
         break;
       }
     }
