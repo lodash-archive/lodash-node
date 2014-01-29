@@ -25,7 +25,7 @@ before_install:
   - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash"
   - "[ $TRAVIS_NODE_VERSION != '0.6' ] || npm config set ca \"\""
   - "([ $BUILD == 'legacy' ] || [ $BUILD == 'mobile' ]) && MAKE=true || true"
-  - "[ $ISTANBUL == false ]  || npm i -g coveralls@\"~2.6.0\" && npm i istanbul@\"~0.2.0\""
+  - "[ $ISTANBUL == false ]  || (npm i -g coveralls@\"~2.6.0\" && npm i istanbul@\"~0.2.0\")"
   - "[ $MAKE == false ] || git clone --depth=10 --branch=master git://github.com/lodash/lodash-cli.git ./node_modules/lodash-cli"
   - "[ $MAKE == false ] || (mkdir ./node_modules/lodash-cli/node_modules && cd ./node_modules/lodash-cli/node_modules/ && ln -s ../../lodash ./lodash && cd ../../../)"
   - "[ $MAKE == false ] || node ./node_modules/lodash-cli/bin/lodash modularize $BUILD exports=node -o ./$BUILD"
