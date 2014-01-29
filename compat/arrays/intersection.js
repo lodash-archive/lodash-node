@@ -15,7 +15,7 @@ var baseIndexOf = require('../internals/baseIndexOf'),
     releaseArray = require('../internals/releaseArray');
 
 /** Used as the size when optimizations are enabled for arrays */
-var LARGE_ARRAY_SIZE = 75;
+var LARGE_ARRAY_SIZE = 40;
 
 /**
  * Creates an array of unique values present in all provided arrays using

@@ -13,7 +13,7 @@ var baseIndexOf = require('./baseIndexOf'),
     releaseArray = require('./releaseArray');
 
 /** Used as the size when optimizations are enabled for arrays */
-var LARGE_ARRAY_SIZE = 75;
+var LARGE_ARRAY_SIZE = 40;
 
 /**
  * The base implementation of `_.uniq` without support for callback shorthands
