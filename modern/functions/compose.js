@@ -40,7 +40,8 @@ var isFunction = require('../objects/isFunction');
  */
 function compose() {
   var funcs = arguments,
-      length = funcs.length;
+      funcsLength = funcs.length,
+      length = funcsLength;
 
   while (length--) {
     if (!isFunction(funcs[length])) {
@@ -48,13 +49,13 @@ function compose() {
     }
   }
   return function() {
-    var args = arguments,
-        length = funcs.length;
+    var length = funcsLength - 1,
+        result = funcs[length].apply(this, arguments);
 
     while (length--) {
-      args = [funcs[length].apply(this, args)];
+      result = funcs[length].call(this, result);
     }
-    return args[0];
+    return result;
   };
 }
 
