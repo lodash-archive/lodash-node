@@ -39,6 +39,7 @@ function pull(array) {
   while (++argsIndex < argsLength) {
     var index = -1,
         value = args[argsIndex];
+
     while (++index < length) {
       if (array[index] === value) {
         splice.call(array, index--, 1);
