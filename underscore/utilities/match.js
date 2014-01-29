@@ -52,7 +52,7 @@ function match(source) {
     while (length--) {
       var key = props[length];
       if (!(result = hasOwnProperty.call(object, key) &&
-            baseIsEqual(object[key], source[key], null, true))) {
+            object[key] === source[key])) {
         break;
       }
     }
