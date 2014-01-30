@@ -51,6 +51,7 @@ var createCallback = require('../functions/createCallback');
  */
 function findLastIndex(array, callback, thisArg) {
   var length = array ? array.length : 0;
+
   callback = createCallback(callback, thisArg, 3);
   while (length--) {
     if (callback(array[length], length, array)) {

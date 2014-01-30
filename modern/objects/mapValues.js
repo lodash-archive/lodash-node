@@ -47,8 +47,8 @@ var baseForOwn = require('../internals/baseForOwn'),
  */
 function mapValues(object, callback, thisArg) {
   var result = {};
-  callback = createCallback(callback, thisArg, 3);
 
+  callback = createCallback(callback, thisArg, 3);
   baseForOwn(object, function(value, key, object) {
     result[key] = callback(value, key, object);
   });

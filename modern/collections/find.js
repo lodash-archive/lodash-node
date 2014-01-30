@@ -54,7 +54,6 @@ var baseEach = require('../internals/baseEach'),
  */
 function find(collection, callback, thisArg) {
   callback = createCallback(callback, thisArg, 3);
-
   var index = -1,
       length = collection ? collection.length : 0;
 

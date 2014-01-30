@@ -52,8 +52,8 @@ var baseForOwnRight = require('../internals/baseForOwnRight'),
  */
 function findLastKey(object, callback, thisArg) {
   var result;
-  callback = createCallback(callback, thisArg, 3);
 
+  callback = createCallback(callback, thisArg, 3);
   baseForOwnRight(object, function(value, key, object) {
     if (callback(value, key, object)) {
       result = key;

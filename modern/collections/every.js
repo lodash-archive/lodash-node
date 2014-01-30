@@ -52,8 +52,8 @@ var baseEach = require('../internals/baseEach'),
  */
 function every(collection, callback, thisArg) {
   var result = true;
-  callback = createCallback(callback, thisArg, 3);
 
+  callback = createCallback(callback, thisArg, 3);
   var index = -1,
       length = collection ? collection.length : 0;
 

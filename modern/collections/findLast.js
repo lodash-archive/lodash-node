@@ -31,8 +31,8 @@ var baseEachRight = require('../internals/baseEachRight'),
  */
 function findLast(collection, callback, thisArg) {
   var result;
-  callback = createCallback(callback, thisArg, 3);
 
+  callback = createCallback(callback, thisArg, 3);
   baseEachRight(collection, function(value, index, collection) {
     if (callback(value, index, collection)) {
       result = value;
