@@ -6,8 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createCallback = require('../functions/createCallback'),
-    forOwnRight = require('./forOwnRight');
+var baseForOwnRight = require('../internals/baseForOwnRight'),
+    createCallback = require('../functions/createCallback');
 
 /**
  * This method is like `_.findKey` except that it iterates over elements
@@ -53,7 +53,8 @@ var createCallback = require('../functions/createCallback'),
 function findLastKey(object, callback, thisArg) {
   var result;
   callback = createCallback(callback, thisArg, 3);
-  forOwnRight(object, function(value, key, object) {
+
+  baseForOwnRight(object, function(value, key, object) {
     if (callback(value, key, object)) {
       result = key;
       return false;

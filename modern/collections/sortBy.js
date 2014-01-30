@@ -8,8 +8,7 @@
  */
 var baseEach = require('../internals/baseEach'),
     createCallback = require('../functions/createCallback'),
-    isArray = require('../objects/isArray'),
-    map = require('./map');
+    isArray = require('../objects/isArray');
 
 /** Used as the max size of the `arrayPool` and `objectPool` */
 var MAX_POOL_SIZE = 40;
@@ -167,12 +166,20 @@ function sortBy(collection, callback, thisArg) {
     callback = createCallback(callback, thisArg, 3);
   }
   baseEach(collection, function(value, key, collection) {
+    if (multi) {
+      var length = callback.length,
+          criteria = Array(length);
+
+      while (length--) {
+        criteria[length] = value[callback[length]];
+      }
+    } else {
+      criteria = callback(value, key, collection);
+    }
     var object = result[++index] = getObject();
+    object.criteria = criteria;
     object.index = index;
     object.value = value;
-    object.criteria = multi
-      ? map(callback, function(key) { return value[key]; })
-      : callback(value, key, collection);
   });
 
   length = result.length;
