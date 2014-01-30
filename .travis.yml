@@ -5,7 +5,7 @@ node_js:
   - "0.10"
 env:
   global:
-    - ISTANBUL=false MAKE=false
+    - BUILD="compat" ISTANBUL=false MAKE=false
     - secure: "b4ZKDjezf7wDMt2VAtTAgeJWZBtPG0KTdGkvmpHpxTSx+f+S9K+DCK1W+wC6ApX1MCA6i9bw9fYtGeh4A21CTOPeBqhQ/oMkhqWLe5DxMhvj1s2yPMRnlbJtayuDgW5/PwTmEZ2AFHRZ2mBQ6vyCCkg9RsV37lrzm7ify53tzJY="
   matrix:
     - BUILD="compat"
