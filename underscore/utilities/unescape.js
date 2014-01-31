@@ -8,7 +8,7 @@
  */
 
 /** Used to match HTML entities and HTML characters */
-var reEscapedHtml = /&(?:amp|lt|gt|quot|#x27|#96);/g;
+var reEscapedHtml = /&(?:amp|lt|gt|quot|#x27);/g;
 
 /** Used to convert HTML entities to characters */
 var htmlUnescapes = {
@@ -16,8 +16,7 @@ var htmlUnescapes = {
   '&lt;': '<',
   '&gt;': '>',
   '&quot;': '"',
-  '&#x27;': "'",
-  '&#96;': '`'
+  '&#x27;': "'"
 };
 
 /**
@@ -33,8 +32,8 @@ function unescapeHtmlChar(match) {
 
 /**
  * The inverse of `_.escape`; this method converts the HTML entities
- * `&amp;`, `&lt;`, `&gt;`, `&quot;`, `&#39;`, and `&#96;` in `string` to
- * their corresponding characters.
+ * `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&#39;` in `string` to their
+ * corresponding characters.
  *
  * Note: No other HTML entities are unescaped. To unescape additional HTML
  * entities use a third-party library like [_he_](http://mths.be/he).

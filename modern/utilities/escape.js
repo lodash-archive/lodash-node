@@ -8,28 +8,23 @@
  */
 
 /** Used to match HTML entities and HTML characters */
-var reUnescapedHtml = /[&<>"'`]/g;
+var reUnescapedHtml = /[&<>"']/g;
 
 /**
  * Used to convert characters to HTML entities.
  *
- * Note: Though the `>` character is escaped for symmetry, characters like `>`
- * and `/` don't require escaping in HTML and have no special meaning unless
- * they're part of a tag or unquoted attribute value.
+ * Note: Though the ">" character is escaped for symmetry, characters like
+ * ">", "`", and "/" don't require escaping in HTML and have no special meaning
+ * unless they're part of a tag or unquoted attribute value.
  * See [Mathias' article](http://mathiasbynens.be/notes/ambiguous-ampersands)
  * (under "semi-related fun fact") for more details.
- *
- * Backticks are escaped because IE < 9 allows them to be used as attribute
- * value delimiters. See [Ryan Grove's article](http://wonko.com/post/html-escaping)
- * for more details.
  */
 var htmlEscapes = {
   '&': '&amp;',
   '<': '&lt;',
   '>': '&gt;',
   '"': '&quot;',
-  "'": '&#39;',
-  '`': '&#96;'
+  "'": '&#39;'
 };
 
 /**
@@ -44,7 +39,7 @@ function escapeHtmlChar(match) {
 }
 
 /**
- * Converts the characters "&", "<", ">", '"', "'", and "\`" in `string` to
+ * Converts the characters "&", "<", ">", '"', and "'" in `string` to
  * their corresponding HTML entities.
  *
  * Note: No other characters are escaped. To escape additional characters
