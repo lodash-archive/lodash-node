@@ -39,6 +39,7 @@ function baseEachRight(collection, callback) {
   } else {
     baseForOwnRight(collection, callback);
   }
+  return collection;
 }
 
 module.exports = baseEachRight;
