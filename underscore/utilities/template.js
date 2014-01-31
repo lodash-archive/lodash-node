@@ -45,7 +45,8 @@ function escapeStringChar(match) {
  * whitespace, and correctly escapes quotes within interpolated code.
  *
  * Note: In the development build, `_.template` utilizes sourceURLs for easier
- * debugging. See [HTML5 Rocks' article on sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl).
+ * debugging. See [HTML5 Rocks' article on sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
+ * for more details.
  *
  * For more information on precompiling templates see
  * [Lo-Dash's custom builds documentation](http://lodash.com/custom-builds).
