@@ -9,7 +9,14 @@
 var baseDifference = require('../internals/baseDifference'),
     baseFlatten = require('../internals/baseFlatten'),
     baseForIn = require('../internals/baseForIn'),
-    createCallback = require('../functions/createCallback');
+    createCallback = require('../functions/createCallback'),
+    slice = require('../arrays/slice');
+
+/** Used for native method references */
+var arrayRef = Array.prototype;
+
+/** Native method shortcuts */
+var splice = arrayRef.splice;
 
 /**
  * Creates a shallow clone of `object` excluding the specified properties.
@@ -23,8 +30,9 @@ var baseDifference = require('../internals/baseDifference'),
  * @memberOf _
  * @category Objects
  * @param {Object} object The source object.
- * @param {Function|...string|string[]} [callback] The properties to omit or the
- *  function called per iteration.
+ * @param {Function|...string|string[]} [callback] The function called per
+ *  iteration or property names to omit, specified as individual property
+ *  names or arrays of property names.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {Object} Returns an object without the omitted properties.
  * @example
@@ -38,16 +46,31 @@ var baseDifference = require('../internals/baseDifference'),
  * // => { 'name': 'fred' }
  */
 function omit(object, callback, thisArg) {
-  var result = {};
-  if (typeof callback != 'function') {
+  var result = {},
+      type = typeof callback;
+
+  if (type != 'function') {
+    // enables use as a callback for functions like `_.map`
+    // when combined with `_.partialRight`
+    var args = arguments;
+    if ((type == 'number' || type == 'string') && thisArg && thisArg[callback] === object) {
+      args = slice(args);
+      splice.call(args, 1, 2);
+    }
+    var omitProps = baseFlatten(args, true, false, 1),
+        length = omitProps.length;
+
+    while (length--) {
+      omitProps[length] = String(omitProps[length]);
+    }
     var props = [];
     baseForIn(object, function(value, key) {
       props.push(key);
     });
-    props = baseDifference(props, baseFlatten(arguments, true, false, 1));
 
-    var index = -1,
-        length = props.length;
+    var index = -1;
+    props = baseDifference(props, omitProps);
+    length = props.length;
 
     while (++index < length) {
       var key = props[index];
