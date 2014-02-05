@@ -36,8 +36,7 @@ function at(collection, guard) {
       length = props.length,
       type = typeof guard;
 
-  // allows working with functions like `_.map` without using
-  // their `index` arguments
+  // enables use as a callback for functions like `_.map`
   if ((type == 'number' || type == 'string') && args[2] && args[2][guard] === collection) {
     length = 1;
   }

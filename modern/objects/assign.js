@@ -35,8 +35,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  *   return typeof a == 'undefined' ? b : a;
  * });
  *
- * var object = { 'name': 'barney' };
- * defaults(object, { 'name': 'fred', 'employer': 'slate' });
+ * defaults({ 'name': 'barney' }, { 'name': 'fred', 'employer': 'slate' });
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
 function assign(object, source, guard) {
@@ -45,8 +44,7 @@ function assign(object, source, guard) {
       argsLength = args.length,
       type = typeof guard;
 
-  // allows working with functions like `_.reduce` without using their
-  // `key` and `object` arguments as sources
+  // enables use as a callback for functions like `_.reduce`
   if ((type == 'number' || type == 'string') && args[3] && args[3][guard] === source) {
     argsLength = 2;
   }

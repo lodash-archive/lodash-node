@@ -65,8 +65,7 @@ function uniq(array, isSorted, callback, thisArg) {
     callback = isSorted;
     isSorted = false;
 
-    // allows working with functions like `_.map` without using
-    // their `index` argument as a callback
+    // enables use as a callback for functions like `_.map`
     if ((type == 'number' || type == 'string') && thisArg && thisArg[callback] === array) {
       callback = null;
     }

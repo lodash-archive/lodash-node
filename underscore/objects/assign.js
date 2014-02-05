@@ -35,8 +35,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  *   return typeof a == 'undefined' ? b : a;
  * });
  *
- * var object = { 'name': 'barney' };
- * defaults(object, { 'name': 'fred', 'employer': 'slate' });
+ * defaults({ 'name': 'barney' }, { 'name': 'fred', 'employer': 'slate' });
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
 function assign(object, source, guard) {

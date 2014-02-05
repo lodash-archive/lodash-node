@@ -19,13 +19,11 @@ var isObject = require('./isObject'),
  * @category Objects
  * @param {Object} object The destination object.
  * @param {...Object} [source] The source objects.
- * @param- {Object} [guard] Allows working with functions like `_.reduce`
- *   without using their `key` and `object` arguments as sources.
+ * @param- {Object} [guard] Enables use as a callback for functions like `_.reduce`.
  * @returns {Object} Returns the destination object.
  * @example
  *
- * var object = { 'name': 'barney' };
- * _.defaults(object, { 'name': 'fred', 'employer': 'slate' });
+ * _.defaults({ 'name': 'barney' }, { 'name': 'fred', 'employer': 'slate' });
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
 function defaults(object, source, guard) {
@@ -34,8 +32,7 @@ function defaults(object, source, guard) {
       argsLength = args.length,
       type = typeof guard;
 
-  // allows working with functions like `_.reduce` without using their
-  // `key` and `object` arguments as sources
+  // enables use as a callback for functions like `_.reduce`
   if ((type == 'number' || type == 'string') && args[3] && args[3][guard] === source) {
     argsLength = 2;
   }

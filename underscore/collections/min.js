@@ -54,8 +54,7 @@ function min(collection, callback, thisArg) {
       result = computed,
       type = typeof callback;
 
-  // allows working with functions like `_.map` without using
-  // their `index` argument as a callback
+  // enables use as a callback for functions like `_.map`
   if ((type == 'number' || type == 'string') && thisArg && thisArg[callback] === collection) {
     callback = null;
   }

@@ -22,8 +22,7 @@ var nativeMax = Math.max,
  * @category Collections
  * @param {Array|Object|string} collection The collection to sample.
  * @param {number} [n] The number of elements to sample.
- * @param- {Object} [guard] Allows working with functions like `_.map`
- *  without using their `index` arguments as `n`.
+ * @param- {Object} [guard] Enables use as a callback for functions like `_.map`.
  * @returns {*} Returns the random sample(s) of `collection`.
  * @example
  *
