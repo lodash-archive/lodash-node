@@ -40,10 +40,12 @@ var expando = '__lodash@' + version + '__';
  * // => 'hi fred'
  */
 function partial(func) {
-  var arity = func && (func[expando] ? func[expando][2] : func.length),
-      partialArgs = slice(arguments, 1);
+  if (func) {
+    var arity = func[expando] ? func[expando][2] : func.length,
+        partialArgs = slice(arguments, 1);
 
-  arity -= partialArgs.length;
+    arity -= partialArgs.length;
+  }
   return createWrapper(func, PARTIAL_FLAG, arity, null, partialArgs);
 }
 

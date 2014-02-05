@@ -49,10 +49,12 @@ var expando = '__lodash@' + version + '__';
  * // => { '_': _, 'jq': $ }
  */
 function partialRight(func) {
-  var arity = func && (func[expando] ? func[expando][2] : func.length),
-      partialRightArgs = slice(arguments, 1);
+  if (func) {
+    var arity = func[expando] ? func[expando][2] : func.length,
+        partialRightArgs = slice(arguments, 1);
 
-  arity -= partialRightArgs.length;
+    arity -= partialRightArgs.length;
+  }
   return createWrapper(func, PARTIAL_RIGHT_FLAG, arity, null, null, partialRightArgs);
 }
 
