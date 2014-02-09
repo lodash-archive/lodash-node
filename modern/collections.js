@@ -34,6 +34,7 @@ module.exports = {
   'map': require('./collections/map'),
   'max': require('./collections/max'),
   'min': require('./collections/min'),
+  'partition': require('./collections/partition'),
   'pluck': require('./collections/pluck'),
   'reduce': require('./collections/reduce'),
   'reduceRight': require('./collections/reduceRight'),
