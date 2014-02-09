@@ -26,7 +26,7 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  *
  * If an object is provided for `callback` the created "_.where" style callback
  * will return `true` for elements that have the properties of the given object,
- * else `false`
+ * else `false`.
  *
  * @static
  * @memberOf _

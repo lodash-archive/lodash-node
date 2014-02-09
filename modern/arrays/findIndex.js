@@ -31,9 +31,9 @@ var createCallback = require('../functions/createCallback');
  * @example
  *
  * var characters = [
- *   { 'name': 'barney',  'age': 36, 'blocked': false },
+ *   { 'name': 'barney',  'age': 36 },
  *   { 'name': 'fred',    'age': 40, 'blocked': true },
- *   { 'name': 'pebbles', 'age': 1,  'blocked': false }
+ *   { 'name': 'pebbles', 'age': 1 }
  * ];
  *
  * _.findIndex(characters, function(chr) {

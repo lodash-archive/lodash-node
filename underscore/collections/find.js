@@ -43,19 +43,19 @@ var breakIndicator = expando + 'breaker__';
  * @example
  *
  * var characters = [
- *   { 'name': 'barney',  'age': 36, 'blocked': false },
+ *   { 'name': 'barney',  'age': 36 },
  *   { 'name': 'fred',    'age': 40, 'blocked': true },
- *   { 'name': 'pebbles', 'age': 1,  'blocked': false }
+ *   { 'name': 'pebbles', 'age': 1 }
  * ];
  *
  * _.find(characters, function(chr) {
  *   return chr.age < 40;
  * });
- * // => { 'name': 'barney', 'age': 36, 'blocked': false }
+ * // => { 'name': 'barney', 'age': 36 }
  *
  * // using "_.where" callback shorthand
  * _.find(characters, { 'age': 1 });
- * // =>  { 'name': 'pebbles', 'age': 1, 'blocked': false }
+ * // =>  { 'name': 'pebbles', 'age': 1 }
  *
  * // using "_.pluck" callback shorthand
  * _.find(characters, 'blocked');

@@ -32,7 +32,7 @@ var createCallback = require('../functions/createCallback');
  *
  * var characters = [
  *   { 'name': 'barney',  'age': 36, 'blocked': true },
- *   { 'name': 'fred',    'age': 40, 'blocked': false },
+ *   { 'name': 'fred',    'age': 40 },
  *   { 'name': 'pebbles', 'age': 1,  'blocked': true }
  * ];
  *

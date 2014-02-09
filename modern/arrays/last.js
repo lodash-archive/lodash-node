@@ -48,9 +48,9 @@ var createCallback = require('../functions/createCallback'),
  * // => [2, 3]
  *
  * var characters = [
- *   { 'name': 'barney',  'blocked': false, 'employer': 'slate' },
- *   { 'name': 'fred',    'blocked': true,  'employer': 'slate' },
- *   { 'name': 'pebbles', 'blocked': true,  'employer': 'na' }
+ *   { 'name': 'barney',  'employer': 'slate' },
+ *   { 'name': 'fred',    'employer': 'slate', 'blocked': true },
+ *   { 'name': 'pebbles', 'employer': 'na',    'blocked': true }
  * ];
  *
  * // using "_.pluck" callback shorthand
@@ -59,7 +59,7 @@ var createCallback = require('../functions/createCallback'),
  *
  * // using "_.where" callback shorthand
  * _.last(characters, { 'employer': 'na' });
- * // => [{ 'name': 'pebbles', 'blocked': true, 'employer': 'na' }]
+ * // => [{ 'name': 'pebbles', 'employer': 'na', 'blocked': true }]
  */
 function last(array, callback, thisArg) {
   var n = 0,

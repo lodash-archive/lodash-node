@@ -34,11 +34,11 @@ var baseEach = require('../internals/baseEach'),
  * @returns {Array} Returns a new array of elements that passed the callback check.
  * @example
  *
- * var evens = _.filter([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
- * // => [2, 4, 6]
+ * var evens = _.filter([1, 2, 3, 4], function(num) { return num % 2 == 0; });
+ * // => [2, 4]
  *
  * var characters = [
- *   { 'name': 'barney', 'age': 36, 'blocked': false },
+ *   { 'name': 'barney', 'age': 36 },
  *   { 'name': 'fred',   'age': 40, 'blocked': true }
  * ];
  *
@@ -48,7 +48,7 @@ var baseEach = require('../internals/baseEach'),
  *
  * // using "_.where" callback shorthand
  * _.filter(characters, { 'age': 36 });
- * // => [{ 'name': 'barney', 'age': 36, 'blocked': false }]
+ * // => [{ 'name': 'barney', 'age': 36 }]
  */
 function filter(collection, callback, thisArg) {
   var result = [];

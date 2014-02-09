@@ -31,17 +31,17 @@ var createCallback = require('../functions/createCallback'),
  * @returns {Array} Returns a new array of elements that failed the callback check.
  * @example
  *
- * var odds = _.reject([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
- * // => [1, 3, 5]
+ * var odds = _.reject([1, 2, 3, 4], function(num) { return num % 2 == 0; });
+ * // => [1, 3]
  *
  * var characters = [
- *   { 'name': 'barney', 'age': 36, 'blocked': false },
+ *   { 'name': 'barney', 'age': 36 },
  *   { 'name': 'fred',   'age': 40, 'blocked': true }
  * ];
  *
  * // using "_.pluck" callback shorthand
  * _.reject(characters, 'blocked');
- * // => [{ 'name': 'barney', 'age': 36, 'blocked': false }]
+ * // => [{ 'name': 'barney', 'age': 36 }]
  *
  * // using "_.where" callback shorthand
  * _.reject(characters, { 'age': 36 });
