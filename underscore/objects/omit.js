@@ -11,12 +11,6 @@ var baseDifference = require('../internals/baseDifference'),
     baseForIn = require('../internals/baseForIn'),
     slice = require('../arrays/slice');
 
-/** Used for native method references */
-var arrayRef = Array.prototype;
-
-/** Native method shortcuts */
-var splice = arrayRef.splice;
-
 /**
  * Creates a shallow clone of `object` excluding the specified properties.
  * Property names may be specified as individual arguments or as arrays of
@@ -45,16 +39,9 @@ var splice = arrayRef.splice;
  * // => { 'name': 'fred' }
  */
 function omit(object, guard) {
-  var args = arguments,
-      result = {},
-      type = typeof guard;
-
-  if ((type == 'number' || type == 'string') && args[2] && args[2][guard] === object) {
-    args = slice(args);
-    splice.call(args, 1, 2);
-  }
-  var omitProps = baseFlatten(args, true, false, 1),
-      length = omitProps.length;
+  var omitProps = baseFlatten(arguments, true, false, 1),
+      length = omitProps.length,
+      result = {};
 
   while (length--) {
     omitProps[length] = String(omitProps[length]);
