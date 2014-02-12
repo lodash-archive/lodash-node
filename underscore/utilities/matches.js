@@ -16,13 +16,13 @@ var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * Creates a "_.where" style function, which performs a deep comparison
- * between a given object and the `props` object, returning `true` if the
+ * between a given object and the `source` object, returning `true` if the
  * given object has equivalent property values, else `false`.
  *
  * @static
  * @memberOf _
  * @category Utilities
- * @param {Object} props The object of property values to match.
+ * @param {Object} source The object of property values to match.
  * @returns {Function} Returns the new function.
  * @example
  *

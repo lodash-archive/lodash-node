@@ -76,7 +76,7 @@ function compareMultipleAscending(a, b) {
   // for `a` and `b`. See https://github.com/jashkenas/underscore/pull/1247
   //
   // This also ensures a stable sort in V8 and other engines.
-  // See http://code.google.com/p/v8/issues/detail?id=90
+  // See https://code.google.com/p/v8/issues/detail?id=90
   return a.index - b.index;
 }
 

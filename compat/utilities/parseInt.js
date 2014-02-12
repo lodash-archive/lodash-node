@@ -47,8 +47,9 @@ var nativeParseInt = global.parseInt;
  * // => 8
  */
 var parseInt = nativeParseInt(whitespace + '08') == 8 ? nativeParseInt : function(value, radix) {
+  // Firefox < 21 and Opera < 15 follow ES3  for `parseInt` and
   // Chrome fails to trim leading <BOM> whitespace characters.
-  // Firefox < 21 and Opera < 15 follow the ES3 specified implementation of `parseInt`.
+  // See https://code.google.com/p/v8/issues/detail?id=3109
   value = trim(value);
   return nativeParseInt(value, +radix || (reHexPrefix.test(value) ? 16 : 10));
 };
