@@ -6,9 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseIsEqual = require('../internals/baseIsEqual'),
-    isObject = require('../objects/isObject'),
-    keys = require('../objects/keys');
+var keys = require('../objects/keys');
 
 /** Used for native method references */
 var objectProto = Object.prototype;
@@ -33,21 +31,21 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  *   { 'name': 'barney', 'age': 36 }
  * ];
  *
- * var matchAge = _.match({ 'age': 36 });
+ * var matchesAge = _.matches({ 'age': 36 });
  *
- * _.filter(characters, matchAge);
+ * _.filter(characters, matchesAge);
  * // => [{ 'name': 'barney', 'age': 36 }]
  *
- * _.find(characters, matchAge);
+ * _.find(characters, matchesAge);
  * // => { 'name': 'barney', 'age': 36 }
  */
-function match(source) {
+function matches(source) {
   source || (source = {});
 
   var props = keys(source);
   return function(object) {
     var length = props.length,
-        result = false;
+        result = true;
 
     while (length--) {
       var key = props[length];
@@ -60,4 +58,4 @@ function match(source) {
   };
 }
 
-module.exports = match;
+module.exports = matches;

@@ -50,7 +50,7 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * `curry`, `debounce`, `defaults`, `defer`, `delay`, `difference`, `filter`,
  * `flatten`, `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`,
  * `forOwnRight`, `functions`, `groupBy`, `indexBy`, `initial`, `intersection`,
- * `invert`, `invoke`, `keys`, `map`, `mapValues`, `match`, `max`, `memoize`,
+ * `invert`, `invoke`, `keys`, `map`, `mapValues`, `matches`, `max`, `memoize`,
  * `merge`, `min`, `noop`, `object`, `omit`, `once`, `pairs`, `partial`,
  * `partialRight`, `pick`, `pluck`, `property`, `pull`, `push`, `range`,
  * `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`, `sortBy`,
@@ -162,7 +162,7 @@ lodash.invoke = collections.invoke;
 lodash.keys = objects.keys;
 lodash.map = collections.map;
 lodash.mapValues = objects.mapValues;
-lodash.match = utilities.match;
+lodash.matches = utilities.matches;
 lodash.max = collections.max;
 lodash.memoize = functions.memoize;
 lodash.merge = objects.merge;

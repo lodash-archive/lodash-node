@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    match = require('../utilities/match'),
+    matches = require('../utilities/matches'),
     property = require('../utilities/property');
 
 /**
@@ -49,7 +49,7 @@ function createCallback(func, thisArg, argCount) {
       func || baseCreateCallback(func, thisArg, argCount);
   }
   // handle "_.pluck" and "_.where" style callback shorthands
-  return type != 'object' ? property(func) : match(func);
+  return type != 'object' ? property(func) : matches(func);
 }
 
 module.exports = createCallback;

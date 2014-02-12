@@ -13,7 +13,7 @@ module.exports = {
   'createCallback': require('./functions/createCallback'),
   'escape': require('./utilities/escape'),
   'identity': require('./utilities/identity'),
-  'match': require('./utilities/match'),
+  'matches': require('./utilities/matches'),
   'mixin': require('./utilities/mixin'),
   'noConflict': require('./utilities/noConflict'),
   'noop': require('./utilities/noop'),
