@@ -6,9 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var filter = require('./filter'),
-    find = require('./find'),
-    isEmpty = require('../objects/isEmpty');
+var filter = require('./filter');
 
 /**
  * Performs a deep comparison between each element in `collection` and the
@@ -35,10 +33,6 @@ var filter = require('./filter'),
  * _.where(characters, { 'pets': ['dino'] });
  * // => [{ 'name': 'fred', 'age': 40, 'pets': ['baby puss', 'dino'] }]
  */
-function where(collection, properties, first) {
-  return (first && isEmpty(properties))
-    ? undefined
-    : (first ? find : filter)(collection, properties);
-}
+var where = filter;
 
 module.exports = where;

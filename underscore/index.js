@@ -44,7 +44,7 @@ var arrayRef = Array.prototype;
  * `curry`, `debounce`, `defaults`, `defer`, `delay`, `difference`, `filter`,
  * `flatten`, `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`,
  * `forOwnRight`, `functions`, `groupBy`, `indexBy`, `initial`, `intersection`,
- * `invert`, `invoke`, `keys`, `map`, `mapValues`, `match`, `max`, `memoize`,
+ * `invert`, `invoke`, `keys`, `map`, `mapValues`, `matches`, `max`, `memoize`,
  * `merge`, `min`, `noop`, `object`, `omit`, `once`, `pairs`, `partial`,
  * `partialRight`, `pick`, `pluck`, `property`, `pull`, `push`, `range`,
  * `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`, `sortBy`,
@@ -120,6 +120,7 @@ lodash.bindAll = functions.bindAll;
 lodash.chain = chaining.chain;
 lodash.compact = arrays.compact;
 lodash.compose = functions.compose;
+lodash.constant = utilities.constant;
 lodash.countBy = collections.countBy;
 lodash.debounce = functions.debounce;
 lodash.defaults = objects.defaults;
@@ -138,6 +139,7 @@ lodash.invert = objects.invert;
 lodash.invoke = collections.invoke;
 lodash.keys = objects.keys;
 lodash.map = collections.map;
+lodash.matches = utilities.matches;
 lodash.max = collections.max;
 lodash.memoize = functions.memoize;
 lodash.min = collections.min;
@@ -145,8 +147,10 @@ lodash.omit = objects.omit;
 lodash.once = functions.once;
 lodash.pairs = objects.pairs;
 lodash.partial = functions.partial;
+lodash.partition = collections.partition;
 lodash.pick = objects.pick;
 lodash.pluck = collections.pluck;
+lodash.property = utilities.property;
 lodash.range = arrays.range;
 lodash.reject = collections.reject;
 lodash.rest = arrays.rest;
@@ -203,6 +207,7 @@ lodash.isUndefined = objects.isUndefined;
 lodash.lastIndexOf = arrays.lastIndexOf;
 lodash.mixin = mixin;
 lodash.noConflict = utilities.noConflict;
+lodash.now = utilities.now;
 lodash.random = utilities.random;
 lodash.reduce = collections.reduce;
 lodash.reduceRight = collections.reduceRight;
@@ -218,7 +223,7 @@ lodash.uniqueId = utilities.uniqueId;
 lodash.all = collections.every;
 lodash.any = collections.some;
 lodash.detect = collections.find;
-lodash.findWhere = collections.findWhere;
+lodash.findWhere = collections.find;
 lodash.foldl = collections.reduce;
 lodash.foldr = collections.reduceRight;
 lodash.include = collections.contains;
