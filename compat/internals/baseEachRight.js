@@ -11,7 +11,7 @@ var baseForOwnRight = require('./baseForOwnRight'),
     support = require('../support');
 
 /**
- * The base implementation of `_.forEachEach` without support for callback
+ * The base implementation of `_.forEachRight` without support for callback
  * shorthands or `thisArg` binding.
  *
  * @private
