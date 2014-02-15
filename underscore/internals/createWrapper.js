@@ -8,6 +8,7 @@
  */
 var baseBind = require('./baseBind'),
     baseCreateWrapper = require('./baseCreateWrapper'),
+    getHolders = require('./getHolders'),
     isFunction = require('../objects/isFunction'),
     slice = require('../arrays/slice');
 
@@ -37,9 +38,11 @@ var BIND_FLAG = 1,
  *  provided to the new function.
  * @param {Array} [partialRightArgs] An array of arguments to append to those
  *  provided to the new function.
+ * @param {Array} [partialHolders] An array of `partialArgs` placeholder indexes.
+ * @param {Array} [partialRightHolders] An array of `partialRightArgs` placeholder indexes.
  * @returns {Function} Returns the new function.
  */
-function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightArgs) {
+function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightArgs, partialHolders, partialRightHolders) {
   var isBind = bitmask & BIND_FLAG,
       isBindKey = bitmask & BIND_KEY_FLAG,
       isPartial = bitmask & PARTIAL_FLAG,
@@ -61,8 +64,14 @@ function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightA
   } else if (arity < 0) {
     arity = 0;
   }
+  if (isPartial) {
+    partialHolders = getHolders(partialArgs);
+  }
+  if (isPartialRight) {
+    partialRightHolders = getHolders(partialRightArgs);
+  }
   // fast path for `_.bind`
-  var data = [func, bitmask, arity, thisArg, partialArgs, partialRightArgs];
+  var data = [func, bitmask, arity, thisArg, partialArgs, partialRightArgs, partialHolders, partialRightHolders];
   return (bitmask == BIND_FLAG || bitmask == (BIND_FLAG | PARTIAL_FLAG))
     ? baseBind(data)
     : baseCreateWrapper(data);

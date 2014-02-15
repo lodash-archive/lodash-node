@@ -7,6 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreate = require('./baseCreate'),
+    composeArgs = require('./composeArgs'),
+    composeArgsRight = require('./composeArgsRight'),
     isObject = require('../objects/isObject'),
     setData = require('./setData'),
     slice = require('../arrays/slice');
@@ -18,12 +20,6 @@ var BIND_FLAG = 1,
     CURRY_BOUND_FLAG = 8,
     PARTIAL_FLAG = 16,
     PARTIAL_RIGHT_FLAG = 32;
-
-/** Used for native method references */
-var arrayRef = Array.prototype;
-
-/** Native method shortcuts */
-var push = arrayRef.push;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeMax = Math.max;
@@ -42,7 +38,9 @@ function baseCreateWrapper(data) {
       arity = data[2],
       thisArg = data[3],
       partialArgs = data[4],
-      partialRightArgs = data[5];
+      partialRightArgs = data[5],
+      partialHolders = data[6],
+      partialRightHolders = data[7];
 
   var isBind = bitmask & BIND_FLAG,
       isBindKey = bitmask & BIND_KEY_FLAG,
@@ -53,23 +51,22 @@ function baseCreateWrapper(data) {
   function bound() {
     var thisBinding = isBind ? thisArg : this;
     if (partialArgs) {
-      var args = slice(partialArgs);
-      push.apply(args, arguments);
+      var args = composeArgs(partialArgs, partialHolders, arguments);
     }
-    if (partialRightArgs || isCurry) {
-      args || (args = slice(arguments));
-      if (partialRightArgs) {
-        push.apply(args, partialRightArgs);
-      }
+    if (partialRightArgs) {
+      args = composeArgsRight(partialRightArgs, partialRightHolders, args || arguments);
+    }
+    if (isCurry) {
       var argsLength = arguments.length;
-      if (isCurry && argsLength < arity) {
+      if (argsLength < arity) {
+        args || (args = slice(arguments));
         bitmask |= PARTIAL_FLAG;
         bitmask &= ~PARTIAL_RIGHT_FLAG
         if (!isCurryBound) {
           bitmask &= ~(BIND_FLAG | BIND_KEY_FLAG);
         }
         var newArity = nativeMax(0, arity - argsLength);
-        return baseCreateWrapper([func, bitmask, newArity, thisArg, args]);
+        return baseCreateWrapper([func, bitmask, newArity, thisArg, args, null, []]);
       }
     }
     args || (args = arguments);
