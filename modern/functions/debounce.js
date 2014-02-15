@@ -78,7 +78,7 @@ function debounce(func, wait, options) {
   }
   var delayed = function() {
     var remaining = wait - (now() - stamp);
-    if (remaining <= 0) {
+    if (remaining <= 0 || remaining > wait) {
       if (maxTimeoutId) {
         clearTimeout(maxTimeoutId);
       }
@@ -123,7 +123,7 @@ function debounce(func, wait, options) {
         lastCalled = stamp;
       }
       var remaining = maxWait - (stamp - lastCalled),
-          isCalled = remaining <= 0;
+          isCalled = remaining <= 0 || remaining > maxWait;
 
       if (isCalled) {
         if (maxTimeoutId) {
