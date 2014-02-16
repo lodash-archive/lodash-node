@@ -8,7 +8,6 @@
  */
 var baseBind = require('./baseBind'),
     baseCreateWrapper = require('./baseCreateWrapper'),
-    getHolders = require('./getHolders'),
     isFunction = require('../objects/isFunction'),
     slice = require('../arrays/slice');
 
@@ -65,10 +64,10 @@ function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightA
     arity = 0;
   }
   if (isPartial) {
-    partialHolders = getHolders(partialArgs);
+    partialHolders = [];
   }
   if (isPartialRight) {
-    partialRightHolders = getHolders(partialRightArgs);
+    partialRightHolders = [];
   }
   // fast path for `_.bind`
   var data = [func, bitmask, arity, thisArg, partialArgs, partialRightArgs, partialHolders, partialRightHolders];
