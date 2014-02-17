@@ -21,21 +21,21 @@ var nativeMax = Math.max;
  * @returns {Array} Returns a new array of composed arguments.
  */
 function composeArgs(partialArgs, partialHolders, args) {
-  var index = -1,
-      length = partialHolders.length,
+  var holdersLength = partialHolders.length,
+      argsIndex = -1,
+      argsLength = nativeMax(args.length - holdersLength, 0),
       leftIndex = -1,
       leftLength = partialArgs.length,
-      argsLength = nativeMax(args.length - length, 0),
       result = Array(argsLength + leftLength);
 
   while (++leftIndex < leftLength) {
     result[leftIndex] = partialArgs[leftIndex];
   }
-  while (++index < length) {
-    result[partialHolders[index]] = args[index];
+  while (++argsIndex < holdersLength) {
+    result[partialHolders[argsIndex]] = args[argsIndex];
   }
-  while (length < argsLength) {
-    result[leftIndex++] = args[length++];
+  while (argsLength--) {
+    result[leftIndex++] = args[argsIndex++];
   }
   return result;
 }
