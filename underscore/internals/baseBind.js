@@ -29,10 +29,16 @@ function baseBind(data) {
     // `Function#bind` spec
     // http://es5.github.io/#x15.3.4.5
     if (partialArgs) {
-      // avoid `arguments` object deoptimizations by using `slice` instead
-      // of `Array.prototype.slice.call` and not assigning `arguments` to a
-      // variable as a ternary expression
-      var args = composeArgs(partialArgs, partialHolders, arguments);
+      // avoid `arguments` object use disqualifying optimizations by
+      // converting it to an array before passing it to `composeArgs`
+      var index = -1,
+           length = arguments.length,
+           args = Array(length);
+
+      while (++index < length) {
+        args[index] = arguments[index];
+      }
+      args = composeArgs(partialArgs, partialHolders, args);
     }
     // mimic the constructor's `return` behavior
     // http://es5.github.io/#x13.2.2

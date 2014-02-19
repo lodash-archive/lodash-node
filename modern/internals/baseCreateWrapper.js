@@ -49,27 +49,29 @@ function baseCreateWrapper(data) {
       key = func;
 
   function bound() {
-    var thisBinding = isBind ? thisArg : this;
+    var index = -1,
+        length = arguments.length,
+        args = Array(length);
+
+    while (++index < length) {
+      args[index] = arguments[index];
+    }
     if (partialArgs) {
-      var args = composeArgs(partialArgs, partialHolders, arguments);
+      args = composeArgs(partialArgs, partialHolders, args);
     }
     if (partialRightArgs) {
-      args = composeArgsRight(partialRightArgs, partialRightHolders, args || arguments);
+      args = composeArgsRight(partialRightArgs, partialRightHolders, args);
     }
-    if (isCurry) {
-      var argsLength = arguments.length;
-      if (argsLength < arity) {
-        args || (args = slice(arguments));
-        bitmask |= PARTIAL_FLAG;
-        bitmask &= ~PARTIAL_RIGHT_FLAG
-        if (!isCurryBound) {
-          bitmask &= ~(BIND_FLAG | BIND_KEY_FLAG);
-        }
-        var newArity = nativeMax(0, arity - argsLength);
-        return baseCreateWrapper([func, bitmask, newArity, thisArg, args, null, []]);
+    if (isCurry && length < arity) {
+      bitmask |= PARTIAL_FLAG;
+      bitmask &= ~PARTIAL_RIGHT_FLAG
+      if (!isCurryBound) {
+        bitmask &= ~(BIND_FLAG | BIND_KEY_FLAG);
       }
+      var newArity = nativeMax(0, arity - length);
+      return baseCreateWrapper([func, bitmask, newArity, thisArg, args, null, []]);
     }
-    args || (args = arguments);
+    var thisBinding = isBind ? thisArg : this;
     if (isBindKey) {
       func = thisBinding[key];
     }
