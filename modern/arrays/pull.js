@@ -31,14 +31,13 @@ var splice = arrayRef.splice;
  * // => [1, 1]
  */
 function pull(array) {
-  var args = arguments,
-      argsIndex = 0,
-      argsLength = args.length,
+  var argsIndex = 0,
+      argsLength = arguments.length,
       length = array ? array.length : 0;
 
   while (++argsIndex < argsLength) {
     var index = -1,
-        value = args[argsIndex];
+        value = arguments[argsIndex];
 
     while (++index < length) {
       if (array[index] === value) {
