@@ -160,7 +160,8 @@ function template(text, data, options) {
       importsKeys = keys(imports),
       importsValues = values(imports);
 
-  var isEvaluating,
+  var isEscaping,
+      isEvaluating,
       index = 0,
       interpolate = options.interpolate || reNoMatch,
       source = "__p += '";
@@ -181,6 +182,7 @@ function template(text, data, options) {
 
     // replace delimiters with snippets
     if (escapeValue) {
+      isEscaping = true;
       source += "' +\n__e(" + escapeValue + ") +\n'";
     }
     if (evaluateValue) {
@@ -201,12 +203,9 @@ function template(text, data, options) {
 
   // if `variable` is not specified, wrap a with-statement around the generated
   // code to add the data object to the top of the scope chain
-  var variable = options.variable,
-      hasVariable = variable;
-
-  if (!hasVariable) {
-    variable = 'obj';
-    source = 'with (' + variable + ') {\n' + source + '\n}\n';
+  var variable = options.variable;
+  if (!variable) {
+    source = 'with (obj) {\n' + source + '\n}\n';
   }
   // cleanup code by stripping empty strings
   source = (isEvaluating ? source.replace(reEmptyStringLeading, '') : source)
@@ -214,9 +213,16 @@ function template(text, data, options) {
     .replace(reEmptyStringTrailing, '$1;');
 
   // frame code as the function body
-  source = 'function(' + variable + ') {\n' +
-    (hasVariable ? '' : variable + ' || (' + variable + ' = {});\n') +
-    "var __t, __p = '', __e = _.escape" +
+  source = 'function(' + (variable || 'obj') + ') {\n' +
+    (variable
+      ? ''
+      : 'obj || (obj = {});\n'
+    ) +
+    "var __t, __p = ''" +
+    (isEscaping
+       ? ', __e = _.escape'
+       : ''
+    ) +
     (isEvaluating
       ? ', __j = Array.prototype.join;\n' +
         "function print() { __p += __j.call(arguments, '') }\n"
