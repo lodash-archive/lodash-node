@@ -9,10 +9,8 @@
 var baseIndexOf = require('../internals/baseIndexOf'),
     cacheIndexOf = require('../internals/cacheIndexOf'),
     createCache = require('../internals/createCache'),
-    getArray = require('../internals/getArray'),
     isArguments = require('../objects/isArguments'),
-    isArray = require('../objects/isArray'),
-    releaseArray = require('../internals/releaseArray');
+    isArray = require('../objects/isArray');
 
 /** Used as the size when optimizations are enabled for arrays */
 var LARGE_ARRAY_SIZE = 40;
@@ -35,10 +33,10 @@ function intersection() {
   var args = [],
       argsIndex = -1,
       argsLength = arguments.length,
-      caches = getArray(),
+      caches = [],
       indexOf = baseIndexOf,
       largePrereq = createCache,
-      seen = getArray();
+      seen = [];
 
   while (++argsIndex < argsLength) {
     var value = arguments[argsIndex];
@@ -70,8 +68,6 @@ function intersection() {
       result.push(value);
     }
   }
-  releaseArray(caches);
-  releaseArray(seen);
   return result;
 }
 

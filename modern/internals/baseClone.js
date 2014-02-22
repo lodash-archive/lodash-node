@@ -9,10 +9,8 @@
 var assign = require('../objects/assign'),
     baseEach = require('./baseEach'),
     baseForOwn = require('./baseForOwn'),
-    getArray = require('./getArray'),
     isArray = require('../objects/isArray'),
     isObject = require('../objects/isObject'),
-    releaseArray = require('./releaseArray'),
     slice = require('../arrays/slice');
 
 /** Used to match regexp flags from their coerced string values */
@@ -105,8 +103,8 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
   if (isDeep) {
     // check for circular references and return corresponding clone
     var initedStack = !stackA;
-    stackA || (stackA = getArray());
-    stackB || (stackB = getArray());
+    stackA || (stackA = []);
+    stackB || (stackB = []);
 
     var length = stackA.length;
     while (length--) {
@@ -142,10 +140,6 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
     result[key] = baseClone(objValue, isDeep, callback, stackA, stackB);
   });
 
-  if (initedStack) {
-    releaseArray(stackA);
-    releaseArray(stackB);
-  }
   return result;
 }
 

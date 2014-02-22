@@ -8,9 +8,7 @@
  */
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
-    createCache = require('./createCache'),
-    getArray = require('./getArray'),
-    releaseArray = require('./releaseArray');
+    createCache = require('./createCache');
 
 /** Used as the size when optimizations are enabled for arrays */
 var LARGE_ARRAY_SIZE = 40;
@@ -36,24 +34,23 @@ function baseUniq(array, isSorted, callback) {
     var seen = createCache();
     indexOf = cacheIndexOf;
   } else {
-    seen = callback ? getArray() : result;
+    seen = (callback && !isSorted) ? [] : result;
   }
   while (++index < length) {
     var value = array[index],
         computed = callback ? callback(value, index, array) : value;
 
-    if (isSorted
-          ? !index || seen[seen.length - 1] !== computed
-          : indexOf(seen, computed) < 0
-        ) {
+    if (isSorted) {
+      if (!index || seen !== computed) {
+        seen = computed;
+        result.push(value);
+      }
+    } else if (indexOf(seen, computed) < 0) {
       if (callback || isLarge) {
         seen.push(computed);
       }
       result.push(value);
     }
-  }
-  if (!isLarge && callback) {
-    releaseArray(seen);
   }
   return result;
 }

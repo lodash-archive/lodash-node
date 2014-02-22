@@ -7,9 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseForIn = require('./baseForIn'),
-    getArray = require('./getArray'),
-    isFunction = require('../objects/isFunction'),
-    releaseArray = require('./releaseArray');
+    isFunction = require('../objects/isFunction');
 
 /** `Object#toString` result shortcuts */
 var argsClass = '[object Arguments]',
@@ -133,8 +131,8 @@ function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
   // the algorithm for detecting cyclic structures is adapted from ES 5.1
   // section 15.12.3, abstract operation `JO` (http://es5.github.io/#x15.12.3)
   var initedStack = !stackA;
-  stackA || (stackA = getArray());
-  stackB || (stackB = getArray());
+  stackA || (stackA = []);
+  stackB || (stackB = []);
 
   var length = stackA.length;
   while (length--) {
@@ -199,10 +197,6 @@ function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
   stackA.pop();
   stackB.pop();
 
-  if (initedStack) {
-    releaseArray(stackA);
-    releaseArray(stackB);
-  }
   return result;
 }
 

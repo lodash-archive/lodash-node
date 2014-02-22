@@ -9,11 +9,9 @@
 var baseCreateCallback = require('../internals/baseCreateCallback'),
     baseEach = require('../internals/baseEach'),
     baseForOwn = require('../internals/baseForOwn'),
-    getArray = require('../internals/getArray'),
     isArray = require('./isArray'),
     isObject = require('./isObject'),
     isPlainObject = require('./isPlainObject'),
-    releaseArray = require('../internals/releaseArray'),
     slice = require('../arrays/slice');
 
 /**
@@ -152,14 +150,12 @@ function merge(object, source, guard) {
   }
   var sources = slice(arguments, 1, length),
       index = -1,
-      stackA = getArray(),
-      stackB = getArray();
+      stackA = [],
+      stackB = [];
 
   while (++index < length) {
     baseMerge(object, sources[index], callback, stackA, stackB);
   }
-  releaseArray(stackA);
-  releaseArray(stackB);
   return object;
 }
 
