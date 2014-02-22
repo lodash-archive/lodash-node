@@ -19,7 +19,7 @@ var max = require('../collections/max'),
  * @memberOf _
  * @alias unzip
  * @category Arrays
- * @param {...Array} [array] Arrays to process.
+ * @param {...Array} [array] The arrays to process.
  * @returns {Array} Returns a new array of grouped elements.
  * @example
  *
