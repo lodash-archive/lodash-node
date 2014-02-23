@@ -42,7 +42,6 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
  */
 function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
-  // used to indicate that when comparing objects, `a` has at least the properties of `b`
   if (callback) {
     var result = callback(a, b);
     if (typeof result != 'undefined') {
@@ -58,15 +57,9 @@ function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
       otherType = typeof b;
 
   // exit early for unlike primitive values
-  if (a === a &&
-      !(a && (type == 'function' || type == 'object')) &&
-      !(b && (otherType == 'function' || otherType == 'object'))) {
+  if (a === a && (a == null || b == null ||
+      (type != 'function' && type != 'object' && otherType != 'function' && otherType != 'object'))) {
     return false;
-  }
-  // exit early for `null` and `undefined` avoiding ES3's Function#call behavior
-  // http://es5.github.io/#x15.3.4.4
-  if (a == null || b == null) {
-    return a === b;
   }
   // compare [[Class]] names
   var className = toString.call(a),

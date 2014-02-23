@@ -56,13 +56,9 @@ function baseIsEqual(a, b, stackA, stackB) {
   var type = typeof a,
       otherType = typeof b;
 
-  if (a === a &&
-      !(a && (type == 'function' || type == 'object')) &&
-      !(b && (otherType == 'function' || otherType == 'object'))) {
+  if (a === a && (a == null || b == null ||
+      (type != 'function' && type != 'object' && otherType != 'function' && otherType != 'object'))) {
     return false;
-  }
-  if (a == null || b == null) {
-    return a === b;
   }
   var className = toString.call(a),
       otherClass = toString.call(b);
