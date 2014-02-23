@@ -24,9 +24,12 @@ var LARGE_ARRAY_SIZE = 40;
  * @returns {Array} Returns a duplicate-value-free array.
  */
 function baseUniq(array, isSorted, callback) {
+  var length = array ? array.length : 0;
+  if (!length) {
+    return [];
+  }
   var index = -1,
       indexOf = baseIndexOf,
-      length = array ? array.length : 0,
       isLarge = createCache && !isSorted && length >= LARGE_ARRAY_SIZE,
       result = [];
 

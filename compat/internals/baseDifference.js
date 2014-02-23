@@ -23,9 +23,12 @@ var LARGE_ARRAY_SIZE = 40;
  * @returns {Array} Returns a new array of filtered values.
  */
 function baseDifference(array, values) {
+  var length = array ? array.length : 0;
+  if (!length) {
+    return [];
+  }
   var index = -1,
       indexOf = baseIndexOf,
-      length = array ? array.length : 0,
       result = [];
 
   if (createCache && values && values.length >= LARGE_ARRAY_SIZE) {

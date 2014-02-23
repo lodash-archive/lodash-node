@@ -52,9 +52,12 @@ var baseFlatten = require('../internals/baseFlatten'),
  * // => ['hoppy', 'baby puss', 'dino']
  */
 function flatten(array, isShallow, callback, thisArg) {
-  var type = typeof isShallow;
-
+  var length = array ? array.length : 0;
+  if (!length) {
+    return [];
+  }
   // juggle arguments
+  var type = typeof isShallow;
   if (type != 'boolean' && isShallow != null) {
     thisArg = callback;
     callback = isShallow;
