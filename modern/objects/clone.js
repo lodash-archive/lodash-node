@@ -69,7 +69,8 @@ function clone(value, isDeep, callback, thisArg) {
       callback = null;
     }
   }
-  return baseClone(value, isDeep, typeof callback == 'function' && baseCreateCallback(callback, thisArg, 1));
+  callback = typeof callback == 'function' && baseCreateCallback(callback, thisArg, 1);
+  return baseClone(value, isDeep, callback);
 }
 
 module.exports = clone;
