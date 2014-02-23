@@ -51,6 +51,10 @@ var baseFlatten = require('../internals/baseFlatten');
  * // => ['hoppy', 'baby puss', 'dino']
  */
 function flatten(array, isShallow, guard) {
+  var length = array ? array.length : 0;
+  if (!length) {
+    return [];
+  }
   var type = typeof isShallow;
   if ((type == 'number' || type == 'string') && guard && guard[isShallow] === array) {
     isShallow = false;
