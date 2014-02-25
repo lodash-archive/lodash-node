@@ -12,12 +12,6 @@ var createWrapper = require('../internals/createWrapper'),
 /** Used to compose bitmasks for wrapper metadata */
 var PARTIAL_FLAG = 16;
 
-/** Used as the semantic version number */
-var version = '2.4.1';
-
-/** Used as the property name for wrapper metadata */
-var expando = '__lodash@' + version + '__';
-
 /**
  * Creates a function that, when called, invokes `func` with any additional
  * `partial` arguments prepended to those provided to the new function. This
@@ -40,13 +34,7 @@ var expando = '__lodash@' + version + '__';
  * // => 'hi fred'
  */
 function partial(func) {
-  if (func) {
-    var arity = func[expando] ? func[expando][2] : func.length,
-        partialArgs = slice(arguments, 1);
-
-    arity -= partialArgs.length;
-  }
-  return createWrapper(func, PARTIAL_FLAG, arity, null, partialArgs);
+  return createWrapper(func, PARTIAL_FLAG, null, null, slice(arguments, 1));
 }
 
 module.exports = partial;

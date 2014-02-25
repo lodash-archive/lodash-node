@@ -49,13 +49,14 @@ function contains(collection, target) {
   var indexOf = baseIndexOf,
       length = collection ? collection.length : 0,
       result = false;
+
   if (length && typeof length == 'number') {
-    result = indexOf(collection, target) > -1;
-  } else {
-    baseEach(collection, function(value) {
-      return (result = value === target) && breakIndicator;
-    });
+    return indexOf(collection, target) > -1;
   }
+  baseEach(collection, function(value) {
+    return (result = value === target) && breakIndicator;
+  });
+
   return result;
 }
 

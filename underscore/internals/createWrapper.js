@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseBind = require('./baseBind'),
-    baseCreateWrapper = require('./baseCreateWrapper'),
+var baseCreateWrapper = require('./baseCreateWrapper'),
     isFunction = require('../objects/isFunction'),
     slice = require('../arrays/slice');
 
@@ -54,10 +53,6 @@ function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightA
     bitmask &= ~PARTIAL_FLAG;
     isPartial = partialArgs = false;
   }
-  if (isPartialRight && !partialRightArgs.length) {
-    bitmask &= ~PARTIAL_RIGHT_FLAG;
-    isPartialRight = partialRightArgs = false;
-  }
   if (arity == null) {
     arity = isBindKey ? 0 : func.length;
   } else if (arity < 0) {
@@ -66,14 +61,9 @@ function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightA
   if (isPartial) {
     partialHolders = [];
   }
-  if (isPartialRight) {
-    partialRightHolders = [];
-  }
   // fast path for `_.bind`
   var data = [func, bitmask, arity, thisArg, partialArgs, partialRightArgs, partialHolders, partialRightHolders];
-  return (bitmask == BIND_FLAG || bitmask == (BIND_FLAG | PARTIAL_FLAG))
-    ? baseBind(data)
-    : baseCreateWrapper(data);
+  return baseCreateWrapper(data);
 }
 
 module.exports = createWrapper;

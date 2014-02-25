@@ -13,12 +13,6 @@ var createWrapper = require('../internals/createWrapper'),
 var BIND_FLAG = 1,
     PARTIAL_FLAG = 16;
 
-/** Used as the semantic version number */
-var version = '2.4.1';
-
-/** Used as the property name for wrapper metadata */
-var expando = '__lodash@' + version + '__';
-
 /**
  * Creates a function that, when called, invokes `func` with the `this`
  * binding of `thisArg` and prepends any additional `bind` arguments to those
@@ -45,16 +39,9 @@ var expando = '__lodash@' + version + '__';
  * // => 'hi fred'
  */
 function bind(func, thisArg) {
-  if (arguments.length < 3) {
-    return createWrapper(func, BIND_FLAG, null, thisArg);
-  }
-  if (func) {
-    var arity = func[expando] ? func[expando][2] : func.length,
-        partialArgs = slice(arguments, 2);
-
-    arity -= partialArgs.length;
-  }
-  return createWrapper(func, BIND_FLAG | PARTIAL_FLAG, arity, thisArg, partialArgs);
+  return arguments.length < 3
+    ? createWrapper(func, BIND_FLAG, null, thisArg)
+    : createWrapper(func, BIND_FLAG | PARTIAL_FLAG, null, thisArg, slice(arguments, 2));
 }
 
 module.exports = bind;

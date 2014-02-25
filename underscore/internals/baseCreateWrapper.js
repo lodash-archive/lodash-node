@@ -8,7 +8,6 @@
  */
 var baseCreate = require('./baseCreate'),
     composeArgs = require('./composeArgs'),
-    composeArgsRight = require('./composeArgsRight'),
     isObject = require('../objects/isObject'),
     slice = require('../arrays/slice');
 
@@ -16,12 +15,7 @@ var baseCreate = require('./baseCreate'),
 var BIND_FLAG = 1,
     BIND_KEY_FLAG = 2,
     CURRY_FLAG = 4,
-    CURRY_BOUND_FLAG = 8,
-    PARTIAL_FLAG = 16,
-    PARTIAL_RIGHT_FLAG = 32;
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeMax = Math.max;
+    CURRY_BOUND_FLAG = 8;
 
 /**
  * The base implementation of `createWrapper` that creates the wrapper and
@@ -58,22 +52,7 @@ function baseCreateWrapper(data) {
     if (partialArgs) {
       args = composeArgs(partialArgs, partialHolders, args);
     }
-    if (partialRightArgs) {
-      args = composeArgsRight(partialRightArgs, partialRightHolders, args);
-    }
-    if (isCurry && length < arity) {
-      bitmask |= PARTIAL_FLAG;
-      bitmask &= ~PARTIAL_RIGHT_FLAG
-      if (!isCurryBound) {
-        bitmask &= ~(BIND_FLAG | BIND_KEY_FLAG);
-      }
-      var newArity = nativeMax(0, arity - length);
-      return baseCreateWrapper([func, bitmask, newArity, thisArg, args, null, []]);
-    }
     var thisBinding = isBind ? thisArg : this;
-    if (isBindKey) {
-      func = thisBinding[key];
-    }
     if (this instanceof bound) {
       thisBinding = baseCreate(func.prototype);
       var result = func.apply(thisBinding, args);
