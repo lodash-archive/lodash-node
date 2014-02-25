@@ -62,17 +62,18 @@ var createCallback = require('../functions/createCallback'),
  * // => ['barney', 'fred']
  */
 function initial(array, callback, thisArg) {
-  var n = 0,
-      length = array ? array.length : 0;
+  var length = array ? array.length : 0;
 
   if (typeof callback != 'number' && callback != null) {
-    var index = length;
+    var index = length,
+        n = 0;
+
     callback = createCallback(callback, thisArg, 3);
     while (index-- && callback(array[index], index, array)) {
       n++;
     }
   } else {
-    n = (callback == null || thisArg) ? 1 : callback || n;
+    n = (callback == null || thisArg) ? 1 : callback;
   }
   n = length - n;
   return slice(array, 0, n > 0 ? n : 0);

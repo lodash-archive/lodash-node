@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createCallback = require('../functions/createCallback'),
-    slice = require('./slice');
+var slice = require('./slice');
 
 /**
  * Gets all but the last element or last `n` elements of an array. If a
@@ -61,20 +60,9 @@ var createCallback = require('../functions/createCallback'),
  * _.pluck(_.initial(characters, { 'employer': 'na' }), 'name');
  * // => ['barney', 'fred']
  */
-function initial(array, callback, thisArg) {
-  var n = 0,
-      length = array ? array.length : 0;
-
-  if (typeof callback != 'number' && callback != null) {
-    var index = length;
-    callback = createCallback(callback, thisArg, 3);
-    while (index-- && callback(array[index], index, array)) {
-      n++;
-    }
-  } else {
-    n = (callback == null || thisArg) ? 1 : callback || n;
-  }
-  n = length - n;
+function initial(array, n, guard) {
+  var length = array ? array.length : 0;
+  n = length - ((n == null || guard) ? 1 : n);
   return slice(array, 0, n > 0 ? n : 0);
 }
 

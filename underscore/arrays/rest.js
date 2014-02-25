@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createCallback = require('../functions/createCallback'),
-    slice = require('./slice');
+var slice = require('./slice');
 
 /**
  * The opposite of `_.initial`; this method gets all but the first element or
@@ -63,20 +62,11 @@ var createCallback = require('../functions/createCallback'),
  * _.rest(characters, { 'employer': 'slate' });
  * // => [{ 'name': 'pebbles', 'employer': 'na', 'blocked': true }]
  */
-function rest(array, callback, thisArg) {
-  if (typeof callback != 'number' && callback != null) {
-    var n = 0,
-        index = -1,
-        length = array ? array.length : 0;
-
-    callback = createCallback(callback, thisArg, 3);
-    while (++index < length && callback(array[index], index, array)) {
-      n++;
-    }
-  } else if (callback == null || thisArg) {
+function rest(array, n, guard) {
+  if (n == null || guard) {
     n = 1;
   } else {
-    n = callback > 0 ? callback : 0;
+    n = n > 0 ? n : 0;
   }
   return slice(array, n);
 }

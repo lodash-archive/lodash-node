@@ -62,11 +62,12 @@ var createCallback = require('../functions/createCallback'),
  * // => [{ 'name': 'pebbles', 'employer': 'na', 'blocked': true }]
  */
 function last(array, callback, thisArg) {
-  var n = 0,
-      length = array ? array.length : 0;
+  var length = array ? array.length : 0;
 
   if (typeof callback != 'number' && callback != null) {
-    var index = length;
+    var index = length,
+        n = 0;
+
     callback = createCallback(callback, thisArg, 3);
     while (index-- && callback(array[index], index, array)) {
       n++;

@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createCallback = require('../functions/createCallback'),
-    slice = require('./slice');
+var slice = require('./slice');
 
 /**
  * Gets the first element or first `n` elements of an array. If a callback
@@ -62,21 +61,9 @@ var createCallback = require('../functions/createCallback'),
  * _.pluck(_.first(characters, { 'employer': 'slate' }), 'name');
  * // => ['barney', 'fred']
  */
-function first(array, callback, thisArg) {
-  var n = 0,
-      length = array ? array.length : 0;
-
-  if (typeof callback != 'number' && callback != null) {
-    var index = -1;
-    callback = createCallback(callback, thisArg, 3);
-    while (++index < length && callback(array[index], index, array)) {
-      n++;
-    }
-  } else {
-    n = callback;
-    if (n == null || thisArg) {
-      return array ? array[0] : undefined;
-    }
+function first(array, n, guard) {
+  if (n == null || guard) {
+    return array ? array[0] : undefined;
   }
   return slice(array, 0, n > 0 ? n : 0);
 }

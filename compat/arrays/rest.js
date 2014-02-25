@@ -65,9 +65,9 @@ var createCallback = require('../functions/createCallback'),
  */
 function rest(array, callback, thisArg) {
   if (typeof callback != 'number' && callback != null) {
-    var n = 0,
-        index = -1,
-        length = array ? array.length : 0;
+    var index = -1,
+        length = array ? array.length : 0,
+        n = 0;
 
     callback = createCallback(callback, thisArg, 3);
     while (++index < length && callback(array[index], index, array)) {
