@@ -47,6 +47,7 @@ function baseBind(data) {
       // ensure `new bound` is an instance of `func`
       var thisBinding = baseCreate(func.prototype),
           result = func.apply(thisBinding, args || arguments);
+
       return isObject(result) ? result : thisBinding;
     }
     return func.apply(thisArg, args || arguments);
