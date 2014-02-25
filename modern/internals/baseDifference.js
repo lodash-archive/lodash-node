@@ -10,9 +10,6 @@ var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache');
 
-/** Used as the size when optimizations are enabled for arrays */
-var LARGE_ARRAY_SIZE = 40;
-
 /**
  * The base implementation of `_.difference` that accepts a single array
  * of values to exclude.
@@ -29,15 +26,30 @@ function baseDifference(array, values) {
   }
   var index = -1,
       indexOf = baseIndexOf,
-      result = [];
+      prereq = indexOf === baseIndexOf,
+      isLarge = prereq && createCache && values && values.length >= 200,
+      isCommon = prereq && !isLarge,
+      result = [],
+      valuesLength = values ? values.length : 0;
 
-  if (createCache && values && values.length >= LARGE_ARRAY_SIZE) {
+  if (isLarge) {
     indexOf = cacheIndexOf;
     values = createCache(values);
   }
+  outer:
   while (++index < length) {
     var value = array[index];
-    if (indexOf(values, value) < 0) {
+
+    if (isCommon) {
+      var valuesIndex = valuesLength;
+      while (valuesIndex--) {
+        if (values[valuesIndex] === value) {
+          continue outer;
+        }
+      }
+      result.push(value);
+    }
+    else if (indexOf(values, value) < 0) {
       result.push(value);
     }
   }

@@ -19,9 +19,12 @@ var baseIndexOf = require('./baseIndexOf');
  * @returns {Array} Returns a duplicate-value-free array.
  */
 function baseUniq(array, isSorted, callback) {
+  var length = array ? array.length : 0;
+  if (!length) {
+    return [];
+  }
   var index = -1,
       indexOf = baseIndexOf,
-      length = array ? array.length : 0,
       result = [],
       seen = (callback && !isSorted) ? [] : result;
 
@@ -34,8 +37,8 @@ function baseUniq(array, isSorted, callback) {
         seen = computed;
         result.push(value);
       }
-    } else if (indexOf(seen, computed) < 0) {
-
+    }
+    else if (indexOf(seen, computed) < 0) {
       if (callback) {
         seen.push(computed);
       }
