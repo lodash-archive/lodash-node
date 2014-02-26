@@ -63,6 +63,7 @@ var breakIndicator = expando + 'breaker__';
  */
 function find(collection, callback, thisArg) {
   callback = createCallback(callback, thisArg, 3);
+
   var index = -1,
       length = collection ? collection.length : 0;
 

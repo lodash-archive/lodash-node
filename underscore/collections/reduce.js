@@ -41,8 +41,8 @@ var baseEach = require('../internals/baseEach'),
  */
 function reduce(collection, callback, accumulator, thisArg) {
   var noaccum = arguments.length < 3;
-
   callback = createCallback(callback, thisArg, 4);
+
   var index = -1,
       length = collection ? collection.length : 0;
 

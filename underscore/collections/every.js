@@ -61,8 +61,8 @@ var breakIndicator = expando + 'breaker__';
  */
 function every(collection, callback, thisArg) {
   var result = true;
-
   callback = createCallback(callback, thisArg, 3);
+
   var index = -1,
       length = collection ? collection.length : 0;
 
