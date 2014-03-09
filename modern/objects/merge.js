@@ -10,7 +10,6 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
     baseEach = require('../internals/baseEach'),
     baseForOwn = require('../internals/baseForOwn'),
     isArray = require('./isArray'),
-    isObject = require('./isObject'),
     isPlainObject = require('./isPlainObject'),
     slice = require('../arrays/slice');
 
@@ -131,7 +130,7 @@ function baseMerge(object, source, callback, stackA, stackB) {
  * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot] }
  */
 function merge(object, source, guard) {
-  if (!isObject(object)) {
+  if (!object) {
     return object;
   }
   var args = arguments,
@@ -148,7 +147,7 @@ function merge(object, source, guard) {
   } else if (length > 2 && typeof args[length - 1] == 'function') {
     callback = args[--length];
   }
-  var sources = slice(arguments, 1, length),
+  var sources = slice(args, 1, length),
       index = -1,
       stackA = [],
       stackB = [];

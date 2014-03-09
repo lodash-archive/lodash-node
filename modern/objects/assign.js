@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    isObject = require('./isObject'),
     keys = require('./keys');
 
 /**
@@ -39,6 +38,9 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
 function assign(object, source, guard) {
+  if (!object) {
+    return object;
+  }
   var args = arguments,
       argsIndex = 0,
       argsLength = args.length,
@@ -56,15 +58,13 @@ function assign(object, source, guard) {
   }
   while (++argsIndex < argsLength) {
     source = args[argsIndex];
-    if (isObject(source)) {
-      var index = -1,
-          props = keys(source),
-          length = props.length;
+    var index = -1,
+        props = keys(source),
+        length = props.length;
 
-      while (++index < length) {
-        var key = props[index];
-        object[key] = callback ? callback(object[key], source[key]) : source[key];
-      }
+    while (++index < length) {
+      var key = props[index];
+      object[key] = callback ? callback(object[key], source[key]) : source[key];
     }
   }
   return object;

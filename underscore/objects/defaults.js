@@ -6,8 +6,7 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isObject = require('./isObject'),
-    keys = require('./keys');
+var keys = require('./keys');
 
 /**
  * Assigns own enumerable properties of source object(s) to the destination
@@ -40,11 +39,9 @@ function defaults(object, source, guard) {
   }
   while (++argsIndex < argsLength) {
     source = args[argsIndex];
-    if (source) {
-      for (var key in source) {
-        if (typeof object[key] == 'undefined') {
-          object[key] = source[key];
-        }
+    for (var key in source) {
+      if (typeof object[key] == 'undefined') {
+        object[key] = source[key];
       }
     }
   }

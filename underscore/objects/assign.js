@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    isObject = require('./isObject'),
     keys = require('./keys');
 
 /**
@@ -52,10 +51,8 @@ function assign(object, source, guard) {
   }
   while (++argsIndex < argsLength) {
     source = args[argsIndex];
-    if (source) {
-      for (var key in source) {
-        object[key] = source[key];
-      }
+    for (var key in source) {
+      object[key] = source[key];
     }
   }
   return object;
