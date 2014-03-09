@@ -10,14 +10,14 @@ var createAggregator = require('../internals/createAggregator');
 
 /**
  * Creates an array of elements split into two groups, the first of which
- * contains elements the callback returns truey for, while the second of which
- * contains elements the callback returns falsey for. The callback is bound
+ * contains elements the predicate returns truthy for, while the second of which
+ * contains elements the predicate returns falsey for. The predicate is bound
  * to `thisArg` and invoked with three arguments; (value, index|key, collection).
  *
- * If a property name is provided for `callback` the created "_.pluck" style
+ * If a property name is provided for `predicate` the created "_.pluck" style
  * callback will return the property value of the given element.
  *
- * If an object is provided for `callback` the created "_.where" style callback
+ * If an object is provided for `predicate` the created "_.where" style callback
  * will return `true` for elements that have the properties of the given object,
  * else `false`.
  *
@@ -25,11 +25,11 @@ var createAggregator = require('../internals/createAggregator');
  * @memberOf _
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Function|Object|string} [callback=identity] The function called
+ * @param {Function|Object|string} [predicate=identity] The function called
  *  per iteration. If a property name or object is provided it will be used
  *  to create a "_.pluck" or "_.where" style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Array} Returns a new array of grouped elements.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
+ * @returns {Array} Returns the array of grouped elements.
  * @example
  *
  * _.partition([1, 2, 3], function(num) { return num % 2; });

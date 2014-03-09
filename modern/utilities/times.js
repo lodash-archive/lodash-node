@@ -17,9 +17,9 @@ var baseCreateCallback = require('../internals/baseCreateCallback');
  * @memberOf _
  * @category Utilities
  * @param {number} n The number of times to execute the callback.
- * @param {Function} callback The function called per iteration.
+ * @param {Function} [callback=identity] The function called per iteration.
  * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Array} Returns an array of the results of each `callback` execution.
+ * @returns {Array} Returns the array of results.
  * @example
  *
  * var diceRolls = _.times(3, _.partial(_.random, 1, 6));

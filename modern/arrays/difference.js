@@ -18,7 +18,7 @@ var baseDifference = require('../internals/baseDifference'),
  * @category Arrays
  * @param {Array} array The array to process.
  * @param {...Array} [values] The arrays of values to exclude.
- * @returns {Array} Returns a new array of filtered values.
+ * @returns {Array} Returns the new array of filtered values.
  * @example
  *
  * _.difference([1, 2, 3], [5, 2, 10]);

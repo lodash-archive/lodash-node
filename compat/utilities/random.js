@@ -15,7 +15,7 @@ var nativeMin = Math.min,
 /**
  * Produces a random number between `min` and `max` (inclusive). If only one
  * argument is provided a number between `0` and the given number will be
- * returned. If `floating` is truey or either `min` or `max` are floats a
+ * returned. If `floating` is truthy or either `min` or `max` are floats a
  * floating-point number will be returned instead of an integer.
  *
  * @static
@@ -24,7 +24,7 @@ var nativeMin = Math.min,
  * @param {number} [min=0] The minimum possible value.
  * @param {number} [max=1] The maximum possible value.
  * @param {boolean} [floating=false] Specify returning a floating-point number.
- * @returns {number} Returns a random number.
+ * @returns {number} Returns the random number.
  * @example
  *
  * _.random(0, 5);

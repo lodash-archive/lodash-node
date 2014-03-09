@@ -9,56 +9,17 @@
 var slice = require('./slice');
 
 /**
- * Gets all but the last element or last `n` elements of an array. If a
- * callback is provided elements at the end of the array are excluded from
- * the result as long as the callback returns truey. The callback is bound
- * to `thisArg` and invoked with three arguments; (value, index, array).
- *
- * If a property name is provided for `callback` the created "_.pluck" style
- * callback will return the property value of the given element.
- *
- * If an object is provided for `callback` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
- * else `false`.
+ * Gets all but the last element of `array`.
  *
  * @static
  * @memberOf _
  * @category Arrays
  * @param {Array} array The array to query.
- * @param {Function|Object|number|string} [callback=1] The function called
- *  per element or the number of elements to exclude. If a property name or
- *  object is provided it will be used to create a "_.pluck" or "_.where"
- *  style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Array} Returns a slice of `array`.
+ * @returns {Array} Returns the slice of `array`.
  * @example
  *
  * _.initial([1, 2, 3]);
  * // => [1, 2]
- *
- * // excludes the last two elements
- * _.initial([1, 2, 3], 2);
- * // => [1]
- *
- * // excludes elements from the end until the callback fails
- * _.initial([1, 2, 3], function(num) {
- *   return num > 1;
- * });
- * // => [1]
- *
- * var characters = [
- *   { 'name': 'barney',  'employer': 'slate' },
- *   { 'name': 'fred',    'employer': 'slate', 'blocked': true },
- *   { 'name': 'pebbles', 'employer': 'na',    'blocked': true }
- * ];
- *
- * // using "_.pluck" callback shorthand
- * _.initial(characters, 'blocked');
- * // => [{ 'name': 'barney',  'blocked': false, 'employer': 'slate' }]
- *
- * // using "_.where" callback shorthand
- * _.pluck(_.initial(characters, { 'employer': 'na' }), 'name');
- * // => ['barney', 'fred']
  */
 function initial(array, n, guard) {
   var length = array ? array.length : 0;

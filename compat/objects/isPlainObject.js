@@ -27,10 +27,10 @@ var getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getProt
     hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
- * A fallback implementation of `isPlainObject` which checks if a given value
- * is an object created by the `Object` constructor, assuming objects created
- * by the `Object` constructor have no inherited enumerable properties and that
- * there are no `Object.prototype` extensions.
+ * A fallback implementation of `isPlainObject` which checks if `value` is
+ * an object created by the `Object` constructor, assuming objects created
+ * by the `Object` constructor have no inherited enumerable properties and
+ * that there are no `Object.prototype` extensions.
  *
  * @private
  * @param {*} value The value to check.

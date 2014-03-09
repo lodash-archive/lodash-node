@@ -18,7 +18,7 @@ var baseForIn = require('../internals/baseForIn'),
  * @alias methods
  * @category Objects
  * @param {Object} object The object to inspect.
- * @returns {Array} Returns an array of property names that have function values.
+ * @returns {Array} Returns the new sorted array of property names.
  * @example
  *
  * _.functions(_);
@@ -26,6 +26,7 @@ var baseForIn = require('../internals/baseForIn'),
  */
 function functions(object) {
   var result = [];
+
   baseForIn(object, function(value, key) {
     if (isFunction(value)) {
       result.push(key);

@@ -13,9 +13,9 @@ var createWrapper = require('../internals/createWrapper'),
 var PARTIAL_FLAG = 16;
 
 /**
- * Creates a function that, when called, invokes `func` with any additional
- * `partial` arguments prepended to those provided to the new function. This
- * method is similar to `_.bind` except it does **not** alter the `this` binding.
+ * Creates a function that invokes `func` with any additional `partial` arguments
+ * prepended to those provided to the new function. This method is similar to
+ * `_.bind` except it does **not** alter the `this` binding.
  *
  * Note: This method does not set the `length` property of partially applied
  * functions.

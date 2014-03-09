@@ -10,73 +10,33 @@ var createCallback = require('../functions/createCallback'),
     slice = require('./slice');
 
 /**
- * The opposite of `_.initial`; this method gets all but the first element or
- * first `n` elements of an array. If a callback function is provided elements
- * at the beginning of the array are excluded from the result as long as the
- * callback returns truey. The callback is bound to `thisArg` and invoked
- * with three arguments; (value, index, array).
- *
- * If a property name is provided for `callback` the created "_.pluck" style
- * callback will return the property value of the given element.
- *
- * If an object is provided for `callback` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
- * else `false`.
+ * Gets all but the first element of `array`.
  *
  * @static
  * @memberOf _
- * @alias drop, tail
+ * @alias tail
  * @category Arrays
  * @param {Array} array The array to query.
- * @param {Function|Object|number|string} [callback=1] The function called
- *  per element or the number of elements to exclude. If a property name or
- *  object is provided it will be used to create a "_.pluck" or "_.where"
- *  style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Array} Returns a slice of `array`.
+ * @returns {Array} Returns the slice of `array`.
  * @example
  *
  * _.rest([1, 2, 3]);
  * // => [2, 3]
- *
- * // excludes the first two elements
- * _.rest([1, 2, 3], 2);
- * // => [3]
- *
- * // excludes elements from the beginning until the callback fails
- * _.rest([1, 2, 3], function(num) {
- *   return num < 3;
- * });
- * // => [3]
- *
- * var characters = [
- *   { 'name': 'barney',  'employer': 'slate', 'blocked': true },
- *   { 'name': 'fred',    'employer': 'slate' },
- *   { 'name': 'pebbles', 'employer': 'na',    'blocked': true }
- * ];
- *
- * // using "_.pluck" callback shorthand
- * _.pluck(_.rest(characters, 'blocked'), 'name');
- * // => ['fred', 'pebbles']
- *
- * // using "_.where" callback shorthand
- * _.rest(characters, { 'employer': 'slate' });
- * // => [{ 'name': 'pebbles', 'employer': 'na', 'blocked': true }]
  */
-function rest(array, callback, thisArg) {
-  if (typeof callback != 'number' && callback != null) {
+function rest(array, predicate, thisArg) {
+  if (typeof predicate != 'number' && predicate != null) {
     var index = -1,
         length = array ? array.length : 0,
         n = 0;
 
-    callback = createCallback(callback, thisArg, 3);
-    while (++index < length && callback(array[index], index, array)) {
+    predicate = createCallback(predicate, thisArg, 3);
+    while (++index < length && predicate(array[index], index, array)) {
       n++;
     }
-  } else if (callback == null || thisArg) {
+  } else if (predicate == null || thisArg) {
     n = 1;
   } else {
-    n = callback > 0 ? callback : 0;
+    n = predicate > 0 ? predicate : 0;
   }
   return slice(array, n);
 }

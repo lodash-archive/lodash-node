@@ -8,12 +8,12 @@
  */
 
 /**
- * Produces the `toString` result of the wrapped value.
+ * Produces the result of coercing the wrapped value to a string.
  *
  * @name toString
  * @memberOf _
  * @category Chaining
- * @returns {string} Returns the string result.
+ * @returns {string} Returns the coerced string value.
  * @example
  *
  * _([1, 2, 3]).toString();

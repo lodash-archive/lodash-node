@@ -15,7 +15,7 @@ var baseIndexOf = require('./baseIndexOf');
  * @private
  * @param {Array} array The array to process.
  * @param {Array} [values] The array of values to exclude.
- * @returns {Array} Returns a new array of filtered values.
+ * @returns {Array} Returns the new array of filtered values.
  */
 function baseDifference(array, values) {
   var length = array ? array.length : 0;

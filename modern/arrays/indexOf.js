@@ -24,7 +24,7 @@ var nativeMax = Math.max;
  * @param {*} value The value to search for.
  * @param {boolean|number} [fromIndex=0] The index to search from or `true`
  *  to perform a binary search on a sorted array.
- * @returns {number} Returns the index of the matched value or `-1`.
+ * @returns {number} Returns the index of the matched value, else `-1`.
  * @example
  *
  * _.indexOf([1, 2, 3, 1, 2, 3], 2);

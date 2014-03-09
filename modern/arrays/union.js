@@ -17,7 +17,7 @@ var baseFlatten = require('../internals/baseFlatten'),
  * @memberOf _
  * @category Arrays
  * @param {...Array} [array] The arrays to inspect.
- * @returns {Array} Returns an array of combined values.
+ * @returns {Array} Returns the new array of combined values.
  * @example
  *
  * _.union([1, 2, 3], [5, 2, 1, 4], [2, 1]);

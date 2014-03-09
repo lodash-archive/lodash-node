@@ -17,7 +17,7 @@ var map = require('./map');
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
  * @param {string} key The name of the property to pluck.
- * @returns {Array} Returns a new array of property values.
+ * @returns {Array} Returns the property values.
  * @example
  *
  * var characters = [

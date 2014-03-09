@@ -19,7 +19,7 @@ var keys = require('./keys');
  * @category Objects
  * @param {Object} object The object to invert.
  * @param {boolean} [multiValue=false] Allow multiple values per key.
- * @returns {Object} Returns the created inverted object.
+ * @returns {Object} Returns the new inverted object.
  * @example
  *
  * _.invert({ 'first': 'fred', 'second': 'barney' });

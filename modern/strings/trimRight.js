@@ -55,7 +55,7 @@ var nativeTrimRight = isNative(nativeTrimRight = stringProto.trimRight) && !nati
  * @static
  * @memberOf _
  * @category Strings
- * @param {string} string The string to trim.
+ * @param {string} [string=''] The string to trim.
  * @param {string} [chars=whitespace] The characters to trim.
  * @returns {string} Returns the trimmed string.
  * @example

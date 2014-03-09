@@ -10,7 +10,7 @@ var debounce = require('./debounce'),
     isFunction = require('../objects/isFunction'),
     isObject = require('../objects/isObject');
 
-/** Used as an internal `_.debounce` options object */
+/** Used as an internal `_.debounce` options object by `_.throttle` */
 var debounceOptions = {
   'leading': false,
   'maxWait': 0,
@@ -58,11 +58,11 @@ function throttle(func, wait, options) {
   if (options === false) {
     leading = false;
   } else if (isObject(options)) {
-    leading = 'leading' in options ? options.leading : leading;
-    trailing = 'trailing' in options ? options.trailing : trailing;
+    leading = 'leading' in options ? !!options.leading : leading;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
   }
   debounceOptions.leading = leading;
-  debounceOptions.maxWait = wait;
+  debounceOptions.maxWait = +wait;
   debounceOptions.trailing = trailing;
 
   return debounce(func, wait, debounceOptions);

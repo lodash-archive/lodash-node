@@ -26,7 +26,7 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @memberOf _
  * @category Functions
  * @param {Function} func The function to have its output memoized.
- * @param {Function} [resolver] A function used to resolve the cache key.
+ * @param {Function} [resolver] The function to resolve the cache key.
  * @returns {Function} Returns the new memoizing function.
  * @example
  *

@@ -10,12 +10,12 @@ var createCallback = require('../functions/createCallback');
 
 /**
  * This method is like `_.findIndex` except that it iterates over elements
- * of a `collection` from right to left.
+ * of a collection from right to left.
  *
- * If a property name is provided for `callback` the created "_.pluck" style
+ * If a property name is provided for `predicate` the created "_.pluck" style
  * callback will return the property value of the given element.
  *
- * If an object is provided for `callback` the created "_.where" style callback
+ * If an object is provided for `predicate` the created "_.where" style callback
  * will return `true` for elements that have the properties of the given object,
  * else `false`.
  *
@@ -23,10 +23,10 @@ var createCallback = require('../functions/createCallback');
  * @memberOf _
  * @category Arrays
  * @param {Array} array The array to search.
- * @param {Function|Object|string} [callback=identity] The function called
+ * @param {Function|Object|string} [predicate=identity] The function called
  *  per iteration. If a property name or object is provided it will be used
  *  to create a "_.pluck" or "_.where" style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
  * @returns {number} Returns the index of the found element, else `-1`.
  * @example
  *
@@ -49,12 +49,12 @@ var createCallback = require('../functions/createCallback');
  * _.findLastIndex(characters, 'blocked');
  * // => 2
  */
-function findLastIndex(array, callback, thisArg) {
+function findLastIndex(array, predicate, thisArg) {
   var length = array ? array.length : 0;
 
-  callback = createCallback(callback, thisArg, 3);
+  predicate = createCallback(predicate, thisArg, 3);
   while (length--) {
-    if (callback(array[length], length, array)) {
+    if (predicate(array[length], length, array)) {
       return length;
     }
   }

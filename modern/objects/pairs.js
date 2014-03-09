@@ -9,7 +9,7 @@
 var keys = require('./keys');
 
 /**
- * Creates a two dimensional array of an object's key-value pairs,
+ * Creates a two dimensional array of a given object's key-value pairs,
  * i.e. `[[key1, value1], [key2, value2]]`.
  *
  * @static

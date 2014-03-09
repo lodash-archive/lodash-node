@@ -30,11 +30,11 @@ var baseUniq = require('../internals/baseUniq'),
  * @category Arrays
  * @param {Array} array The array to process.
  * @param {boolean} [isSorted=false] A flag to indicate that `array` is sorted.
- * @param {Function|Object|string} [callback=identity] The function called
- *  per iteration. If a property name or object is provided it will be used
- *  to create a "_.pluck" or "_.where" style callback, respectively.
+ * @param {Function|Object|string} [callback] The function called per iteration.
+ *  If a property name or object is provided it will be used to create a "_.pluck"
+ *  or "_.where" style callback, respectively.
  * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Array} Returns a duplicate-value-free array.
+ * @returns {Array} Returns the new duplicate-value-free array.
  * @example
  *
  * _.uniq([1, 2, 1, 3, 1]);

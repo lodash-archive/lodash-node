@@ -20,7 +20,7 @@ var nativeRandom = Math.random;
  * @private
  * @param {number} min The minimum possible value.
  * @param {number} max The maximum possible value.
- * @returns {number} Returns a random number.
+ * @returns {number} Returns the random number.
  */
 function baseRandom(min, max) {
   return min + floor(nativeRandom() * (max - min + 1));

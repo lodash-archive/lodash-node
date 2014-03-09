@@ -14,7 +14,7 @@
  * @param {Array} array The array to search.
  * @param {*} value The value to search for.
  * @param {number} [fromIndex=0] The index to search from.
- * @returns {number} Returns the index of the matched value or `-1`.
+ * @returns {number} Returns the index of the matched value, else `-1`.
  */
 function baseIndexOf(array, value, fromIndex) {
   var index = (fromIndex || 0) - 1,

@@ -33,18 +33,18 @@ var createAggregator = require('../internals/createAggregator');
  * @returns {Object} Returns the composed aggregate object.
  * @example
  *
- * var keys = [
+ * var keyData = [
  *   { 'dir': 'left', 'code': 97 },
  *   { 'dir': 'right', 'code': 100 }
  * ];
  *
- * _.indexBy(keys, 'dir');
+ * _.indexBy(keyData, 'dir');
  * // => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
  *
- * _.indexBy(keys, function(key) { return String.fromCharCode(key.code); });
+ * _.indexBy(keyData, function(object) { return String.fromCharCode(object.code); });
  * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
  *
- * _.indexBy(keys, function(key) { return this.fromCharCode(key.code); }, String);
+ * _.indexBy(keyData, function(object) { return this.fromCharCode(object.code); }, String);
  * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
  */
 var indexBy = createAggregator(function(result, value, key) {

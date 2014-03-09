@@ -15,7 +15,7 @@
  * @memberOf _
  * @category Arrays
  * @param {Array} array The array to compact.
- * @returns {Array} Returns a new array of filtered values.
+ * @returns {Array} Returns the new array of filtered values.
  * @example
  *
  * _.compact([0, 1, false, 2, '', 3]);

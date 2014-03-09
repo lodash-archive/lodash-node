@@ -15,14 +15,14 @@ var arrayRef = Array.prototype;
 var splice = arrayRef.splice;
 
 /**
- * Removes all elements from an array that the callback returns truey for
- * and returns an array of removed elements. The callback is bound to `thisArg`
+ * Removes all elements from an array that the predicate returns truthy for
+ * and returns an array of removed elements. The predicate is bound to `thisArg`
  * and invoked with three arguments; (value, index, array).
  *
- * If a property name is provided for `callback` the created "_.pluck" style
+ * If a property name is provided for `predicate` the created "_.pluck" style
  * callback will return the property value of the given element.
  *
- * If an object is provided for `callback` the created "_.where" style callback
+ * If an object is provided for `predicate` the created "_.where" style callback
  * will return `true` for elements that have the properties of the given object,
  * else `false`.
  *
@@ -30,11 +30,11 @@ var splice = arrayRef.splice;
  * @memberOf _
  * @category Arrays
  * @param {Array} array The array to modify.
- * @param {Function|Object|string} [callback=identity] The function called
+ * @param {Function|Object|string} [predicate=identity] The function called
  *  per iteration. If a property name or object is provided it will be used
  *  to create a "_.pluck" or "_.where" style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Array} Returns a new array of removed elements.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
+ * @returns {Array} Returns the array of removed elements.
  * @example
  *
  * var array = [1, 2, 3, 4, 5, 6];
@@ -46,15 +46,15 @@ var splice = arrayRef.splice;
  * console.log(evens);
  * // => [2, 4, 6]
  */
-function remove(array, callback, thisArg) {
+function remove(array, predicate, thisArg) {
   var index = -1,
       length = array ? array.length : 0,
       result = [];
 
-  callback = createCallback(callback, thisArg, 3);
+  predicate = createCallback(predicate, thisArg, 3);
   while (++index < length) {
     var value = array[index];
-    if (callback(value, index, array)) {
+    if (predicate(value, index, array)) {
       result.push(value);
       splice.call(array, index--, 1);
       length--;

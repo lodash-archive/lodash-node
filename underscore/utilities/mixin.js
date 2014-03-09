@@ -25,7 +25,8 @@ var push = arrayRef.push;
  * @param {Function|Object} [object=lodash] object The destination object.
  * @param {Object} source The object of functions to add.
  * @param {Object} [options] The options object.
- * @param {boolean} [options.chain=true] Specify whether the functions added are chainable.
+ * @param {boolean} [options.chain=true] Specify whether the functions added
+ *  are chainable.
  * @example
  *
  * function vowels(string) {

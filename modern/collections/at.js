@@ -17,10 +17,9 @@ var baseFlatten = require('../internals/baseFlatten');
  * @memberOf _
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
- * @param {...(number|number[]|string|string[])} [index] The indexes of `collection`
- *   to retrieve, specified as individual indexes or arrays of indexes.
- * @returns {Array} Returns a new array of elements corresponding to the
- *  provided indexes.
+ * @param {...(number|number[]|string|string[])} [index] The indexes to retrieve,
+ *  specified as individual indexes or arrays of indexes.
+ * @returns {Array} Returns the array of picked elements.
  * @example
  *
  * _.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);

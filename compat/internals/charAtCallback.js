@@ -13,7 +13,7 @@
  *
  * @private
  * @param {string} value The character to inspect.
- * @returns {number} Returns the code unit of given character.
+ * @returns {number} Returns the code unit of the given character.
  */
 function charAtCallback(value) {
   return value.charCodeAt(0);

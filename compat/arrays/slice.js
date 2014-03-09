@@ -22,7 +22,7 @@ var nativeMax = Math.max;
  * @param {Array} array The array to slice.
  * @param {number} [start=0] The start index.
  * @param {number} [end=array.length] The end index.
- * @returns {Array} Returns the new array.
+ * @returns {Array} Returns the slice of `array`.
  */
 function slice(array, start, end) {
   var index = -1,

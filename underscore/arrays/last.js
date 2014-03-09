@@ -9,56 +9,17 @@
 var slice = require('./slice');
 
 /**
- * Gets the last element or last `n` elements of an array. If a callback is
- * provided elements at the end of the array are returned as long as the
- * callback returns truey. The callback is bound to `thisArg` and invoked
- * with three arguments; (value, index, array).
- *
- * If a property name is provided for `callback` the created "_.pluck" style
- * callback will return the property value of the given element.
- *
- * If an object is provided for `callback` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
- * else `false`.
+ * Gets the last element of `array`.
  *
  * @static
  * @memberOf _
  * @category Arrays
  * @param {Array} array The array to query.
- * @param {Function|Object|number|string} [callback] The function called
- *  per element or the number of elements to return. If a property name or
- *  object is provided it will be used to create a "_.pluck" or "_.where"
- *  style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {*} Returns the last element(s) of `array`.
+ * @returns {*} Returns the last element of `array`.
  * @example
  *
  * _.last([1, 2, 3]);
  * // => 3
- *
- * // returns the last two elements
- * _.last([1, 2, 3], 2);
- * // => [2, 3]
- *
- * // returns elements from the end until the callback fails
- * _.last([1, 2, 3], function(num) {
- *   return num > 1;
- * });
- * // => [2, 3]
- *
- * var characters = [
- *   { 'name': 'barney',  'employer': 'slate' },
- *   { 'name': 'fred',    'employer': 'slate', 'blocked': true },
- *   { 'name': 'pebbles', 'employer': 'na',    'blocked': true }
- * ];
- *
- * // using "_.pluck" callback shorthand
- * _.pluck(_.last(characters, 'blocked'), 'name');
- * // => ['fred', 'pebbles']
- *
- * // using "_.where" callback shorthand
- * _.last(characters, { 'employer': 'na' });
- * // => [{ 'name': 'pebbles', 'employer': 'na', 'blocked': true }]
  */
 function last(array, n, guard) {
   var length = array ? array.length : 0;

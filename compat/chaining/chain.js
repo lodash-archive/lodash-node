@@ -16,7 +16,7 @@ var lodashWrapper = require('../internals/lodashWrapper');
  * @memberOf _
  * @category Chaining
  * @param {*} value The value to wrap.
- * @returns {Object} Returns the wrapper object.
+ * @returns {Object} Returns the new wrapper object.
  * @example
  *
  * var characters = [

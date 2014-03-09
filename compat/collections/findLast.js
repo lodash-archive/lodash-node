@@ -10,17 +10,17 @@ var baseEachRight = require('../internals/baseEachRight'),
     createCallback = require('../functions/createCallback');
 
 /**
- * This method is like `_.find` except that it iterates over elements
- * of a `collection` from right to left.
+ * This method is like `_.find` except that it iterates over elements of a
+ * collection from right to left.
  *
  * @static
  * @memberOf _
  * @category Collections
- * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Function|Object|string} [callback=identity] The function called
+ * @param {Array|Object|string} collection The collection to search.
+ * @param {Function|Object|string} [predicate=identity] The function called
  *  per iteration. If a property name or object is provided it will be used
  *  to create a "_.pluck" or "_.where" style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
  * @returns {*} Returns the found element, else `undefined`.
  * @example
  *
@@ -29,12 +29,12 @@ var baseEachRight = require('../internals/baseEachRight'),
  * });
  * // => 3
  */
-function findLast(collection, callback, thisArg) {
+function findLast(collection, predicate, thisArg) {
   var result;
 
-  callback = createCallback(callback, thisArg, 3);
+  predicate = createCallback(predicate, thisArg, 3);
   baseEachRight(collection, function(value, index, collection) {
-    if (callback(value, index, collection)) {
+    if (predicate(value, index, collection)) {
       result = value;
       return false;
     }

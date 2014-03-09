@@ -18,7 +18,7 @@ var baseIndexOf = require('./baseIndexOf'),
  * @param {Array} array The array to process.
  * @param {boolean} [isSorted=false] A flag to indicate that `array` is sorted.
  * @param {Function} [callback] The function called per iteration.
- * @returns {Array} Returns a duplicate-value-free array.
+ * @returns {Array} Returns the new duplicate-value-free array.
  */
 function baseUniq(array, isSorted, callback) {
   var length = array ? array.length : 0;

@@ -30,7 +30,7 @@ var baseForOwn = require('../internals/baseForOwn'),
  *  per iteration. If a property name or object is provided it will be used
  *  to create a "_.pluck" or "_.where" style callback, respectively.
  * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Object} Returns a new object with values of the results of each `callback` execution.
+ * @returns {Object} Returns the new mapped object.
  * @example
  *
  * _.mapValues({ 'a': 1, 'b': 2, 'c': 3} , function(num) { return num * 3; });

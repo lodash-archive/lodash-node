@@ -19,9 +19,9 @@ var version = '2.4.1';
 var expando = '__lodash@' + version + '__';
 
 /**
- * Creates a function that, when called, invokes `func` with any additional
- * `partial` arguments prepended to those provided to the new function. This
- * method is similar to `_.bind` except it does **not** alter the `this` binding.
+ * Creates a function that invokes `func` with any additional `partial` arguments
+ * prepended to those provided to the new function. This method is similar to
+ * `_.bind` except it does **not** alter the `this` binding.
  *
  * Note: This method does not set the `length` property of partially applied
  * functions.

@@ -19,14 +19,14 @@ var expando = '__lodash@' + version + '__';
 var breakIndicator = expando + 'breaker__';
 
 /**
- * Checks if the callback returns truey value for **all** elements of a
- * collection. The callback is bound to `thisArg` and invoked with three
- * arguments; (value, index|key, collection).
+ * Checks if the predicate returns truthy for **all** elements of a collection.
+ * The predicate is bound to `thisArg` and invoked with three arguments;
+ * (value, index|key, collection).
  *
- * If a property name is provided for `callback` the created "_.pluck" style
+ * If a property name is provided for `predicate` the created "_.pluck" style
  * callback will return the property value of the given element.
  *
- * If an object is provided for `callback` the created "_.where" style callback
+ * If an object is provided for `predicate` the created "_.where" style callback
  * will return `true` for elements that have the properties of the given object,
  * else `false`.
  *
@@ -35,11 +35,11 @@ var breakIndicator = expando + 'breaker__';
  * @alias all
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Function|Object|string} [callback=identity] The function called
+ * @param {Function|Object|string} [predicate=identity] The function called
  *  per iteration. If a property name or object is provided it will be used
  *  to create a "_.pluck" or "_.where" style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {boolean} Returns `true` if all elements passed the callback check,
+ * @param {*} [thisArg] The `this` binding of `predicate`.
+ * @returns {boolean} Returns `true` if all elements passed the predicate check,
  *  else `false`.
  * @example
  *
@@ -59,22 +59,22 @@ var breakIndicator = expando + 'breaker__';
  * _.every(characters, { 'age': 36 });
  * // => false
  */
-function every(collection, callback, thisArg) {
+function every(collection, predicate, thisArg) {
   var result = true;
-  callback = createCallback(callback, thisArg, 3);
 
+  predicate = createCallback(predicate, thisArg, 3);
   var index = -1,
       length = collection ? collection.length : 0;
 
   if (typeof length == 'number') {
     while (++index < length) {
-      if (!callback(collection[index], index, collection)) {
+      if (!predicate(collection[index], index, collection)) {
         return false;
       }
     }
   } else {
     baseEach(collection, function(value, index, collection) {
-      return !(result = !!callback(value, index, collection)) && breakIndicator;
+      return !(result = !!predicate(value, index, collection)) && breakIndicator;
     });
   }
   return result;

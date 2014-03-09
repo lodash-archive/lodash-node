@@ -37,8 +37,8 @@ var toString = objectProto.toString;
 var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
- * The base implementation of `_.isEqual`, without support for `thisArg` binding,
- * that allows partial "_.where" style comparisons.
+ * The base implementation of `_.isEqual`, without support for `thisArg`
+ * binding, that allows partial "_.where" style comparisons.
  *
  * @private
  * @param {*} a The value to compare.

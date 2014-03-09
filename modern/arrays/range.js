@@ -24,7 +24,7 @@ var nativeMax = Math.max;
  * @param {number} [start=0] The start of the range.
  * @param {number} end The end of the range.
  * @param {number} [step=1] The value to increment or decrement by.
- * @returns {Array} Returns a new range array.
+ * @returns {Array} Returns the new array of numbers.
  * @example
  *
  * _.range(4);

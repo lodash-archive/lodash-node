@@ -11,7 +11,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
     isArray = require('../objects/isArray');
 
 /**
- * Iterates over elements of a collection, executing the callback for each
+ * Iterates over elements of a collection executing the callback for each
  * element. The callback is bound to `thisArg` and invoked with three arguments;
  * (value, index|key, collection). Callbacks may exit iteration early by
  * explicitly returning `false`.

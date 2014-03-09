@@ -67,7 +67,7 @@ function debounce(func, wait, options) {
   if (!isFunction(func)) {
     throw new TypeError;
   }
-  wait = nativeMax(0, wait) || 0;
+  wait = wait > 0 ? wait : 0;
   if (options === true) {
     var leading = true;
     trailing = false;

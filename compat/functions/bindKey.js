@@ -15,10 +15,10 @@ var BIND_FLAG = 1,
     PARTIAL_FLAG = 16;
 
 /**
- * Creates a function that, when called, invokes the method at `object[key]`
- * and prepends any additional `bindKey` arguments to those provided to the bound
- * function. This method differs from `_.bind` by allowing bound functions to
- * reference methods that will be redefined or don't yet exist.
+ * Creates a function that invokes the method at `object[key]` and prepends
+ * any additional `bindKey` arguments to those provided to the bound function.
+ * This method differs from `_.bind` by allowing bound functions to reference
+ * methods that will be redefined or don't yet exist.
  * See [Peter Michaux's article](http://michaux.ca/articles/lazy-function-definition-pattern)
  * for more details.
  *

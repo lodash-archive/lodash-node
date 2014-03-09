@@ -19,7 +19,7 @@ var filter = require('./filter');
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
  * @param {Object} source The object of property values to filter by.
- * @returns {Array} Returns a new array of elements that have the given properties.
+ * @returns {Array} Returns the new filtered array.
  * @example
  *
  * var characters = [

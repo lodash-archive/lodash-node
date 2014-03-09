@@ -40,7 +40,7 @@ var nativeParseInt = global.parseInt;
  * @category Utilities
  * @param {string} value The value to parse.
  * @param {number} [radix] The radix used to interpret the value to parse.
- * @returns {number} Returns the new integer value.
+ * @returns {number} Returns the converted integer value.
  * @example
  *
  * _.parseInt('08');
