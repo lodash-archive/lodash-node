@@ -10,7 +10,7 @@
 module.exports = {
   'compact': require('./arrays/compact'),
   'difference': require('./arrays/difference'),
-  'drop': require('./arrays/rest'),
+  'drop': require('./arrays/drop'),
   'first': require('./arrays/first'),
   'flatten': require('./arrays/flatten'),
   'head': require('./arrays/first'),
@@ -25,7 +25,7 @@ module.exports = {
   'slice': require('./arrays/slice'),
   'sortedIndex': require('./arrays/sortedIndex'),
   'tail': require('./arrays/rest'),
-  'take': require('./arrays/first'),
+  'take': require('./arrays/take'),
   'union': require('./arrays/union'),
   'uniq': require('./arrays/uniq'),
   'unique': require('./arrays/uniq'),

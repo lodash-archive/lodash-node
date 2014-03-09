@@ -45,7 +45,7 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * implicitly or explicitly included in the build.
  *
  * The chainable wrapper functions are:
- * `after`, `assign`, `bind`, `bindAll`, `bindKey`, `chain`, `compact`,
+ * `after`, `assign`, `at`, `bind`, `bindAll`, `bindKey`, `chain`, `compact`,
  * `compose`, `concat`, `constant`, `countBy`, `create`, `createCallback`,
  * `curry`, `debounce`, `defaults`, `defer`, `delay`, `difference`, `filter`,
  * `flatten`, `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`,
@@ -144,6 +144,10 @@ lodash.defaults = objects.defaults;
 lodash.defer = functions.defer;
 lodash.delay = functions.delay;
 lodash.difference = arrays.difference;
+lodash.drop = arrays.drop;
+lodash.dropRight = arrays.dropRight;
+lodash.dropRightWhile = arrays.dropRightWhile;
+lodash.dropWhile = arrays.dropWhile;
 lodash.filter = collections.filter;
 lodash.flatten = arrays.flatten;
 lodash.forEach = collections.forEach;
@@ -160,6 +164,7 @@ lodash.intersection = arrays.intersection;
 lodash.invert = objects.invert;
 lodash.invoke = collections.invoke;
 lodash.keys = objects.keys;
+lodash.keysIn = objects.keysIn;
 lodash.map = collections.map;
 lodash.mapValues = objects.mapValues;
 lodash.matches = utilities.matches;
@@ -167,6 +172,7 @@ lodash.max = collections.max;
 lodash.memoize = functions.memoize;
 lodash.merge = objects.merge;
 lodash.min = collections.min;
+lodash.negate = functions.negate;
 lodash.omit = objects.omit;
 lodash.once = functions.once;
 lodash.pairs = objects.pairs;
@@ -192,6 +198,7 @@ lodash.transform = objects.transform;
 lodash.union = arrays.union;
 lodash.uniq = arrays.uniq;
 lodash.values = objects.values;
+lodash.valuesIn = objects.valuesIn;
 lodash.where = collections.where;
 lodash.without = arrays.without;
 lodash.wrap = functions.wrap;
@@ -202,7 +209,6 @@ lodash.zipObject = arrays.zipObject;
 // add aliases
 lodash.callback = functions.createCallback;
 lodash.collect = collections.map;
-lodash.drop = arrays.rest;
 lodash.each = collections.forEach;
 lodash.eachRight = collections.forEachRight;
 lodash.extend = assign;
@@ -217,11 +223,14 @@ lodash.unzip = arrays.zip;
 mixin(assign({}, lodash));
 
 // add functions that return unwrapped values when chaining
+lodash.camelCase = strings.camelCase;
 lodash.capitalize = strings.capitalize;
 lodash.clone = objects.clone;
 lodash.cloneDeep = objects.cloneDeep;
 lodash.contains = collections.contains;
+lodash.endsWith = strings.endsWith;
 lodash.escape = utilities.escape;
+lodash.escapeRegExp = strings.escapeRegExp;
 lodash.every = collections.every;
 lodash.find = collections.find;
 lodash.findIndex = arrays.findIndex;
@@ -249,23 +258,31 @@ lodash.isPlainObject = objects.isPlainObject;
 lodash.isRegExp = objects.isRegExp;
 lodash.isString = objects.isString;
 lodash.isUndefined = objects.isUndefined;
+lodash.kebabCase = strings.kebabCase;
 lodash.lastIndexOf = arrays.lastIndexOf;
 lodash.mixin = mixin;
 lodash.noConflict = utilities.noConflict;
 lodash.noop = utilities.noop;
 lodash.now = utilities.now;
+lodash.pad = strings.pad;
+lodash.padLeft = strings.padLeft;
+lodash.padRight = strings.padRight;
 lodash.parseInt = utilities.parseInt;
 lodash.random = utilities.random;
 lodash.reduce = collections.reduce;
 lodash.reduceRight = collections.reduceRight;
+lodash.repeat = strings.repeat;
 lodash.result = utilities.result;
 lodash.size = collections.size;
 lodash.some = collections.some;
 lodash.sortedIndex = arrays.sortedIndex;
+lodash.snakeCase = strings.snakeCase;
+lodash.startsWith = strings.startsWith;
 lodash.template = utilities.template;
 lodash.trim = strings.trim;
 lodash.trimLeft = strings.trimLeft;
 lodash.trimRight = strings.trimRight;
+lodash.truncate = strings.truncate;
 lodash.unescape = utilities.unescape;
 lodash.uniqueId = utilities.uniqueId;
 
@@ -293,9 +310,12 @@ mixin(function() {
 lodash.first = arrays.first;
 lodash.last = arrays.last;
 lodash.sample = collections.sample;
+lodash.take = arrays.first;
+lodash.takeRight = arrays.last;
+lodash.takeRightWhile = arrays.last;
+lodash.takeWhile = arrays.first;
 
 // add aliases
-lodash.take = arrays.first;
 lodash.head = arrays.first;
 
 baseForOwn(lodash, function(func, methodName) {

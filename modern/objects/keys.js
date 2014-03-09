@@ -7,7 +7,8 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isNative = require('../internals/isNative'),
-    isObject = require('./isObject');
+    isObject = require('./isObject'),
+    keysIn = require('./keysIn');
 
 /** Used for native method references */
 var objectProto = Object.prototype;
@@ -19,45 +20,51 @@ var hasOwnProperty = objectProto.hasOwnProperty;
 var nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
 
 /**
- * A fallback implementation of `Object.keys` which produces an array of the
- * given object's own enumerable property names.
+ * A fallback implementation of `Object.keys` which creates an array of the
+ * own enumerable property names of `object`.
  *
  * @private
  * @type Function
  * @param {Object} object The object to inspect.
- * @returns {Array} Returns an array of property names.
+ * @returns {Array} Returns the array of property names.
  */
-var shimKeys = function(object) {
-  var result = [];
-  if (!isObject(object)) {
-    return result;
-  }
-  for (var key in object) {
+function shimKeys(object) {
+  var index = -1,
+      props = keysIn(object),
+      length = props.length,
+      result = [];
+
+  while (++index < length) {
+    var key = props[index];
     if (hasOwnProperty.call(object, key)) {
       result.push(key);
     }
   }
   return result;
-};
+}
 
 /**
- * Creates an array composed of the own enumerable property names of an object.
+ * Creates an array of the own enumerable property names of `object`.
  *
  * @static
  * @memberOf _
  * @category Objects
  * @param {Object} object The object to inspect.
- * @returns {Array} Returns an array of property names.
+ * @returns {Array} Returns the array of property names.
  * @example
  *
- * _.keys({ 'one': 1, 'two': 2, 'three': 3 });
- * // => ['one', 'two', 'three'] (property order is not guaranteed across environments)
+ * function Shape() {
+ *   this.x = 0;
+ *   this.y = 0;
+ * }
+ *
+ * Shape.prototype.z = 0;
+ *
+ * _.keys(new Shape);
+ * // => ['x', 'y'] (property order is not guaranteed across environments)
  */
 var keys = !nativeKeys ? shimKeys : function(object) {
-  if (!isObject(object)) {
-    return [];
-  }
-  return nativeKeys(object);
+  return isObject(object) ? nativeKeys(object) : [];
 };
 
 module.exports = keys;

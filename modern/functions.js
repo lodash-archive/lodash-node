@@ -20,6 +20,7 @@ module.exports = {
   'defer': require('./functions/defer'),
   'delay': require('./functions/delay'),
   'memoize': require('./functions/memoize'),
+  'negate': require('./functions/negate'),
   'once': require('./functions/once'),
   'partial': require('./functions/partial'),
   'partialRight': require('./functions/partialRight'),

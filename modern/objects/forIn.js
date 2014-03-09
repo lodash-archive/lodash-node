@@ -7,13 +7,14 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    baseForIn = require('../internals/baseForIn');
+    baseFor = require('../internals/baseFor'),
+    keysIn = require('./keysIn');
 
 /**
- * Iterates over own and inherited enumerable properties of an object,
- * executing the callback for each property. The callback is bound to `thisArg`
- * and invoked with three arguments; (value, key, object). Callbacks may exit
- * iteration early by explicitly returning `false`.
+ * Iterates over own and inherited enumerable properties of an object executing
+ * the callback for each property. The callback is bound to `thisArg` and invoked
+ * with three arguments; (value, key, object). Callbacks may exit iteration
+ * early by explicitly returning `false`.
  *
  * @static
  * @memberOf _
@@ -30,19 +31,16 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  *   this.y = 0;
  * }
  *
- * Shape.prototype.move = function(x, y) {
- *   this.x += x;
- *   this.y += y;
- * };
+ * Shape.prototype.z = 0;
  *
  * _.forIn(new Shape, function(value, key) {
  *   console.log(key);
  * });
- * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
+ * // => logs 'x', 'y', and 'z' (property order is not guaranteed across environments)
  */
 function forIn(object, callback, thisArg) {
   callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-  return baseForIn(object, callback);
+  return baseFor(object, callback, keysIn);
 }
 
 module.exports = forIn;

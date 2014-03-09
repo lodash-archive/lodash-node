@@ -12,6 +12,7 @@ var arrays = require('./arrays'),
     collections = require('./collections'),
     functions = require('./functions'),
     objects = require('./objects'),
+    strings = require('./strings'),
     utilities = require('./utilities'),
     assign = require('./objects/assign'),
     baseEach = require('./internals/baseEach'),
@@ -39,7 +40,7 @@ var arrayRef = Array.prototype;
  * implicitly or explicitly included in the build.
  *
  * The chainable wrapper functions are:
- * `after`, `assign`, `bind`, `bindAll`, `bindKey`, `chain`, `compact`,
+ * `after`, `assign`, `at`, `bind`, `bindAll`, `bindKey`, `chain`, `compact`,
  * `compose`, `concat`, `constant`, `countBy`, `create`, `createCallback`,
  * `curry`, `debounce`, `defaults`, `defer`, `delay`, `difference`, `filter`,
  * `flatten`, `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`,
@@ -127,6 +128,7 @@ lodash.defaults = objects.defaults;
 lodash.defer = functions.defer;
 lodash.delay = functions.delay;
 lodash.difference = arrays.difference;
+lodash.drop = arrays.drop;
 lodash.filter = collections.filter;
 lodash.flatten = arrays.flatten;
 lodash.forEach = collections.forEach;
@@ -170,7 +172,6 @@ lodash.zip = arrays.zip;
 
 // add aliases
 lodash.collect = collections.map;
-lodash.drop = arrays.rest;
 lodash.each = collections.forEach;
 lodash.extend = assign;
 lodash.methods = objects.functions;
@@ -233,9 +234,9 @@ lodash.inject = collections.reduce;
 lodash.first = arrays.first;
 lodash.last = arrays.last;
 lodash.sample = collections.sample;
+lodash.take = arrays.first;
 
 // add aliases
-lodash.take = arrays.first;
 lodash.head = arrays.first;
 
 // add functions to `lodash.prototype`

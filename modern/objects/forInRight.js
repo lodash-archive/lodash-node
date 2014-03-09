@@ -7,11 +7,12 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
-    baseForIn = require('../internals/baseForIn');
+    baseForRight = require('../internals/baseForRight'),
+    keysIn = require('./keysIn');
 
 /**
- * This method is like `_.forIn` except that it iterates over elements
- * of a `collection` in the opposite order.
+ * This method is like `_.forIn` except that it iterates over elements of a
+ * collection in the opposite order.
  *
  * @static
  * @memberOf _
@@ -27,30 +28,16 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  *   this.y = 0;
  * }
  *
- * Shape.prototype.move = function(x, y) {
- *   this.x += x;
- *   this.y += y;
- * };
+ * Shape.prototype.z = 0;
  *
  * _.forInRight(new Shape, function(value, key) {
  *   console.log(key);
  * });
- * // => logs 'move', 'y', and 'x' assuming `_.forIn ` logs 'x', 'y', and 'move'
+ * // => logs 'z', 'y', and 'x' assuming `_.forIn ` logs 'x', 'y', and 'z'
  */
 function forInRight(object, callback, thisArg) {
-  var pairs = [];
-  baseForIn(object, function(value, key) {
-    pairs.push(key, value);
-  });
-
-  var length = pairs.length;
   callback = baseCreateCallback(callback, thisArg, 3);
-  while (length--) {
-    if (callback(pairs[length--], pairs[length], object) === false) {
-      break;
-    }
-  }
-  return object;
+  return baseForRight(object, callback, keysIn);
 }
 
 module.exports = forInRight;

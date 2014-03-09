@@ -8,26 +8,27 @@
  */
 var baseDifference = require('../internals/baseDifference'),
     baseFlatten = require('../internals/baseFlatten'),
-    baseForIn = require('../internals/baseForIn'),
-    slice = require('../arrays/slice');
+    keysIn = require('./keysIn'),
+    negate = require('../functions/negate'),
+    pick = require('./pick');
 
 /**
  * Creates a shallow clone of `object` excluding the specified properties.
  * Property names may be specified as individual arguments or as arrays of
- * property names. If a callback is provided it will be executed for each
- * property of `object` omitting the properties the callback returns truey
- * for. The callback is bound to `thisArg` and invoked with three arguments;
+ * property names. If a predicate is provided it will be executed for each
+ * property of `object` omitting the properties the predicate returns truthy
+ * for. The predicate is bound to `thisArg` and invoked with three arguments;
  * (value, key, object).
  *
  * @static
  * @memberOf _
  * @category Objects
  * @param {Object} object The source object.
- * @param {Function|...string|string[]} [callback] The function called per
+ * @param {Function|...string|string[]} [predicate] The function called per
  *  iteration or property names to omit, specified as individual property
  *  names or arrays of property names.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Object} Returns an object without the omitted properties.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
+ * @returns {Object} Returns the new object.
  * @example
  *
  * _.omit({ 'name': 'fred', 'age': 40 }, 'age');
@@ -38,28 +39,14 @@ var baseDifference = require('../internals/baseDifference'),
  * });
  * // => { 'name': 'fred' }
  */
-function omit(object, guard) {
+function omit(object) {
   var omitProps = baseFlatten(arguments, true, false, 1),
-      length = omitProps.length,
-      result = {};
+      length = omitProps.length;
 
   while (length--) {
     omitProps[length] = String(omitProps[length]);
   }
-  var props = [];
-  baseForIn(object, function(value, key) {
-    props.push(key);
-  });
-
-  var index = -1;
-  props = baseDifference(props, omitProps);
-  length = props.length;
-
-  while (++index < length) {
-    var key = props[index];
-    result[key] = object[key];
-  }
-  return result;
+  return pick(object, baseDifference(keysIn(object),  omitProps));
 }
 
 module.exports = omit;

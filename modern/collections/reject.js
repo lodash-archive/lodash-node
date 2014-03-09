@@ -7,16 +7,17 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createCallback = require('../functions/createCallback'),
-    filter = require('./filter');
+    filter = require('./filter'),
+    negate = require('../functions/negate');
 
 /**
- * The opposite of `_.filter`; this method returns the elements of a
- * collection that the callback does **not** return truey for.
+ * The opposite of `_.filter`; this method returns the elements of a collection
+ * the predicate does **not** return truthy for.
  *
- * If a property name is provided for `callback` the created "_.pluck" style
+ * If a property name is provided for `predicate` the created "_.pluck" style
  * callback will return the property value of the given element.
  *
- * If an object is provided for `callback` the created "_.where" style callback
+ * If an object is provided for `predicate` the created "_.where" style callback
  * will return `true` for elements that have the properties of the given object,
  * else `false`.
  *
@@ -24,11 +25,11 @@ var createCallback = require('../functions/createCallback'),
  * @memberOf _
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Function|Object|string} [callback=identity] The function called
+ * @param {Function|Object|string} [predicate=identity] The function called
  *  per iteration. If a property name or object is provided it will be used
  *  to create a "_.pluck" or "_.where" style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Array} Returns a new array of elements that failed the callback check.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
+ * @returns {Array} Returns the new filtered array.
  * @example
  *
  * var odds = _.reject([1, 2, 3, 4], function(num) { return num % 2 == 0; });
@@ -47,11 +48,9 @@ var createCallback = require('../functions/createCallback'),
  * _.reject(characters, { 'age': 36 });
  * // => [{ 'name': 'fred', 'age': 40, 'blocked': true }]
  */
-function reject(collection, callback, thisArg) {
-  callback = createCallback(callback, thisArg, 3);
-  return filter(collection, function(value, index, collection) {
-    return !callback(value, index, collection);
-  });
+function reject(collection, predicate, thisArg) {
+  predicate = createCallback(predicate, thisArg, 3);
+  return filter(collection, negate(predicate));
 }
 
 module.exports = reject;

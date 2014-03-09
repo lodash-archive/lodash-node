@@ -7,11 +7,12 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateCallback = require('../internals/baseCreateCallback'),
+    baseForRight = require('../internals/baseForRight'),
     keys = require('./keys');
 
 /**
- * This method is like `_.forOwn` except that it iterates over elements
- * of a `collection` in the opposite order.
+ * This method is like `_.forOwn` except that it iterates over elements of a
+ * collection in the opposite order.
  *
  * @static
  * @memberOf _
@@ -28,17 +29,8 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * // => logs 'length', '1', and '0' assuming `_.forOwn` logs '0', '1', and 'length'
  */
 function forOwnRight(object, callback, thisArg) {
-  var props = keys(object),
-      length = props.length;
-
   callback = baseCreateCallback(callback, thisArg, 3);
-  while (length--) {
-    var key = props[length];
-    if (callback(object[key], key, object) === false) {
-      break;
-    }
-  }
-  return object;
+  return baseForRight(object, callback, keys);
 }
 
 module.exports = forOwnRight;

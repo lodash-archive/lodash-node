@@ -41,6 +41,7 @@ module.exports = {
   'isString': require('./objects/isString'),
   'isUndefined': require('./objects/isUndefined'),
   'keys': require('./objects/keys'),
+  'keysIn': require('./objects/keysIn'),
   'mapValues': require('./objects/mapValues'),
   'merge': require('./objects/merge'),
   'methods': require('./objects/functions'),
@@ -48,5 +49,6 @@ module.exports = {
   'pairs': require('./objects/pairs'),
   'pick': require('./objects/pick'),
   'transform': require('./objects/transform'),
-  'values': require('./objects/values')
+  'values': require('./objects/values'),
+  'valuesIn': require('./objects/valuesIn')
 };

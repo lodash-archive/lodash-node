@@ -32,6 +32,7 @@ module.exports = {
   'isString': require('./objects/isString'),
   'isUndefined': require('./objects/isUndefined'),
   'keys': require('./objects/keys'),
+  'keysIn': require('./objects/keysIn'),
   'methods': require('./objects/functions'),
   'omit': require('./objects/omit'),
   'pairs': require('./objects/pairs'),

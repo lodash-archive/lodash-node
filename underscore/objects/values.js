@@ -6,31 +6,31 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var keys = require('./keys');
+var baseValues = require('../internals/baseValues'),
+    keys = require('./keys');
 
 /**
- * Creates an array composed of the own enumerable property values of `object`.
+ * Creates an array of the own enumerable property values of `object`.
  *
  * @static
  * @memberOf _
  * @category Objects
  * @param {Object} object The object to inspect.
- * @returns {Array} Returns an array of property values.
+ * @returns {Array} Returns the array of property values.
  * @example
  *
- * _.values({ 'one': 1, 'two': 2, 'three': 3 });
- * // => [1, 2, 3] (property order is not guaranteed across environments)
+ * function Shape(x, y) {
+ *   this.x = x;
+ *   this.y = y;
+ * }
+ *
+ * Shape.prototype.z = 0;
+ *
+ * _.values(new Shape(2, 1));
+ * // => [2, 1] (property order is not guaranteed across environments)
  */
 function values(object) {
-  var index = -1,
-      props = keys(object),
-      length = props.length,
-      result = Array(length);
-
-  while (++index < length) {
-    result[index] = object[props[index]];
-  }
-  return result;
+  return baseValues(object, keys);
 }
 
 module.exports = values;

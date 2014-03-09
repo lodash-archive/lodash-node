@@ -33,11 +33,11 @@ var stringEscapes = {
  * string literals.
  *
  * @private
- * @param {string} match The matched character to escape.
+ * @param {string} chr The matched character to escape.
  * @returns {string} Returns the escaped character.
  */
-function escapeStringChar(match) {
-  return '\\' + stringEscapes[match];
+function escapeStringChar(chr) {
+  return '\\' + stringEscapes[chr];
 }
 
 /**
@@ -49,8 +49,8 @@ function escapeStringChar(match) {
  * settings object is provided it will override `_.templateSettings` for the
  * template.
  *
- * Note: In the development build, `_.template` utilizes sourceURLs for easier
- * debugging. See [HTML5 Rocks' article on sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
+ * Note: In the development build, `_.template` utilizes sourceURLs for easier debugging.
+ * See the [HTML5 Rocks article on sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
  * for more details.
  *
  * For more information on precompiling templates see
@@ -62,8 +62,8 @@ function escapeStringChar(match) {
  * @static
  * @memberOf _
  * @category Strings
- * @param {string} text The template text.
- * @param {Object} [data] The data object used to populate the text.
+ * @param {string} [string=''] The template string.
+ * @param {Object} [data] The data object used to populate the template string.
  * @param {Object} [options] The options object.
  * @param {RegExp} [options.escape] The HTML "escape" delimiter.
  * @param {RegExp} [options.evaluate] The "evaluate" delimiter.
@@ -72,7 +72,7 @@ function escapeStringChar(match) {
  * @param {string} [options.sourceURL] The sourceURL of the template's compiled source.
  * @param {string} [options.variable] The data object variable name.
  * @returns {Function|string} Returns the interpolated string if a data object
- *  is provided, else it returns a template function.
+ *  is provided, else the compiled template function.
  * @example
  *
  * // using the "interpolate" delimiter to create a compiled template
@@ -129,11 +129,11 @@ function escapeStringChar(match) {
  *   };\
  * ');
  */
-function template(text, data, options) {
+function template(string, data, options) {
   var _ = templateSettings.imports._,
       settings = _.templateSettings || templateSettings;
 
-  text = String(text || '');
+  string = String(string == null ? '' : string);
   options = defaults({}, options, settings);
 
   var index = 0,
@@ -146,8 +146,8 @@ function template(text, data, options) {
     (options.evaluate || reNoMatch).source + '|$'
   , 'g');
 
-  text.replace(reDelimiters, function(match, escapeValue, interpolateValue, evaluateValue, offset) {
-    source += text.slice(index, offset).replace(reUnescapedString, escapeStringChar);
+  string.replace(reDelimiters, function(match, escapeValue, interpolateValue, evaluateValue, offset) {
+    source += string.slice(index, offset).replace(reUnescapedString, escapeStringChar);
     if (escapeValue) {
       source += "' +\n_.escape(" + escapeValue + ") +\n'";
     }

@@ -22,7 +22,7 @@ var baseEach = require('../internals/baseEach'),
  * @param {Function|string} methodName The name of the method to invoke or
  *  the function invoked per iteration.
  * @param {...*} [args] Arguments to invoke the method with.
- * @returns {Array} Returns a new array of the results of each invoked method.
+ * @returns {Array} Returns the array of results.
  * @example
  *
  * _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
@@ -32,16 +32,15 @@ var baseEach = require('../internals/baseEach'),
  * // => [['1', '2', '3'], ['4', '5', '6']]
  */
 function invoke(collection, methodName) {
-  var index = -1,
+  var args = slice(arguments, 2),
+      index = -1,
       isFunc = typeof methodName == 'function',
       length = collection ? collection.length : 0,
       result = Array(typeof length == 'number' ? length : 0);
 
-  var args = slice(arguments, 2);
   baseEach(collection, function(value) {
     result[++index] = (isFunc ? methodName : value[methodName]).apply(value, args);
   });
-
   return result;
 }
 

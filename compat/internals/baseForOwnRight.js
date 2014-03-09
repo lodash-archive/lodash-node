@@ -6,7 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var keys = require('../objects/keys');
+var baseForRight = require('./baseForRight'),
+    keys = require('../objects/keys');
 
 /**
  * The base implementation of `_.forOwnRight` without support for callback
@@ -18,16 +19,7 @@ var keys = require('../objects/keys');
  * @returns {Object} Returns `object`.
  */
 function baseForOwnRight(object, callback) {
-  var props = keys(object),
-      length = props.length;
-
-  while (length--) {
-    var key = props[length];
-    if (callback(object[key], key, object) === false) {
-      break;
-    }
-  }
-  return object;
+  return baseForRight(object, callback, keys);
 }
 
 module.exports = baseForOwnRight;
