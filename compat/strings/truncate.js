@@ -56,7 +56,7 @@ function truncate(string, options) {
     length = +options || 0;
   }
   string = string == null ? '' : String(string);
-  if (length > string.length) {
+  if (length >= string.length) {
     return string;
   }
   var end = length - omission.length;
