@@ -5,13 +5,11 @@ node_js:
   - "0.10"
 env:
   global:
-    - BUILD="compat" ISTANBUL=false MAKE=false
+    - BUILD="compat" ISTANBUL=false
     - secure: "b4ZKDjezf7wDMt2VAtTAgeJWZBtPG0KTdGkvmpHpxTSx+f+S9K+DCK1W+wC6ApX1MCA6i9bw9fYtGeh4A21CTOPeBqhQ/oMkhqWLe5DxMhvj1s2yPMRnlbJtayuDgW5/PwTmEZ2AFHRZ2mBQ6vyCCkg9RsV37lrzm7ify53tzJY="
   matrix:
     - BUILD="compat"
     - BUILD="modern"
-    - BUILD="legacy"
-    - BUILD="mobile"
 matrix:
   include:
     - node_js: "0.10"
@@ -23,11 +21,7 @@ branches:
     - master
 before_install:
   - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash"
-  - "([ $BUILD == 'legacy' ] || [ $BUILD == 'mobile' ]) && MAKE=true || true"
   - "[ $ISTANBUL == false ]  || (npm i -g coveralls@\"~2.6.0\" && npm i istanbul@\"~0.2.0\")"
-  - "[ $MAKE == false ] || git clone --depth=10 --branch=master git://github.com/lodash/lodash-cli.git ./node_modules/lodash-cli"
-  - "[ $MAKE == false ] || (mkdir ./node_modules/lodash-cli/node_modules && cd ./node_modules/lodash-cli/node_modules/ && ln -s ../../lodash ./lodash && cd ../../../)"
-  - "[ $MAKE == false ] || node ./node_modules/lodash-cli/bin/lodash modularize $BUILD exports=node -o ./$BUILD"
 script:
   - "[ $ISTANBUL == false ] || (nvm use 0.11 && node --harmony ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js)"
   - "[ $ISTANBUL == true ]  && (nvm use 0.10 && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage) || true"
