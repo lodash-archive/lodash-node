@@ -20,7 +20,7 @@ var nativeMax = Math.max;
  *
  * @static
  * @memberOf _
- * @category Arrays
+ * @category Utilities
  * @param {number} [start=0] The start of the range.
  * @param {number} end The end of the range.
  * @param {number} [step=1] The value to increment or decrement by.
@@ -47,11 +47,13 @@ var nativeMax = Math.max;
  */
 function range(start, end, step) {
   start = +start || 0;
-  step =  (+step || 1);
+  step = step == null ? 1 : (+step || 0);
 
   if (end == null) {
     end = start;
     start = 0;
+  } else {
+    end = +end || 0;
   }
   // use `Array(length)` so engines like Chakra and V8 avoid slower modes
   // http://youtu.be/XAqIpGU8ZZk#t=17m25s

@@ -22,7 +22,8 @@ function baseEach(collection, callback) {
       iterable = collection,
       length = collection ? collection.length : 0;
 
-  if (typeof length == 'number') {
+  if (typeof length == 'number' && length > -1) {
+    length |= 0;
     while (++index < length) {
       if (callback(iterable[index], index, collection) === false) {
         break;

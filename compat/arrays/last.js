@@ -40,7 +40,7 @@ function last(array, predicate, thisArg) {
     }
   }
   n = length - n;
-  return slice(array,  n > 0 ? n : 0);
+  return slice(array,  n < 0 ? 0 : n);
 }
 
 module.exports = last;

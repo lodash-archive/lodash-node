@@ -38,7 +38,7 @@ function endsWith(string, target, position) {
   target = String(target);
 
   var length = string.length;
-  position = (typeof position == 'number' ? nativeMin(nativeMax(position, 0), length) : length) - target.length;
+  position = (typeof position == 'number' ? nativeMin(nativeMax(position | 0, 0), length) : length) - target.length;
   return position >= 0 && string.indexOf(target, position) == position;
 }
 

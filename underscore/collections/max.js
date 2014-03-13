@@ -59,9 +59,9 @@ function max(collection, callback, thisArg) {
     callback = null;
   }
   var index = -1,
-      length = collection ? collection.length : 0;
+      length = (collection && collection.length) | 0;
 
-  if (callback == null && typeof length == 'number') {
+  if (callback == null && length > 0) {
     while (++index < length) {
       var value = collection[index];
       if (value > result) {

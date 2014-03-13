@@ -24,7 +24,8 @@ function baseEach(collection, callback) {
       iterable = collection,
       length = collection ? collection.length : 0;
 
-  if (typeof length == 'number') {
+  if (typeof length == 'number' && length > -1) {
+    length |= 0;
     if (support.unindexedChars && isString(iterable)) {
       iterable = iterable.split('');
     }

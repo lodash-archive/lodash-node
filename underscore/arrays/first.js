@@ -29,7 +29,7 @@ function first(array, n, guard) {
   if (n == null || guard) {
     return array ? array[0] : undefined;
   }
-  return slice(array, 0, n > 0 ? n : 0);
+  return slice(array, 0, n < 0 ? 0 : n);
 }
 
 module.exports = first;

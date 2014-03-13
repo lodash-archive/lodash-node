@@ -23,7 +23,8 @@ var slice = require('../arrays/slice'),
  * // => [2, 3, 4]
  */
 function toArray(collection) {
-  if (collection && typeof collection.length == 'number') {
+  var length = collection && collection.length;
+  if (typeof length == 'number' && length > -1) {
     return slice(collection);
   }
   return values(collection);

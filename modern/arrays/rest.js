@@ -36,7 +36,7 @@ function rest(array, predicate, thisArg) {
   } else if (predicate == null || thisArg) {
     n = 1;
   } else {
-    n = predicate > 0 ? predicate : 0;
+    n = predicate < 0 ? 0 : predicate;
   }
   return slice(array, n);
 }

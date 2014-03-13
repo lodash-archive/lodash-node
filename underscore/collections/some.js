@@ -66,9 +66,9 @@ function some(collection, predicate, thisArg) {
 
   predicate = createCallback(predicate, thisArg, 3);
   var index = -1,
-      length = collection ? collection.length : 0;
+      length = (collection && collection.length) | 0;
 
-  if (typeof length == 'number') {
+  if (length > 0) {
     while (++index < length) {
       if (predicate(collection[index], index, collection)) {
         return true;

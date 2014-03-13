@@ -21,7 +21,7 @@ var isArguments = require('../objects/isArguments'),
  * @returns {Array} Returns the new flattened array.
  */
 function baseFlatten(array, isShallow, isStrict, fromIndex) {
-  var index = (fromIndex || 0) - 1,
+  var index = (fromIndex | 0) - 1,
       length = array ? array.length : 0,
       result = [];
 

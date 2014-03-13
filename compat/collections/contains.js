@@ -48,19 +48,19 @@ var nativeContains = isNative(nativeContains = stringProto.contains) && nativeCo
  */
 function contains(collection, target, fromIndex) {
   var length = collection ? collection.length : 0;
-  fromIndex = typeof fromIndex == 'number' ? fromIndex : 0;
+  fromIndex = (typeof fromIndex == 'number' && fromIndex) | 0;
 
-  if (typeof length == 'number') {
-    if (fromIndex >= length) {
-      return false;
-    }
+  if (typeof length == 'number' && length > -1) {
     if (typeof collection == 'string' || !isArray(collection) && isString(collection)) {
+      if (fromIndex >= length) {
+        return false;
+      }
       return nativeContains
         ? nativeContains.call(collection, target, fromIndex)
         : collection.indexOf(target, fromIndex) > -1;
     }
     var indexOf = baseIndexOf;
-    fromIndex = (fromIndex < 0 ? nativeMax(0, length + fromIndex) : fromIndex) || 0;
+    fromIndex = fromIndex < 0 ? nativeMax(0, (length | 0) + fromIndex) : fromIndex;
     return indexOf(collection, target, fromIndex) > -1;
   }
   var index = -1,

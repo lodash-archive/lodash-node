@@ -47,10 +47,10 @@ var breakIndicator = expando + 'breaker__';
  */
 function contains(collection, target) {
   var indexOf = baseIndexOf,
-      length = collection ? collection.length : 0,
+      length = (collection && collection.length) | 0,
       result = false;
 
-  if (length && typeof length == 'number') {
+  if (length > 0) {
     return indexOf(collection, target) > -1;
   }
   baseEach(collection, function(value) {

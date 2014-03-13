@@ -24,7 +24,7 @@ var ceil = Math.ceil;
  */
 function createPad(string, length, chars) {
   var strLength = string.length;
-  length = +length || 0;
+  length |= 0;
 
   if (strLength >= length) {
     return '';

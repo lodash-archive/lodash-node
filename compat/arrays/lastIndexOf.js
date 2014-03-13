@@ -35,6 +35,7 @@ var nativeMax = Math.max,
 function lastIndexOf(array, value, fromIndex) {
   var index = array ? array.length : 0;
   if (typeof fromIndex == 'number') {
+    fromIndex |= 0;
     index = (fromIndex < 0 ? nativeMax(0, index + fromIndex) : nativeMin(fromIndex, index - 1)) + 1;
   }
   while (index--) {

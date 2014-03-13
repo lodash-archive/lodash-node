@@ -27,9 +27,9 @@ function createAggregator(setter, retArray) {
     callback = createCallback(callback, thisArg, 3);
 
     var index = -1,
-        length = collection ? collection.length : 0;
+        length = (collection && collection.length) | 0;
 
-    if (typeof length == 'number') {
+    if (length > 0) {
       while (++index < length) {
         var value = collection[index];
         setter(result, value, callback(value, index, collection), collection);

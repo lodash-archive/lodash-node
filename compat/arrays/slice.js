@@ -28,21 +28,19 @@ function slice(array, start, end) {
   var index = -1,
       length = array ? array.length : 0;
 
-  if (typeof start == 'undefined') {
-    start = 0;
-  } else if (start < 0) {
+  start |= 0;
+  if (start < 0) {
     start = nativeMax(length + start, 0);
   } else if (start > length) {
     start = length;
   }
-  if (typeof end == 'undefined') {
-    end = length;
-  } else if (end < 0) {
+  end = typeof end == 'undefined' ? length : (end | 0);
+  if (end < 0) {
     end = nativeMax(length + end, 0);
   } else if (end > length) {
     end = length;
   }
-  length = end - start || 0;
+  length = start > end ? 0 : (end - start);
 
   var result = Array(length);
   while (++index < length) {

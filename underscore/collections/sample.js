@@ -37,7 +37,8 @@ function sample(collection, n, guard) {
     collection = values(collection);
   }
   if (n == null || guard) {
-    return collection ? collection[baseRandom(0, collection.length - 1)] : undefined;
+    var length = (collection && collection.length) | 0;
+    return length > 0 ? collection[baseRandom(0, length - 1)] : undefined;
   }
   var result = shuffle(collection);
   result.length = nativeMin(nativeMax(0, n), result.length);

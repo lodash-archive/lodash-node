@@ -50,10 +50,10 @@ var baseEach = require('../internals/baseEach'),
  */
 function map(collection, callback, thisArg) {
   var index = -1,
-      length = collection ? collection.length : 0;
+      length = (collection && collection.length) | 0;
 
   callback = createCallback(callback, thisArg, 3);
-  if (typeof length == 'number') {
+  if (length > 0) {
     var result = Array(length);
     while (++index < length) {
       result[index] = callback(collection[index], index, collection);
