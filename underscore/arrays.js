@@ -11,6 +11,7 @@ module.exports = {
   'compact': require('./arrays/compact'),
   'difference': require('./arrays/difference'),
   'drop': require('./arrays/drop'),
+  'findIndex': require('./arrays/findIndex'),
   'first': require('./arrays/first'),
   'flatten': require('./arrays/flatten'),
   'head': require('./arrays/first'),

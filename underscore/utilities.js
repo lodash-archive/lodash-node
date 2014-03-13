@@ -20,6 +20,7 @@ module.exports = {
   'now': require('./utilities/now'),
   'property': require('./utilities/property'),
   'random': require('./utilities/random'),
+  'range': require('./arrays/range'),
   'result': require('./utilities/result'),
   'template': require('./utilities/template'),
   'templateSettings': require('./utilities/templateSettings'),

@@ -6,7 +6,20 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var keys = require('./keys');
+var assign = require('./assign'),
+    slice = require('../arrays/slice');
+
+/**
+ * Used by `_.defaults` to customize its `_.assign` use.
+ *
+ * @private
+ * @param {*} objectValue The destination object property value.
+ * @param {*} sourceValue The source object property value.
+ * @returns {*} Returns the value to assign to the destination object.
+ */
+function assignDefaults(objectValue, sourceValue) {
+  return typeof objectValue == 'undefined' ? sourceValue : objectValue;
+}
 
 /**
  * Assigns own enumerable properties of source object(s) to the destination
@@ -25,33 +38,10 @@ var keys = require('./keys');
  * _.defaults({ 'name': 'barney' }, { 'name': 'fred', 'employer': 'slate' });
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
-function defaults(object, source, guard) {
-  if (!object) {
-    return object;
-  }
-  var args = arguments,
-      argsIndex = 0,
-      argsLength = args.length,
-      type = typeof guard;
-
-  // enables use as a callback for functions like `_.reduce`
-  if ((type == 'number' || type == 'string') && args[3] && args[3][guard] === source) {
-    argsLength = 2;
-  }
-  while (++argsIndex < argsLength) {
-    source = args[argsIndex];
-    var index = -1,
-        props = keys(source),
-        length = props.length;
-
-    while (++index < length) {
-      var key = props[index];
-      if (typeof object[key] == 'undefined') {
-        object[key] = source[key];
-      }
-    }
-  }
-  return object;
+function defaults() {
+  var args = slice(arguments);
+  args.push(assignDefaults);
+  return assign.apply(null, args);
 }
 
 module.exports = defaults;

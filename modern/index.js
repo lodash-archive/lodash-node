@@ -106,6 +106,7 @@ function lodash(value) {
    ? value
    : new lodashWrapper(value);
 }
+
 // ensure `new lodashWrapper` is an instance of `lodash`
 lodashWrapper.prototype = lodash.prototype;
 

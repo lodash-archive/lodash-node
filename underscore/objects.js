@@ -12,6 +12,7 @@ module.exports = {
   'clone': require('./objects/clone'),
   'defaults': require('./objects/defaults'),
   'extend': require('./objects/assign'),
+  'findKey': require('./objects/findKey'),
   'functions': require('./objects/functions'),
   'has': require('./objects/has'),
   'invert': require('./objects/invert'),
