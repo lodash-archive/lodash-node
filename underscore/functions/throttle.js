@@ -54,12 +54,11 @@ function throttle(func, wait, options) {
     leading = 'leading' in options ? options.leading : leading;
     trailing = 'trailing' in options ? options.trailing : trailing;
   }
-  options = {};
-  options.leading = leading;
-  options.maxWait = wait;
-  options.trailing = trailing;
-
-  return debounce(func, wait, options);
+  return debounce(func, wait, {
+    'leading': leading,
+    'maxWait': wait,
+    'trailing': trailing
+  });
 }
 
 module.exports = throttle;
