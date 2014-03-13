@@ -41,16 +41,17 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  */
 function matches(source) {
   source || (source = {});
+  var props = keys(source),
+      propsLength = props.length;
 
-  var props = keys(source);
   return function(object) {
-    var length = props.length,
+    var length = propsLength,
         result = true;
 
     while (length--) {
       var key = props[length];
       if (!(result = hasOwnProperty.call(object, key) &&
-            object[key] === source[key])) {
+          object[key] === source[key])) {
         break;
       }
     }
