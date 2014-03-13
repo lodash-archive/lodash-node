@@ -31,11 +31,11 @@ var nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray;
  * @returns {boolean} Returns `true` if the `value` is an array, else `false`.
  * @example
  *
- * (function() { return _.isArray(arguments); })();
- * // => false
- *
  * _.isArray([1, 2, 3]);
  * // => true
+ *
+ * (function() { return _.isArray(arguments); })();
+ * // => false
  */
 var isArray = nativeIsArray || function(value) {
   return value && typeof value == 'object' && typeof value.length == 'number' &&

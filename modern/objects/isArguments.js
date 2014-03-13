@@ -26,7 +26,7 @@ var toString = objectProto.toString;
  * @returns {boolean} Returns `true` if the `value` is an `arguments` object, else `false`.
  * @example
  *
- * (function() { return _.isArguments(arguments); })(1, 2, 3);
+ * (function() { return _.isArguments(arguments); })();
  * // => true
  *
  * _.isArguments([1, 2, 3]);

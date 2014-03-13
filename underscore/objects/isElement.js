@@ -19,6 +19,9 @@
  *
  * _.isElement(document.body);
  * // => true
+ *
+ * _.isElement('<body>');
+ * // => false
  */
 function isElement(value) {
   return value && value.nodeType === 1 || false;

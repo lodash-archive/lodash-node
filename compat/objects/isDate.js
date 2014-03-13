@@ -28,6 +28,9 @@ var toString = objectProto.toString;
  *
  * _.isDate(new Date);
  * // => true
+ *
+ * _.isDate('Wed May 23 2012');
+ * // => false
  */
 function isDate(value) {
   return value && typeof value == 'object' && toString.call(value) == dateClass || false;
