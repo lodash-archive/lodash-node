@@ -33,8 +33,8 @@ function baseBind(data) {
       // avoid `arguments` object use disqualifying optimizations by
       // converting it to an array before passing it to `composeArgs`
       var index = -1,
-           length = arguments.length,
-           args = Array(length);
+          length = arguments.length,
+          args = Array(length);
 
       while (++index < length) {
         args[index] = arguments[index];
