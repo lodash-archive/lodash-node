@@ -6,7 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseForOwnRight = require('../internals/baseForOwnRight'),
+var baseFind = require('../internals/baseFind'),
+    baseForOwnRight = require('../internals/baseForOwnRight'),
     createCallback = require('../functions/createCallback');
 
 /**
@@ -51,16 +52,8 @@ var baseForOwnRight = require('../internals/baseForOwnRight'),
  * // => 'pebbles'
  */
 function findLastKey(object, predicate, thisArg) {
-  var result;
-
   predicate = createCallback(predicate, thisArg, 3);
-  baseForOwnRight(object, function(value, key, object) {
-    if (predicate(value, key, object)) {
-      result = key;
-      return false;
-    }
-  });
-  return result;
+  return baseFind(object, predicate, baseForOwnRight, true);
 }
 
 module.exports = findLastKey;

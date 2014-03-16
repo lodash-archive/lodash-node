@@ -6,9 +6,9 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var findLastIndex = require('../arrays/findLastIndex'),
-    findLastKey = require('../objects/findLastKey'),
-    isArray = require('../objects/isArray');
+var baseEachRight = require('../internals/baseEachRight'),
+    baseFind = require('../internals/baseFind'),
+    createCallback = require('../functions/createCallback');
 
 /**
  * This method is like `_.find` except that it iterates over elements of a
@@ -31,12 +31,8 @@ var findLastIndex = require('../arrays/findLastIndex'),
  * // => 3
  */
 function findLast(collection, predicate, thisArg) {
-  if (isArray(collection)) {
-    var index = findLastIndex(collection, predicate, thisArg);
-    return index > -1 ? collection[index] : undefined;
-  }
-  var key = findLastKey(collection, predicate, thisArg);
-  return typeof key == 'string' ? collection[key] : undefined;
+  predicate = createCallback(predicate, thisArg, 3);
+  return baseFind(collection, predicate, baseEachRight);
 }
 
 module.exports = findLast;

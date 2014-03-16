@@ -6,7 +6,8 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseForOwn = require('../internals/baseForOwn'),
+var baseFind = require('../internals/baseFind'),
+    baseForOwn = require('../internals/baseForOwn'),
     createCallback = require('../functions/createCallback');
 
 /**
@@ -51,16 +52,8 @@ var baseForOwn = require('../internals/baseForOwn'),
  * // => 'fred'
  */
 function findKey(object, predicate, thisArg) {
-  var result;
-
   predicate = createCallback(predicate, thisArg, 3);
-  baseForOwn(object, function(value, key, object) {
-    if (predicate(value, key, object)) {
-      result = key;
-      return false;
-    }
-  });
-  return result;
+  return baseFind(object, predicate, baseForOwn, true);
 }
 
 module.exports = findKey;

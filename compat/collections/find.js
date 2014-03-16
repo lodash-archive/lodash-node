@@ -6,8 +6,10 @@
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var findIndex = require('../arrays/findIndex'),
-    findKey = require('../objects/findKey'),
+var baseEach = require('../internals/baseEach'),
+    baseFind = require('../internals/baseFind'),
+    createCallback = require('../functions/createCallback'),
+    findIndex = require('../arrays/findIndex'),
     isArray = require('../objects/isArray');
 
 /**
@@ -58,8 +60,8 @@ function find(collection, predicate, thisArg) {
     var index = findIndex(collection, predicate, thisArg);
     return index > -1 ? collection[index] : undefined;
   }
-  var key = findKey(collection, predicate, thisArg);
-  return typeof key == 'string' ? collection[key] : undefined;
+  predicate = createCallback(predicate, thisArg, 3);
+  return baseFind(collection, predicate, baseEach);
 }
 
 module.exports = find;
