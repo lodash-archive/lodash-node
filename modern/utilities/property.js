@@ -33,7 +33,7 @@
  */
 function property(key) {
   return function(object) {
-    return object[key];
+    return object == null ? undefined : object[key];
   };
 }
 
