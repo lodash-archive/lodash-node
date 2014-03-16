@@ -16,9 +16,9 @@ var objectProto = Object.prototype;
 var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
- * Checks if `value` is empty. Arrays, strings, or `arguments` objects with a
- * length of `0` and objects with no own enumerable properties are considered
- * "empty".
+ * Checks if a collection is empty. A value is considered empty unless it is
+ * an array, array-like object, or string with a length greater than `0` or
+ * an object with own properties.
  *
  * @static
  * @memberOf _

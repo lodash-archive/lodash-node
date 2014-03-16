@@ -20,13 +20,20 @@ var argsClass = '[object Arguments]',
 /** Used for native method references */
 var objectProto = Object.prototype;
 
+/**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
 /** Used to resolve the internal [[Class]] of values */
 var toString = objectProto.toString;
 
 /**
- * Checks if `value` is empty. Arrays, strings, or `arguments` objects with a
- * length of `0` and objects with no own enumerable properties are considered
- * "empty".
+ * Checks if a collection is empty. A value is considered empty unless it is
+ * an array, array-like object, or string with a length greater than `0` or
+ * an object with own properties.
  *
  * @static
  * @memberOf _
@@ -58,9 +65,11 @@ function isEmpty(value) {
   var className = toString.call(value),
       length = value.length;
 
-  if ((className == arrayClass || className == stringClass ||
-      (support.argsClass ? className == argsClass : isArguments(value))) ||
-      (className == objectClass && typeof length == 'number' && isFunction(value.splice))) {
+  if (length > -1 && length <= maxSafeInteger && (
+        (className == arrayClass || className == stringClass ||
+          (support.argsClass ? className == argsClass : isArguments(value))) ||
+        (className == objectClass && isFunction(value.splice))
+      )) {
     return !length;
   }
   baseForOwn(value, function() {
