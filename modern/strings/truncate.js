@@ -49,11 +49,11 @@ function truncate(string, options) {
 
   if (options && isObject(options)) {
     var separator = 'separator' in options ? options.separator : separator;
-    length = 'length' in options ? options.length | 0 : length;
+    length = 'length' in options ? +options.length || 0 : length;
     omission = 'omission' in options ? String(options.omission) : omission;
   }
   else if (options != null) {
-    length = options | 0;
+    length = +options || 0;
   }
   string = string == null ? '' : String(string);
   if (length >= string.length) {

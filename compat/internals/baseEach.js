@@ -11,6 +11,13 @@ var baseForOwn = require('./baseForOwn'),
     support = require('../support');
 
 /**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
+/**
  * The base implementation of `_.forEach` without support for callback
  * shorthands or `thisArg` binding.
  *
@@ -24,8 +31,7 @@ function baseEach(collection, callback) {
       iterable = collection,
       length = collection ? collection.length : 0;
 
-  if (typeof length == 'number' && length > -1) {
-    length |= 0;
+  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
     if (support.unindexedChars && isString(iterable)) {
       iterable = iterable.split('');
     }

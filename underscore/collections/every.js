@@ -19,6 +19,13 @@ var expando = '__lodash@' + version + '__';
 var breakIndicator = expando + 'breaker__';
 
 /**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
+/**
  * Checks if the predicate returns truthy for **all** elements of a collection.
  * The predicate is bound to `thisArg` and invoked with three arguments;
  * (value, index|key, collection).
@@ -64,9 +71,9 @@ function every(collection, predicate, thisArg) {
 
   predicate = createCallback(predicate, thisArg, 3);
   var index = -1,
-      length = (collection && collection.length) | 0;
+      length = collection ? collection.length : 0;
 
-  if (length > 0) {
+  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
     while (++index < length) {
       if (!predicate(collection[index], index, collection)) {
         return false;

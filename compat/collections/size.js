@@ -9,7 +9,14 @@
 var keys = require('../objects/keys');
 
 /**
- * Gets the size of the `collection` by returning `collection.length` for arrays
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
+/**
+ * Gets the size of the collection by returning `collection.length` for arrays
  * and array-like objects or the number of own enumerable properties for objects.
  *
  * @static
@@ -30,7 +37,9 @@ var keys = require('../objects/keys');
  */
 function size(collection) {
   var length = collection ? collection.length : 0;
-  return typeof length == 'number' && length > -1 ? length : keys(collection).length;
+  return (typeof length == 'number' && length > -1 && length <= maxSafeInteger)
+    ? length
+    : keys(collection).length;
 }
 
 module.exports = size;

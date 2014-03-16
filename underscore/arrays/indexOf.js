@@ -41,7 +41,7 @@ var nativeMax = Math.max;
 function indexOf(array, value, fromIndex) {
   var length = array ? array.length : 0;
   if (typeof fromIndex == 'number') {
-    fromIndex = (fromIndex < 0 ? nativeMax(0, length + fromIndex) : fromIndex) | 0;
+    fromIndex = fromIndex < 0 ? nativeMax(0, length + fromIndex) : (fromIndex || 0);
   } else if (fromIndex) {
     var index = sortedIndex(array, value);
     return (length && array[index] === value) ? index : -1;

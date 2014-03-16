@@ -125,9 +125,9 @@ function compareMultipleAscending(a, b) {
  */
 function sortBy(collection, callback, thisArg) {
   var index = -1,
-      length = (collection && collection.length) | 0,
+      length = collection && collection.length,
       multi = callback && isArray(callback),
-      result = Array(length < 0 ? 0 : length);
+      result = Array(length < 0 ? 0 : length >>> 0);
 
   if (!multi) {
     callback = createCallback(callback, thisArg, 3);

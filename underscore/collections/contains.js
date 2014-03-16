@@ -19,6 +19,13 @@ var expando = '__lodash@' + version + '__';
 var breakIndicator = expando + 'breaker__';
 
 /**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
+/**
  * Checks if a given value is present in a collection using strict equality
  * for comparisons, i.e. `===`. If `fromIndex` is negative, it is used as the
  * offset from the end of the collection.
@@ -47,10 +54,10 @@ var breakIndicator = expando + 'breaker__';
  */
 function contains(collection, target) {
   var indexOf = baseIndexOf,
-      length = (collection && collection.length) | 0,
+      length = collection ? collection.length : 0,
       result = false;
 
-  if (length > 0) {
+  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
     return indexOf(collection, target) > -1;
   }
   baseEach(collection, function(value) {

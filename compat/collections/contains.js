@@ -15,6 +15,13 @@ var baseEach = require('../internals/baseEach'),
 /** Used for native method references */
 var stringProto = String.prototype;
 
+/**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeContains = isNative(nativeContains = stringProto.contains) && nativeContains,
     nativeMax = Math.max;
@@ -48,9 +55,9 @@ var nativeContains = isNative(nativeContains = stringProto.contains) && nativeCo
  */
 function contains(collection, target, fromIndex) {
   var length = collection ? collection.length : 0;
-  fromIndex = (typeof fromIndex == 'number' && fromIndex) | 0;
+  fromIndex = (typeof fromIndex == 'number' && +fromIndex) || 0;
 
-  if (typeof length == 'number' && length > -1) {
+  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
     if (typeof collection == 'string' || !isArray(collection) && isString(collection)) {
       if (fromIndex >= length) {
         return false;
@@ -60,7 +67,7 @@ function contains(collection, target, fromIndex) {
         : collection.indexOf(target, fromIndex) > -1;
     }
     var indexOf = baseIndexOf;
-    fromIndex = fromIndex < 0 ? nativeMax(0, (length | 0) + fromIndex) : fromIndex;
+    fromIndex = fromIndex < 0 ? nativeMax(0, length + fromIndex) : fromIndex;
     return indexOf(collection, target, fromIndex) > -1;
   }
   var index = -1,

@@ -10,6 +10,13 @@ var baseEach = require('./baseEach'),
     createCallback = require('../functions/createCallback');
 
 /**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
+/**
  * Creates a function that aggregates a collection, creating an object or
  * array composed from the results of running each element in the collection
  * through a callback. The given setter function sets the keys and values of
@@ -27,9 +34,9 @@ function createAggregator(setter, retArray) {
     callback = createCallback(callback, thisArg, 3);
 
     var index = -1,
-        length = (collection && collection.length) | 0;
+        length = collection ? collection.length : 0;
 
-    if (length > 0) {
+    if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
       while (++index < length) {
         var value = collection[index];
         setter(result, value, callback(value, index, collection), collection);

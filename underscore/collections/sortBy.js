@@ -74,8 +74,8 @@ function compareAscending(a, b) {
  */
 function sortBy(collection, callback, thisArg) {
   var index = -1,
-      length = (collection && collection.length) | 0,
-      result = Array(length < 0 ? 0 : length);
+      length = collection && collection.length,
+      result = Array(length < 0 ? 0 : length >>> 0);
 
   callback = createCallback(callback, thisArg, 3);
   baseEach(collection, function(value, key, collection) {

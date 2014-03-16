@@ -19,6 +19,13 @@ var expando = '__lodash@' + version + '__';
 var breakIndicator = expando + 'breaker__';
 
 /**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
+/**
  * Iterates over elements of a collection executing the callback for each
  * element. The callback is bound to `thisArg` and invoked with three arguments;
  * (value, index|key, collection). Callbacks may exit iteration early by
@@ -46,10 +53,10 @@ var breakIndicator = expando + 'breaker__';
  */
 function forEach(collection, callback, thisArg) {
   var index = -1,
-      length = (collection && collection.length) | 0;
+      length = collection ? collection.length : 0;
 
   callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-  if (length > 0) {
+  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
     while (++index < length) {
       if (callback(collection[index], index, collection) === breakIndicator) {
         break;

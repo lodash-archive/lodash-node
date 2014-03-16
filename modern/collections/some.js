@@ -7,8 +7,14 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseEach = require('../internals/baseEach'),
-    createCallback = require('../functions/createCallback'),
-    isArray = require('../objects/isArray');
+    createCallback = require('../functions/createCallback');
+
+/**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
 
 /**
  * Checks if the predicate returns truthy for **any** element of a collection.
@@ -57,9 +63,9 @@ function some(collection, predicate, thisArg) {
 
   predicate = createCallback(predicate, thisArg, 3);
   var index = -1,
-      length = (collection && collection.length) | 0;
+      length = collection ? collection.length : 0;
 
-  if (length > 0) {
+  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
     while (++index < length) {
       if (predicate(collection[index], index, collection)) {
         return true;

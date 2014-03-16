@@ -10,6 +10,13 @@ var baseEach = require('../internals/baseEach'),
     createCallback = require('../functions/createCallback');
 
 /**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
+/**
  * Creates an array of values by running each element in the collection
  * through the callback. The callback is bound to `thisArg` and invoked with
  * three arguments; (value, index|key, collection).
@@ -50,10 +57,10 @@ var baseEach = require('../internals/baseEach'),
  */
 function map(collection, callback, thisArg) {
   var index = -1,
-      length = (collection && collection.length) | 0;
+      length = collection ? collection.length : 0;
 
   callback = createCallback(callback, thisArg, 3);
-  if (length > 0) {
+  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
     var result = Array(length);
     while (++index < length) {
       result[index] = callback(collection[index], index, collection);

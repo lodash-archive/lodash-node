@@ -41,7 +41,7 @@ function sample(collection, n, guard) {
     collection = collection.split('');
   }
   if (n == null || guard) {
-    var length = (collection && collection.length) | 0;
+    var length = collection ? collection.length : 0;
     return length > 0 ? collection[baseRandom(0, length - 1)] : undefined;
   }
   var result = shuffle(collection);

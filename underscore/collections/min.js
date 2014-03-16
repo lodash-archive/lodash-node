@@ -10,6 +10,13 @@ var baseEach = require('../internals/baseEach'),
     createCallback = require('../functions/createCallback');
 
 /**
+ * Used as the maximum length an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
+
+/**
  * Retrieves the minimum value of a collection. If the collection is empty or
  * falsey `Infinity` is returned. If a callback is provided it will be executed
  * for each value in the collection to generate the criterion by which the value
@@ -59,9 +66,9 @@ function min(collection, callback, thisArg) {
     callback = null;
   }
   var index = -1,
-      length = (collection && collection.length) | 0;
+      length = collection ? collection.length : 0;
 
-  if (callback == null && length > 0) {
+  if (callback == null && typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
     while (++index < length) {
       var value = collection[index];
       if (value < result) {
