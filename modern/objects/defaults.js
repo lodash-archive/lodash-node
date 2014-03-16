@@ -38,7 +38,10 @@ function assignDefaults(objectValue, sourceValue) {
  * _.defaults({ 'name': 'barney' }, { 'name': 'fred', 'employer': 'slate' });
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
-function defaults() {
+function defaults(object) {
+  if (!object || arguments.length < 2) {
+    return object;
+  }
   var args = slice(arguments);
   args.push(assignDefaults);
   return assign.apply(null, args);

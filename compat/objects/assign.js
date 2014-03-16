@@ -38,11 +38,11 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
 function assign(object, source, guard) {
-  if (!object) {
+  var args = arguments;
+  if (!object || args.length < 2) {
     return object;
   }
-  var args = arguments,
-      argsIndex = 0,
+  var argsIndex = 0,
       argsLength = args.length,
       type = typeof guard;
 
