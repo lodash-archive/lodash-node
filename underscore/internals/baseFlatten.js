@@ -11,7 +11,7 @@ var isArguments = require('../objects/isArguments'),
 
 /**
  * The base implementation of `_.flatten` without support for callback
- * shorthands or `thisArg` binding.
+ * shorthands or `this` binding.
  *
  * @private
  * @param {Array} array The array to flatten.

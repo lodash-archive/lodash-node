@@ -19,7 +19,7 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
 
 /**
  * The base implementation of `_.forEachRight` without support for callback
- * shorthands or `thisArg` binding.
+ * shorthands or `this` binding.
  *
  * @private
  * @param {Array|Object|string} collection The collection to iterate over.

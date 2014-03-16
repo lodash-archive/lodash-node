@@ -11,7 +11,7 @@ var baseForRight = require('./baseForRight'),
 
 /**
  * The base implementation of `_.forOwnRight` without support for callback
- * shorthands or `thisArg` binding.
+ * shorthands or `this` binding.
  *
  * @private
  * @param {Object} object The object to iterate over.
