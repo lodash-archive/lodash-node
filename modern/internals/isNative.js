@@ -28,7 +28,7 @@ var fnToString = Function.prototype.toString;
  *
  * @private
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is a native function, else `false`.
+ * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
  */
 function isNative(value) {
   return typeof value == 'function' && reNative.test(fnToString.call(value));

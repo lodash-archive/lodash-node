@@ -12,7 +12,7 @@
  *
  * @private
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is a DOM node, else `false`.
+ * @returns {boolean} Returns `true` if `value` is a DOM node, else `false`.
  */
 function isNode(value) {
   // IE < 9 presents DOM nodes as `Object` objects except they have `toString`

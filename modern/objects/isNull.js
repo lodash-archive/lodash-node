@@ -14,7 +14,7 @@
  * @memberOf _
  * @category Objects
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is `null`, else `false`.
+ * @returns {boolean} Returns `true` if `value` is `null`, else `false`.
  * @example
  *
  * _.isNull(null);

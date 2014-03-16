@@ -19,7 +19,7 @@ var isNumber = require('./isNumber');
  * @memberOf _
  * @category Objects
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is `NaN`, else `false`.
+ * @returns {boolean} Returns `true` if `value` is `NaN`, else `false`.
  * @example
  *
  * _.isNaN(NaN);

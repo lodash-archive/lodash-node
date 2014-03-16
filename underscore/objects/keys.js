@@ -24,7 +24,6 @@ var nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
  * own enumerable property names of `object`.
  *
  * @private
- * @type Function
  * @param {Object} object The object to inspect.
  * @returns {Array} Returns the array of property names.
  */

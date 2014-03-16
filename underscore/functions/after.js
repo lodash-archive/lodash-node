@@ -9,7 +9,7 @@
 var isFunction = require('../objects/isFunction');
 
 /**
- * Creates a function that executes `func`, with  the `this` binding and
+ * Creates a function that executes `func`, with the `this` binding and
  * arguments of the created function, only after being called `n` times.
  *
  * @static

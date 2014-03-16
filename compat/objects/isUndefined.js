@@ -14,7 +14,7 @@
  * @memberOf _
  * @category Objects
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is `undefined`, else `false`.
+ * @returns {boolean} Returns `true` if `value` is `undefined`, else `false`.
  * @example
  *
  * _.isUndefined(void 0);

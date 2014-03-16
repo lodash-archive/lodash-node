@@ -23,7 +23,7 @@ var toString = objectProto.toString;
  * @memberOf _
  * @category Objects
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is a date, else `false`.
+ * @returns {boolean} Returns `true` if `value` is a date, else `false`.
  * @example
  *
  * _.isDate(new Date);

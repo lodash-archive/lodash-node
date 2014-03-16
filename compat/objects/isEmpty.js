@@ -32,7 +32,7 @@ var toString = objectProto.toString;
  * @memberOf _
  * @category Objects
  * @param {Array|Object|string} value The value to inspect.
- * @returns {boolean} Returns `true` if the `value` is empty, else `false`.
+ * @returns {boolean} Returns `true` if `value` is empty, else `false`.
  * @example
  *
  * _.isEmpty(null);

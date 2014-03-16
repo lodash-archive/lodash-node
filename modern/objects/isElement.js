@@ -22,7 +22,7 @@ var toString = objectProto.toString;
  * @memberOf _
  * @category Objects
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is a DOM element, else `false`.
+ * @returns {boolean} Returns `true` if `value` is a DOM element, else `false`.
  * @example
  *
  * _.isElement(document.body);

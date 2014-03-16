@@ -10,7 +10,7 @@ var filter = require('./filter');
 
 /**
  * Performs a deep comparison between each element in `collection` and the
- * `source` object, returning an array of all elements that have equivalent
+ * source object, returning an array of all elements that have equivalent
  * property values.
  *
  * @static

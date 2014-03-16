@@ -19,8 +19,9 @@ var reEmptyStringLeading = /\b__p \+= '';/g,
     reEmptyStringTrailing = /(__e\(.*?\)|\b__t\)) \+\n'';/g;
 
 /**
- * Used to match ES6 template delimiters
- * http://people.mozilla.org/~jorendorff/es6-draft.html#sec-literals-string-literals
+ * Used to match ES6 template delimiters.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-template-literal-lexical-components)
+ * for more details.
  */
 var reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g;
 
