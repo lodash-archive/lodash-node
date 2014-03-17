@@ -30,7 +30,7 @@ var baseFlatten = require('../internals/baseFlatten'),
  * @param {boolean} [isShallow=false] A flag to restrict flattening to a single level.
  * @param {Function|Object|string} [callback] The function called per iteration.
  *  If a property name or object is provided it will be used to create a "_.pluck"
- *  or "_.where" style callback, respectively.
+ *  or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {Array} Returns the new flattened array.
  * @example

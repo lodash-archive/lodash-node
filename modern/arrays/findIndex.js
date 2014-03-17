@@ -25,7 +25,7 @@ var createCallback = require('../functions/createCallback');
  * @param {Array} array The array to search.
  * @param {Function|Object|string} [predicate=identity] The function called
  *  per iteration. If a property name or object is provided it will be used
- *  to create a "_.pluck" or "_.where" style callback, respectively.
+ *  to create a "_.pluck" or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `predicate`.
  * @returns {number} Returns the index of the found element, else `-1`.
  * @example

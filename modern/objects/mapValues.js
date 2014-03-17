@@ -28,7 +28,7 @@ var baseForOwn = require('../internals/baseForOwn'),
  * @param {Object} object The object to iterate over.
  * @param {Function|Object|string} [callback=identity] The function called
  *  per iteration. If a property name or object is provided it will be used
- *  to create a "_.pluck" or "_.where" style callback, respectively.
+ *  to create a "_.pluck" or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {Object} Returns the new mapped object.
  * @example

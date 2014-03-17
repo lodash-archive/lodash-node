@@ -30,7 +30,7 @@ var createCallback = require('../functions/createCallback'),
  * @param {*} value The value to evaluate.
  * @param {Function|Object|string} [callback=identity] The function called
  *  per iteration. If a property name or object is provided it will be used
- *  to create a "_.pluck" or "_.where" style callback, respectively.
+ *  to create a "_.pluck" or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {number} Returns the index at which `value` should be inserted
  *  into `array`.
