@@ -12,6 +12,9 @@ var createCallback = require('../functions/createCallback'),
 /**
  * Gets all but the first element of `array`.
  *
+ * Note: The `n` and `predicate` arguments are deprecated; replace with
+ * `_.drop` and `_.dropWhile` respectively.
+ *
  * @static
  * @memberOf _
  * @alias tail

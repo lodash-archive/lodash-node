@@ -12,6 +12,9 @@ var createCallback = require('../functions/createCallback'),
 /**
  * Gets the last element of `array`.
  *
+ * Note: The `n` and `predicate` arguments are deprecated; replace with
+ * `_.takeRight` and `_.takeRightWhile` respectively.
+ *
  * @static
  * @memberOf _
  * @category Arrays
