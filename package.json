@@ -14,5 +14,6 @@
     "Mathias Bynens <mathias@qiwi.be> (http://mathiasbynens.be/)"
   ],
   "bugs": "https://github.com/lodash/lodash-cli/issues",
-  "repository": "lodash/lodash-node"
+  "repository": "lodash/lodash-node",
+  "scripts": { "test": "echo \"See https://travis-ci.org/lodash/lodash-node for testing details.\"" }
 }
