@@ -22,10 +22,10 @@ var createCompounder = require('../internals/createCompounder');
  * _.camelCase('Hello world');
  * // => 'helloWorld'
  *
- * _.camelCase('hello-world');
+ * _.camelCase('--hello-world');
  * // => 'helloWorld'
  *
- * _.camelCase('hello_world');
+ * _.camelCase('__hello_world__');
  * // => 'helloWorld'
  */
 var camelCase = createCompounder(function(result, word, index) {
