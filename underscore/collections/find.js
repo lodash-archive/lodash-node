@@ -12,7 +12,7 @@ var baseEach = require('../internals/baseEach'),
     findIndex = require('../arrays/findIndex');
 
 /**
- * Used as the maximum length an array-like object.
+ * Used as the maximum length of an array-like object.
  * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
  * for more details.
  */

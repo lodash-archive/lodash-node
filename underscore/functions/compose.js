@@ -17,7 +17,7 @@ var isFunction = require('../objects/isFunction');
  * @static
  * @memberOf _
  * @category Functions
- * @param {...Function} [func] Functions to compose.
+ * @param {...Function} [funcs] Functions to compose.
  * @returns {Function} Returns the new composed function.
  * @example
  *

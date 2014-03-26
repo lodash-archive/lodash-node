@@ -8,7 +8,7 @@
  */
 
 /**
- * The base implementation of `find`, 'findLast`, `findKey`, and `findLastKey`
+ * The base implementation of `_.find`, '_.findLast`, `_.findKey`, and `_.findLastKey`
  * without support for callback shorthands or `this` binding which iterates
  * over `collection` using the provided `eachFunc`.
  *

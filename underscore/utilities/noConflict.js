@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 
-/** Used to restore the original `_` reference in `noConflict` */
+/** Used to restore the original `_` reference in `_.noConflict` */
 var oldDash = global._;
 
 /**

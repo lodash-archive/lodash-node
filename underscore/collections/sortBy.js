@@ -11,7 +11,7 @@ var baseCompareAscending = require('../internals/baseCompareAscending'),
     createCallback = require('../functions/createCallback');
 
 /**
- * Used by `sortBy` to compare transformed elements of a collection and stable
+ * Used by `_.sortBy` to compare transformed elements of a collection and stable
  * sort them in ascending order.
  *
  * @private

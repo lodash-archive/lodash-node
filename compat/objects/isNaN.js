@@ -36,7 +36,7 @@ var isNumber = require('./isNumber');
  */
 function isNaN(value) {
   // `NaN` as a primitive is the only value that is not equal to itself
-  // (perform the [[Class]] check first to avoid errors with some host objects in IE)
+  // (perform the `[[Class]]` check first to avoid errors with some host objects in IE)
   return isNumber(value) && value != +value;
 }
 

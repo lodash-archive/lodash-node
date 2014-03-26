@@ -14,7 +14,7 @@ var argsClass = '[object Arguments]';
 /** Used for native method references */
 var objectProto = Object.prototype;
 
-/** Used to resolve the internal [[Class]] of values */
+/** Used to resolve the internal `[[Class]]` of values */
 var toString = objectProto.toString;
 
 /** Native method shortcuts */
@@ -41,7 +41,7 @@ function isArguments(value) {
   return value && typeof value == 'object' && typeof value.length == 'number' &&
     toString.call(value) == argsClass || false;
 }
-// fallback for environments that can't detect `arguments` objects by [[Class]]
+// fallback for environments that can't detect `arguments` objects by `[[Class]]`
 if (!support.argsClass) {
   isArguments = function(value) {
     return value && typeof value == 'object' && typeof value.length == 'number' &&

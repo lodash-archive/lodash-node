@@ -11,7 +11,7 @@ var escapeRegExp = require('../strings/escapeRegExp');
 /** Used for native method references */
 var objectProto = Object.prototype;
 
-/** Used to resolve the internal [[Class]] of values */
+/** Used to resolve the internal `[[Class]]` of values */
 var toString = objectProto.toString;
 
 /** Used to detect if a method is native */

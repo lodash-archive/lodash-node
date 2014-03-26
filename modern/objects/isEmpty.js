@@ -19,13 +19,13 @@ var argsClass = '[object Arguments]',
 var objectProto = Object.prototype;
 
 /**
- * Used as the maximum length an array-like object.
+ * Used as the maximum length of an array-like object.
  * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
  * for more details.
  */
 var maxSafeInteger = Math.pow(2, 53) - 1;
 
-/** Used to resolve the internal [[Class]] of values */
+/** Used to resolve the internal `[[Class]]` of values */
 var toString = objectProto.toString;
 
 /**

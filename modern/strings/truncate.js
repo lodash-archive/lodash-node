@@ -9,7 +9,7 @@
 var isObject = require('../objects/isObject'),
     isRegExp = require('../objects/isRegExp');
 
-/** Used to match regexp flags from their coerced string values */
+/** Used to match `RegExp` flags from their coerced string values */
 var reFlags = /\w*$/;
 
 /**

@@ -32,7 +32,7 @@ function baseCompareAscending(value, other) {
 }
 
 /**
- * Used by `sortBy` to compare transformed elements of a collection and stable
+ * Used by `_.sortBy` to compare transformed elements of a collection and stable
  * sort them in ascending order.
  *
  * @private
@@ -45,7 +45,7 @@ function compareAscending(object, other) {
 }
 
 /**
- * Used by `sortBy` to compare multiple properties of each element in a
+ * Used by `_.sortBy` to compare multiple properties of each element in a
  * collection and stable sort them in ascending order.
  *
  * @private

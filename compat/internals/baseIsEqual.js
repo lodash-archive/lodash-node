@@ -25,7 +25,7 @@ var argsClass = '[object Arguments]',
 /** Used for native method references */
 var objectProto = Object.prototype;
 
-/** Used to resolve the internal [[Class]] of values */
+/** Used to resolve the internal `[[Class]]` of values */
 var toString = objectProto.toString;
 
 /** Native method shortcuts */
@@ -64,7 +64,7 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
       (valType != 'function' && valType != 'object' && othType != 'function' && othType != 'object'))) {
     return false;
   }
-  // compare [[Class]] names
+  // compare `[[Class]]` names
   var valClass = toString.call(value),
       othClass = toString.call(other),
       valIsArg = valClass == argsClass,

@@ -19,7 +19,7 @@ var objectClass = '[object Object]';
 /** Used for native method references */
 var objectProto = Object.prototype;
 
-/** Used to resolve the internal [[Class]] of values */
+/** Used to resolve the internal `[[Class]]` of values */
 var toString = objectProto.toString;
 
 /** Native method shortcuts */
@@ -27,7 +27,7 @@ var getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getProt
     hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
- * A fallback implementation of `isPlainObject` which checks if `value` is
+ * A fallback implementation of `_.isPlainObject` which checks if `value` is
  * an object created by the `Object` constructor, assuming objects created
  * by the `Object` constructor have no inherited enumerable properties and
  * that there are no `Object.prototype` extensions.

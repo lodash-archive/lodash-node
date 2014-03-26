@@ -11,7 +11,7 @@ var isArguments = require('./isArguments'),
     slice = require('../arrays/slice'),
     support = require('../support');
 
-/** Used to fix the JScript [[DontEnum]] bug */
+/** Used to fix the JScript `[[DontEnum]]` bug */
 var shadowedProps = [
   'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable',
   'toLocaleString', 'toString', 'valueOf'
@@ -33,7 +33,7 @@ var errorProto = Error.prototype,
     objectProto = Object.prototype,
     stringProto = String.prototype;
 
-/** Used to resolve the internal [[Class]] of values */
+/** Used to resolve the internal `[[Class]]` of values */
 var toString = objectProto.toString;
 
 /** Native method shortcuts */

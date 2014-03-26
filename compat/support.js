@@ -23,7 +23,7 @@ var arrayRef = Array.prototype,
 /** Used to detect DOM support */
 var document = (document = global.window) && document.document;
 
-/** Used to resolve the internal [[Class]] of values */
+/** Used to resolve the internal `[[Class]]` of values */
 var toString = objectProto.toString;
 
 /** Native method shortcuts */
@@ -49,7 +49,7 @@ var support = {};
   for (key in arguments) { }
 
   /**
-   * Detect if an `arguments` object's [[Class]] is resolvable (all but Firefox < 4, IE < 9).
+   * Detect if an `arguments` object's `[[Class]]` is resolvable (all but Firefox < 4, IE < 9).
    *
    * @memberOf _.support
    * @type boolean
@@ -78,8 +78,8 @@ var support = {};
    *
    * Firefox < 3.6, Opera > 9.50 - Opera < 11.60, and Safari < 5.1
    * (if the prototype or a property on the prototype has been set)
-   * incorrectly sets a function's `prototype` property [[Enumerable]]
-   * value to `true`.
+   * incorrectly sets the `[[Enumerable]]` value of a function's `prototype`
+   * property to `true`.
    *
    * @memberOf _.support
    * @type boolean
@@ -116,7 +116,7 @@ var support = {};
    * Detect if properties shadowing those on `Object.prototype` are non-enumerable.
    *
    * In IE < 9 an objects own properties, shadowing non-enumerable ones, are
-   * made non-enumerable as well (a.k.a the JScript [[DontEnum]] bug).
+   * made non-enumerable as well (a.k.a the JScript `[[DontEnum]]` bug).
    *
    * @memberOf _.support
    * @type boolean
@@ -169,7 +169,7 @@ var support = {};
   }
 
   /**
-   * Detect if a DOM node's [[Class]] is resolvable (all but IE < 9)
+   * Detect if a DOM node's `[[Class]]` is resolvable (all but IE < 9)
    * and that the JS engine errors when attempting to coerce an object to
    * a string without a `toString` function.
    *

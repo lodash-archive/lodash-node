@@ -25,7 +25,7 @@ var whitespace = (
 );
 
 /**
- * A fallback implementation of `trim` to remove leading and trailing
+ * A fallback implementation of `String#trim` to remove leading and trailing
  * whitespace or specified characters from `string`.
  *
  * @private

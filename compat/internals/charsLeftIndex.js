@@ -12,6 +12,7 @@
  *
  * @private
  * @param {string} string The string to inspect.
+ * @param {string} chars The chars to find.
  * @returns {number} Returns the index of the first character not found in `chars`.
  */
 function charsLeftIndex(string, chars) {
