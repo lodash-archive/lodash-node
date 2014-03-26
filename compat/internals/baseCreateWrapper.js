@@ -26,7 +26,7 @@ var nativeMax = Math.max;
 
 /**
  * The base implementation of `createWrapper` that creates the wrapper and
- * sets its meta data.
+ * sets its metadata.
  *
  * @private
  * @param {Array} data The metadata array.

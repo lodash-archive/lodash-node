@@ -28,7 +28,7 @@ var nativeParseInt = global.parseInt;
 
 /**
  * Converts `value` to an integer of the specified radix. If `radix` is
- * `undefined` or `0` a `radix` of `10` is used unless `value` is a hexadecimal,
+ * `undefined` or `0`, a `radix` of `10` is used unless `value` is a hexadecimal,
  * in which case a `radix` of `16` is used.
  *
  * Note: This method avoids differences in native ES3 and ES5 `parseInt`

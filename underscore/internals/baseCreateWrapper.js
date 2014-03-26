@@ -19,7 +19,7 @@ var BIND_FLAG = 1,
 
 /**
  * The base implementation of `createWrapper` that creates the wrapper and
- * sets its meta data.
+ * sets its metadata.
  *
  * @private
  * @param {Array} data The metadata array.

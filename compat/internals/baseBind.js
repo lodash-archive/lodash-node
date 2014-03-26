@@ -14,7 +14,7 @@ var baseCreate = require('./baseCreate'),
 
 /**
  * The base implementation of `_.bind` that creates the bound function and
- * sets its meta data.
+ * sets its metadata.
  *
  * @private
  * @param {Array} data The metadata array.

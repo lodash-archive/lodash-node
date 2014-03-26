@@ -23,7 +23,7 @@ var descriptor = {
   'writable': false
 };
 
-/** Used to set meta data on functions */
+/** Used to set metadata on functions */
 var defineProperty = (function() {
   // IE 8 only accepts DOM elements
   try {
