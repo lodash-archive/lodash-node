@@ -12,16 +12,16 @@
  * sort them in ascending order without guaranteeing a stable sort.
  *
  * @private
- * @param {*} a The value to compare to `b`.
- * @param {*} b The value to compare to `a`.
+ * @param {*} value The value to compare to `other`.
+ * @param {*} other The value to compare to `value`.
  * @returns {number} Returns the sort order indicator for `a`.
  */
-function baseCompareAscending(a, b) {
-  if (a !== b) {
-    if (a > b || typeof a == 'undefined') {
+function baseCompareAscending(value, other) {
+  if (value !== other) {
+    if (value > other || typeof value == 'undefined') {
       return 1;
     }
-    if (a < b || typeof b == 'undefined') {
+    if (value < other || typeof other == 'undefined') {
       return -1;
     }
   }

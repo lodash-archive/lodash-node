@@ -15,12 +15,12 @@ var baseCompareAscending = require('../internals/baseCompareAscending'),
  * sort them in ascending order.
  *
  * @private
- * @param {Object} a The object to compare to `b`.
- * @param {Object} b The object to compare to `a`.
- * @returns {number} Returns the sort order indicator for `a`.
+ * @param {Object} value The object to compare to `other`.
+ * @param {Object} other The object to compare to `object`.
+ * @returns {number} Returns the sort order indicator for `object`.
  */
-function compareAscending(a, b) {
-  return baseCompareAscending(a.criteria, b.criteria) || a.index - b.index;
+function compareAscending(object, other) {
+  return baseCompareAscending(object.criteria, other.criteria) || object.index - other.index;
 }
 
 /**

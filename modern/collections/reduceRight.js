@@ -24,8 +24,8 @@ var baseEachRight = require('../internals/baseEachRight'),
  * @returns {*} Returns the accumulated value.
  * @example
  *
- * var list = [[0, 1], [2, 3], [4, 5]];
- * var flat = _.reduceRight(list, function(a, b) { return a.concat(b); }, []);
+ * var array = [[0, 1], [2, 3], [4, 5]];
+ * _.reduceRight(array, function(flattened, other) { return flattened.concat(other); }, []);
  * // => [4, 5, 2, 3, 0, 1]
  */
 function reduceRight(collection, callback, accumulator, thisArg) {

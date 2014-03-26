@@ -46,18 +46,18 @@ function matches(source) {
   var props = keys(source),
       propsLength = props.length,
       key = props[0],
-      a = source[key];
+      value = source[key];
 
   // fast path the common case of providing an object with a single
   // property containing a primitive value
-  if (propsLength == 1 && a === a && !isObject(a)) {
+  if (propsLength == 1 && value === value && !isObject(value)) {
     return function(object) {
       if (!hasOwnProperty.call(object, key)) {
         return false;
       }
       // treat `-0` vs. `+0` as not equal
-      var b = object[key];
-      return a === b && (a !== 0 || (1 / a == 1 / b));
+      var other = object[key];
+      return value === other && (value !== 0 || (1 / value == 1 / other));
     };
   }
   return function(object) {

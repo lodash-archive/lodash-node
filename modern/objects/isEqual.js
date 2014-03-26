@@ -11,61 +11,57 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
 
 /**
  * Performs a deep comparison between two values to determine if they are
- * equivalent to each other. If a callback is provided it will be executed
- * to compare values. If the callback returns `undefined` comparisons will
- * be handled by the method instead. The callback is bound to `thisArg` and
- * invoked with two arguments; (a, b).
+ * equivalent. If a callback is provided it will be executed to compare
+ * values. If the callback returns `undefined` comparisons will be handled
+ * by the method instead. The callback is bound to `thisArg` and invoked
+ * with two arguments; (value, other).
  *
  * @static
  * @memberOf _
  * @category Objects
- * @param {*} a The value to compare.
- * @param {*} b The other value to compare.
+ * @param {*} value The value to compare to `other`.
+ * @param {*} other The value to compare to `value`.
  * @param {Function} [callback] The function to customize comparing values.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
  * @example
  *
  * var object = { 'name': 'fred' };
- * var copy = { 'name': 'fred' };
+ * var other = { 'name': 'fred' };
  *
- * object == copy;
+ * object == other;
  * // => false
  *
- * _.isEqual(object, copy);
+ * _.isEqual(object, other);
  * // => true
  *
  * var words = ['hello', 'goodbye'];
  * var otherWords = ['hi', 'goodbye'];
  *
- * _.isEqual(words, otherWords, function(a, b) {
- *   var reGreet = /^(?:hello|hi)$/i,
- *       aGreet = _.isString(a) && reGreet.test(a),
- *       bGreet = _.isString(b) && reGreet.test(b);
- *
- *   return (aGreet || bGreet) ? (aGreet == bGreet) : undefined;
+ * _.isEqual(words, otherWords, function() {
+ *   return _.every(arguments, _.bind(RegExp.prototype.test, /^h(?:i|ello)$/)) || undefined;
  * });
  * // => true
  */
-function isEqual(a, b, callback, thisArg) {
+function isEqual(value, other, callback, thisArg) {
   callback = typeof callback == 'function' && baseCreateCallback(callback, thisArg, 2);
 
   if (!callback) {
     // exit early for identical values
-    if (a === b) {
+    if (value === other) {
       // treat `-0` vs. `+0` as not equal
-      return a !== 0 || (1 / a == 1 / b);
+      return value !== 0 || (1 / value == 1 / other);
     }
-    var type = typeof a,
-        otherType = typeof b;
+    var valType = typeof value,
+        othType = typeof other;
 
     // exit early for unlike primitive values
-    if (a === a && (a == null || b == null ||
-        (type != 'function' && type != 'object' && otherType != 'function' && otherType != 'object'))) {
+    if (value === value && (value == null || other == null ||
+        (valType != 'function' && valType != 'object' && othType != 'function' && othType != 'object'))) {
       return false;
     }
   }
-  return baseIsEqual(a, b, callback);
+  return baseIsEqual(value, other, callback);
 }
 
 module.exports = isEqual;
