@@ -24,8 +24,8 @@ var baseDifference = require('../internals/baseDifference'),
  * _.difference([1, 2, 3], [5, 2, 10]);
  * // => [1, 3]
  */
-function difference(array) {
-  return baseDifference(array, baseFlatten(arguments, true, true, 1));
+function difference() {
+  return baseDifference(arguments[0], baseFlatten(arguments, true, true, 1));
 }
 
 module.exports = difference;
