@@ -6,7 +6,8 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isObject = require('./isObject');
+var isArray = require('./isArray'),
+    isObject = require('./isObject');
 
 /**
  * Creates an array of the own and inherited enumerable property names of `object`.
@@ -29,12 +30,24 @@ var isObject = require('./isObject');
  * // => ['x', 'y', 'z'] (property order is not guaranteed across environments)
  */
 function keysIn(object) {
-  var result = [];
   if (!isObject(object)) {
-    return result;
+    return [];
+  }
+  var length = isArray(object) ? object.length : 0,
+      maxIndex = length - 1,
+      result = Array(length),
+      skipIndexes = length > 0;
+
+  if (skipIndexes) {
+    var index = -1;
+    while (++index < length) {
+      result[index] = String(index);
+    }
   }
   for (var key in object) {
-    result.push(key);
+    if (!(skipIndexes && key > -1 && key <= maxIndex && key % 1 == 0)) {
+      result.push(key);
+    }
   }
   return result;
 }

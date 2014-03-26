@@ -6,7 +6,8 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isNative = require('../internals/isNative'),
+var isArray = require('./isArray'),
+    isNative = require('../internals/isNative'),
     isObject = require('./isObject'),
     keysIn = require('./keysIn');
 
@@ -31,11 +32,17 @@ function shimKeys(object) {
   var index = -1,
       props = keysIn(object),
       length = props.length,
+      objLength = length && object.length,
       result = [];
 
+  if (typeof objLength == 'number' && objLength > 0) {
+    var allowIndexes = isArray(object),
+        maxIndex = objLength - 1;
+  }
   while (++index < length) {
     var key = props[index];
-    if (hasOwnProperty.call(object, key)) {
+    if ((allowIndexes && key > -1 && key <= maxIndex && key % 1 == 0) ||
+        hasOwnProperty.call(object, key)) {
       result.push(key);
     }
   }
@@ -63,6 +70,10 @@ function shimKeys(object) {
  * // => ['x', 'y'] (property order is not guaranteed across environments)
  */
 var keys = !nativeKeys ? shimKeys : function(object) {
+  var length = object ? object.length : 0;
+  if (typeof length == 'number' && length > 0) {
+    return shimKeys(object);
+  }
   return isObject(object) ? nativeKeys(object) : [];
 };
 
