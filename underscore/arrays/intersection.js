@@ -35,7 +35,7 @@ function intersection() {
        args.push(value);
      }
   }
-  argsLength = args.length
+  argsLength = args.length;
   var array = args[0],
       index = -1,
       indexOf = baseIndexOf,
