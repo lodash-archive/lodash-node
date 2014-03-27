@@ -15,7 +15,7 @@ var defaults = require('../objects/defaults'),
 var reNoMatch = /($^)/;
 
 /** Used to match unescaped characters in compiled string literals */
-var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
+var reUnescapedString = /['\n\r\u2028\u2029\\]/g;
 
 /** Used to escape characters for inclusion in compiled string literals */
 var stringEscapes = {
@@ -23,7 +23,6 @@ var stringEscapes = {
   "'": "'",
   '\n': 'n',
   '\r': 'r',
-  '\t': 't',
   '\u2028': 'u2028',
   '\u2029': 'u2029'
 };
