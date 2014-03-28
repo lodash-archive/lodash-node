@@ -8,6 +8,9 @@
  */
 var createCompounder = require('../internals/createCompounder');
 
+/** Used to detect words composed of all capital letters */
+var reAllCaps = /^[A-Z]+$/;
+
 /**
  * Converts `string` to camel case.
  * See [Wikipedia](http://en.wikipedia.org/wiki/CamelCase) for more details.
@@ -28,8 +31,14 @@ var createCompounder = require('../internals/createCompounder');
  * _.camelCase('__hello_world__');
  * // => 'helloWorld'
  */
-var camelCase = createCompounder(function(result, word, index) {
-  return result + word.charAt(0)[index ? 'toUpperCase' : 'toLowerCase']() + word.slice(1);
+var camelCase = createCompounder(function(result, word, index, words) {
+  if (!index && reAllCaps.test(word)) {
+    return result + word.toLowerCase();
+  }
+  var lastWord = index && words[index - 1],
+      isCapped = index && !(index > 1 && words.length == 3 && (lastWord == 2 || lastWord == 4));
+
+  return result + (word.charAt(0)[isCapped ? 'toUpperCase' : 'toLowerCase']() + word.slice(1));
 });
 
 module.exports = camelCase;
