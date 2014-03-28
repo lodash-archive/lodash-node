@@ -17,7 +17,7 @@
  * @returns {number} Returns the index of the matched value, else `-1`.
  */
 function baseIndexOf(array, value, fromIndex) {
-  var index = (+fromIndex || 0) - 1,
+  var index = (fromIndex || 0) - 1,
       length = array ? array.length : 0;
 
   while (++index < length) {
