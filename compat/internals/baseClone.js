@@ -104,7 +104,6 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
   var isArr = isArray(value);
   if (isDeep) {
     // check for circular references and return corresponding clone
-    var initedStack = !stackA;
     stackA || (stackA = []);
     stackB || (stackB = []);
 

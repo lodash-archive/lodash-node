@@ -311,10 +311,10 @@ mixin(function() {
 lodash.first = arrays.first;
 lodash.last = arrays.last;
 lodash.sample = collections.sample;
-lodash.take = arrays.first;
-lodash.takeRight = arrays.last;
-lodash.takeRightWhile = arrays.last;
-lodash.takeWhile = arrays.first;
+lodash.take = arrays.take;
+lodash.takeRight = arrays.takeRight;
+lodash.takeRightWhile = arrays.takeRightWhile;
+lodash.takeWhile = arrays.takeWhile;
 
 // add aliases
 lodash.head = arrays.first;
