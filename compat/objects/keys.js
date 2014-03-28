@@ -38,12 +38,13 @@ function shimKeys(object) {
       result = [];
 
   if (typeof objLength == 'number' && objLength > 0) {
-    var allowIndexes = isArray(object) || (support.unindexedChars && isString(object)),
+    var keyIndex,
+        allowIndexes = isArray(object) || (support.nonEnumStrings && isString(object)),
         maxIndex = objLength - 1;
   }
   while (++index < length) {
     var key = props[index];
-    if ((allowIndexes && key > -1 && key <= maxIndex && key % 1 == 0) ||
+    if ((allowIndexes && (keyIndex = +key, keyIndex > -1 && keyIndex <= maxIndex && keyIndex % 1 == 0)) ||
         hasOwnProperty.call(object, key)) {
       result.push(key);
     }

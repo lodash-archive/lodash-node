@@ -46,7 +46,8 @@ var support = {};
 
   ctor.prototype = { 'valueOf': 1, 'y': 1 };
   for (var key in new ctor) { props.push(key); }
-  for (key in arguments) { }
+  for (var argsKey in arguments) { }
+  for (var strKey in 'x') { }
 
   /**
    * Detect if an `arguments` object's `[[Class]]` is resolvable (all but Firefox < 4, IE < 9).
@@ -66,7 +67,7 @@ var support = {};
 
   /**
    * Detect if `name` or `message` properties of `Error.prototype` are
-   * enumerable by default. (IE < 9, Safari < 5.1)
+   * enumerable by default (IE < 9, Safari < 5.1).
    *
    * @memberOf _.support
    * @type boolean
@@ -110,7 +111,15 @@ var support = {};
    * @memberOf _.support
    * @type boolean
    */
-  support.nonEnumArgs = key != '0';
+  support.nonEnumArgs = argsKey != '0';
+
+  /**
+   * Detect if string indexes are non-enumerable (IE < 9, RingoJS, Rhino, Narwhal).
+   *
+   * @memberOf _.support
+   * @type boolean
+   */
+  support.nonEnumStrings = strKey != '0';
 
   /**
    * Detect if properties shadowing those on `Object.prototype` are non-enumerable.

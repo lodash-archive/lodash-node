@@ -85,10 +85,11 @@ function keysIn(object) {
   }
   var length = object.length;
   length = (typeof length == 'number' && length > 0 &&
-    (isArray(object) || (support.unindexedChars && isString(object)) ||
+    (isArray(object) || (support.nonEnumStrings && isString(object)) ||
       (support.nonEnumArgs && isArguments(object))) && length) >>> 0;
 
-  var maxIndex = length - 1,
+  var keyIndex,
+      maxIndex = length - 1,
       result = Array(length),
       skipIndexes = length > 0,
       skipErrorProps = support.enumErrorProps && (object === errorProto || object instanceof Error),
@@ -103,7 +104,7 @@ function keysIn(object) {
   for (var key in object) {
     if (!(skipProto && key == 'prototype') &&
         !(skipErrorProps && (key == 'message' || key == 'name')) &&
-        !(skipIndexes && key > -1 && key <= maxIndex && key % 1 == 0)) {
+        !(skipIndexes && (keyIndex = +key, keyIndex > -1 && keyIndex <= maxIndex && keyIndex % 1 == 0))) {
       result.push(key);
     }
   }
