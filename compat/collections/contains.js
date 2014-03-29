@@ -67,7 +67,7 @@ function contains(collection, target, fromIndex) {
         : collection.indexOf(target, fromIndex) > -1;
     }
     var indexOf = baseIndexOf;
-    fromIndex = fromIndex < 0 ? nativeMax(0, length + fromIndex) : fromIndex;
+    fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : fromIndex;
     return indexOf(collection, target, fromIndex) > -1;
   }
   var index = -1,
