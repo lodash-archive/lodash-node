@@ -62,14 +62,19 @@ function baseCreateWrapper(data) {
     if (partialRightArgs) {
       args = composeArgsRight(partialRightArgs, partialRightHolders, args);
     }
-    if (isCurry && length < arity) {
-      bitmask |= PARTIAL_FLAG;
-      bitmask &= ~PARTIAL_RIGHT_FLAG
-      if (!isCurryBound) {
-        bitmask &= ~(BIND_FLAG | BIND_KEY_FLAG);
+    if (isCurry) {
+      var newPartialHolders = [];
+      length -= newPartialHolders.length;
+
+      if (length < arity) {
+        bitmask |= PARTIAL_FLAG;
+        bitmask &= ~PARTIAL_RIGHT_FLAG
+        if (!isCurryBound) {
+          bitmask &= ~(BIND_FLAG | BIND_KEY_FLAG);
+        }
+        var newArity = nativeMax(arity - length, 0);
+        return baseCreateWrapper([func, bitmask, newArity, thisArg, args, null, newPartialHolders]);
       }
-      var newArity = nativeMax(0, arity - length);
-      return baseCreateWrapper([func, bitmask, newArity, thisArg, args, null, []]);
     }
     var thisBinding = isBind ? thisArg : this;
     if (isBindKey) {
