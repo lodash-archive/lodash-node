@@ -12,6 +12,9 @@ var createPad = require('../internals/createPad');
 var ceil = Math.ceil,
     floor = Math.floor;
 
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeIsFinite = global.isFinite;
+
 /**
  * Pads `string` on the left and right sides if it is shorter then the given
  * padding length. The `chars` string may be truncated if the number of padding
@@ -37,10 +40,10 @@ var ceil = Math.ceil,
  */
 function pad(string, length, chars) {
   string = string == null ? '' : String(string);
-  length |= 0;
+  length = +length;
 
   var strLength = string.length;
-  if (strLength >= length) {
+  if (strLength >= length || !nativeIsFinite(length)) {
     return string;
   }
   var mid = (length - strLength) / 2,

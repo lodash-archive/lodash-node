@@ -8,6 +8,9 @@
  */
 var isFunction = require('../objects/isFunction');
 
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeIsFinite = global.isFinite;
+
 /**
  * Creates a function that executes `func`, with the `this` binding and
  * arguments of the created function, only after being called `n` times.
@@ -36,6 +39,7 @@ function after(n, func) {
   if (!isFunction(func)) {
     throw new TypeError;
   }
+  n = nativeIsFinite(n = +n) ? n : 0;
   return function() {
     if (--n < 1) {
       return func.apply(this, arguments);

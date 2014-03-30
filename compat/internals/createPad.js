@@ -11,6 +11,9 @@ var repeat = require('../strings/repeat');
 /** Native method shortcuts */
 var ceil = Math.ceil;
 
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeIsFinite = global.isFinite;
+
 /**
  * Creates the pad required for `string` based on the given padding length.
  * The `chars` string may be truncated if the number of padding characters
@@ -24,9 +27,9 @@ var ceil = Math.ceil;
  */
 function createPad(string, length, chars) {
   var strLength = string.length;
-  length |= 0;
+  length = +length;
 
-  if (strLength >= length) {
+  if (strLength >= length || !nativeIsFinite(length)) {
     return '';
   }
   var padLength = length - strLength;

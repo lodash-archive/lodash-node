@@ -11,8 +11,7 @@ var baseRandom = require('../internals/baseRandom'),
     values = require('../objects/values');
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeMax = Math.max,
-    nativeMin = Math.min;
+var nativeMin = Math.min;
 
 /**
  * Retrieves a random element or `n` random elements from a collection.
@@ -41,7 +40,7 @@ function sample(collection, n, guard) {
     return length > 0 ? collection[baseRandom(0, length - 1)] : undefined;
   }
   var result = shuffle(collection);
-  result.length = nativeMin(nativeMax(n, 0), result.length);
+  result.length = nativeMin(n < 0 ? 0 : (+n || 0), result.length);
   return result;
 }
 

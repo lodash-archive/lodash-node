@@ -10,6 +10,9 @@
 /** Native method shortcuts */
 var floor = Math.floor;
 
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeIsFinite = global.isFinite;
+
 /**
  * Repeats the given string `n` times.
  *
@@ -32,9 +35,9 @@ var floor = Math.floor;
  */
 function repeat(string, n) {
   var result = '';
-  n |= 0;
+  n = +n;
 
-  if (n < 1 || string == null) {
+  if (n < 1 || string == null || !nativeIsFinite(n)) {
     return result;
   }
   string = String(string);

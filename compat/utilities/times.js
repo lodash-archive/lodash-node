@@ -32,7 +32,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback');
  * // => also calls `mage.castSpell(n)` three times
  */
 function times(n, callback, thisArg) {
-  n = (n = +n) > -1 ? n : 0;
+  n = n < 0 ? 0 : n >>> 0;
   var index = -1,
       result = Array(n);
 
