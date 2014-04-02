@@ -23,22 +23,24 @@ var splice = arrayRef.splice;
  */
 var support = {};
 
-(function() {
+(function(x) {
   var object = { '0': 1, 'length': 1 };
 
   /**
-   * Detect if `Array#shift` and `Array#splice` augment array-like objects correctly.
+   * Detect if `Array#shift` and `Array#splice` augment array-like objects
+   * correctly.
    *
    * Firefox < 10, IE compatibility mode, and IE < 9 have buggy Array `shift()`
    * and `splice()` functions that fail to remove the last element, `value[0]`,
    * of array-like objects even though the `length` property is set to `0`.
    * The `shift()` method is buggy in IE 8 compatibility mode, while `splice()`
-   * is buggy regardless of mode in IE < 9 and buggy in compatibility mode in IE 9.
+   * is buggy regardless of mode in IE < 9 and buggy in compatibility mode
+   * in IE 9.
    *
    * @memberOf _.support
    * @type boolean
    */
   support.spliceObjects = (splice.call(object, 0, 1), !object[0]);
-}(1));
+}(0, 0));
 
 module.exports = support;

@@ -6,8 +6,10 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isArray = require('./isArray'),
-    isObject = require('./isObject');
+var isArguments = require('./isArguments'),
+    isArray = require('./isArray'),
+    isObject = require('./isObject'),
+    support = require('../support');
 
 /**
  * Creates an array of the own and inherited enumerable property names of `object`.
@@ -33,19 +35,21 @@ function keysIn(object) {
   if (!isObject(object)) {
     return [];
   }
-  var length = isArray(object) ? object.length : 0,
+  var length = object.length;
+  length = (typeof length == 'number' && length > 0 &&
+    (isArray(object) || (support.nonEnumArgs && isArguments(object))) && length) >>> 0;
+
+  var keyIndex,
+      index = -1,
       maxIndex = length - 1,
       result = Array(length),
       skipIndexes = length > 0;
 
-  if (skipIndexes) {
-    var index = -1;
-    while (++index < length) {
-      result[index] = String(index);
-    }
+  while (++index < length) {
+    result[index] = String(index);
   }
   for (var key in object) {
-    if (!(skipIndexes && key > -1 && key <= maxIndex && key % 1 == 0)) {
+    if (!(skipIndexes && (keyIndex = +key, keyIndex > -1 && keyIndex <= maxIndex && keyIndex % 1 == 0))) {
       result.push(key);
     }
   }
