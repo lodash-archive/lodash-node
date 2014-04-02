@@ -12,9 +12,9 @@ var escape = require('./escape'),
     reInterpolate = require('../internals/reInterpolate');
 
 /**
- * By default, the template delimiters used by Lo-Dash are similar to those in
- * embedded Ruby (ERB). Change the following template settings to use alternative
- * delimiters.
+ * By default, the template delimiters used by Lo-Dash are similar to those
+ * in embedded Ruby (ERB). Change the following template settings to use
+ * alternative delimiters.
  *
  * @static
  * @memberOf _
