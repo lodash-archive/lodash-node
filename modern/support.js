@@ -52,6 +52,18 @@ var support = {};
   support.funcNames = typeof Function.name == 'string';
 
   /**
+   * Detect if the DOM is supported.
+   *
+   * @memberOf _.support
+   * @type boolean
+   */
+  try {
+    support.dom = document.createDocumentFragment().nodeType === 11;
+  } catch(e) {
+    support.dom = false;
+  }
+
+  /**
    * Detect if `arguments` object indexes are non-enumerable
    * (Firefox < 4, IE < 9, PhantomJS, Safari < 5.1).
    *
@@ -63,19 +75,11 @@ var support = {};
    * @memberOf _.support
    * @type boolean
    */
-  support.nonEnumArgs = !(argsKey == '1' && hasOwnProperty.call(arguments, '1') &&
-    propertyIsEnumerable.call(arguments, '1'));
-
-  /**
-   * Detect if the DOM is supported.
-   *
-   * @memberOf _.support
-   * @type boolean
-   */
   try {
-    support.dom = document.createDocumentFragment().nodeType === 11;
+    support.nonEnumArgs = !(argsKey == '1' && hasOwnProperty.call(arguments, '1') &&
+      propertyIsEnumerable.call(arguments, '1'));
   } catch(e) {
-    support.dom = false;
+    support.nonEnumArgs = true;
   }
 }(0, 0));
 
