@@ -26,7 +26,10 @@ var slice = require('./slice');
  */
 function initial(array, n, guard) {
   var length = array ? array.length : 0;
-  n = length - ((n == null || guard) ? 1 : n);
+  if (n == null || guard) {
+    n = 1;
+  }
+  n = length - (n || 0);
   return slice(array, 0, n < 0 ? 0 : n);
 }
 

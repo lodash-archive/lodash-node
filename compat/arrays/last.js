@@ -42,8 +42,8 @@ function last(array, predicate, thisArg) {
       return array ? array[length - 1] : undefined;
     }
   }
-  n = length - n;
-  return slice(array,  n < 0 ? 0 : n);
+  n = length - (n || 0);
+  return slice(array, n < 0 ? 0 : n);
 }
 
 module.exports = last;

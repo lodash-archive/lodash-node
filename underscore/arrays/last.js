@@ -29,7 +29,7 @@ function last(array, n, guard) {
   if (n == null || guard) {
     return array ? array[length - 1] : undefined;
   }
-  n = length - n;
+  n = length - (n || 0);
   return slice(array, n < 0 ? 0 : n);
 }
 
