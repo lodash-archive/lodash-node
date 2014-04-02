@@ -7,8 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var createWrapper = require('../internals/createWrapper'),
-    slice = require('../arrays/slice'),
-    support = require('../support');
+    slice = require('../arrays/slice');
 
 /** Used to compose bitmasks for wrapper metadata */
 var BIND_FLAG = 1,
