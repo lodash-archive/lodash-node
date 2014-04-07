@@ -21,7 +21,7 @@ var splice = arrayRef.splice;
  * @memberOf _
  * @category Arrays
  * @param {Array} array The array to modify.
- * @param {...*} [value] The values to remove.
+ * @param {...*} [values] The values to remove.
  * @returns {Array} Returns `array`.
  * @example
  *

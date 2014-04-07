@@ -15,7 +15,7 @@ var nativeMax = Math.max;
  * placeholders, and provided arguments into a single array of arguments.
  *
  * @private
- * @param {Array} partialArg An array of arguments to prepend to those provided.
+ * @param {Array} partialArgs An array of arguments to prepend to those provided.
  * @param {Array} partialHolders An array of `partialArgs` placeholder indexes.
  * @param {Array|Object} args The provided arguments.
  * @returns {Array} Returns the new array of composed arguments.

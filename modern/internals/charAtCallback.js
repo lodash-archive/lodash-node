@@ -12,11 +12,11 @@
  * collection is a string value.
  *
  * @private
- * @param {string} value The character to inspect.
- * @returns {number} Returns the code unit of the given character.
+ * @param {string} string The string to inspect.
+ * @returns {number} Returns the code unit of the first character of the string.
  */
-function charAtCallback(value) {
-  return value.charCodeAt(0);
+function charAtCallback(string) {
+  return string.charCodeAt(0);
 }
 
 module.exports = charAtCallback;

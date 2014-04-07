@@ -15,7 +15,7 @@ var baseCompareAscending = require('../internals/baseCompareAscending'),
  * sort them in ascending order.
  *
  * @private
- * @param {Object} value The object to compare to `other`.
+ * @param {Object} object The object to compare to `other`.
  * @param {Object} other The object to compare to `object`.
  * @returns {number} Returns the sort order indicator for `object`.
  */

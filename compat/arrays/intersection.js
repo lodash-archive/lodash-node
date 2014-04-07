@@ -19,7 +19,7 @@ var baseIndexOf = require('../internals/baseIndexOf'),
  * @static
  * @memberOf _
  * @category Arrays
- * @param {...Array} [array] The arrays to inspect.
+ * @param {...Array} [arrays] The arrays to inspect.
  * @returns {Array} Returns the new array of shared values.
  * @example
  *

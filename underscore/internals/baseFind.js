@@ -17,7 +17,7 @@ var expando = '__lodash@' + version + '__';
 var breakIndicator = expando + 'breaker__';
 
 /**
- * The base implementation of `_.find`, '_.findLast`, `_.findKey`, and `_.findLastKey`
+ * The base implementation of `_.find`, `_.findLast`, `_.findKey`, and `_.findLastKey`
  * without support for callback shorthands or `this` binding which iterates
  * over `collection` using the provided `eachFunc`.
  *

@@ -14,7 +14,7 @@
  * @private
  * @param {*} value The value to compare to `other`.
  * @param {*} other The value to compare to `value`.
- * @returns {number} Returns the sort order indicator for `a`.
+ * @returns {number} Returns the sort order indicator for `value`.
  */
 function baseCompareAscending(value, other) {
   if (value !== other) {

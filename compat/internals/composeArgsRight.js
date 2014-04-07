@@ -15,7 +15,7 @@ var nativeMax = Math.max;
  * is tailored for `_.partialRight`.
  *
  * @private
- * @param {Array} partialRightArg An array of arguments to append to those provided.
+ * @param {Array} partialRightArgs An array of arguments to append to those provided.
  * @param {Array} partialHolders An array of `partialRightArgs` placeholder indexes.
  * @param {Array|Object} args The provided arguments.
  * @returns {Array} Returns the new array of composed arguments.
