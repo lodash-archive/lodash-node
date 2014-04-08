@@ -344,6 +344,7 @@ lodash.VERSION = version;
 
 // add "Chaining" functions to the wrapper
 lodash.prototype.chain = chaining.wrapperChain;
+lodash.prototype.toJSON = chaining.wrapperValueOf;
 lodash.prototype.toString = chaining.wrapperToString;
 lodash.prototype.value = chaining.wrapperValueOf;
 lodash.prototype.valueOf = chaining.wrapperValueOf;

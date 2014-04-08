@@ -10,6 +10,7 @@
 module.exports = {
   'chain': require('./chaining/chain'),
   'tap': require('./chaining/tap'),
+  'toJSON': require('./chaining/wrapperValueOf'),
   'value': require('./chaining/wrapperValueOf'),
   'wrapperChain': require('./chaining/wrapperChain'),
   'wrapperValueOf': require('./chaining/wrapperValueOf')
