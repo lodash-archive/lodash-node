@@ -33,10 +33,11 @@ var baseCreateCallback = require('../internals/baseCreateCallback');
  */
 function times(n, callback, thisArg) {
   n = n < 0 ? 0 : n >>> 0;
+  callback = baseCreateCallback(callback, thisArg, 1);
+
   var index = -1,
       result = Array(n);
 
-  callback = baseCreateCallback(callback, thisArg, 1);
   while (++index < n) {
     result[index] = callback(index);
   }

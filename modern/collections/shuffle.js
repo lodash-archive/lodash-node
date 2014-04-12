@@ -34,7 +34,6 @@ function shuffle(collection) {
     result[index] = result[rand];
     result[rand] = value;
   });
-
   return result;
 }
 

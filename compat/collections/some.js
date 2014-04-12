@@ -54,8 +54,8 @@ var baseEach = require('../internals/baseEach'),
  */
 function some(collection, predicate, thisArg) {
   var result;
-
   predicate = createCallback(predicate, thisArg, 3);
+
   if (isArray(collection)) {
     var index = -1,
         length = collection.length;

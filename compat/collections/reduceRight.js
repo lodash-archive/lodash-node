@@ -30,8 +30,8 @@ var baseEachRight = require('../internals/baseEachRight'),
  */
 function reduceRight(collection, callback, accumulator, thisArg) {
   var noaccum = arguments.length < 3;
-
   callback = createCallback(callback, thisArg, 4);
+
   baseEachRight(collection, function(value, index, collection) {
     accumulator = noaccum
       ? (noaccum = false, value)

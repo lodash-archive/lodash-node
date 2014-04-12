@@ -58,8 +58,8 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  */
 function filter(collection, predicate, thisArg) {
   var result = [];
-
   predicate = createCallback(predicate, thisArg, 3);
+
   var index = -1,
       length = collection ? collection.length : 0;
 
