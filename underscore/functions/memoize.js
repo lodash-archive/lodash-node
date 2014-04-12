@@ -52,6 +52,9 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * // => { 'name': 'penelope', 'age': 1 }
  */
 function memoize(func, resolver) {
+  if (!isFunction(func)) {
+    throw new TypeError;
+  }
   var cache = {};
   return function() {
     var key = resolver ? resolver.apply(this, arguments) : '_' + arguments[0];
