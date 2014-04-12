@@ -16,6 +16,11 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * by the method instead. The callback is bound to `thisArg` and invoked
  * with two arguments; (value, other).
  *
+ * Note: This method supports comparing arrays, booleans, `Date` objects,
+ * numbers, `Object` objects, regexes, and strings. Functions and DOM nodes
+ * are **not** supported. A callback may be used to extend support for
+ * comparing other values.
+ *
  * @static
  * @memberOf _
  * @category Objects
