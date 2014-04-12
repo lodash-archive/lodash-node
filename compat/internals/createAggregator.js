@@ -11,22 +11,22 @@ var baseEach = require('./baseEach'),
     isArray = require('../objects/isArray');
 
 /**
- * Creates a function that aggregates a collection, creating an object or
- * array composed from the results of running each element in the collection
+ * Creates a function that aggregates a collection, creating an accumulator
+ * object composed from the results of running each element in the collection
  * through a callback. The given setter function sets the keys and values of
- * the composed object or array.
+ * the accumulator object. If `initializer` is provided will be used to
+ * initialize the accumulator object.
  *
  * @private
- * @param {Function} setter The setter function.
- * @param {boolean} [retArray=false] A flag to indicate that the aggregator
- *  function should return an array.
+ * @param {Function} setter The function to set keys and values of the accumulator object.
+ * @param {Function} [initializer] The function to initialize the accumulator object.
  * @returns {Function} Returns the new aggregator function.
  */
-function createAggregator(setter, retArray) {
+function createAggregator(setter, initializer) {
   return function(collection, callback, thisArg) {
-    var result = retArray ? [[], []] : {};
-
+    var result = initializer ? initializer() : {};
     callback = createCallback(callback, thisArg, 3);
+
     if (isArray(collection)) {
       var index = -1,
           length = collection.length;
