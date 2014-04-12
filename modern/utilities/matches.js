@@ -42,17 +42,16 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * // => { 'name': 'barney', 'age': 36 }
  */
 function matches(source) {
-  source || (source = {});
   var props = keys(source),
       propsLength = props.length,
       key = props[0],
-      value = source[key];
+      value = propsLength && source[key];
 
   // fast path the common case of providing an object with a single
   // property containing a primitive value
   if (propsLength == 1 && value === value && !isObject(value)) {
     return function(object) {
-      if (!hasOwnProperty.call(object, key)) {
+      if (!(object && hasOwnProperty.call(object, key))) {
         return false;
       }
       // treat `-0` vs. `+0` as not equal
@@ -61,9 +60,11 @@ function matches(source) {
     };
   }
   return function(object) {
-    var length = propsLength,
-        result = true;
-
+    var length = propsLength;
+    if (length && !object) {
+      return false;
+    }
+    var result = true;
     while (length--) {
       var key = props[length];
       if (!(result = hasOwnProperty.call(object, key) &&
