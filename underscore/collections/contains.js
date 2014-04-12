@@ -6,17 +6,8 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseEach = require('../internals/baseEach'),
-    baseIndexOf = require('../internals/baseIndexOf');
-
-/** Used as the semantic version number */
-var version = '2.4.1';
-
-/** Used as the property name for wrapper metadata */
-var expando = '__lodash@' + version + '__';
-
-/** Used by methods to exit iteration */
-var breakIndicator = expando + 'breaker__';
+var baseIndexOf = require('../internals/baseIndexOf'),
+    keys = require('../objects/keys');
 
 /**
  * Used as the maximum length of an array-like object.
@@ -53,17 +44,21 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  * // => true
  */
 function contains(collection, target) {
-  var indexOf = baseIndexOf,
-      length = collection ? collection.length : 0,
-      result = false;
-
+  var length = collection ? collection.length : 0;
   if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
+    var indexOf = baseIndexOf;
     return indexOf(collection, target) > -1;
   }
-  baseEach(collection, function(value) {
-    return (result = value === target) && breakIndicator;
-  });
-  return result;
+  var props = keys(collection);
+  length = props.length;
+
+  while (length--) {
+    var value = collection[props[length]];
+    if (value === target) {
+      return true;
+    }
+  }
+  return false;
 }
 
 module.exports = contains;

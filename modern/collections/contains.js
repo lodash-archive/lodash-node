@@ -6,11 +6,11 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseEach = require('../internals/baseEach'),
-    baseIndexOf = require('../internals/baseIndexOf'),
+var baseIndexOf = require('../internals/baseIndexOf'),
     isArray = require('../objects/isArray'),
     isNative = require('../internals/isNative'),
-    isString = require('../objects/isString');
+    isString = require('../objects/isString'),
+    keys = require('../objects/keys');
 
 /** Used for native method references */
 var stringProto = String.prototype;
@@ -55,31 +55,34 @@ var nativeContains = isNative(nativeContains = stringProto.contains) && nativeCo
  */
 function contains(collection, target, fromIndex) {
   var length = collection ? collection.length : 0;
-  fromIndex = (typeof fromIndex == 'number' && fromIndex) || 0;
-
-  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
-    if (typeof collection == 'string' || !isArray(collection) && isString(collection)) {
-      if (fromIndex >= length) {
-        return false;
-      }
-      return nativeContains
-        ? nativeContains.call(collection, target, fromIndex)
-        : collection.indexOf(target, fromIndex) > -1;
-    }
-    var indexOf = baseIndexOf;
-    fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : fromIndex;
-    return indexOf(collection, target, fromIndex) > -1;
+  if (!(typeof length == 'number' && length > -1 && length <= maxSafeInteger)) {
+    var props = keys(collection);
+    length = props.length;
   }
-  var index = -1,
-      result = false;
-
-  baseEach(collection, function(value) {
-    if (++index >= fromIndex) {
-      return !(result = value === target);
+  if (typeof fromIndex == 'number') {
+    fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
+  } else {
+    fromIndex = 0;
+  }
+  if (props) {
+    while (fromIndex < length) {
+      var value = collection[props[fromIndex++]];
+      if (value === target) {
+        return true;
+      }
     }
-  });
-
-  return result;
+    return false;
+  }
+  if (typeof collection == 'string' || !isArray(collection) && isString(collection)) {
+    if (fromIndex >= length) {
+      return false;
+    }
+    return nativeContains
+      ? nativeContains.call(collection, target, fromIndex)
+      : collection.indexOf(target, fromIndex) > -1;
+  }
+  var indexOf = baseIndexOf;
+  return indexOf(collection, target, fromIndex) > -1;
 }
 
 module.exports = contains;
