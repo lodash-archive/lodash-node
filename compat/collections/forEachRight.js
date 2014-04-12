@@ -11,6 +11,25 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
     isArray = require('../objects/isArray');
 
 /**
+ * A specialized version of `_.forEachRight` for arrays without support for
+ * callback shorthands or `this` binding.
+ *
+ * @private
+ * @param {Array} array The array to iterate over.
+ * @param {Function} callback The function called per iteration.
+ * @returns {Array} Returns `array`.
+ */
+function arrayEachRight(array, callback) {
+  var length = array ? array.length : 0;
+  while (length--) {
+    if (callback(array[length], length, array) === false) {
+      break;
+    }
+  }
+  return array;
+}
+
+/**
  * This method is like `_.forEach` except that it iterates over elements of
  * a collection from right to left.
  *
@@ -28,17 +47,9 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * // => logs each number from right to left and returns '3,2,1'
  */
 function forEachRight(collection, callback, thisArg) {
-  if (callback && typeof thisArg == 'undefined' && isArray(collection)) {
-    var length = collection.length;
-    while (length--) {
-      if (callback(collection[length], length, collection) === false) {
-        break;
-      }
-    }
-  } else {
-    baseEachRight(collection, baseCreateCallback(callback, thisArg, 3));
-  }
-  return collection;
+  return (callback && typeof thisArg == 'undefined' && isArray(collection))
+    ? arrayEachRight(collection, callback)
+    : baseEachRight(collection, baseCreateCallback(callback, thisArg, 3));
 }
 
 module.exports = forEachRight;

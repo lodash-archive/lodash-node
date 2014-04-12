@@ -17,6 +17,25 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
 var maxSafeInteger = Math.pow(2, 53) - 1;
 
 /**
+ * A specialized version of `_.forEachRight` for arrays without support for
+ * callback shorthands or `this` binding.
+ *
+ * @private
+ * @param {Array} array The array to iterate over.
+ * @param {Function} callback The function called per iteration.
+ * @returns {Array} Returns `array`.
+ */
+function arrayEachRight(array, callback) {
+  var length = array ? array.length : 0;
+  while (length--) {
+    if (callback(array[length], length, array) === false) {
+      break;
+    }
+  }
+  return array;
+}
+
+/**
  * This method is like `_.forEach` except that it iterates over elements of
  * a collection from right to left.
  *
@@ -35,18 +54,11 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  */
 function forEachRight(collection, callback, thisArg) {
   var length = collection ? collection.length : 0;
-
   callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
-    while (length--) {
-      if (callback(collection[length], length, collection) === false) {
-        break;
-      }
-    }
-  } else {
-    baseEachRight(collection, callback);
-  }
-  return collection;
+
+  return (typeof length == 'number' && length > -1 && length <= maxSafeInteger)
+    ? arrayEachRight(collection, callback)
+    : baseEachRight(collection, callback);
 }
 
 module.exports = forEachRight;

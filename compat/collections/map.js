@@ -11,6 +11,26 @@ var baseEach = require('../internals/baseEach'),
     isArray = require('../objects/isArray');
 
 /**
+ * A specialized version of `_.map` for arrays without support for callback
+ * shorthands or `this` binding.
+ *
+ * @private
+ * @param {Array} array The array to iterate over.
+ * @param {Function} callback The function called per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function arrayMap(array, callback) {
+  var index = -1,
+      length = array ? array.length >>> 0 : 0,
+      result = Array(length);
+
+  while (++index < length) {
+    result[index] = callback(array[index], index, array);
+  }
+  return result;
+}
+
+/**
  * Creates an array of values by running each element in the collection
  * through the callback. The callback is bound to `thisArg` and invoked with
  * three arguments; (value, index|key, collection).
@@ -50,20 +70,17 @@ var baseEach = require('../internals/baseEach'),
  * // => ['barney', 'fred']
  */
 function map(collection, callback, thisArg) {
-  var index = -1,
-      length = collection && collection.length,
-      result = Array(length < 0 ? 0 : length >>> 0);
-
   callback = createCallback(callback, thisArg, 3);
+
   if (isArray(collection)) {
-    while (++index < length) {
-      result[index] = callback(collection[index], index, collection);
-    }
-  } else {
-    baseEach(collection, function(value, key, collection) {
-      result[++index] = callback(value, key, collection);
-    });
+    return arrayMap(collection, callback, thisArg);
   }
+  var index = -1,
+      result = [];
+
+  baseEach(collection, function(value, key, collection) {
+    result[++index] = callback(value, key, collection);
+  });
   return result;
 }
 
