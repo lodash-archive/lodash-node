@@ -15,7 +15,7 @@ var arrayRef = Array.prototype;
 var splice = arrayRef.splice;
 
 /**
- * Removes all elements from an array that the predicate returns truthy for
+ * Removes all elements from `array` that the predicate returns truthy for
  * and returns an array of removed elements. The predicate is bound to `thisArg`
  * and invoked with three arguments; (value, index, array).
  *
@@ -25,6 +25,8 @@ var splice = arrayRef.splice;
  * If an object is provided for `predicate` the created "_.where" style callback
  * will return `true` for elements that have the properties of the given object,
  * else `false`.
+ *
+ * Note: Unlike `_.filter`, this method mutates `array`.
  *
  * @static
  * @memberOf _
