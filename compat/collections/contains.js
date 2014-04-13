@@ -10,7 +10,7 @@ var baseIndexOf = require('../internals/baseIndexOf'),
     isArray = require('../objects/isArray'),
     isNative = require('../internals/isNative'),
     isString = require('../objects/isString'),
-    keys = require('../objects/keys');
+    values = require('../objects/values');
 
 /** Used for native method references */
 var stringProto = String.prototype;
@@ -56,22 +56,13 @@ var nativeContains = isNative(nativeContains = stringProto.contains) && nativeCo
 function contains(collection, target, fromIndex) {
   var length = collection ? collection.length : 0;
   if (!(typeof length == 'number' && length > -1 && length <= maxSafeInteger)) {
-    var props = keys(collection);
-    length = props.length;
+    collection = values(collection);
+    length = collection.length;
   }
   if (typeof fromIndex == 'number') {
     fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
   } else {
     fromIndex = 0;
-  }
-  if (props) {
-    while (fromIndex < length) {
-      var value = collection[props[fromIndex++]];
-      if (value === target) {
-        return true;
-      }
-    }
-    return false;
   }
   if (typeof collection == 'string' || !isArray(collection) && isString(collection)) {
     if (fromIndex >= length) {

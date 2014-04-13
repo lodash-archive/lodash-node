@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseIndexOf = require('../internals/baseIndexOf'),
-    keys = require('../objects/keys');
+    values = require('../objects/values');
 
 /**
  * Used as the maximum length of an array-like object.
@@ -44,21 +44,13 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  * // => true
  */
 function contains(collection, target) {
-  var length = collection ? collection.length : 0;
-  if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
-    var indexOf = baseIndexOf;
-    return indexOf(collection, target) > -1;
-  }
-  var props = keys(collection);
-  length = props.length;
+  var indexOf = baseIndexOf,
+      length = collection ? collection.length : 0;
 
-  while (length--) {
-    var value = collection[props[length]];
-    if (value === target) {
-      return true;
-    }
+  if (!(typeof length == 'number' && length > -1 && length <= maxSafeInteger)) {
+    collection = values(collection);
   }
-  return false;
+  return indexOf(collection, target) > -1;
 }
 
 module.exports = contains;
