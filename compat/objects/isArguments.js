@@ -41,7 +41,7 @@ function isArguments(value) {
   return value && typeof value == 'object' && typeof value.length == 'number' &&
     toString.call(value) == argsClass || false;
 }
-// fallback for environments that can't detect `arguments` objects by `[[Class]]`
+// fallback for environments without a `[[Class]]` for `arguments` objects
 if (!support.argsClass) {
   isArguments = function(value) {
     return value && typeof value == 'object' && typeof value.length == 'number' &&

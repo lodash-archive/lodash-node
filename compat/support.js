@@ -51,7 +51,7 @@ var support = {};
   for (var strKey in 'x') { }
 
   /**
-   * Detect if an `arguments` object's `[[Class]]` is resolvable
+   * Detect if the `[[Class]]` of `arguments` objects is resolvable
    * (all but Firefox < 4, IE < 9).
    *
    * @memberOf _.support
@@ -178,9 +178,9 @@ var support = {};
   }
 
   /**
-   * Detect if a DOM node's `[[Class]]` is resolvable (all but IE < 9)
-   * and that the JS engine errors when attempting to coerce an object to
-   * a string without a `toString` function.
+   * Detect if the `[[Class]]` of DOM nodes is resolvable (all but IE < 9)
+   * and that the JS engine errors when attempting to coerce an object to a
+   * string without a `toString` function.
    *
    * @memberOf _.support
    * @type boolean

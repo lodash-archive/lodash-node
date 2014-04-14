@@ -44,7 +44,7 @@ var toString = objectProto.toString;
 /** Native method shortcuts */
 var hasOwnProperty = objectProto.hasOwnProperty;
 
-/** Used to lookup a built-in constructor by `[[Class]]` */
+/** Used to lookup built-in constructors by `[[Class]]` */
 var ctorByClass = {};
 ctorByClass[arrayClass] = Array;
 ctorByClass[boolClass] = Boolean;
@@ -74,7 +74,6 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
       return result;
     }
   }
-  // inspect `[[Class]]`
   var isObj = isObject(value);
   if (isObj) {
     var className = toString.call(value);

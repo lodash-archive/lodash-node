@@ -64,7 +64,6 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
       (valType != 'function' && valType != 'object' && othType != 'function' && othType != 'object'))) {
     return false;
   }
-  // compare `[[Class]]` names
   var valClass = toString.call(value),
       othClass = toString.call(other),
       valIsArg = valClass == argsClass,
