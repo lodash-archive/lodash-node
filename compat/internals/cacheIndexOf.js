@@ -6,7 +6,6 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseIndexOf = require('./baseIndexOf');
 
 /**
  * An implementation of `_.contains` for cache objects that mimics the return
