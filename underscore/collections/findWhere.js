@@ -6,8 +6,7 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var find = require('./find'),
-    isObject = require('../objects/isObject');
+var find = require('./find');
 
 /**
  * Performs a deep comparison between each element in `collection` and the
@@ -34,7 +33,7 @@ var find = require('./find'),
  * // =>  { 'name': 'fred', 'age': 40, 'employer': 'slate' }
  */
 function findWhere(collection, source) {
-  return find(collection, isObject(source) ? source : {});
+  return find(collection, Object(source));
 }
 
 module.exports = findWhere;
