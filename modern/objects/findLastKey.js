@@ -29,7 +29,7 @@ var baseFind = require('../internals/baseFind'),
  *  per iteration. If a property name or object is provided it will be used
  *  to create a "_.pluck" or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `predicate`.
- * @returns {string|undefined} Returns the key of the found element, else `undefined`.
+ * @returns {string|undefined} Returns the key of the matched element, else `undefined`.
  * @example
  *
  * var characters = {

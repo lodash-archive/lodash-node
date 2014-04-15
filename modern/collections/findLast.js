@@ -22,7 +22,7 @@ var baseEachRight = require('../internals/baseEachRight'),
  *  per iteration. If a property name or object is provided it will be used
  *  to create a "_.pluck" or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `predicate`.
- * @returns {*} Returns the found element, else `undefined`.
+ * @returns {*} Returns the matched element, else `undefined`.
  * @example
  *
  * _.findLast([1, 2, 3, 4], function(num) {
