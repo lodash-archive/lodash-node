@@ -18,7 +18,7 @@ module.exports = {
   'every': require('./collections/every'),
   'filter': require('./collections/filter'),
   'find': require('./collections/find'),
-  'findWhere': require('./collections/find'),
+  'findWhere': require('./collections/findWhere'),
   'foldl': require('./collections/reduce'),
   'foldr': require('./collections/reduceRight'),
   'forEach': require('./collections/forEach'),
