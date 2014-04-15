@@ -6,7 +6,7 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseEach = require('./baseEach'),
+var arrayEach = require('./arrayEach'),
     baseForOwn = require('./baseForOwn'),
     isArray = require('../objects/isArray'),
     isPlainObject = require('../objects/isPlainObject');
@@ -23,7 +23,7 @@ var baseEach = require('./baseEach'),
  * @param {Array} [stackB=[]] Associates values with source counterparts.
  */
 function baseMerge(object, source, callback, stackA, stackB) {
-  (isArray(source) ? baseEach : baseForOwn)(source, function(source, key) {
+  (isArray(source) ? arrayEach : baseForOwn)(source, function(source, key) {
     var found,
         isArr,
         result = source,

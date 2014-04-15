@@ -14,8 +14,8 @@ var arrays = require('./arrays'),
     objects = require('./objects'),
     strings = require('./strings'),
     utilities = require('./utilities'),
+    arrayEach = require('./internals/arrayEach'),
     assign = require('./objects/assign'),
-    baseEach = require('./internals/baseEach'),
     baseForOwn = require('./internals/baseForOwn'),
     isArray = require('./objects/isArray'),
     lodashWrapper = require('./internals/lodashWrapper'),
@@ -350,7 +350,7 @@ lodash.prototype.value = chaining.wrapperValueOf;
 lodash.prototype.valueOf = chaining.wrapperValueOf;
 
 // add `Array` functions that return unwrapped values
-baseEach(['join', 'pop', 'shift'], function(methodName) {
+arrayEach(['join', 'pop', 'shift'], function(methodName) {
   var func = arrayRef[methodName];
   lodash.prototype[methodName] = function() {
     var chainAll = this.__chain__,
@@ -363,7 +363,7 @@ baseEach(['join', 'pop', 'shift'], function(methodName) {
 });
 
 // add `Array` functions that return the existing wrapped value
-baseEach(['push', 'reverse', 'sort', 'unshift'], function(methodName) {
+arrayEach(['push', 'reverse', 'sort', 'unshift'], function(methodName) {
   var func = arrayRef[methodName];
   lodash.prototype[methodName] = function() {
     func.apply(this.__wrapped__, arguments);
@@ -372,7 +372,7 @@ baseEach(['push', 'reverse', 'sort', 'unshift'], function(methodName) {
 });
 
 // add `Array` functions that return new wrapped values
-baseEach(['concat', 'splice'], function(methodName) {
+arrayEach(['concat', 'splice'], function(methodName) {
   var func = arrayRef[methodName];
   lodash.prototype[methodName] = function() {
     return new lodashWrapper(func.apply(this.__wrapped__, arguments), this.__chain__);
@@ -382,7 +382,7 @@ baseEach(['concat', 'splice'], function(methodName) {
 // avoid array-like object bugs with `Array#shift` and `Array#splice`
 // in IE < 9, Firefox < 10, Narwhal, and RingoJS
 if (!support.spliceObjects) {
-  baseEach(['pop', 'shift', 'splice'], function(methodName) {
+  arrayEach(['pop', 'shift', 'splice'], function(methodName) {
     var func = arrayRef[methodName],
         isSplice = methodName == 'splice';
 
