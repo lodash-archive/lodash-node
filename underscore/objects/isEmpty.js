@@ -6,11 +6,19 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isArray = require('./isArray'),
+var isArguments = require('./isArguments'),
+    isArray = require('./isArray'),
     isString = require('./isString');
 
 /** Used for native method references */
 var objectProto = Object.prototype;
+
+/**
+ * Used as the maximum length of an array-like object.
+ * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+ * for more details.
+ */
+var maxSafeInteger = Math.pow(2, 53) - 1;
 
 /** Native method shortcuts */
 var hasOwnProperty = objectProto.hasOwnProperty;
@@ -46,8 +54,10 @@ function isEmpty(value) {
   if (!value) {
     return true;
   }
-  if (isArray(value) || isString(value)) {
-    return !value.length;
+  var length = value.length;
+  if (length > -1 && length <= maxSafeInteger &&
+      (isArray(value) || isString(value) || isArguments(value))) {
+    return !length;
   }
   for (var key in value) {
     if (hasOwnProperty.call(value, key)) {

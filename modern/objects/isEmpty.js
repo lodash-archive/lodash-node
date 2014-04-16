@@ -7,16 +7,10 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseForOwn = require('../internals/baseForOwn'),
-    isFunction = require('./isFunction');
-
-/** `Object#toString` result shortcuts */
-var argsClass = '[object Arguments]',
-    arrayClass = '[object Array]',
-    objectClass = '[object Object]',
-    stringClass = '[object String]';
-
-/** Used for native method references */
-var objectProto = Object.prototype;
+    isArguments = require('./isArguments'),
+    isArray = require('./isArray'),
+    isFunction = require('./isFunction'),
+    isString = require('./isString');
 
 /**
  * Used as the maximum length of an array-like object.
@@ -24,9 +18,6 @@ var objectProto = Object.prototype;
  * for more details.
  */
 var maxSafeInteger = Math.pow(2, 53) - 1;
-
-/** Used to resolve the internal `[[Class]]` of values */
-var toString = objectProto.toString;
 
 /**
  * Checks if a collection is empty. A value is considered empty unless it is
@@ -60,13 +51,10 @@ function isEmpty(value) {
   if (!value) {
     return result;
   }
-  var className = toString.call(value),
-      length = value.length;
-
-  if (length > -1 && length <= maxSafeInteger && (
-        (className == arrayClass || className == stringClass || className == argsClass) ||
-        (className == objectClass && isFunction(value.splice))
-      )) {
+  var length = value.length;
+  if (length > -1 && length <= maxSafeInteger &&
+      (isArray(value) || isString(value) || isArguments(value) ||
+        (typeof value == 'object' && isFunction(value.splice)))) {
     return !length;
   }
   baseForOwn(value, function() {
