@@ -6,7 +6,8 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var find = require('./find');
+var find = require('./find'),
+    matches = require('../utilities/matches');
 
 /**
  * Performs a deep comparison between each element in `collection` and the
@@ -33,7 +34,7 @@ var find = require('./find');
  * // =>  { 'name': 'fred', 'age': 40, 'employer': 'slate' }
  */
 function findWhere(collection, source) {
-  return find(collection, Object(source));
+  return find(collection, matches(source));
 }
 
 module.exports = findWhere;
