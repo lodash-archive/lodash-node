@@ -7,7 +7,9 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseDifference = require('../internals/baseDifference'),
-    baseFlatten = require('../internals/baseFlatten');
+    baseFlatten = require('../internals/baseFlatten'),
+    isArguments = require('../objects/isArguments'),
+    isArray = require('../objects/isArray');
 
 /**
  * Creates an array excluding all values of the provided arrays using strict
@@ -25,7 +27,16 @@ var baseDifference = require('../internals/baseDifference'),
  * // => [1, 3]
  */
 function difference() {
-  return baseDifference(arguments[0], baseFlatten(arguments, true, true, 1));
+  var index = -1,
+      length = arguments.length;
+
+  while (++index < length) {
+    var value = arguments[index];
+    if (isArray(value) || isArguments(value)) {
+      break;
+    }
+  }
+  return baseDifference(arguments[index], baseFlatten(arguments, true, true, ++index));
 }
 
 module.exports = difference;
