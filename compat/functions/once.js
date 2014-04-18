@@ -8,6 +8,9 @@
  */
 var isFunction = require('../objects/isFunction');
 
+/** Used as the TypeError message for "Functions" methods */
+var funcErrorText = 'Expected a function';
+
 /**
  * Creates a function that is restricted to execute `func` once. Repeat calls to
  * the function will return the value of the first call. The `func` is executed
@@ -30,7 +33,7 @@ function once(func) {
       result;
 
   if (!isFunction(func)) {
-    throw new TypeError;
+    throw new TypeError(funcErrorText);
   }
   return function() {
     if (ran) {

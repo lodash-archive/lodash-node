@@ -8,6 +8,9 @@
  */
 var isFunction = require('../objects/isFunction');
 
+/** Used as the TypeError message for "Functions" methods */
+var funcErrorText = 'Expected a function';
+
 /**
  * Creates a function that is the composition of the provided functions,
  * where each function consumes the return value of the function that follows.
@@ -45,7 +48,7 @@ function compose() {
 
   while (length--) {
     if (!isFunction(funcs[length])) {
-      throw new TypeError;
+      throw new TypeError(funcErrorText);
     }
   }
   return function() {

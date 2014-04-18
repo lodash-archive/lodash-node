@@ -10,6 +10,9 @@ var isFunction = require('../objects/isFunction'),
     isObject = require('../objects/isObject'),
     now = require('../utilities/now');
 
+/** Used as the TypeError message for "Functions" methods */
+var funcErrorText = 'Expected a function';
+
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeMax = Math.max;
 
@@ -65,7 +68,7 @@ function debounce(func, wait, options) {
       trailing = true;
 
   if (!isFunction(func)) {
-    throw new TypeError;
+    throw new TypeError(funcErrorText);
   }
   wait = wait < 0 ? 0 : wait;
   if (options === true) {

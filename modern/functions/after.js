@@ -8,6 +8,9 @@
  */
 var isFunction = require('../objects/isFunction');
 
+/** Used as the TypeError message for "Functions" methods */
+var funcErrorText = 'Expected a function';
+
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeIsFinite = global.isFinite;
 
@@ -37,7 +40,7 @@ var nativeIsFinite = global.isFinite;
  */
 function after(n, func) {
   if (!isFunction(func)) {
-    throw new TypeError;
+    throw new TypeError(funcErrorText);
   }
   n = nativeIsFinite(n = +n) ? n : 0;
   return function() {

@@ -8,6 +8,9 @@
  */
 var isFunction = require('../objects/isFunction');
 
+/** Used as the TypeError message for "Functions" methods */
+var funcErrorText = 'Expected a function';
+
 /**
  * Creates a function that negates the result of the predicate `func`. The
  * `func` function is executed with the `this` binding and arguments of the
@@ -29,7 +32,7 @@ var isFunction = require('../objects/isFunction');
  */
 function negate(predicate) {
   if (!isFunction(predicate)) {
-    throw new TypeError;
+    throw new TypeError(funcErrorText);
   }
   return function() {
     return !predicate.apply(this, arguments);

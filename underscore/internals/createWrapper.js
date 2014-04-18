@@ -16,6 +16,9 @@ var BIND_FLAG = 1,
     PARTIAL_FLAG = 16,
     PARTIAL_RIGHT_FLAG = 32;
 
+/** Used as the TypeError message for "Functions" methods */
+var funcErrorText = 'Expected a function';
+
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeMax = Math.max;
 
@@ -48,7 +51,7 @@ function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightA
       isPartialRight = bitmask & PARTIAL_RIGHT_FLAG;
 
   if (!isFunction(func)) {
-    throw new TypeError;
+    throw new TypeError(funcErrorText);
   }
   if (isPartial && !partialArgs.length) {
     bitmask &= ~PARTIAL_FLAG;

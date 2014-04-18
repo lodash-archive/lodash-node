@@ -24,6 +24,9 @@ var version = '2.4.1';
 /** Used as the property name for wrapper metadata */
 var expando = '__lodash@' + version + '__';
 
+/** Used as the TypeError message for "Functions" methods */
+var funcErrorText = 'Expected a function';
+
 /** Used for native method references */
 var arrayRef = Array.prototype;
 
@@ -63,7 +66,7 @@ function createWrapper(func, bitmask, arity, thisArg, partialArgs, partialRightA
       isPartialRight = bitmask & PARTIAL_RIGHT_FLAG;
 
   if (!isBindKey && !isFunction(func)) {
-    throw new TypeError;
+    throw new TypeError(funcErrorText);
   }
   if (isPartial && !partialArgs.length) {
     bitmask &= ~PARTIAL_FLAG;

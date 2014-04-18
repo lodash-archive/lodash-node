@@ -8,6 +8,9 @@
  */
 var isFunction = require('../objects/isFunction');
 
+/** Used as the TypeError message for "Functions" methods */
+var funcErrorText = 'Expected a function';
+
 /** Used for native method references */
 var objectProto = Object.prototype;
 
@@ -53,7 +56,7 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  */
 function memoize(func, resolver) {
   if (!isFunction(func) || (resolver && !isFunction(resolver))) {
-    throw new TypeError;
+    throw new TypeError(funcErrorText);
   }
   var cache = {};
   return function() {
