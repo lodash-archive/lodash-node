@@ -33,8 +33,8 @@ var toString = objectProto.toString;
  * // => false
  */
 function isBoolean(value) {
-  return value === true || value === false ||
-    value && typeof value == 'object' && toString.call(value) == boolClass || false;
+  return (value === true || value === false ||
+    value && typeof value == 'object' && toString.call(value) == boolClass) || false;
 }
 
 module.exports = isBoolean;

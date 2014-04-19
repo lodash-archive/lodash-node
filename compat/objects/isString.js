@@ -34,7 +34,7 @@ var toString = objectProto.toString;
  */
 function isString(value) {
   return typeof value == 'string' ||
-    value && typeof value == 'object' && toString.call(value) == stringClass || false;
+    (value && typeof value == 'object' && toString.call(value) == stringClass) || false;
 }
 
 module.exports = isString;

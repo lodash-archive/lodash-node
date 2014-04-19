@@ -33,8 +33,8 @@ var toString = objectProto.toString;
  * // => false
  */
 function isArguments(value) {
-  return value && typeof value == 'object' && typeof value.length == 'number' &&
-    toString.call(value) == argsClass || false;
+  return (value && typeof value == 'object' && typeof value.length == 'number' &&
+    toString.call(value) == argsClass) || false;
 }
 
 module.exports = isArguments;

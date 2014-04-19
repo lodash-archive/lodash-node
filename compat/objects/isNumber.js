@@ -41,7 +41,7 @@ var toString = objectProto.toString;
 function isNumber(value) {
   var type = typeof value;
   return type == 'number' ||
-    value && type == 'object' && toString.call(value) == numberClass || false;
+    (value && type == 'object' && toString.call(value) == numberClass) || false;
 }
 
 module.exports = isNumber;

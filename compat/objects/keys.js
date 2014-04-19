@@ -78,7 +78,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
   var ctor = object && object.constructor,
       length = object ? object.length : 0;
 
-  if (typeof length == 'number' && length > 0 ||
+  if ((typeof length == 'number' && length > 0) ||
       (ctor && object === ctor.prototype)) {
     return shimKeys(object);
   }

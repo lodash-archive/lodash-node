@@ -37,8 +37,8 @@ var nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray;
  * // => false
  */
 var isArray = nativeIsArray || function(value) {
-  return value && typeof value == 'object' && typeof value.length == 'number' &&
-    toString.call(value) == arrayClass || false;
+  return (value && typeof value == 'object' && typeof value.length == 'number' &&
+    toString.call(value) == arrayClass) || false;
 };
 
 module.exports = isArray;

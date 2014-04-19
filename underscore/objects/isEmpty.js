@@ -55,7 +55,7 @@ function isEmpty(value) {
     return true;
   }
   var length = value.length;
-  if (length > -1 && length <= maxSafeInteger &&
+  if ((length > -1 && length <= maxSafeInteger) &&
       (isArray(value) || isString(value) || isArguments(value))) {
     return !length;
   }

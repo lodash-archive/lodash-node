@@ -34,8 +34,8 @@ var toString = objectProto.toString;
  */
 function isRegExp(value) {
   var type = typeof value;
-  return value && (type == 'function' || type == 'object') &&
-    toString.call(value) == regexpClass || false;
+  return (value && (type == 'function' || type == 'object') &&
+    toString.call(value) == regexpClass) || false;
 }
 
 module.exports = isRegExp;

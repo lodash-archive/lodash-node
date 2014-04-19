@@ -37,14 +37,14 @@ var hasOwnProperty = objectProto.hasOwnProperty,
  * // => false
  */
 function isArguments(value) {
-  return value && typeof value == 'object' && typeof value.length == 'number' &&
-    toString.call(value) == argsClass || false;
+  return (value && typeof value == 'object' && typeof value.length == 'number' &&
+    toString.call(value) == argsClass) || false;
 }
 // fallback for environments without a `[[Class]]` for `arguments` objects
 if (!isArguments(arguments)) {
   isArguments = function(value) {
-    return value && typeof value == 'object' && typeof value.length == 'number' &&
-      hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee') || false;
+    return (value && typeof value == 'object' && typeof value.length == 'number' &&
+      hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee')) || false;
   };
 }
 
