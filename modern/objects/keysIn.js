@@ -40,7 +40,9 @@ function keysIn(object) {
     (isArray(object) || (support.nonEnumArgs && isArguments(object))) && length) >>> 0;
 
   var keyIndex,
+      ctor = object.constructor,
       index = -1,
+      isProto = ctor && object === ctor.prototype,
       maxIndex = length - 1,
       result = Array(length),
       skipIndexes = length > 0;
@@ -49,7 +51,8 @@ function keysIn(object) {
     result[index] = String(index);
   }
   for (var key in object) {
-    if (!(skipIndexes && (keyIndex = +key, keyIndex > -1 && keyIndex <= maxIndex && keyIndex % 1 == 0))) {
+    if (!(isProto && key == 'constructor') &&
+        !(skipIndexes && (keyIndex = +key, keyIndex > -1 && keyIndex <= maxIndex && keyIndex % 1 == 0))) {
       result.push(key);
     }
   }

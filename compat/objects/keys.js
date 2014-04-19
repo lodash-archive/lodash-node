@@ -75,8 +75,11 @@ function shimKeys(object) {
  * // => ['x', 'y'] (property order is not guaranteed across environments)
  */
 var keys = !nativeKeys ? shimKeys : function(object) {
-  var length = object ? object.length : 0;
-  if (typeof length == 'number' && length > 0) {
+  var ctor = object && object.constructor,
+      length = object ? object.length : 0;
+
+  if (typeof length == 'number' && length > 0 ||
+      (ctor && object === ctor.prototype)) {
     return shimKeys(object);
   }
   return isObject(object) ? nativeKeys(object) : [];
