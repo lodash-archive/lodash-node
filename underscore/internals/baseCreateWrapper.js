@@ -8,8 +8,7 @@
  */
 var baseCreate = require('./baseCreate'),
     composeArgs = require('./composeArgs'),
-    isObject = require('../objects/isObject'),
-    slice = require('../arrays/slice');
+    isObject = require('../objects/isObject');
 
 /** Used to compose bitmasks for wrapper metadata */
 var BIND_FLAG = 1,

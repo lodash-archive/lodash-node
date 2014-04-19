@@ -6,8 +6,7 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseFlatten = require('../internals/baseFlatten'),
-    slice = require('../arrays/slice');
+var baseFlatten = require('../internals/baseFlatten');
 
 /**
  * Creates a shallow clone of `object` composed of the specified properties.

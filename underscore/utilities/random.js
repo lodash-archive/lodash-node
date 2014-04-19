@@ -6,7 +6,6 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseRandom = require('../internals/baseRandom');
 
 /** Native method shortcuts */
 var floor = Math.floor;

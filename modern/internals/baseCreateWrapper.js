@@ -10,8 +10,7 @@ var baseCreate = require('./baseCreate'),
     composeArgs = require('./composeArgs'),
     composeArgsRight = require('./composeArgsRight'),
     isObject = require('../objects/isObject'),
-    setData = require('./setData'),
-    slice = require('../arrays/slice');
+    setData = require('./setData');
 
 /** Used to compose bitmasks for wrapper metadata */
 var BIND_FLAG = 1,

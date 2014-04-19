@@ -7,8 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreateWrapper = require('./baseCreateWrapper'),
-    isFunction = require('../objects/isFunction'),
-    slice = require('../arrays/slice');
+    isFunction = require('../objects/isFunction');
 
 /** Used to compose bitmasks for wrapper metadata */
 var BIND_FLAG = 1,

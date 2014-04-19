@@ -20,8 +20,7 @@ var arrays = require('./arrays'),
     isArray = require('./objects/isArray'),
     lodashWrapper = require('./internals/lodashWrapper'),
     mixin = require('./utilities/mixin'),
-    support = require('./support'),
-    templateSettings = require('./utilities/templateSettings');
+    support = require('./support');
 
 /** Used as the semantic version number */
 var version = '2.4.1';

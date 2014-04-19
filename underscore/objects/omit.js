@@ -9,7 +9,6 @@
 var baseDifference = require('../internals/baseDifference'),
     baseFlatten = require('../internals/baseFlatten'),
     keysIn = require('./keysIn'),
-    negate = require('../functions/negate'),
     pick = require('./pick');
 
 /**

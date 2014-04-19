@@ -6,8 +6,6 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseCreateCallback = require('../internals/baseCreateCallback'),
-    keys = require('./keys');
 
 /**
  * Assigns own enumerable properties of source object(s) to the destination

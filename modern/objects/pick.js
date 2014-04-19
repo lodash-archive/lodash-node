@@ -9,8 +9,7 @@
 var baseFlatten = require('../internals/baseFlatten'),
     baseForIn = require('../internals/baseForIn'),
     createCallback = require('../functions/createCallback'),
-    isObject = require('./isObject'),
-    slice = require('../arrays/slice');
+    isObject = require('./isObject');
 
 /**
  * Creates a shallow clone of `object` composed of the specified properties.

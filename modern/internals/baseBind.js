@@ -9,8 +9,7 @@
 var baseCreate = require('./baseCreate'),
     composeArgs = require('./composeArgs'),
     isObject = require('../objects/isObject'),
-    setData = require('./setData'),
-    slice = require('../arrays/slice');
+    setData = require('./setData');
 
 /**
  * The base implementation of `_.bind` that creates the bound function and

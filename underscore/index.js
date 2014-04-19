@@ -16,11 +16,9 @@ var arrays = require('./arrays'),
     utilities = require('./utilities'),
     arrayEach = require('./internals/arrayEach'),
     assign = require('./objects/assign'),
-    baseForOwn = require('./internals/baseForOwn'),
     lodashWrapper = require('./internals/lodashWrapper'),
     mixin = require('./utilities/mixin'),
-    support = require('./support'),
-    templateSettings = require('./utilities/templateSettings');
+    support = require('./support');
 
 /** Used as the semantic version number */
 var version = '2.4.1';

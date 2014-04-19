@@ -7,8 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var isNative = require('./isNative'),
-    isObject = require('../objects/isObject'),
-    noop = require('../utilities/noop');
+    isObject = require('../objects/isObject');
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate;

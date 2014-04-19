@@ -16,7 +16,6 @@ module.exports = {
   'matches': require('./utilities/matches'),
   'mixin': require('./utilities/mixin'),
   'noConflict': require('./utilities/noConflict'),
-  'noop': require('./utilities/noop'),
   'now': require('./utilities/now'),
   'property': require('./utilities/property'),
   'random': require('./utilities/random'),

@@ -7,7 +7,6 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var assign = require('./assign'),
-    baseCreateCallback = require('../internals/baseCreateCallback'),
     isArray = require('./isArray'),
     isObject = require('./isObject'),
     slice = require('../arrays/slice');

@@ -8,7 +8,6 @@
  */
 var defaults = require('../objects/defaults'),
     escape = require('../utilities/escape'),
-    reInterpolate = require('../internals/reInterpolate'),
     templateSettings = require('../utilities/templateSettings');
 
 /** Used to ensure capturing order of template delimiters */
