@@ -30,6 +30,7 @@ module.exports = {
   'isElement': require('./objects/isElement'),
   'isEmpty': require('./objects/isEmpty'),
   'isEqual': require('./objects/isEqual'),
+  'isError': require('./objects/isError'),
   'isFinite': require('./objects/isFinite'),
   'isFunction': require('./objects/isFunction'),
   'isNaN': require('./objects/isNaN'),
