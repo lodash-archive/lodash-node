@@ -17,13 +17,13 @@ var objectProto = Object.prototype;
 var toString = objectProto.toString;
 
 /**
- * Checks if `value` is a regular expression.
+ * Checks if `value` is a `RegExp` object.
  *
  * @static
  * @memberOf _
  * @category Objects
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a regular expression, else `false`.
+ * @returns {boolean} Returns `true` if `value` is a regexp object, else `false`.
  * @example
  *
  * _.isRegExp(/abc/);

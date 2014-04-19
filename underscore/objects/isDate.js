@@ -17,19 +17,19 @@ var objectProto = Object.prototype;
 var toString = objectProto.toString;
 
 /**
- * Checks if `value` is a date.
+ * Checks if `value` is a `Date` object.
  *
  * @static
  * @memberOf _
  * @category Objects
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a date, else `false`.
+ * @returns {boolean} Returns `true` if `value` is a date object, else `false`.
  * @example
  *
  * _.isDate(new Date);
  * // => true
  *
- * _.isDate('Wed May 23 2012');
+ * _.isDate('Mon April 23 2012');
  * // => false
  */
 function isDate(value) {

@@ -17,7 +17,7 @@ var objectProto = Object.prototype;
 var toString = objectProto.toString;
 
 /**
- * Checks if `value` is a number.
+ * Checks if `value` is a `Number` primitive or object.
  *
  * Note: `NaN` is considered a number. See the [ES5 spec](http://es5.github.io/#x8.5)
  * for more details.
