@@ -80,7 +80,7 @@ function max(collection, callback, thisArg) {
 
     baseEach(collection, function(value, index, collection) {
       var current = callback(value, index, collection);
-      if (current > computed) {
+      if (current > computed || (current === -Infinity && current === result)) {
         computed = current;
         result = value;
       }
