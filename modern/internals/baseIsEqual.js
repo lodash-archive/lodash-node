@@ -97,16 +97,16 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
   }
   var isArr = valClass == arrayClass;
   if (!isArr) {
+    // exit for functions and DOM nodes
+    if (valClass != objectClass) {
+      return false;
+    }
     // unwrap any `lodash` wrapped values
     var valWrapped = hasOwnProperty.call(value, '__wrapped__'),
         othWrapped = hasOwnProperty.call(other, '__wrapped__');
 
     if (valWrapped || othWrapped) {
       return baseIsEqual(valWrapped ? value.__wrapped__ : value, othWrapped ? other.__wrapped__ : other, callback, isWhere, stackA, stackB);
-    }
-    // exit for functions and DOM nodes
-    if (valClass != objectClass) {
-      return false;
     }
     var hasValCtor = !valIsArg && hasOwnProperty.call(value, 'constructor'),
         hasOthCtor = !othIsArg && hasOwnProperty.call(other, 'constructor');
