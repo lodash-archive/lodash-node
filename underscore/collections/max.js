@@ -44,6 +44,9 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  * _.max([4, 2, 8, 6]);
  * // => 8
  *
+ * _.max([]);
+ * // => -Infinity
+ *
  * var characters = [
  *   { 'name': 'barney', 'age': 36 },
  *   { 'name': 'fred',   'age': 40 }

@@ -8,7 +8,8 @@
  */
 
 /**
- * Gets the index of the last character of `string` that is not found in `chars`.
+ * Used by `_.trim` and `_.trimRight` to get the index of the last character
+ * of `string` that is not found in `chars`.
  *
  * @private
  * @param {string} string The string to inspect.

@@ -8,7 +8,8 @@
  */
 
 /**
- * Gets the index of the last non-whitespace character of `string`.
+ * Used by `_.trim` and `_.trimRight` to get the index of the last non-whitespace
+ * character of `string`.
  *
  * @private
  * @param {string} string The string to inspect.

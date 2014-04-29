@@ -8,7 +8,8 @@
  */
 
 /**
- * Gets the index of the first non-whitespace character of `string`.
+ * Used by `_.trim` and `_.trimLeft` to get the index of the first non-whitespace
+ * character of `string`.
  *
  * @private
  * @param {string} string The string to inspect.
