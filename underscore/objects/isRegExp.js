@@ -6,6 +6,7 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
+var isObject = require('./isObject');
 
 /** `Object#toString` result shortcuts */
 var regexpClass = '[object RegExp]';
@@ -33,9 +34,7 @@ var toString = objectProto.toString;
  * // => false
  */
 function isRegExp(value) {
-  var type = typeof value;
-  return (value && (type == 'function' || type == 'object') &&
-    toString.call(value) == regexpClass) || false;
+  return (isObject(value) && toString.call(value) == regexpClass) || false;
 }
 
 module.exports = isRegExp;
