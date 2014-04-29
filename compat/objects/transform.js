@@ -10,7 +10,8 @@ var arrayEach = require('../internals/arrayEach'),
     baseCreate = require('../internals/baseCreate'),
     baseForOwn = require('../internals/baseForOwn'),
     createCallback = require('../functions/createCallback'),
-    isArray = require('./isArray');
+    isArray = require('./isArray'),
+    isObject = require('./isObject');
 
 /**
  * An alternative to `_.reduce`; this method transforms `object` to a new
@@ -49,9 +50,10 @@ function transform(object, callback, accumulator, thisArg) {
     if (isArr) {
       accumulator = [];
     } else {
-      var ctor = object && object.constructor,
-          proto = ctor && ctor.prototype;
-
+      if (isObject(object)) {
+        var ctor = object.constructor,
+            proto = ctor && ctor.prototype;
+      }
       accumulator = baseCreate(proto);
     }
   }
