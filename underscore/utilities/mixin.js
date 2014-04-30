@@ -22,11 +22,12 @@ var push = arrayRef.push;
  * @static
  * @memberOf _
  * @category Utilities
- * @param {Function|Object} [object=lodash] object The destination object.
+ * @param {Function|Object} [object=this] object The destination object.
  * @param {Object} source The object of functions to add.
  * @param {Object} [options] The options object.
  * @param {boolean} [options.chain=true] Specify whether the functions added
  *  are chainable.
+ * @returns {Function|Object} Returns `object`.
  * @example
  *
  * function vowels(string) {

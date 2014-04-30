@@ -50,12 +50,12 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * `flatten`, `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`,
  * `forOwnRight`, `functions`, `groupBy`, `indexBy`, `initial`, `intersection`,
  * `invert`, `invoke`, `keys`, `map`, `mapValues`, `matches`, `max`, `memoize`,
- * `merge`, `min`, `noop`, `object`, `omit`, `once`, `pairs`, `partial`,
- * `partialRight`, `pick`, `pluck`, `property`, `pull`, `push`, `range`,
- * `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`, `sortBy`,
- * `splice`, `tap`, `throttle`, `times`, `toArray`, `transform`, `union`,
- * `uniq`, `unshift`, `unzip`, `values`, `where`, `without`, `wrap`, `xor`,
- * and `zip`
+ * `merge`, `min`, `mixin`, `noop`, `object`, `omit`, `once`, `pairs`,
+ * `partial`, `partialRight`, `pick`, `pluck`, `property`, `pull`, `push`,
+ * `range`, `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`,
+ * `sortBy`, `splice`, `tap`, `throttle`, `times`, `toArray`, `transform`,
+ * `union`, `uniq`, `unshift`, `unzip`, `values`, `where`, `without`, `wrap`,
+ * `xor`, and `zip`
  *
  * The non-chainable wrapper functions are:
  * `capitalize`, `clone`, `cloneDeep`, `contains`, `escape`, `every`, `find`,
@@ -63,10 +63,10 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * `identity`, `indexOf`, `isArguments`, `isArray`, `isBoolean`, `isDate`,
  * `isElement`, `isEmpty`, `isEqual`, `isFinite`, `isFunction`, `isNaN`,
  * `isNull`, `isNumber`, `isObject`, `isPlainObject`, `isRegExp`, `isString`,
- * `isUndefined`, `join`, `lastIndexOf`, `mixin`, `noConflict`, `now`,
- * `parseInt`, `pop`, `random`, `reduce`, `reduceRight`, `result`, `shift`,
- * `size`, `some`, `sortedIndex`, `runInContext`, `template`, `trim`,
- * `trimLeft`, `trimRight`, `unescape`, `uniqueId`, and `value`
+ * `isUndefined`, `join`, `lastIndexOf`, `noConflict`, `now`, `parseInt`,
+ * `pop`, `random`, `reduce`, `reduceRight`, `result`, `shift`, `size`, `some`,
+ * `sortedIndex`, `runInContext`, `template`, `trim`, `trimLeft`, `trimRight`,
+ * `unescape`, `uniqueId`, and `value`
  *
  * The wrapper functions `first`, `last`, and `sample` return wrapped values
  * when `n` is provided, otherwise they return unwrapped values.
@@ -118,7 +118,7 @@ mixin = (function(func) {
         options = source;
       }
       source = object;
-      object = lodash;
+      object = this;
     }
     return func(object, source, options);
   };
@@ -172,6 +172,7 @@ lodash.max = collections.max;
 lodash.memoize = functions.memoize;
 lodash.merge = objects.merge;
 lodash.min = collections.min;
+lodash.mixin = mixin;
 lodash.negate = functions.negate;
 lodash.omit = objects.omit;
 lodash.once = functions.once;
@@ -220,7 +221,7 @@ lodash.unique = arrays.uniq;
 lodash.unzip = arrays.zip;
 
 // add functions to `lodash.prototype`
-mixin(assign({}, lodash));
+mixin(lodash, assign({}, lodash));
 
 // add functions that return unwrapped values when chaining
 lodash.camelCase = strings.camelCase;
@@ -262,7 +263,6 @@ lodash.isString = objects.isString;
 lodash.isUndefined = objects.isUndefined;
 lodash.kebabCase = strings.kebabCase;
 lodash.lastIndexOf = arrays.lastIndexOf;
-lodash.mixin = mixin;
 lodash.noConflict = utilities.noConflict;
 lodash.noop = utilities.noop;
 lodash.now = utilities.now;
@@ -297,7 +297,7 @@ lodash.foldr = collections.reduceRight;
 lodash.include = collections.contains;
 lodash.inject = collections.reduce;
 
-mixin(function() {
+mixin(lodash, function() {
   var source = {}
   baseForOwn(lodash, function(func, methodName) {
     if (!lodash.prototype[methodName]) {
