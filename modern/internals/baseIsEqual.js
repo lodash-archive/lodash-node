@@ -166,6 +166,9 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
               break;
             }
           }
+          if (!result) {
+            break;
+          }
         } else if (!(result = baseIsEqual(value[size], othValue, callback, isWhere, stackA, stackB))) {
           break;
         }
