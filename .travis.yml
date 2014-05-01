@@ -21,7 +21,7 @@ branches:
     - master
 before_install:
   - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash"
-  - "[ $ISTANBUL == false ]  || (npm i -g coveralls@\"~2.10.0\" && npm i istanbul@\"~0.2.0\")"
+  - "[ $ISTANBUL == false ]  || (npm i -g coveralls@\"^2.10.0\" && npm i istanbul@\"^0.2.0\")"
 script:
   - "[ $ISTANBUL == false ] || (nvm use 0.11 && node --harmony ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js)"
   - "[ $ISTANBUL == true ]  && nvm use 0.10 && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage || true"
