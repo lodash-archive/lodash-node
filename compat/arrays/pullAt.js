@@ -6,7 +6,8 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseCompareAscending = require('../internals/baseCompareAscending'),
+var baseAt = require('../internals/baseAt'),
+    baseCompareAscending = require('../internals/baseCompareAscending'),
     baseFlatten = require('../internals/baseFlatten');
 
 /** Used for native method references */
@@ -20,7 +21,7 @@ var splice = arrayRef.splice;
  * returns an array of removed elements. Indexes may be specified as an array
  * of indexes or as individual arguments.
  *
- * Note: Like `_.pull`, this method mutates `array`.
+ * Note: Unlike `_.at`, this method mutates `array`.
  *
  * @static
  * @memberOf _
@@ -41,21 +42,16 @@ var splice = arrayRef.splice;
  * // => [10, 20]
  */
 function pullAt(array) {
-  var previous,
-      index = -1,
-      removals = baseFlatten(arguments, true, false, 1),
-      length = removals.length,
-      result = Array(length);
+  var indexes = baseFlatten(arguments, true, false, 1),
+      length = indexes.length,
+      result = baseAt(array, indexes);
 
-  while (++index < length) {
-    result[index] = array[removals[index]];
-  }
-  removals.sort(baseCompareAscending);
+  indexes.sort(baseCompareAscending);
   while (length--) {
-    var removal = removals[length];
-    if (removal != previous) {
-      splice.call(array, removal, 1);
-      previous = removal;
+    var index = indexes[length];
+    if (index != previous) {
+      var previous = index;
+      splice.call(array, index, 1);
     }
   }
   return result;
