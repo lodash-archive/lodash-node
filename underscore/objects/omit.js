@@ -45,7 +45,7 @@ function omit(object) {
   while (length--) {
     omitProps[length] = String(omitProps[length]);
   }
-  return pick(object, baseDifference(keysIn(object),  omitProps));
+  return pick(object, baseDifference(keysIn(object), omitProps));
 }
 
 module.exports = omit;
