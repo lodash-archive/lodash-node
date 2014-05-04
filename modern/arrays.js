@@ -26,6 +26,7 @@ module.exports = {
   'lastIndexOf': require('./arrays/lastIndexOf'),
   'object': require('./arrays/zipObject'),
   'pull': require('./arrays/pull'),
+  'pullAt': require('./arrays/pullAt'),
   'range': require('./arrays/range'),
   'remove': require('./arrays/remove'),
   'rest': require('./arrays/rest'),
