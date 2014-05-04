@@ -23,7 +23,7 @@ var baseFlatten = require('../internals/baseFlatten'),
  * @memberOf _
  * @category Objects
  * @param {Object} object The source object.
- * @param {Function|...string|string[]} [predicate] The function called per
+ * @param {Function|...(string|string[])} [predicate] The function called per
  *  iteration or property names to pick, specified as individual property
  *  names or arrays of property names.
  * @param {*} [thisArg] The `this` binding of `predicate`.

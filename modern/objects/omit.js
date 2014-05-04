@@ -25,7 +25,7 @@ var baseDifference = require('../internals/baseDifference'),
  * @memberOf _
  * @category Objects
  * @param {Object} object The source object.
- * @param {Function|...string|string[]} [predicate] The function called per
+ * @param {Function|...(string|string[])} [predicate] The function called per
  *  iteration or property names to omit, specified as individual property
  *  names or arrays of property names.
  * @param {*} [thisArg] The `this` binding of `predicate`.
