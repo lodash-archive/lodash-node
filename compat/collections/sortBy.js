@@ -6,30 +6,10 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseEach = require('../internals/baseEach'),
+var baseCompareAscending = require('../internals/baseCompareAscending'),
+    baseEach = require('../internals/baseEach'),
     createCallback = require('../functions/createCallback'),
     isArray = require('../objects/isArray');
-
-/**
- * The base implementation of `compareAscending` used to compare values and
- * sort them in ascending order without guaranteeing a stable sort.
- *
- * @private
- * @param {*} value The value to compare to `other`.
- * @param {*} other The value to compare to `value`.
- * @returns {number} Returns the sort order indicator for `value`.
- */
-function baseCompareAscending(value, other) {
-  if (value !== other) {
-    if (value > other || typeof value == 'undefined') {
-      return 1;
-    }
-    if (value < other || typeof other == 'undefined') {
-      return -1;
-    }
-  }
-  return 0;
-}
 
 /**
  * Used by `_.sortBy` to compare transformed elements of a collection and stable
