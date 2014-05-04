@@ -11,16 +11,16 @@ var baseFlatten = require('../internals/baseFlatten'),
     support = require('../support');
 
 /**
- * Creates an array of elements from the specified indexes, or keys, of the
- * `collection`. Indexes may be specified as individual arguments or as arrays
- * of indexes.
+ * Creates an array of elements corresponding to the specified keys, or indexes,
+ * of the collection. Keys may be specified as individual arguments or as arrays
+ * of keys.
  *
  * @static
  * @memberOf _
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
- * @param {...(number|number[]|string|string[])} [index] The indexes to retrieve,
- *  specified as individual indexes or arrays of indexes.
+ * @param {...(number|number[]|string|string[])} [keys] The keys of elements
+ *  to pick, specified as individual keys or arrays of keys.
  * @returns {Array} Returns the array of picked elements.
  * @example
  *
@@ -30,17 +30,11 @@ var baseFlatten = require('../internals/baseFlatten'),
  * _.at(['fred', 'barney', 'pebbles'], 0, 2);
  * // => ['fred', 'pebbles']
  */
-function at(collection, guard) {
-  var args = arguments,
-      index = -1,
-      props = baseFlatten(args, true, false, 1),
-      length = props.length,
-      type = typeof guard;
+function at(collection) {
+  var index = -1,
+      props = baseFlatten(arguments, true, false, 1),
+      length = props.length;
 
-  // enables use as a callback for functions like `_.map`
-  if ((type == 'number' || type == 'string') && args[2] && args[2][guard] === collection) {
-    length = 1;
-  }
   if (support.unindexedChars && isString(collection)) {
     collection = collection.split('');
   }
