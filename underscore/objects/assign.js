@@ -19,7 +19,7 @@
  * @alias extend
  * @category Objects
  * @param {Object} object The destination object.
- * @param {...Object} [source] The source objects.
+ * @param {...Object} [sources] The source objects.
  * @param {Function} [callback] The function to customize assigning values.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {Object} Returns the destination object.
