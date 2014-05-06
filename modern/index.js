@@ -317,7 +317,7 @@ lodash.takeRight = arrays.takeRight;
 lodash.takeRightWhile = arrays.takeRightWhile;
 lodash.takeWhile = arrays.takeWhile;
 
-// add aliases
+// add alias
 lodash.head = arrays.first;
 
 baseForOwn(lodash, function(func, methodName) {
@@ -342,6 +342,9 @@ baseForOwn(lodash, function(func, methodName) {
  * @type string
  */
 lodash.VERSION = version;
+
+lodash.support = support;
+(lodash.templateSettings = utilities.templateSettings).imports._ = lodash;
 
 // add "Chaining" functions to the wrapper
 lodash.prototype.chain = chaining.wrapperChain;
@@ -380,6 +383,4 @@ arrayEach(['concat', 'splice'], function(methodName) {
   };
 });
 
-lodash.support = support;
-(lodash.templateSettings = utilities.templateSettings).imports._ = lodash;
 module.exports = lodash;

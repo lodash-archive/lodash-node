@@ -235,7 +235,7 @@ lodash.last = arrays.last;
 lodash.sample = collections.sample;
 lodash.take = arrays.take;
 
-// add aliases
+// add alias
 lodash.head = arrays.first;
 
 // add functions to `lodash.prototype`
@@ -249,6 +249,9 @@ mixin(assign({}, lodash));
  * @type string
  */
 lodash.VERSION = version;
+
+lodash.support = support;
+(lodash.templateSettings = utilities.templateSettings).imports._ = lodash;
 
 // add "Chaining" functions to the wrapper
 lodash.prototype.chain = chaining.wrapperChain;
@@ -285,6 +288,4 @@ arrayEach(['concat', 'join', 'slice'], function(methodName) {
   };
 });
 
-lodash.support = support;
-(lodash.templateSettings = utilities.templateSettings).imports._ = lodash;
 module.exports = lodash;
