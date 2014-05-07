@@ -40,19 +40,17 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * fibonacci(9)
  * // => 34
  *
- * var data = {
- *   'fred': { 'name': 'fred', 'age': 40 },
- *   'pebbles': { 'name': 'pebbles', 'age': 1 }
- * };
- *
  * // modifying the result cache
- * var get = _.memoize(function(name) { return data[name]; }, _.identity);
- * get('pebbles');
- * // => { 'name': 'pebbles', 'age': 1 }
+ * var upperCase = _.memoize(function(string) {
+ *   return string.toUpperCase();
+ * });
  *
- * get.cache.pebbles.name = 'penelope';
- * get('pebbles');
- * // => { 'name': 'penelope', 'age': 1 }
+ * upperCase('fred');
+ * // => 'FRED'
+ *
+ * upperCase.cache.fred = 'BARNEY'
+ * upperCase('fred');
+ * // => 'BARNEY'
  */
 function memoize(func, resolver) {
   if (!isFunction(func) || (resolver && !isFunction(resolver))) {
