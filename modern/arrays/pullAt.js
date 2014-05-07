@@ -33,7 +33,7 @@ var splice = arrayRef.splice;
  * @example
  *
  * var array = [5, 10, 15, 20];
- * var evens = _.removeAt(array, [1, 3]);
+ * var evens = _.pullAt(array, [1, 3]);
  *
  * console.log(array);
  * // => [5, 15]
@@ -48,8 +48,8 @@ function pullAt(array) {
 
   indexes.sort(baseCompareAscending);
   while (length--) {
-    var index = indexes[length];
-    if (index != previous) {
+    var index = parseFloat(indexes[length]);
+    if (index != previous && index > -1 && index % 1 == 0) {
       var previous = index;
       splice.call(array, index, 1);
     }
