@@ -59,9 +59,11 @@ function memoize(func, resolver) {
     throw new TypeError(funcErrorText);
   }
   var memoized = function() {
-    var cache = memoized.cache,
-        key = resolver ? resolver.apply(this, arguments) : '_' + arguments[0];
-
+    var key = resolver ? resolver.apply(this, arguments) : arguments[0];
+    if (key == '__proto__') {
+      return func.apply(this, arguments);
+    }
+    var cache = memoized.cache;
     return hasOwnProperty.call(cache, key)
       ? cache[key]
       : (cache[key] = func.apply(this, arguments));
