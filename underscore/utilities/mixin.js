@@ -16,8 +16,9 @@ var arrayRef = Array.prototype;
 var push = arrayRef.push;
 
 /**
- * Adds function properties of a source object to the destination object.
- * If `object` is a function methods will be added to its prototype as well.
+ * Adds all own enumerable function properties of a source object to the
+ * destination object. If `object` is a function methods will be added to
+ * its prototype as well.
  *
  * @static
  * @memberOf _
