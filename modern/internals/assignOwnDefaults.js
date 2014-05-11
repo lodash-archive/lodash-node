@@ -7,8 +7,17 @@
  * Available under MIT license <http://lodash.com/license>
  */
 
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
 /**
- * Used by `defaultsOwn` to customize its `_.assign` use.
+ * Used by `_.template` to customize its `_.assign` use.
+ *
+ * Note: This method is like `assignDefaults` except that it ignores
+ * inherited property values when checking if a property is `undefined`.
  *
  * @private
  * @param {*} objectValue The destination object property value.
@@ -17,16 +26,10 @@
  * @param {Object} object The destination object.
  * @returns {*} Returns the value to assign to the destination object.
  */
-function assignDefaultsOwn(objectValue, sourceValue, key, object) {
+function assignOwnDefaults(objectValue, sourceValue, key, object) {
   return (!hasOwnProperty.call(object, key) || typeof objectValue == 'undefined')
     ? sourceValue
     : objectValue
 }
 
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-module.exports = assignDefaultsOwn;
+module.exports = assignOwnDefaults;

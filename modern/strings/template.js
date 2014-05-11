@@ -6,7 +6,7 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var createAssigner = require('../internals/createAssigner'),
+var assign = require('../objects/assign'),
     escape = require('../utilities/escape'),
     keys = require('../objects/keys'),
     reInterpolate = require('../internals/reInterpolate'),
@@ -42,22 +42,6 @@ var stringEscapes = {
 };
 
 /**
- * Used by `defaultsOwn` to customize its `_.assign` use.
- *
- * @private
- * @param {*} objectValue The destination object property value.
- * @param {*} sourceValue The source object property value.
- * @param {string} key The key associated with the object and source values.
- * @param {Object} object The destination object.
- * @returns {*} Returns the value to assign to the destination object.
- */
-function assignDefaultsOwn(objectValue, sourceValue, key, object) {
-  return (!hasOwnProperty.call(object, key) || typeof objectValue == 'undefined')
-    ? sourceValue
-    : objectValue
-}
-
-/**
  * Used by `_.template` to escape characters for inclusion in compiled
  * string literals.
  *
@@ -76,15 +60,23 @@ var objectProto = Object.prototype;
 var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
- * This method is like `_.defaults` except that it ignores inherited
- * property values when checking if a property is `undefined`.
+ * Used by `_.template` to customize its `_.assign` use.
+ *
+ * Note: This method is like `assignDefaults` except that it ignores
+ * inherited property values when checking if a property is `undefined`.
  *
  * @private
+ * @param {*} objectValue The destination object property value.
+ * @param {*} sourceValue The source object property value.
+ * @param {string} key The key associated with the object and source values.
  * @param {Object} object The destination object.
- * @param {...Object} [sources] The source objects.
- * @returns {Object} Returns the destination object.
+ * @returns {*} Returns the value to assign to the destination object.
  */
-var defaultsOwn = createAssigner(assignDefaultsOwn);
+function assignOwnDefaults(objectValue, sourceValue, key, object) {
+  return (!hasOwnProperty.call(object, key) || typeof objectValue == 'undefined')
+    ? sourceValue
+    : objectValue
+}
 
 /**
  * Creates a compiled template function that can interpolate data properties
@@ -181,10 +173,10 @@ function template(string, data, options) {
   // and Laura Doktorova's doT.js
   // https://github.com/olado/doT
   var settings = templateSettings.imports._.templateSettings || templateSettings;
-  options = defaultsOwn({}, options, settings);
+  options = assign({}, options, settings, assignOwnDefaults);
   string = String(string == null ? '' : string);
 
-  var imports = defaultsOwn({}, options.imports, settings.imports),
+  var imports = assign({}, options.imports, settings.imports, assignOwnDefaults),
       importsKeys = keys(imports),
       importsValues = values(imports);
 
