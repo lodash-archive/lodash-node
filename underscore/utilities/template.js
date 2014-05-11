@@ -6,8 +6,9 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var defaults = require('../objects/defaults'),
+var assign = require('../objects/assign'),
     escape = require('./escape'),
+    slice = require('../arrays/slice'),
     templateSettings = require('./templateSettings');
 
 /** Used to ensure capturing order of template delimiters */
@@ -27,6 +28,22 @@ var stringEscapes = {
 };
 
 /**
+ * Used by `defaultsOwn` to customize its `_.assign` use.
+ *
+ * @private
+ * @param {*} objectValue The destination object property value.
+ * @param {*} sourceValue The source object property value.
+ * @param {string} key The key associated with the object and source values.
+ * @param {Object} object The destination object.
+ * @returns {*} Returns the value to assign to the destination object.
+ */
+function assignDefaultsOwn(objectValue, sourceValue, key, object) {
+  return (!hasOwnProperty.call(object, key) || typeof objectValue == 'undefined')
+    ? sourceValue
+    : objectValue
+}
+
+/**
  * Used by `_.template` to escape characters for inclusion in compiled
  * string literals.
  *
@@ -37,6 +54,44 @@ var stringEscapes = {
 function escapeStringChar(chr) {
   return '\\' + stringEscapes[chr];
 }
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Creates a function that assigns own enumerable properties of source
+ * object(s) to the destination object executing the callback to produce
+ * the assigned values. The callback is invoked with five arguments;
+ * (objectValue, sourceValue, key, object, source).
+ *
+ * @private
+ * @param {Function} [callback] The function to customize assigning values.
+ * @returns {Function} Returns the new assigner function.
+ */
+function createAssigner(callback) {
+  return function(object) {
+    if (!object) {
+      return object;
+    }
+    var args = slice(arguments);
+    args.push(callback);
+    return assign.apply(null, args);
+  };
+}
+
+/**
+ * This method is like `_.defaults` except that it ignores inherited
+ * property values when checking if a property is `undefined`.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns the destination object.
+ */
+var defaultsOwn = createAssigner(assignDefaultsOwn);
 
 /**
  * Creates a compiled template function that can interpolate data properties

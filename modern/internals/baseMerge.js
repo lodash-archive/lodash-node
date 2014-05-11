@@ -23,17 +23,17 @@ var arrayEach = require('./arrayEach'),
  * @param {Array} [stackB=[]] Associates values with source counterparts.
  */
 function baseMerge(object, source, callback, stackA, stackB) {
-  (isArray(source) ? arrayEach : baseForOwn)(source, function(source, key) {
+  (isArray(source) ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
     var found,
         isArr,
-        result = source,
+        result = srcValue,
         value = object[key];
 
-    if (source && ((isArr = isArray(source)) || isPlainObject(source))) {
+    if (srcValue && ((isArr = isArray(srcValue)) || isPlainObject(srcValue))) {
       // avoid merging previously merged cyclic sources
       var stackLength = stackA.length;
       while (stackLength--) {
-        if ((found = stackA[stackLength] == source)) {
+        if ((found = stackA[stackLength] == srcValue)) {
           value = stackB[stackLength];
           break;
         }
@@ -41,7 +41,7 @@ function baseMerge(object, source, callback, stackA, stackB) {
       if (!found) {
         var isShallow;
         if (callback) {
-          result = callback(value, source);
+          result = callback(value, srcValue, key, object, source);
           if ((isShallow = typeof result != 'undefined')) {
             value = result;
           }
@@ -52,20 +52,20 @@ function baseMerge(object, source, callback, stackA, stackB) {
             : (isPlainObject(value) ? value : {});
         }
         // add `source` and associated `value` to the stack of traversed objects
-        stackA.push(source);
+        stackA.push(srcValue);
         stackB.push(value);
 
         // recursively merge objects and arrays (susceptible to call stack limits)
         if (!isShallow) {
-          baseMerge(value, source, callback, stackA, stackB);
+          baseMerge(value, srcValue, callback, stackA, stackB);
         }
       }
     }
     else {
       if (callback) {
-        result = callback(value, source);
+        result = callback(value, srcValue, key, object, source);
         if (typeof result == 'undefined') {
-          result = source;
+          result = srcValue;
         }
       }
       if (typeof result != 'undefined') {

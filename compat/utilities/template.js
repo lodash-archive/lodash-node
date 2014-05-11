@@ -6,7 +6,7 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var defaults = require('../objects/defaults'),
+var createAssigner = require('../internals/createAssigner'),
     escape = require('./escape'),
     keys = require('../objects/keys'),
     reInterpolate = require('../internals/reInterpolate'),
@@ -42,6 +42,22 @@ var stringEscapes = {
 };
 
 /**
+ * Used by `defaultsOwn` to customize its `_.assign` use.
+ *
+ * @private
+ * @param {*} objectValue The destination object property value.
+ * @param {*} sourceValue The source object property value.
+ * @param {string} key The key associated with the object and source values.
+ * @param {Object} object The destination object.
+ * @returns {*} Returns the value to assign to the destination object.
+ */
+function assignDefaultsOwn(objectValue, sourceValue, key, object) {
+  return (!hasOwnProperty.call(object, key) || typeof objectValue == 'undefined')
+    ? sourceValue
+    : objectValue
+}
+
+/**
  * Used by `_.template` to escape characters for inclusion in compiled
  * string literals.
  *
@@ -52,6 +68,23 @@ var stringEscapes = {
 function escapeStringChar(chr) {
   return '\\' + stringEscapes[chr];
 }
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * This method is like `_.defaults` except that it ignores inherited
+ * property values when checking if a property is `undefined`.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns the destination object.
+ */
+var defaultsOwn = createAssigner(assignDefaultsOwn);
 
 /**
  * Creates a compiled template function that can interpolate data properties
@@ -148,10 +181,10 @@ function template(string, data, options) {
   // and Laura Doktorova's doT.js
   // https://github.com/olado/doT
   var settings = templateSettings.imports._.templateSettings || templateSettings;
-  options = defaults({}, options, settings);
+  options = defaultsOwn({}, options, settings);
   string = String(string == null ? '' : string);
 
-  var imports = defaults({}, options.imports, settings.imports),
+  var imports = defaultsOwn({}, options.imports, settings.imports),
       importsKeys = keys(imports),
       importsValues = values(imports);
 
