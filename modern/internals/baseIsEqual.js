@@ -42,11 +42,9 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
  */
 function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
-  if (callback) {
-    var result = callback(value, other);
-    if (typeof result != 'undefined') {
-      return !!result;
-    }
+  var result = callback ? callback(value, other) : undefined;
+  if (typeof result != 'undefined') {
+    return !!result;
   }
   // exit early for identical values
   if (value === other) {
@@ -166,10 +164,13 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
               break;
             }
           }
-          if (!result) {
-            break;
-          }
-        } else if (!(result = baseIsEqual(value[size], othValue, callback, isWhere, stackA, stackB))) {
+        } else {
+          result = callback ? callback(value, other, key) : undefined;
+          result = typeof result == 'undefined'
+            ? baseIsEqual(value[size], othValue, callback, isWhere, stackA, stackB)
+            : !!result;
+        }
+        if (!result) {
           break;
         }
       }
@@ -180,10 +181,17 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
     // which, in this case, is more costly
     baseForIn(other, function(othValue, key, other) {
       if (hasOwnProperty.call(other, key)) {
-        // count the number of properties.
+        result = false;
+        // count the number of properties
         size++;
-        // deep compare each property value.
-        return (result = hasOwnProperty.call(value, key) && baseIsEqual(value[key], othValue, callback, isWhere, stackA, stackB));
+        // deep compare each property value
+        if (hasOwnProperty.call(value, key)) {
+          result = callback ? callback(value, other, key) : undefined;
+          result = typeof result == 'undefined'
+            ? baseIsEqual(value[key], othValue, callback, isWhere, stackA, stackB)
+            : !!result;
+        }
+        return result;
       }
     });
 

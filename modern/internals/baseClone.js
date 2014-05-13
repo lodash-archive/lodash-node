@@ -68,11 +68,9 @@ ctorByClass[stringClass] = String;
  * @returns {*} Returns the cloned value.
  */
 function baseClone(value, isDeep, callback, stackA, stackB) {
-  if (callback) {
-    var result = callback(value);
-    if (typeof result != 'undefined') {
-      return result;
-    }
+  var result = callback ? callback(value) : undefined;
+  if (typeof result != 'undefined') {
+    return result;
   }
   var isObj = isObject(value);
   if (isObj) {
@@ -135,7 +133,10 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
 
   // recursively populate clone (susceptible to call stack limits)
   (isArr ? arrayEach : baseForOwn)(value, function(valValue, key) {
-    result[key] = baseClone(valValue, isDeep, callback, stackA, stackB);
+    var valClone = callback ? callback(valValue, key) : undefined;
+    result[key] = typeof valClone == 'undefined'
+      ? baseClone(valValue, isDeep, null, stackA, stackB)
+      : valClone;
   });
 
   return result;
