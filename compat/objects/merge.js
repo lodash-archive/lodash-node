@@ -26,53 +26,46 @@ var arrayEach = require('../internals/arrayEach'),
  */
 function baseMerge(object, source, callback, stackA, stackB) {
   (isArray(source) ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
-    var found,
-        isArr,
-        result = srcValue,
+    var isArr = srcValue && isArray(srcValue),
+        isObj = srcValue && isPlainObject(srcValue),
         value = object[key];
 
-    if (srcValue && ((isArr = isArray(srcValue)) || isPlainObject(srcValue))) {
-      // avoid merging previously merged cyclic sources
-      var stackLength = stackA.length;
-      while (stackLength--) {
-        if ((found = stackA[stackLength] == srcValue)) {
-          value = stackB[stackLength];
-          break;
-        }
-      }
-      if (!found) {
-        var isShallow;
-        if (callback) {
-          result = callback(value, srcValue, key, object, source);
-          if ((isShallow = typeof result != 'undefined')) {
-            value = result;
-          }
-        }
-        if (!isShallow) {
-          value = isArr
-            ? (isArray(value) ? value : [])
-            : (isPlainObject(value) ? value : {});
-        }
-        // add `source` and associated `value` to the stack of traversed objects
-        stackA.push(srcValue);
-        stackB.push(value);
-
-        // recursively merge objects and arrays (susceptible to call stack limits)
-        if (!isShallow) {
-          baseMerge(value, srcValue, callback, stackA, stackB);
-        }
-      }
-    }
-    else {
-      if (callback) {
-        result = callback(value, srcValue, key, object, source);
-        if (typeof result == 'undefined') {
-          result = srcValue;
-        }
+    if (!(isArr || isObj)) {
+      result = callback ? callback(value, srcValue, key, object, source) : undefined;
+      if (typeof result == 'undefined') {
+        result = srcValue;
       }
       if (typeof result != 'undefined') {
         value = result;
       }
+      object[key] = value;
+      return;
+    }
+    // avoid merging previously merged cyclic sources
+    var length = stackA.length;
+    while (length--) {
+      if (stackA[length] == srcValue) {
+        object[key] = stackB[length];
+        return;
+      }
+    }
+    var result = callback ? callback(value, srcValue, key, object, source) : undefined,
+        isShallow = typeof result != 'undefined';
+
+    if (isShallow) {
+      value = result;
+    } else {
+      value = isArr
+        ? (isArray(value) ? value : [])
+        : (isPlainObject(value) ? value : {});
+    }
+    // add `source` and associated `value` to the stack of traversed objects
+    stackA.push(srcValue);
+    stackB.push(value);
+
+    // recursively merge objects and arrays (susceptible to call stack limits)
+    if (!isShallow) {
+      baseMerge(value, srcValue, callback, stackA, stackB);
     }
     object[key] = value;
   });
