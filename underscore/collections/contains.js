@@ -17,8 +17,8 @@ var baseIndexOf = require('../internals/baseIndexOf'),
 var maxSafeInteger = Math.pow(2, 53) - 1;
 
 /**
- * Checks if a given value is present in a collection using strict equality
- * for comparisons, i.e. `===`. If `fromIndex` is negative, it is used as the
+ * Checks if `value` is present in `collection` using strict equality for
+ * comparisons, i.e. `===`. If `fromIndex` is negative, it is used as the
  * offset from the end of the collection.
  *
  * @static
