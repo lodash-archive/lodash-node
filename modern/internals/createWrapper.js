@@ -28,11 +28,11 @@ var expando = '__lodash@' + version + '__';
 var funcErrorText = 'Expected a function';
 
 /** Used for native method references */
-var arrayRef = Array.prototype;
+var arrayProto = Array.prototype;
 
 /** Native method shortcuts */
-var push = arrayRef.push,
-    unshift = arrayRef.unshift;
+var push = arrayProto.push,
+    unshift = arrayProto.unshift;
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
 var nativeMax = Math.max;

@@ -8,10 +8,10 @@
  */
 
 /** Used for native method references */
-var arrayRef = Array.prototype;
+var arrayProto = Array.prototype;
 
 /** Native method shortcuts */
-var splice = arrayRef.splice;
+var splice = arrayProto.splice;
 
 /**
  * An object used to flag environments features.

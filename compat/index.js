@@ -28,7 +28,7 @@ var arrays = require('./arrays'),
 var version = '2.4.1';
 
 /** Used for native method references */
-var arrayRef = Array.prototype,
+var arrayProto = Array.prototype,
     objectProto = Object.prototype;
 
 /** Native method shortcuts */
@@ -356,7 +356,7 @@ lodash.prototype.valueOf = chaining.wrapperValueOf;
 
 // add `Array` functions that return unwrapped values
 arrayEach(['join', 'pop', 'shift'], function(methodName) {
-  var func = arrayRef[methodName];
+  var func = arrayProto[methodName];
   lodash.prototype[methodName] = function() {
     var chainAll = this.__chain__,
         result = func.apply(this.__wrapped__, arguments);
@@ -369,7 +369,7 @@ arrayEach(['join', 'pop', 'shift'], function(methodName) {
 
 // add `Array` functions that return the existing wrapped value
 arrayEach(['push', 'reverse', 'sort', 'unshift'], function(methodName) {
-  var func = arrayRef[methodName];
+  var func = arrayProto[methodName];
   lodash.prototype[methodName] = function() {
     func.apply(this.__wrapped__, arguments);
     return this;
@@ -378,7 +378,7 @@ arrayEach(['push', 'reverse', 'sort', 'unshift'], function(methodName) {
 
 // add `Array` functions that return new wrapped values
 arrayEach(['concat', 'splice'], function(methodName) {
-  var func = arrayRef[methodName];
+  var func = arrayProto[methodName];
   lodash.prototype[methodName] = function() {
     return new lodashWrapper(func.apply(this.__wrapped__, arguments), this.__chain__);
   };
@@ -388,7 +388,7 @@ arrayEach(['concat', 'splice'], function(methodName) {
 // in IE < 9, Firefox < 10, Narwhal, and RingoJS
 if (!support.spliceObjects) {
   arrayEach(['pop', 'shift', 'splice'], function(methodName) {
-    var func = arrayRef[methodName],
+    var func = arrayProto[methodName],
         isSplice = methodName == 'splice';
 
     lodash.prototype[methodName] = function() {

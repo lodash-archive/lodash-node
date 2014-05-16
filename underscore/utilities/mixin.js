@@ -10,10 +10,10 @@ var functions = require('../objects/functions'),
     isFunction = require('../objects/isFunction');
 
 /** Used for native method references */
-var arrayRef = Array.prototype;
+var arrayProto = Array.prototype;
 
 /** Native method shortcuts */
-var push = arrayRef.push;
+var push = arrayProto.push;
 
 /**
  * Adds all own enumerable function properties of a source object to the
