@@ -300,7 +300,7 @@ lodash.include = collections.contains;
 lodash.inject = collections.reduce;
 
 mixin(lodash, (function() {
-  var source = {}
+  var source = {};
   baseForOwn(lodash, function(func, methodName) {
     if (!lodash.prototype[methodName]) {
       source[methodName] = func;
@@ -322,9 +322,9 @@ lodash.takeWhile = arrays.takeWhile;
 lodash.head = arrays.first;
 
 baseForOwn(lodash, function(func, methodName) {
-  var callbackable = methodName !== 'sample';
+  var callbackable = methodName != 'sample';
   if (!lodash.prototype[methodName]) {
-    lodash.prototype[methodName]= function(n, guard) {
+    lodash.prototype[methodName] = function(n, guard) {
       var chainAll = this.__chain__,
           result = func(this.__wrapped__, n, guard);
 
