@@ -12,7 +12,7 @@ var deburrLetter = require('./deburrLetter');
 var reLatin1 = /[\xC0-\xFF]/g;
 
 /** Used to match words to create compound words */
-var reWords = /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[a-z]+|[0-9]+/g;
+var reWords = /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g;
 
 /**
  * Creates a function that produces compound words out of the words in a
