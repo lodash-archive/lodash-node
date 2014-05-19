@@ -29,7 +29,7 @@ var expando = '__lodash@' + version + '__';
  * @memberOf _
  * @category Functions
  * @param {Function} func The function to partially apply arguments to.
- * @param {...*} [args] Arguments to be partially applied.
+ * @param {...*} [args] The arguments to be partially applied.
  * @returns {Function} Returns the new partially applied function.
  * @example
  *

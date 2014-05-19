@@ -31,7 +31,7 @@ var fnToString = Function.prototype.toString;
 
 /**
  * The base implementation of `_.createCallback` without support for creating
- * "_.pluck" or "_.where" style callbacks.
+ * "_.pluck" and "_.where" style callbacks.
  *
  * @private
  * @param {*} [func=identity] The value to convert to a callback.

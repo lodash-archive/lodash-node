@@ -27,7 +27,7 @@ var BIND_FLAG = 1,
  * @category Functions
  * @param {Object} object The object the method belongs to.
  * @param {string} key The key of the method.
- * @param {...*} [args] Arguments to be partially applied.
+ * @param {...*} [args] The arguments to be partially applied.
  * @returns {Function} Returns the new bound function.
  * @example
  *

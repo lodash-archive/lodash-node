@@ -20,7 +20,7 @@ var funcErrorText = 'Expected a function';
  * @memberOf _
  * @category Functions
  * @param {Function} func The function to defer.
- * @param {...*} [args] Arguments to invoke the function with.
+ * @param {...*} [args] The arguments to invoke the function with.
  * @returns {number} Returns the timer id.
  * @example
  *

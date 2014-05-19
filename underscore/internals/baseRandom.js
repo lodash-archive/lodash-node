@@ -14,8 +14,8 @@ var floor = Math.floor;
 var nativeRandom = Math.random;
 
 /**
- * The base implementation of `_.random` without argument juggling or support
- * for returning floating-point numbers.
+ * The base implementation of `_.random` without support for argument juggling
+ * and returning floating-point numbers.
  *
  * @private
  * @param {number} min The minimum possible value.

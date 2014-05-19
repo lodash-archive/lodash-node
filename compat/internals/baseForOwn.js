@@ -11,7 +11,7 @@ var baseFor = require('./baseFor'),
 
 /**
  * The base implementation of `_.forOwn` without support for callback
- * shorthands or `this` binding.
+ * shorthands and `this` binding.
  *
  * @private
  * @param {Object} object The object to iterate over.

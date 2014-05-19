@@ -8,8 +8,8 @@
  */
 
 /**
- * The base implementation of `_.at` without support for strings or individual
- * key arguments.
+ * The base implementation of `_.at` without support for strings and
+ * individual key arguments.
  *
  * @private
  * @param {Array|Object} collection The collection to iterate over.
