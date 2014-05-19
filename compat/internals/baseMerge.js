@@ -12,8 +12,8 @@ var arrayEach = require('./arrayEach'),
     isPlainObject = require('../objects/isPlainObject');
 
 /**
- * The base implementation of `_.merge` without argument juggling or support
- * for `this` binding.
+ * The base implementation of `_.merge` without support for argument juggling,
+ * multiple sources, and `this` binding.
  *
  * @private
  * @param {Object} object The destination object.
@@ -21,8 +21,12 @@ var arrayEach = require('./arrayEach'),
  * @param {Function} [callback] The function to customize merging properties.
  * @param {Array} [stackA=[]] Tracks traversed source objects.
  * @param {Array} [stackB=[]] Associates values with source counterparts.
+ * @returns {Object} Returns the destination object.
  */
 function baseMerge(object, source, callback, stackA, stackB) {
+  if (!object) {
+    return object;
+  }
   (isArray(source) ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
     var isArr = srcValue && isArray(srcValue),
         isObj = srcValue && isPlainObject(srcValue),
@@ -40,6 +44,9 @@ function baseMerge(object, source, callback, stackA, stackB) {
       return;
     }
     // avoid merging previously merged cyclic sources
+    stackA || (stackA = []);
+    stackB || (stackB = []);
+
     var length = stackA.length;
     while (length--) {
       if (stackA[length] == srcValue) {
@@ -67,6 +74,8 @@ function baseMerge(object, source, callback, stackA, stackB) {
     }
     object[key] = value;
   });
+
+  return object;
 }
 
 module.exports = baseMerge;

@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var baseFlatten = require('../internals/baseFlatten'),
-    baseForIn = require('../internals/baseForIn'),
+    basePick = require('../internals/basePick'),
     createCallback = require('../functions/createCallback'),
     isObject = require('./isObject');
 
@@ -39,28 +39,12 @@ var baseFlatten = require('../internals/baseFlatten'),
  * // => { 'name': 'fred' }
  */
 function pick(object, predicate, thisArg) {
-  var result = {};
-
-  if (typeof predicate != 'function') {
-    var index = -1,
-        props = baseFlatten(arguments, true, false, 1),
-        length = isObject(object) ? props.length : 0;
-
-    while (++index < length) {
-      var key = props[index];
-      if (key in object) {
-        result[key] = object[key];
-      }
-    }
-  } else {
-    predicate = createCallback(predicate, thisArg, 3);
-    baseForIn(object, function(value, key, object) {
-      if (predicate(value, key, object)) {
-        result[key] = value;
-      }
-    });
+  if (!isObject(object)) {
+    return {};
   }
-  return result;
+  return basePick(object, typeof predicate == 'function'
+    ? createCallback(predicate, thisArg, 3)
+    : baseFlatten(arguments, true, false, 1));
 }
 
 module.exports = pick;

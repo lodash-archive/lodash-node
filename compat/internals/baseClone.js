@@ -7,7 +7,7 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var arrayEach = require('./arrayEach'),
-    assign = require('../objects/assign'),
+    baseAssign = require('./baseAssign'),
     baseForOwn = require('./baseForOwn'),
     isArray = require('../objects/isArray'),
     isNode = require('./isNode'),
@@ -58,8 +58,8 @@ ctorByClass[regexpClass] = RegExp;
 ctorByClass[stringClass] = String;
 
 /**
- * The base implementation of `_.clone` without argument juggling or support
- * for `this` binding.
+ * The base implementation of `_.clone` without support for argument juggling
+ * and `this` binding.
  *
  * @private
  * @param {*} value The value to clone.
@@ -113,7 +113,7 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
     result = isArr ? ctor(value.length) : {};
   }
   else {
-    result = isArr ? slice(value) : assign({}, value);
+    result = isArr ? slice(value) : baseAssign({}, value);
   }
   // add array properties assigned by `RegExp#exec`
   if (isArr) {

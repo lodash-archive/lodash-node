@@ -35,20 +35,20 @@
  * defaults({ 'name': 'barney' }, { 'name': 'fred', 'employer': 'slate' });
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
-function assign(object, source, guard) {
+function assign(object) {
   if (!object) {
     return object;
   }
   var args = arguments,
-      argsIndex = 0,
-      argsLength = args.length,
-      type = typeof guard;
+      index = 0,
+      length = args.length,
+      type = typeof args[2];
 
-  if ((type == 'number' || type == 'string') && args[3] && args[3][guard] === source) {
-    argsLength = 2;
+  if ((type == 'number' || type == 'string') && args[3] && args[3][args[2]] === args[1]) {
+    length = 2;
   }
-  while (++argsIndex < argsLength) {
-    source = args[argsIndex];
+  while (++index < length) {
+    var source = args[index];
     for (var key in source) {
       object[key] = source[key];
     }

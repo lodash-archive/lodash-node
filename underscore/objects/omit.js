@@ -8,8 +8,9 @@
  */
 var baseDifference = require('../internals/baseDifference'),
     baseFlatten = require('../internals/baseFlatten'),
-    keysIn = require('./keysIn'),
-    pick = require('./pick');
+    basePick = require('../internals/basePick'),
+    isObject = require('./isObject'),
+    keysIn = require('./keysIn');
 
 /**
  * Creates a shallow clone of `object` excluding the specified properties.
@@ -39,13 +40,16 @@ var baseDifference = require('../internals/baseDifference'),
  * // => { 'name': 'fred' }
  */
 function omit(object) {
+  if (!isObject(object)) {
+    return {};
+  }
   var omitProps = baseFlatten(arguments, true, false, 1),
       length = omitProps.length;
 
   while (length--) {
     omitProps[length] = String(omitProps[length]);
   }
-  return pick(object, baseDifference(keysIn(object), omitProps));
+  return basePick(object, baseDifference(keysIn(object), omitProps));
 }
 
 module.exports = omit;

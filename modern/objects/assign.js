@@ -6,8 +6,8 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseCreateCallback = require('../internals/baseCreateCallback'),
-    keys = require('./keys');
+var baseAssign = require('../internals/baseAssign'),
+    createAssigner = require('../internals/createAssigner');
 
 /**
  * Assigns own enumerable properties of source object(s) to the destination
@@ -37,37 +37,6 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * defaults({ 'name': 'barney' }, { 'name': 'fred', 'employer': 'slate' });
  * // => { 'name': 'barney', 'employer': 'slate' }
  */
-function assign(object, source, guard) {
-  var args = arguments;
-  if (!object || args.length < 2) {
-    return object;
-  }
-  var argsIndex = 0,
-      argsLength = args.length,
-      type = typeof guard;
-
-  // enables use as a callback for functions like `_.reduce`
-  if ((type == 'number' || type == 'string') && args[3] && args[3][guard] === source) {
-    argsLength = 2;
-  }
-  // juggle arguments
-  if (argsLength > 3 && typeof args[argsLength - 2] == 'function') {
-    var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);
-  } else if (argsLength > 2 && typeof args[argsLength - 1] == 'function') {
-    callback = args[--argsLength];
-  }
-  while (++argsIndex < argsLength) {
-    source = args[argsIndex];
-    var index = -1,
-        props = keys(source),
-        length = props.length;
-
-    while (++index < length) {
-      var key = props[index];
-      object[key] = callback ? callback(object[key], source[key], key, object, source) : source[key];
-    }
-  }
-  return object;
-}
+var assign = createAssigner(baseAssign);
 
 module.exports = assign;

@@ -15,7 +15,7 @@ var arrays = require('./arrays'),
     strings = require('./strings'),
     utilities = require('./utilities'),
     arrayEach = require('./internals/arrayEach'),
-    assign = require('./objects/assign'),
+    baseAssign = require('./internals/baseAssign'),
     lodashWrapper = require('./internals/lodashWrapper'),
     mixin = require('./utilities/mixin'),
     support = require('./support');
@@ -173,7 +173,7 @@ lodash.zip = arrays.zip;
 // add aliases
 lodash.collect = collections.map;
 lodash.each = collections.forEach;
-lodash.extend = assign;
+lodash.extend = objects.assign;
 lodash.methods = objects.functions;
 lodash.object = arrays.zipObject;
 lodash.select = collections.filter;
@@ -239,7 +239,7 @@ lodash.take = arrays.take;
 lodash.head = arrays.first;
 
 // add functions to `lodash.prototype`
-mixin(assign({}, lodash));
+mixin(baseAssign({}, lodash));
 
 /**
  * The semantic version number.

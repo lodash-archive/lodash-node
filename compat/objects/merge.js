@@ -7,15 +7,14 @@
  * Available under MIT license <http://lodash.com/license>
  */
 var arrayEach = require('../internals/arrayEach'),
-    baseCreateCallback = require('../internals/baseCreateCallback'),
     baseForOwn = require('../internals/baseForOwn'),
+    createAssigner = require('../internals/createAssigner'),
     isArray = require('./isArray'),
-    isPlainObject = require('./isPlainObject'),
-    slice = require('../arrays/slice');
+    isPlainObject = require('./isPlainObject');
 
 /**
- * The base implementation of `_.merge` without argument juggling or support
- * for `this` binding.
+ * The base implementation of `_.merge` without support for argument juggling,
+ * multiple sources, and `this` binding.
  *
  * @private
  * @param {Object} object The destination object.
@@ -23,8 +22,12 @@ var arrayEach = require('../internals/arrayEach'),
  * @param {Function} [callback] The function to customize merging properties.
  * @param {Array} [stackA=[]] Tracks traversed source objects.
  * @param {Array} [stackB=[]] Associates values with source counterparts.
+ * @returns {Object} Returns the destination object.
  */
 function baseMerge(object, source, callback, stackA, stackB) {
+  if (!object) {
+    return object;
+  }
   (isArray(source) ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
     var isArr = srcValue && isArray(srcValue),
         isObj = srcValue && isPlainObject(srcValue),
@@ -42,6 +45,9 @@ function baseMerge(object, source, callback, stackA, stackB) {
       return;
     }
     // avoid merging previously merged cyclic sources
+    stackA || (stackA = []);
+    stackB || (stackB = []);
+
     var length = stackA.length;
     while (length--) {
       if (stackA[length] == srcValue) {
@@ -69,6 +75,8 @@ function baseMerge(object, source, callback, stackA, stackB) {
     }
     object[key] = value;
   });
+
+  return object;
 }
 
 /**
@@ -122,33 +130,6 @@ function baseMerge(object, source, callback, stackA, stackB) {
  * });
  * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot] }
  */
-function merge(object, source, guard) {
-  var args = arguments,
-      length = args.length,
-      type = typeof guard;
-
-  if (!object || length < 2) {
-    return object;
-  }
-  // enables use as a callback for functions like `_.reduce`
-  if ((type == 'number' || type == 'string') && args[3] && args[3][guard] === source) {
-    length = 2;
-  }
-  // juggle arguments
-  if (length > 3 && typeof args[length - 2] == 'function') {
-    var callback = baseCreateCallback(args[--length - 1], args[length--], 2);
-  } else if (length > 2 && typeof args[length - 1] == 'function') {
-    callback = args[--length];
-  }
-  var sources = slice(args, 1, length),
-      index = -1,
-      stackA = [],
-      stackB = [];
-
-  while (++index < length) {
-    baseMerge(object, sources[index], callback, stackA, stackB);
-  }
-  return object;
-}
+var merge = createAssigner(baseMerge);
 
 module.exports = merge;

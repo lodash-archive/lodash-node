@@ -6,7 +6,7 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var assign = require('./assign'),
+var baseAssign = require('../internals/baseAssign'),
     baseCreate = require('../internals/baseCreate');
 
 /**
@@ -42,7 +42,7 @@ var assign = require('./assign'),
  */
 function create(prototype, properties) {
   var result = baseCreate(prototype);
-  return properties ? assign(result, properties) : result;
+  return properties ? baseAssign(result, properties) : result;
 }
 
 module.exports = create;
