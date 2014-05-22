@@ -45,8 +45,10 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  */
 function forEach(collection, callback, thisArg) {
   var length = collection ? collection.length : 0;
-  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
 
+  if (typeof callback != 'function' || typeof thisArg != 'undefined') {
+    callback = baseCreateCallback(callback, thisArg, 3);
+  }
   return (typeof length == 'number' && length > -1 && length <= maxSafeInteger)
     ? arrayEach(collection, callback)
     : baseEach(collection, callback);

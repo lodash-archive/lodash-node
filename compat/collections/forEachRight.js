@@ -47,7 +47,7 @@ function arrayEachRight(array, callback) {
  * // => logs each number from right to left and returns '3,2,1'
  */
 function forEachRight(collection, callback, thisArg) {
-  return (callback && typeof thisArg == 'undefined' && isArray(collection))
+  return (typeof callback == 'function' && typeof thisArg == 'undefined' && isArray(collection))
     ? arrayEachRight(collection, callback)
     : baseEachRight(collection, baseCreateCallback(callback, thisArg, 3));
 }

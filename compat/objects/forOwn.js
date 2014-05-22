@@ -30,7 +30,9 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)
  */
 function forOwn(object, callback, thisArg) {
-  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
+  if (typeof callback != 'function' || typeof thisArg != 'undefined') {
+    callback = baseCreateCallback(callback, thisArg, 3);
+  }
   return baseForOwn(object, callback);
 }
 

@@ -43,10 +43,14 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * // => [{ 'name': 'fred', 'age': 40 }]
  */
 function createCallback(func, thisArg, argCount) {
-  var type = typeof func;
-  if (type == 'function' || func == null) {
-    return (typeof thisArg == 'undefined' || !(func && 'prototype' in func)) &&
-      func || baseCreateCallback(func, thisArg, argCount);
+  var type = typeof func,
+      isFunc = type == 'function';
+
+  if (isFunc && (typeof thisArg == 'undefined' || !('prototype' in func))) {
+    return func;
+  }
+  if (isFunc || func == null) {
+    return baseCreateCallback(func, thisArg, argCount);
   }
   // handle "_.pluck" and "_.where" style callback shorthands
   return type == 'object' ? matches(func) : property(func);

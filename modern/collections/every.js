@@ -59,8 +59,10 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  */
 function every(collection, predicate, thisArg) {
   var result = true;
-  predicate = createCallback(predicate, thisArg, 3);
 
+  if (typeof predicate != 'function' || typeof thisArg != 'undefined') {
+    predicate = createCallback(predicate, thisArg, 3);
+  }
   var index = -1,
       length = collection ? collection.length : 0;
 
@@ -72,7 +74,8 @@ function every(collection, predicate, thisArg) {
     }
   } else {
     baseEach(collection, function(value, index, collection) {
-      return (result = !!predicate(value, index, collection));
+      result = !!predicate(value, index, collection);
+      return result;
     });
   }
   return result;
