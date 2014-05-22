@@ -64,15 +64,14 @@ function matches(source) {
     if (length && !object) {
       return false;
     }
-    var result = true;
     while (length--) {
       var key = props[length];
-      if (!(result = hasOwnProperty.call(object, key) &&
-          baseIsEqual(object[key], source[key], null, true))) {
-        break;
+      if (!(hasOwnProperty.call(object, key) &&
+            baseIsEqual(object[key], source[key], null, true))) {
+        return false;
       }
     }
-    return result;
+    return true;
   };
 }
 
