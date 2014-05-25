@@ -10,10 +10,10 @@ var baseClone = require('../internals/baseClone'),
     baseCreateCallback = require('../internals/baseCreateCallback');
 
 /**
- * Creates a deep clone of `value`. If a callback is provided it will be
- * executed to produce the cloned values. If the callback returns `undefined`
- * cloning will be handled by the method instead. The callback is bound to
- * `thisArg` and invoked with two argument; (value, index|key).
+ * Creates a deep clone of `value`. If a callback is provided it is executed
+ * to produce the cloned values. If the callback returns `undefined` cloning
+ * is handled by the method instead. The callback is bound to `thisArg` and
+ * invoked with two argument; (value, index|key).
  *
  * Note: This method is loosely based on the structured clone algorithm. Functions
  * and DOM nodes are **not** cloned. The enumerable properties of `arguments` objects and

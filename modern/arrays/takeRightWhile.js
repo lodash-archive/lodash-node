@@ -9,15 +9,15 @@
 var last = require('./last');
 
 /**
- * Creates a slice of `array` with elements taken from the end. Elements will
- * be taken until the predicate returns falsey. The predicate is bound to
- * `thisArg` and invoked with three arguments; (value, index, array).
+ * Creates a slice of `array` with elements taken from the end. Elements are
+ * taken until the predicate returns falsey. The predicate is bound to `thisArg`
+ * and invoked with three arguments; (value, index, array).
  *
  * If a property name is provided for `predicate` the created "_.pluck" style
- * callback will return the property value of the given element.
+ * callback returns the property value of the given element.
  *
  * If an object is provided for `predicate` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
+ * returns `true` for elements that have the properties of the given object,
  * else `false`.
  *
  * @static

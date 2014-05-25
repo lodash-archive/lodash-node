@@ -11,16 +11,16 @@ var baseFlatten = require('../internals/baseFlatten'),
 
 /**
  * Flattens a nested array (the nesting can be to any depth). If `isShallow`
- * is truthy, the array will only be flattened a single level. If a callback
- * is provided each element of the array is passed through the callback before
+ * is truthy, the array is only flattened a single level. If a callback is
+ * provided each element of the array is passed through the callback before
  * flattening. The callback is bound to `thisArg` and invoked with three
  * arguments; (value, index, array).
  *
  * If a property name is provided for `callback` the created "_.pluck" style
- * callback will return the property value of the given element.
+ * callback returns the property value of the given element.
  *
  * If an object is provided for `callback` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
+ * returns `true` for elements that have the properties of the given object,
  * else `false`.
  *
  * @static
@@ -29,7 +29,7 @@ var baseFlatten = require('../internals/baseFlatten'),
  * @param {Array} array The array to flatten.
  * @param {boolean} [isShallow=false] A flag to restrict flattening to a single level.
  * @param {Function|Object|string} [callback] The function called per iteration.
- *  If a property name or object is provided it will be used to create a "_.pluck"
+ *  If a property name or object is provided it is used to create a "_.pluck"
  *  or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {Array} Returns the new flattened array.

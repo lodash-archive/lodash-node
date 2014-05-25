@@ -13,7 +13,7 @@ var max = require('../collections/max'),
  * Creates an array of grouped elements, the first of which contains the first
  * elements of the given arrays, the second of which contains the second elements
  * of the given arrays, and so on. If a zipped value is provided its corresponding
- * unzipped value will be returned.
+ * unzipped value is returned.
  *
  * @static
  * @memberOf _

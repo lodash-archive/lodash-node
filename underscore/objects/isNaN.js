@@ -11,7 +11,7 @@ var isNumber = require('./isNumber');
 /**
  * Checks if `value` is `NaN`.
  *
- * Note: This method is not the same as native `isNaN` which will return `true`
+ * Note: This method is not the same as native `isNaN` which returns `true`
  * for `undefined` and other non-numeric values. See the [ES5 spec](http://es5.github.io/#x15.1.2.4)
  * for more details.
  *

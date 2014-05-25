@@ -14,7 +14,7 @@ var funcErrorText = 'Expected a function';
 
 /**
  * Executes the `func` function after `wait` milliseconds. Additional arguments
- * will be provided to `func` when it is invoked.
+ * are provided to `func` when it is invoked.
  *
  * @static
  * @memberOf _

@@ -82,11 +82,11 @@ function baseMerge(object, source, callback, stackA, stackB) {
 /**
  * Recursively merges own enumerable properties of the source object(s), that
  * don't resolve to `undefined` into the destination object. Subsequent sources
- * will overwrite property assignments of previous sources. If a callback is
- * provided it will be executed to produce the merged values of the destination
- * and source properties. If the callback returns `undefined` merging will
- * be handled by the method instead. The callback is bound to `thisArg` and
- * invoked with five arguments; (objectValue, sourceValue, key, object, source).
+ * overwrite property assignments of previous sources. If a callback is provided
+ * it is executed to produce the merged values of the destination and source
+ * properties. If the callback returns `undefined` merging is handled by the
+ * method instead. The callback is bound to `thisArg` and invoked with five
+ * arguments; (objectValue, sourceValue, key, object, source).
  *
  * @static
  * @memberOf _

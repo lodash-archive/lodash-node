@@ -10,7 +10,7 @@
 /**
  * Compiles a function from `source` using the `varNames` and `varValues`
  * pairs to import free variables into the compiled function. If `sourceURL`
- * is provided it will be used as the sourceURL for the compiled function.
+ * is provided it is used as the sourceURL for the compiled function.
  *
  * @private
  * @param {string} source The source to compile.

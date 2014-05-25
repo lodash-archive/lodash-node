@@ -13,17 +13,17 @@ var baseEach = require('../internals/baseEach'),
     isString = require('../objects/isString');
 
 /**
- * Retrieves the maximum value of a collection. If the collection is empty or
- * falsey `-Infinity` is returned. If a callback is provided it will be executed
- * for each value in the collection to generate the criterion by which the value
- * is ranked. The callback is bound to `thisArg` and invoked with three
+ * Retrieves the maximum value of a collection. If the collection is empty
+ * or falsey `-Infinity` is returned. If a callback is provided it is executed
+ * for each value in the collection to generate the criterion by which the
+ * value is ranked. The callback is bound to `thisArg` and invoked with three
  * arguments; (value, index, collection).
  *
  * If a property name is provided for `callback` the created "_.pluck" style
- * callback will return the property value of the given element.
+ * callback returns the property value of the given element.
  *
  * If an object is provided for `callback` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
+ * returns `true` for elements that have the properties of the given object,
  * else `false`.
  *
  * @static
@@ -31,7 +31,7 @@ var baseEach = require('../internals/baseEach'),
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
  * @param {Function|Object|string} [callback] The function called per iteration.
- *  If a property name or object is provided it will be used to create a "_.pluck"
+ *  If a property name or object is provided it is used to create a "_.pluck"
  *  or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {*} Returns the maximum value.

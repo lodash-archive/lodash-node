@@ -81,7 +81,7 @@ function assignOwnDefaults(objectValue, sourceValue, key, object) {
 /**
  * Compiles a function from `source` using the `varNames` and `varValues`
  * pairs to import free variables into the compiled function. If `sourceURL`
- * is provided it will be used as the sourceURL for the compiled function.
+ * is provided it is used as the sourceURL for the compiled function.
  *
  * @private
  * @param {string} source The source to compile.
@@ -108,9 +108,9 @@ function compileFunction(source, varNames, varValues, sourceURL) {
  * Creates a compiled template function that can interpolate data properties
  * in "interpolate" delimiters, HTML-escaped interpolated data properties in
  * "escape" delimiters, and execute JavaScript in "evaluate" delimiters. If
- * a data object is provided the interpolated template string will be returned.
+ * a data object is provided the interpolated template string is returned.
  * Data properties may be accessed as free variables in the template. If a
- * settings object is provided it will override `_.templateSettings` for the
+ * settings object is provided it overrides `_.templateSettings` for the
  * template.
  *
  * Note: In the development build, `_.template` utilizes sourceURLs for easier debugging.

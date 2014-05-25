@@ -19,11 +19,11 @@ var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * Creates a function that memoizes the result of `func`. If `resolver` is
- * provided it will be used to determine the cache key for storing the result
- * based on the arguments provided to the memoized function. By default, the
- * first argument provided to the memoized function is used as the cache key.
- * The `func` is executed with the `this` binding of the memoized function.
- * The result cache is exposed as the `cache` property on the memoized function.
+ * provided it determines the cache key for storing the result based on the
+ * arguments provided to the memoized function. By default, the first argument
+ * provided to the memoized function is used as the cache key. The `func` is
+ * executed with the `this` binding of the memoized function. The result cache
+ * is exposed as the `cache` property on the memoized function.
  *
  * @static
  * @memberOf _

@@ -15,10 +15,10 @@ var baseFind = require('../internals/baseFind'),
  * first element the predicate returns truthy for, instead of the element itself.
  *
  * If a property name is provided for `predicate` the created "_.pluck" style
- * callback will return the property value of the given element.
+ * callback returns the property value of the given element.
  *
  * If an object is provided for `predicate` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
+ * returns `true` for elements that have the properties of the given object,
  * else `false`.
  *
  * @static
@@ -26,8 +26,8 @@ var baseFind = require('../internals/baseFind'),
  * @category Objects
  * @param {Object} object The object to search.
  * @param {Function|Object|string} [predicate=identity] The function called
- *  per iteration. If a property name or object is provided it will be used
- *  to create a "_.pluck" or "_.where" style callback respectively.
+ *  per iteration. If a property name or object is provided it is used to
+ *  create a "_.pluck" or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `predicate`.
  * @returns {string|undefined} Returns the key of the matched element, else `undefined`.
  * @example

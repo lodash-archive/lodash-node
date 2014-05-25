@@ -12,15 +12,15 @@ var createCallback = require('../functions/createCallback'),
 /**
  * Uses a binary search to determine the smallest index at which a value
  * should be inserted into a given sorted array in order to maintain the sort
- * order of the array. If a callback is provided it will be executed for
- * `value` and each element of `array` to compute their sort ranking. The
- * callback is bound to `thisArg` and invoked with one argument; (value).
+ * order of the array. If a callback is provided it is executed for `value`
+ * and each element of `array` to compute their sort ranking. The callback
+ * is bound to `thisArg` and invoked with one argument; (value).
  *
  * If a property name is provided for `callback` the created "_.pluck" style
- * callback will return the property value of the given element.
+ * callback returns the property value of the given element.
  *
  * If an object is provided for `callback` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
+ * returns `true` for elements that have the properties of the given object,
  * else `false`.
  *
  * @static
@@ -29,8 +29,8 @@ var createCallback = require('../functions/createCallback'),
  * @param {Array} array The array to inspect.
  * @param {*} value The value to evaluate.
  * @param {Function|Object|string} [callback=identity] The function called
- *  per iteration. If a property name or object is provided it will be used
- *  to create a "_.pluck" or "_.where" style callback respectively.
+ *  per iteration. If a property name or object is provided it is used to
+ *  create a "_.pluck" or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {number} Returns the index at which `value` should be inserted
  *  into `array`.

@@ -24,7 +24,7 @@ function assignDefaults(objectValue, sourceValue) {
 /**
  * Assigns own enumerable properties of source object(s) to the destination
  * object for all destination properties that resolve to `undefined`. Once a
- * property is set, additional defaults of the same property will be ignored.
+ * property is set, additional defaults of the same property are ignored.
  *
  * Note: See the [documentation example of `_.partialRight`](http://lodash.com/docs#partialRight)
  * for a deep version of this method.

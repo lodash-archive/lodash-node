@@ -32,10 +32,10 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  * with three arguments; (value, index|key, collection).
  *
  * If a property name is provided for `predicate` the created "_.pluck" style
- * callback will return the property value of the given element.
+ * callback returns the property value of the given element.
  *
  * If an object is provided for `predicate` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
+ * returns `true` for elements that have the properties of the given object,
  * else `false`.
  *
  * @static
@@ -44,8 +44,8 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  * @category Collections
  * @param {Array|Object|string} collection The collection to iterate over.
  * @param {Function|Object|string} [predicate=identity] The function called
- *  per iteration. If a property name or object is provided it will be used
- *  to create a "_.pluck" or "_.where" style callback respectively.
+ *  per iteration. If a property name or object is provided it is used to
+ *  create a "_.pluck" or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `predicate`.
  * @returns {boolean} Returns `true` if any element passed the predicate check,
  *  else `false`.

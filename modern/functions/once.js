@@ -12,8 +12,8 @@ var isFunction = require('../objects/isFunction');
 var funcErrorText = 'Expected a function';
 
 /**
- * Creates a function that is restricted to execute `func` once. Repeat calls to
- * the function will return the value of the first call. The `func` is executed
+ * Creates a function that is restricted to execute `func` once. Repeat calls
+ * to the function return the value of the first call. The `func` is executed
  * with the `this` binding of the created function.
  *
  * @static

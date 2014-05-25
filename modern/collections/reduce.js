@@ -20,9 +20,9 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  * Reduces a collection to a value which is the accumulated result of running
  * each element in the collection through the callback, where each successive
  * callback execution consumes the return value of the previous execution. If
- * `accumulator` is not provided the first element of the collection will be
- * used as the initial `accumulator` value. The callback is bound to `thisArg`
- * and invoked with four arguments; (accumulator, value, index|key, collection).
+ * `accumulator` is not provided the first element of the collection is used
+ * as the initial `accumulator` value. The callback is bound to `thisArg` and
+ * invoked with four arguments; (accumulator, value, index|key, collection).
  *
  * @static
  * @memberOf _

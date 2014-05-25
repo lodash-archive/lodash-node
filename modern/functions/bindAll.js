@@ -17,7 +17,7 @@ var BIND_FLAG = 1;
  * Binds methods of an object to the object itself, overwriting the existing
  * method. Method names may be specified as individual arguments or as arrays
  * of method names. If no method names are provided all enumerable function
- * properties, own and inherited, of `object` will be bound.
+ * properties, own and inherited, of `object` are bound.
  *
  * Note: This method does not set the `length` property of bound functions.
  *

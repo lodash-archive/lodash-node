@@ -12,9 +12,9 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
 
 /**
  * Creates a function bound to an optional `thisArg`. If `func` is a property
- * name the created callback will return the property value for a given element.
- * If `func` is an object the created callback will return `true` for elements
- * that contain the equivalent object properties, otherwise it will return `false`.
+ * name the created callback returns the property value for a given element.
+ * If `func` is an object the created callback returns `true` for elements
+ * that contain the equivalent object properties, otherwise it returns `false`.
  *
  * @static
  * @memberOf _

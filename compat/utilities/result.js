@@ -10,10 +10,10 @@ var isFunction = require('../objects/isFunction');
 
 /**
  * Resolves the value of property `key` on `object`. If `key` is a function
- * it will be invoked with the `this` binding of `object` and its result
- * returned, else the property value is returned. If `object` is `null` or
- * `undefined` then `undefined` is returned. If a default value is provided
- * it will be returned if the property value resolves to `undefined`.
+ * it is invoked with the `this` binding of `object` and its result returned,
+ * else the property value is returned. If `object` is `null` or `undefined`
+ * then `undefined` is returned. If a default value is provided it is returned
+ * if the property value resolves to `undefined`.
  *
  * @static
  * @memberOf _

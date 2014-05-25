@@ -14,7 +14,7 @@ var nativeIsFinite = global.isFinite,
 /**
  * Checks if `value` is, or can be coerced to, a finite number.
  *
- * Note: This method is not the same as native `isFinite` which will return
+ * Note: This method is not the same as native `isFinite` which returns
  * `true` for booleans and empty strings. See the [ES5 spec](http://es5.github.io/#x15.1.2.5)
  * for more details.
  *

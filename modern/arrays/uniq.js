@@ -11,17 +11,17 @@ var baseUniq = require('../internals/baseUniq'),
 
 /**
  * Creates a duplicate-value-free version of an array using strict equality
- * for comparisons, i.e. `===`. If the array is sorted, providing `true` for
- * `isSorted` will use a faster algorithm. If a callback is provided it will
- * be executed for each value in the array to generate the criterion by which
- * uniqueness is computed. The callback is bound to `thisArg` and invoked with
- * three arguments; (value, index, array).
+ * for comparisons, i.e. `===`. Providing `true` for `isSorted` performs a
+ * faster search algorithm for sorted arrays. If a callback is provided it
+ * is executed for each value in the array to generate the criterion by which
+ * uniqueness is computed. The callback is bound to `thisArg` and invoked
+ * with three arguments; (value, index, array).
  *
  * If a property name is provided for `callback` the created "_.pluck" style
- * callback will return the property value of the given element.
+ * callback returns the property value of the given element.
  *
  * If an object is provided for `callback` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
+ * returns `true` for elements that have the properties of the given object,
  * else `false`.
  *
  * @static
@@ -31,7 +31,7 @@ var baseUniq = require('../internals/baseUniq'),
  * @param {Array} array The array to process.
  * @param {boolean} [isSorted=false] A flag to indicate that `array` is sorted.
  * @param {Function|Object|string} [callback] The function called per iteration.
- *  If a property name or object is provided it will be used to create a "_.pluck"
+ *  If a property name or object is provided it is used to create a "_.pluck"
  *  or "_.where" style callback respectively.
  * @param {*} [thisArg] The `this` binding of `callback`.
  * @returns {Array} Returns the new duplicate-value-free array.

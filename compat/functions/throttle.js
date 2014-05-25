@@ -21,15 +21,15 @@ var debounceOptions = {
 };
 
 /**
- * Creates a function that will only call the `func` function at most once
- * per every `wait` milliseconds. The created function comes with a `cancel`
- * method to cancel delayed calls. Provide an options object to indicate that
- * `func` should be invoked on the leading and/or trailing edge of the `wait`
- * timeout. Subsequent calls to the throttled function will return the result
- * of the last `func` call.
+ * Creates a function that only calls the `func` function at most once per
+ * every `wait` milliseconds. The created function comes with a `cancel` method
+ * to cancel delayed calls. Provide an options object to indicate that `func`
+ * should be invoked on the leading and/or trailing edge of the `wait` timeout.
+ * Subsequent calls to the throttled function return the result of the last
+ * `func` call.
  *
- * Note: If `leading` and `trailing` options are `true`, `func` will be called
- * on the trailing edge of the timeout only if the the throttled function is
+ * Note: If `leading` and `trailing` options are `true`, `func` is called on
+ * the trailing edge of the timeout only if the the throttled function is
  * invoked more than once during the `wait` timeout.
  *
  * @static

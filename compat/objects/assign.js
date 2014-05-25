@@ -11,10 +11,10 @@ var baseAssign = require('../internals/baseAssign'),
 
 /**
  * Assigns own enumerable properties of source object(s) to the destination
- * object. Subsequent sources will overwrite property assignments of previous
- * sources. If a callback is provided it will be executed to produce the
- * assigned values. The callback is bound to `thisArg` and invoked with
- * five arguments; (objectValue, sourceValue, key, object, source).
+ * object. Subsequent sources overwrite property assignments of previous
+ * sources. If a callback is provided it is executed to produce the assigned
+ * values. The callback is bound to `thisArg` and invoked with five arguments;
+ * (objectValue, sourceValue, key, object, source).
  *
  * @static
  * @memberOf _

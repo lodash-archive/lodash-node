@@ -162,10 +162,10 @@ function baseIsEqual(value, other, stackA, stackB) {
 
 /**
  * Performs a deep comparison between two values to determine if they are
- * equivalent. If a callback is provided it will be executed to compare
- * values. If the callback returns `undefined` comparisons will be handled
- * by the method instead. The callback is bound to `thisArg` and invoked
- * with three arguments; (value, other, key).
+ * equivalent. If a callback is provided it is executed to compare values.
+ * If the callback returns `undefined` comparisons are handled by the method
+ * instead. The callback is bound to `thisArg` and invoked with three arguments;
+ * (value, other, key).
  *
  * Note: This method supports comparing arrays, booleans, `Date` objects,
  * numbers, `Object` objects, regexes, and strings. Functions and DOM nodes

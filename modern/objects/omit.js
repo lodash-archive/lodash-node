@@ -17,9 +17,9 @@ var baseDifference = require('../internals/baseDifference'),
 /**
  * Creates a shallow clone of `object` excluding the specified properties.
  * Property names may be specified as individual arguments or as arrays of
- * property names. If a predicate is provided it will be executed for each
- * property of `object` omitting the properties the predicate returns truthy
- * for. The predicate is bound to `thisArg` and invoked with three arguments;
+ * property names. If a predicate is provided it is executed for each property
+ * of `object` omitting the properties the predicate returns truthy for. The
+ * predicate is bound to `thisArg` and invoked with three arguments;
  * (value, key, object).
  *
  * @static
