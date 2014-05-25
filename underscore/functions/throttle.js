@@ -14,11 +14,12 @@ var debounce = require('./debounce'),
 var funcErrorText = 'Expected a function';
 
 /**
- * Creates a function that, when executed, will only call the `func` function
- * at most once per every `wait` milliseconds. Provide an options object to
- * indicate that `func` should be invoked on the leading and/or trailing edge
- * of the `wait` timeout. Subsequent calls to the throttled function will
- * return the result of the last `func` call.
+ * Creates a function that will only call the `func` function at most once
+ * per every `wait` milliseconds. The created function comes with a `cancel`
+ * method to cancel delayed calls. Provide an options object to indicate that
+ * `func` should be invoked on the leading and/or trailing edge of the `wait`
+ * timeout. Subsequent calls to the throttled function will return the result
+ * of the last `func` call.
  *
  * Note: If `leading` and `trailing` options are `true`, `func` will be called
  * on the trailing edge of the timeout only if the the throttled function is
@@ -36,13 +37,14 @@ var funcErrorText = 'Expected a function';
  * @example
  *
  * // avoid excessively updating the position while scrolling
- * var throttled = _.throttle(updatePosition, 100);
- * jQuery(window).on('scroll', throttled);
+ * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
  *
  * // execute `renewToken` when the click event is fired, but not more than once every 5 minutes
- * jQuery('.interactive').on('click', _.throttle(renewToken, 300000, {
- *   'trailing': false
- * }));
+ * var throttled =  _.throttle(renewToken, 300000, { 'trailing': false })
+ * jQuery('.interactive').on('click',);
+ *
+ * // cancelling a trailing throttled call
+ * jQuery(window).on('popstate', throttled.cancel);
  */
 function throttle(func, wait, options) {
   var leading = true,

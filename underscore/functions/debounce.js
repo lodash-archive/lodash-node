@@ -19,6 +19,7 @@ var nativeMax = Math.max;
 /**
  * Creates a function that will delay the execution of `func` until after
  * `wait` milliseconds have elapsed since the last time it was invoked.
+ * The created function comes with a `cancel` method to cancel delayed calls.
  * Provide an options object to indicate that `func` should be invoked on
  * the leading and/or trailing edge of the `wait` timeout. Subsequent calls
  * to the debounced function will return the result of the last `func` call.
@@ -40,8 +41,7 @@ var nativeMax = Math.max;
  * @example
  *
  * // avoid costly calculations while the window size is in flux
- * var lazyLayout = _.debounce(calculateLayout, 150);
- * jQuery(window).on('resize', lazyLayout);
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
  *
  * // execute `sendMail` when the click event is fired, debouncing subsequent calls
  * jQuery('#postbox').on('click', _.debounce(sendMail, 300, {
@@ -51,9 +51,26 @@ var nativeMax = Math.max;
  *
  * // ensure `batchLog` is executed once after 1 second of debounced calls
  * var source = new EventSource('/stream');
- * source.addEventListener('message', _.debounce(batchLog, 250, {
+ * jQuery(source).on('message', _.debounce(batchLog, 250, {
  *   'maxWait': 1000
  * }, false);
+ *
+ * // cancelling a debounced call
+ * var todoChanges = _.debounce(batchLog, 1000);
+ * Object.observe(models.todo, todoChanges);
+ *
+ * Object.observe(models, function(changes) {
+ *   if (_.find(changes, { 'name': 'todo', 'type': 'delete'})) {
+ *     todoChanges.cancel();
+ *   }
+ * }, ['delete']);
+ *
+ * // ...at some point `models.todo` is changed
+ * models.todo.completed = true;
+ *
+ * // ...before 1 second has passed `models.todo` is deleted
+ * // which cancels the debounced `todoChanges` call
+ * delete models.todo;
  */
 function debounce(func, wait, options) {
   var args,
@@ -79,7 +96,18 @@ function debounce(func, wait, options) {
     maxWait = 'maxWait' in options && nativeMax(wait, +options.maxWait || 0);
     trailing = 'trailing' in options ? options.trailing : trailing;
   }
-  var delayed = function() {
+
+  function cancel() {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    if (maxTimeoutId) {
+      clearTimeout(maxTimeoutId);
+    }
+    maxTimeoutId = timeoutId = trailingCall = undefined;
+  }
+
+  function delayed() {
     var remaining = wait - (now() - stamp);
     if (remaining <= 0 || remaining > wait) {
       if (maxTimeoutId) {
@@ -97,9 +125,9 @@ function debounce(func, wait, options) {
     } else {
       timeoutId = setTimeout(delayed, remaining);
     }
-  };
+  }
 
-  var maxDelayed = function() {
+  function maxDelayed() {
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
@@ -111,9 +139,9 @@ function debounce(func, wait, options) {
         args = thisArg = null;
       }
     }
-  };
+  }
 
-  return function() {
+  function debounced() {
     args = arguments;
     stamp = now();
     thisArg = this;
@@ -153,7 +181,9 @@ function debounce(func, wait, options) {
       args = thisArg = null;
     }
     return result;
-  };
+  }
+  debounced.cancel = cancel;
+  return debounced;
 }
 
 module.exports = debounce;
