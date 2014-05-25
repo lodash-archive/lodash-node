@@ -55,7 +55,7 @@ var nativeMax = Math.max;
  *   'maxWait': 1000
  * }, false);
  *
- * // cancelling a debounced call
+ * // cancel a debounced call
  * var todoChanges = _.debounce(batchLog, 1000);
  * Object.observe(models.todo, todoChanges);
  *
