@@ -31,7 +31,6 @@ var hasOwnProperty = objectProto.hasOwnProperty,
 var support = {};
 
 (function(x) {
-  var Ctor = function() { this.x = 1; };
 
   for (var argsKey in arguments) { }
 
