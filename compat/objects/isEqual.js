@@ -49,7 +49,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * // => true
  */
 function isEqual(value, other, callback, thisArg) {
-  callback = typeof callback == 'function' && baseCreateCallback(callback, thisArg, 2);
+  callback = typeof callback == 'function' && baseCreateCallback(callback, thisArg, 3);
 
   if (!callback) {
     // exit early for identical values

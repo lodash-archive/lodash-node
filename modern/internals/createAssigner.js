@@ -31,7 +31,7 @@ function createAssigner(assigner) {
     }
     // juggle arguments
     if (length > 3 && typeof args[length - 2] == 'function') {
-      var callback = baseCreateCallback(args[--length - 1], args[length--], 2);
+      var callback = baseCreateCallback(args[--length - 1], args[length--], 5);
     } else if (length > 2 && typeof args[length - 1] == 'function') {
       callback = args[--length];
     }
