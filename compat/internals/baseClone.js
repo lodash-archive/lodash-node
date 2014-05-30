@@ -98,7 +98,7 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
     }
     switch (className) {
       case arrayBufferClass:
-        return value.slice();
+        return value.slice(0);
 
       case boolClass:
       case dateClass:
