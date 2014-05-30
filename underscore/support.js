@@ -23,7 +23,8 @@ var splice = arrayProto.splice;
 var support = {};
 
 (function(x) {
-  var object = { '0': 1, 'length': 1 };
+  var Ctor = function() { this.x = 1; },
+      object = { '0': 1, 'length': 1 };
 
   /**
    * Detect if `Array#shift` and `Array#splice` augment array-like objects

@@ -31,13 +31,13 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
  */
 function shimIsPlainObject(value) {
-  var ctor,
+  var Ctor,
       result;
 
   // avoid non `Object` objects, `arguments` objects, and DOM elements
   if (!(value && toString.call(value) == objectClass) ||
       (!hasOwnProperty.call(value, 'constructor') &&
-        (ctor = value.constructor, isFunction(ctor) && !(ctor instanceof ctor)))) {
+        (Ctor = value.constructor, isFunction(Ctor) && !(Ctor instanceof Ctor)))) {
     return false;
   }
   // In most environments an object's own properties are iterated before

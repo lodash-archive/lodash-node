@@ -40,9 +40,9 @@ function keysIn(object) {
     (isArray(object) || (support.nonEnumArgs && isArguments(object))) && length) >>> 0;
 
   var keyIndex,
-      ctor = object.constructor,
+      Ctor = object.constructor,
       index = -1,
-      isProto = ctor && object === ctor.prototype,
+      isProto = Ctor && object === Ctor.prototype,
       maxIndex = length - 1,
       result = Array(length),
       skipIndexes = length > 0;

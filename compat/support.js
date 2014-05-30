@@ -41,12 +41,12 @@ var hasOwnProperty = objectProto.hasOwnProperty,
 var support = {};
 
 (function(x) {
-  var ctor = function() { this.x = 1; },
+  var Ctor = function() { this.x = 1; },
       object = { '0': 1, 'length': 1 },
       props = [];
 
-  ctor.prototype = { 'valueOf': 1, 'y': 1 };
-  for (var key in new ctor) { props.push(key); }
+  Ctor.prototype = { 'valueOf': 1, 'y': 1 };
+  for (var key in new Ctor) { props.push(key); }
   for (var argsKey in arguments) { }
   for (var strKey in 'x') { }
 
@@ -89,7 +89,7 @@ var support = {};
    * @memberOf _.support
    * @type boolean
    */
-  support.enumPrototypes = propertyIsEnumerable.call(ctor, 'prototype');
+  support.enumPrototypes = propertyIsEnumerable.call(Ctor, 'prototype');
 
   /**
    * Detect if functions can be decompiled by `Function#toString`
