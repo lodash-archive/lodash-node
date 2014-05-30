@@ -10,6 +10,7 @@ var arrayEach = require('../internals/arrayEach'),
     baseForOwn = require('../internals/baseForOwn'),
     createAssigner = require('../internals/createAssigner'),
     isArray = require('./isArray'),
+    isArrayLike = require('../internals/isArrayLike'),
     isPlainObject = require('./isPlainObject');
 
 /**
@@ -28,8 +29,8 @@ function baseMerge(object, source, callback, stackA, stackB) {
   if (!object) {
     return object;
   }
-  (isArray(source) ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
-    var isArr = srcValue && isArray(srcValue),
+  (isArrayLike(source) ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
+    var isArr = srcValue && isArrayLike(srcValue),
         isObj = srcValue && isPlainObject(srcValue),
         value = object[key];
 

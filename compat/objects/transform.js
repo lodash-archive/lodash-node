@@ -10,7 +10,7 @@ var arrayEach = require('../internals/arrayEach'),
     baseCreate = require('../internals/baseCreate'),
     baseForOwn = require('../internals/baseForOwn'),
     createCallback = require('../functions/createCallback'),
-    isArray = require('./isArray'),
+    isArrayLike = require('../internals/isArrayLike'),
     isObject = require('./isObject');
 
 /**
@@ -45,14 +45,14 @@ var arrayEach = require('../internals/arrayEach'),
  * // => { 'a': 3, 'b': 6, 'c': 9 }
  */
 function transform(object, callback, accumulator, thisArg) {
-  var isArr = isArray(object);
+  var isArr = isArrayLike(object);
   if (accumulator == null) {
     if (isArr) {
       accumulator = [];
     } else {
       if (isObject(object)) {
-        var ctor = object.constructor,
-            proto = ctor && ctor.prototype;
+        var Ctor = object.constructor,
+            proto = Ctor && Ctor.prototype;
       }
       accumulator = baseCreate(proto);
     }

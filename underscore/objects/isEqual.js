@@ -19,13 +19,45 @@ var expando = '__lodash@' + version + '__';
 var breakIndicator = expando + 'breaker__';
 
 /** `Object#toString` result shortcuts */
-var arrayClass = '[object Array]',
+var argsClass = '[object Arguments]',
+    arrayClass = '[object Array]',
     boolClass = '[object Boolean]',
     dateClass = '[object Date]',
+    errorClass = '[object Error]',
+    funcClass = '[object Function]',
+    mapClass = '[object Map]',
     numberClass = '[object Number]',
     objectClass = '[object Object]',
     regexpClass = '[object RegExp]',
-    stringClass = '[object String]';
+    setClass = '[object Set]',
+    stringClass = '[object String]',
+    weakMapClass = '[object WeakMap]';
+
+var arrayBufferClass = '[object ArrayBuffer]',
+    float32Class = '[object Float32Array]',
+    float64Class = '[object Float64Array]',
+    int8Class = '[object Int8Array]',
+    int16Class = '[object Int16Array]',
+    int32Class = '[object Int32Array]',
+    uint8Class = '[object Uint8Array]',
+    uint8ClampedClass = '[object Uint8ClampedArray]',
+    uint16Class = '[object Uint16Array]',
+    uint32Class = '[object Uint32Array]';
+
+/** Used to identify object classifications that are treated like arrays */
+var arrayLikeClasses = {};
+arrayLikeClasses[argsClass] =
+arrayLikeClasses[arrayClass] = arrayLikeClasses[float32Class] =
+arrayLikeClasses[float64Class] = arrayLikeClasses[int8Class] =
+arrayLikeClasses[int16Class] = arrayLikeClasses[int32Class] =
+arrayLikeClasses[uint8Class] = arrayLikeClasses[uint8ClampedClass] =
+arrayLikeClasses[uint16Class] = arrayLikeClasses[uint32Class] = true;
+arrayLikeClasses[arrayBufferClass] = arrayLikeClasses[boolClass] =
+arrayLikeClasses[dateClass] = arrayLikeClasses[errorClass] =
+arrayLikeClasses[funcClass] = arrayLikeClasses[mapClass] =
+arrayLikeClasses[numberClass] = arrayLikeClasses[objectClass] =
+arrayLikeClasses[regexpClass] = arrayLikeClasses[setClass] =
+arrayLikeClasses[stringClass] = arrayLikeClasses[weakMapClass] = false;
 
 /** Used for native method references */
 var objectProto = Object.prototype;
@@ -80,7 +112,7 @@ function baseIsEqual(value, other, stackA, stackB) {
     case stringClass:
       return value == String(other);
   }
-  var isArr = valClass == arrayClass;
+  var isArr = arrayLikeClasses[valClass];
   if (!isArr) {
     if (valClass != objectClass) {
       return false;

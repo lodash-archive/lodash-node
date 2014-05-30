@@ -10,6 +10,7 @@ var arrayEach = require('./arrayEach'),
     baseAssign = require('./baseAssign'),
     baseForOwn = require('./baseForOwn'),
     isArray = require('../objects/isArray'),
+    isFunction = require('../objects/isFunction'),
     isNode = require('./isNode'),
     isObject = require('../objects/isObject'),
     slice = require('../arrays/slice'),
@@ -23,19 +24,41 @@ var argsClass = '[object Arguments]',
     arrayClass = '[object Array]',
     boolClass = '[object Boolean]',
     dateClass = '[object Date]',
+    errorClass = '[object Error]',
     funcClass = '[object Function]',
+    mapClass = '[object Map]',
     numberClass = '[object Number]',
     objectClass = '[object Object]',
     regexpClass = '[object RegExp]',
-    stringClass = '[object String]';
+    setClass = '[object Set]',
+    stringClass = '[object String]',
+    weakMapClass = '[object WeakMap]';
+
+var arrayBufferClass = '[object ArrayBuffer]',
+    float32Class = '[object Float32Array]',
+    float64Class = '[object Float64Array]',
+    int8Class = '[object Int8Array]',
+    int16Class = '[object Int16Array]',
+    int32Class = '[object Int32Array]',
+    uint8Class = '[object Uint8Array]',
+    uint8ClampedClass = '[object Uint8ClampedArray]',
+    uint16Class = '[object Uint16Array]',
+    uint32Class = '[object Uint32Array]';
 
 /** Used to identify object classifications that `_.clone` supports */
 var cloneableClasses = {};
-cloneableClasses[funcClass] = false;
-cloneableClasses[argsClass] = cloneableClasses[arrayClass] =
+cloneableClasses[argsClass] =
+cloneableClasses[arrayClass] = cloneableClasses[arrayBufferClass] =
 cloneableClasses[boolClass] = cloneableClasses[dateClass] =
+cloneableClasses[errorClass] = cloneableClasses[float32Class] =
+cloneableClasses[float64Class] = cloneableClasses[int8Class] =
+cloneableClasses[int16Class] = cloneableClasses[int32Class] =
 cloneableClasses[numberClass] = cloneableClasses[objectClass] =
-cloneableClasses[regexpClass] = cloneableClasses[stringClass] = true;
+cloneableClasses[regexpClass] = cloneableClasses[stringClass] =
+cloneableClasses[uint8Class] = cloneableClasses[uint8ClampedClass] =
+cloneableClasses[uint16Class] = cloneableClasses[uint32Class] = true;
+cloneableClasses[funcClass] = cloneableClasses[mapClass] =
+cloneableClasses[setClass] = cloneableClasses[weakMapClass] = false;
 
 /** Used for native method references */
 var objectProto = Object.prototype;
@@ -45,17 +68,6 @@ var toString = objectProto.toString;
 
 /** Native method shortcuts */
 var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Used to lookup built-in constructors by `[[Class]]` */
-var ctorByClass = {};
-ctorByClass[arrayClass] = Array;
-ctorByClass[boolClass] = Boolean;
-ctorByClass[dateClass] = Date;
-ctorByClass[funcClass] = Function;
-ctorByClass[objectClass] = Object;
-ctorByClass[numberClass] = Number;
-ctorByClass[regexpClass] = RegExp;
-ctorByClass[stringClass] = String;
 
 /**
  * The base implementation of `_.clone` without support for argument juggling
@@ -80,18 +92,32 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
     if (!cloneableClasses[className] || (!support.nodeClass && isNode(value))) {
       return value;
     }
-    var ctor = ctorByClass[className];
+    var Ctor = value.constructor;
+    if (className == objectClass && !(isFunction(Ctor) && (Ctor instanceof Ctor))) {
+      Ctor = Object;
+    }
     switch (className) {
+      case arrayBufferClass:
+        return value.slice();
+
       case boolClass:
       case dateClass:
-        return new ctor(+value);
+        return new Ctor(+value);
+
+      case errorClass:
+        return new Ctor(value.message);
+
+      case float32Class: case float64Class:
+      case int8Class: case int16Class: case int32Class:
+      case uint8Class: case uint8ClampedClass: case uint16Class: case uint32Class:
+        return value.subarray(0);
 
       case numberClass:
       case stringClass:
-        return new ctor(value);
+        return new Ctor(value);
 
       case regexpClass:
-        result = ctor(value.source, reFlags.exec(value));
+        result = Ctor(value.source, reFlags.exec(value));
         result.lastIndex = value.lastIndex;
         return result;
     }
@@ -110,7 +136,7 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
         return stackB[length];
       }
     }
-    result = isArr ? ctor(value.length) : {};
+    result = isArr ? Ctor(value.length) : Ctor();
   }
   else {
     result = isArr ? slice(value) : baseAssign({}, value);
