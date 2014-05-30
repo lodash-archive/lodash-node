@@ -25,15 +25,15 @@
  * @returns {Object} Returns the destination object.
  * @example
  *
- * _.assign({ 'name': 'fred' }, { 'employer': 'slate' });
- * // => { 'name': 'fred', 'employer': 'slate' }
+ * _.assign({ 'name': 'fred' }, { 'age': 40 }, { 'employer': 'slate' });
+ * // => { 'name': 'fred', 'age': 40, 'employer': 'slate' }
  *
  * var defaults = _.partialRight(_.assign, function(value, other) {
  *   return typeof value == 'undefined' ? other : value;
  * });
  *
- * defaults({ 'name': 'barney' }, { 'name': 'fred', 'employer': 'slate' });
- * // => { 'name': 'barney', 'employer': 'slate' }
+ * defaults({ 'name': 'barney' }, { 'age': 36 }, { 'name': 'fred', 'employer': 'slate' });
+ * // => { 'name': 'barney', 'age': 36, 'employer': 'slate' }
  */
 function assign(object) {
   if (!object) {
