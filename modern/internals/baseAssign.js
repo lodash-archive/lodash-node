@@ -19,9 +19,6 @@ var keys = require('../objects/keys');
  * @returns {Object} Returns the destination object.
  */
 function baseAssign(object, source, callback) {
-  if (!object) {
-    return object;
-  }
   var index = -1,
       props = keys(source),
       length = props.length;
