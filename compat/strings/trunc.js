@@ -28,22 +28,22 @@ var reFlags = /\w*$/;
  * @returns {string} Returns the truncated string.
  * @example
  *
- * _.truncate('hi-diddly-ho there, neighborino');
+ * _.trunc('hi-diddly-ho there, neighborino');
  * // => 'hi-diddly-ho there, neighbo...'
  *
- * _.truncate('hi-diddly-ho there, neighborino', 24);
+ * _.trunc('hi-diddly-ho there, neighborino', 24);
  * // => 'hi-diddly-ho there, n...'
  *
- * _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
+ * _.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
  * // => 'hi-diddly-ho there,...'
  *
- * _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
+ * _.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
  * //=> 'hi-diddly-ho there...'
  *
- * _.truncate('hi-diddly-ho there, neighborino', { 'omission': ' [...]' });
+ * _.trunc('hi-diddly-ho there, neighborino', { 'omission': ' [...]' });
  * // => 'hi-diddly-ho there, neig [...]'
  */
-function truncate(string, options) {
+function trunc(string, options) {
   var length = 30,
       omission = '...';
 
@@ -91,4 +91,4 @@ function truncate(string, options) {
   return result + omission;
 }
 
-module.exports = truncate;
+module.exports = trunc;

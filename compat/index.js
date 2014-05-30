@@ -286,7 +286,7 @@ lodash.template = utilities.template;
 lodash.trim = strings.trim;
 lodash.trimLeft = strings.trimLeft;
 lodash.trimRight = strings.trimRight;
-lodash.truncate = strings.truncate;
+lodash.trunc = strings.trunc;
 lodash.unescape = utilities.unescape;
 lodash.uniqueId = utilities.uniqueId;
 

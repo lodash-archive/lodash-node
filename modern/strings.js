@@ -25,6 +25,6 @@ module.exports = {
   'trim': require('./strings/trim'),
   'trimLeft': require('./strings/trimLeft'),
   'trimRight': require('./strings/trimRight'),
-  'truncate': require('./strings/truncate'),
+  'trunc': require('./strings/trunc'),
   'unescape': require('./utilities/unescape')
 };
