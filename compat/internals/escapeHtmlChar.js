@@ -1,5 +1,5 @@
 /**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Lo-Dash 2.5.0-pre (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize exports="node" -o ./compat/`
  * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
@@ -16,10 +16,10 @@
  * See [Mathias' article](http://mathiasbynens.be/notes/ambiguous-ampersands)
  * (under "semi-related fun fact") for more details.
  *
- * Backticks are escaped because in Internet Explorer < 9, they can be used
- * to break out of attribute values or HTML comments. See
- * <http://html5sec.org/#102>, <http://html5sec.org/#108>, and
- * <http://html5sec.org/#133> for more details.
+ * Backticks are escaped because in Internet Explorer < 9, they can be used to
+ * break out of attribute values or HTML comments. See [#102](http://html5sec.org/#102),
+ * [#108](http://html5sec.org/#108), and [#133](http://html5sec.org/#133) of
+ * the [HTML5 Security Cheatsheet](http://html5sec.org/) for more details.
  */
 var htmlEscapes = {
   '&': '&amp;',
