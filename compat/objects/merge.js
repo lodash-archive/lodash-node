@@ -26,7 +26,8 @@ var arrayEach = require('../internals/arrayEach'),
  * @returns {Object} Returns the destination object.
  */
 function baseMerge(object, source, callback, stackA, stackB) {
-  (isArrayLike(source) ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
+  var isSrcArr = isArrayLike(source);
+  (isSrcArr ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
     var isArr = srcValue && isArrayLike(srcValue),
         isObj = srcValue && isPlainObject(srcValue),
         value = object[key];
@@ -36,10 +37,9 @@ function baseMerge(object, source, callback, stackA, stackB) {
       if (typeof result == 'undefined') {
         result = srcValue;
       }
-      if (typeof result != 'undefined') {
-        value = result;
+      if (isSrcArr || typeof result != 'undefined') {
+        object[key] = result;
       }
-      object[key] = value;
       return;
     }
     // avoid merging previously merged cyclic sources
@@ -56,22 +56,21 @@ function baseMerge(object, source, callback, stackA, stackB) {
     var result = callback ? callback(value, srcValue, key, object, source) : undefined,
         isShallow = typeof result != 'undefined';
 
-    if (isShallow) {
-      value = result;
-    } else {
-      value = isArr
+    if (!isShallow) {
+      result = isArr
         ? (isArray(value) ? value : [])
         : (isPlainObject(value) ? value : {});
     }
-    // add `source` and associated `value` to the stack of traversed objects
+    // add the source value to the stack of traversed objects
+    // and associate it with its merged value
     stackA.push(srcValue);
-    stackB.push(value);
+    stackB.push(result);
 
     // recursively merge objects and arrays (susceptible to call stack limits)
     if (!isShallow) {
-      baseMerge(value, srcValue, callback, stackA, stackB);
+      baseMerge(result, srcValue, callback, stackA, stackB);
     }
-    object[key] = value;
+    object[key] = result;
   });
 
   return object;
