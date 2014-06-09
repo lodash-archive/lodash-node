@@ -23,8 +23,7 @@ function baseCreateCallback(func, thisArg, argCount) {
   if (typeof func != 'function') {
     return identity;
   }
-  // exit early for no `thisArg` or already bound by `Function#bind`
-  if (typeof thisArg == 'undefined' || !('prototype' in func)) {
+  if (typeof thisArg == 'undefined') {
     return func;
   }
   switch (argCount) {
