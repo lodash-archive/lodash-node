@@ -30,9 +30,7 @@ var rest = require('./rest');
  * @returns {Array} Returns the slice of `array`.
  * @example
  *
- * _.dropWhile([1, 2, 3], function(num) {
- *   return num < 3;
- * });
+ * _.dropWhile([1, 2, 3], function(n) { return n < 3; });
  * // => [3]
  *
  * var characters = [

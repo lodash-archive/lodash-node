@@ -35,13 +35,11 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  * @returns {*} Returns the accumulated value.
  * @example
  *
- * var sum = _.reduce([1, 2, 3], function(sum, num) {
- *   return sum + num;
- * });
+ * var sum = _.reduce([1, 2, 3], function(sum, n) { return sum + n; });
  * // => 6
  *
- * var mapped = _.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key) {
- *   result[key] = num * 3;
+ * var mapped = _.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function(result, n, key) {
+ *   result[key] = n * 3;
  *   return result;
  * }, {});
  * // => { 'a': 3, 'b': 6, 'c': 9 }

@@ -26,7 +26,7 @@ var reFuncName = /^\s*function[ \n\r\t]+\w/;
 /** Used to detect functions containing a `this` reference */
 var reThis = /\bthis\b/;
 
-/** Native method shortcuts */
+/** Used to resolve the decompiled source of functions */
 var fnToString = Function.prototype.toString;
 
 /**

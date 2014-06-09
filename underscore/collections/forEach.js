@@ -37,10 +37,10 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  * @returns {Array|Object|string} Returns `collection`.
  * @example
  *
- * _([1, 2, 3]).forEach(function(num) { console.log(num); }).join(',');
+ * _([1, 2, 3]).forEach(function(n) { console.log(n); }).join(',');
  * // => logs each number and returns '1,2,3'
  *
- * _.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
+ * _.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function(n) { console.log(n); });
  * // => logs each number and returns the object (property order is not guaranteed across environments)
  */
 function forEach(collection, callback, thisArg) {

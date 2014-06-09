@@ -32,10 +32,10 @@ var createAggregator = require('../internals/createAggregator');
  * @returns {Array} Returns the array of grouped elements.
  * @example
  *
- * _.partition([1, 2, 3], function(num) { return num % 2; });
+ * _.partition([1, 2, 3], function(n) { return n % 2; });
  * // => [[1, 3], [2]]
  *
- * _.partition([1.2, 2.3, 3.4], function(num) { return this.floor(num) % 2; }, Math);
+ * _.partition([1.2, 2.3, 3.4], function(n) { return this.floor(n) % 2; }, Math);
  * // => [[1, 3], [2]]
  *
  * var characters = [

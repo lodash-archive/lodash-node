@@ -43,7 +43,7 @@ function arrayEachRight(array, callback) {
  * @returns {Array|Object|string} Returns `collection`.
  * @example
  *
- * _([1, 2, 3]).forEachRight(function(num) { console.log(num); }).join(',');
+ * _([1, 2, 3]).forEachRight(function(n) { console.log(n); }).join(',');
  * // => logs each number from right to left and returns '3,2,1'
  */
 function forEachRight(collection, callback, thisArg) {

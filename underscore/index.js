@@ -77,15 +77,11 @@ var arrayProto = Array.prototype;
  * var wrapped = _([1, 2, 3]);
  *
  * // returns an unwrapped value
- * wrapped.reduce(function(sum, num) {
- *   return sum + num;
- * });
+ * wrapped.reduce(function(sum, n) { return sum + n; });
  * // => 6
  *
  * // returns a wrapped value
- * var squares = wrapped.map(function(num) {
- *   return num * num;
- * });
+ * var squares = wrapped.map(function(n) { return n * n; });
  *
  * _.isArray(squares);
  * // => false

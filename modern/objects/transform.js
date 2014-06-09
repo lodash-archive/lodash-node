@@ -31,16 +31,16 @@ var arrayEach = require('../internals/arrayEach'),
  * @returns {*} Returns the accumulated value.
  * @example
  *
- * var squares = _.transform([1, 2, 3, 4, 5, 6, 7, 8], function(result, num) {
- *   num *= num;
- *   if (num % 2) {
- *     return result.push(num) < 3;
+ * var squares = _.transform([1, 2, 3, 4, 5, 6], function(result, n) {
+ *   n *= n;
+ *   if (n % 2) {
+ *     return result.push(n) < 3;
  *   }
  * });
  * // => [1, 9, 25]
  *
- * var mapped = _.transform({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key) {
- *   result[key] = num * 3;
+ * var mapped = _.transform({ 'a': 1, 'b': 2, 'c': 3 }, function(result, n, key) {
+ *   result[key] = n * 3;
  * });
  * // => { 'a': 3, 'b': 6, 'c': 9 }
  */

@@ -51,10 +51,10 @@ function compareAscending(object, other) {
  * @returns {Array} Returns the new sorted array.
  * @example
  *
- * _.sortBy([1, 2, 3], function(num) { return Math.sin(num); });
+ * _.sortBy([1, 2, 3], function(n) { return Math.sin(n); });
  * // => [3, 1, 2]
  *
- * _.sortBy([1, 2, 3], function(num) { return this.sin(num); }, Math);
+ * _.sortBy([1, 2, 3], function(n) { return this.sin(n); }, Math);
  * // => [3, 1, 2]
  *
  * var characters = [

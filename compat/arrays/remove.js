@@ -40,7 +40,7 @@ var splice = arrayProto.splice;
  * @example
  *
  * var array = [1, 2, 3, 4];
- * var evens = _.remove(array, function(num) { return num % 2 == 0; });
+ * var evens = _.remove(array, function(n) { return n % 2 == 0; });
  *
  * console.log(array);
  * // => [1, 3]

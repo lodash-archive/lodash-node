@@ -39,10 +39,10 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @returns {Object} Returns the composed aggregate object.
  * @example
  *
- * _.groupBy([4.2, 6.1, 6.4], function(num) { return Math.floor(num); });
+ * _.groupBy([4.2, 6.1, 6.4], function(n) { return Math.floor(n); });
  * // => { '4': [4.2], '6': [6.1, 6.4] }
  *
- * _.groupBy([4.2, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
+ * _.groupBy([4.2, 6.1, 6.4], function(n) { return this.floor(n); }, Math);
  * // => { '4': [4.2], '6': [6.1, 6.4] }
  *
  * // using "_.pluck" callback shorthand

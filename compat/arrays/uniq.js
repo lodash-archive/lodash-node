@@ -37,20 +37,20 @@ var baseUniq = require('../internals/baseUniq'),
  * @returns {Array} Returns the new duplicate-value-free array.
  * @example
  *
- * _.uniq([1, 2, 1, 3, 1]);
- * // => [1, 2, 3]
+ * _.uniq([1, 2, 1]);
+ * // => [1, 2]
  *
  * // using `isSorted`
- * _.uniq([1, 1, 2, 2, 3], true);
- * // => [1, 2, 3]
+ * _.uniq([1, 1, 2], true);
+ * // => [1, 2]
  *
  * // using `callback`
- * _.uniq(['A', 'b', 'C', 'a', 'B', 'c'], function(letter) { return letter.toLowerCase(); });
- * // => ['A', 'b', 'C']
+ * _.uniq(['A', 'b', 'a', 'B'], function(chr) { return chr.toLowerCase(); });
+ * // => ['A', 'b']
  *
  * // using `callback` with `thisArg`
- * _.uniq([1, 2.5, 3, 1.5, 2, 3.5], function(num) { return this.floor(num); }, Math);
- * // => [1, 2.5, 3]
+ * _.uniq([1, 2.5, 1.5, 2], function(n) { return this.floor(n); }, Math);
+ * // => [1, 2.5]
  *
  * // using "_.pluck" callback shorthand
  * _.uniq([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');

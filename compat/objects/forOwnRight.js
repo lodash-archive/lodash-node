@@ -23,7 +23,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * @returns {Object} Returns `object`.
  * @example
  *
- * _.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
+ * _.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(n, key) {
  *   console.log(key);
  * });
  * // => logs 'length', '1', and '0' assuming `_.forOwn` logs '0', '1', and 'length'

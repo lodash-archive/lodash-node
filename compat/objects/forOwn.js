@@ -24,7 +24,7 @@ var baseCreateCallback = require('../internals/baseCreateCallback'),
  * @returns {Object} Returns `object`.
  * @example
  *
- * _.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
+ * _.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(n, key) {
  *   console.log(key);
  * });
  * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)

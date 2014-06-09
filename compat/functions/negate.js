@@ -23,8 +23,8 @@ var funcErrorText = 'Expected a function';
  * @returns {Function} Returns the new function.
  * @example
  *
- * function isEven(num) {
- *   return num % 2 == 0;
+ * function isEven(n) {
+ *   return n % 2 == 0;
  * }
  *
  * _.filter([1, 2, 3, 4, 5, 6], _.negate(isEven));

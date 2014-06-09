@@ -39,10 +39,10 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @returns {Object} Returns the composed aggregate object.
  * @example
  *
- * _.countBy([4.3, 6.1, 6.4], function(num) { return Math.floor(num); });
+ * _.countBy([4.3, 6.1, 6.4], function(n) { return Math.floor(n); });
  * // => { '4': 1, '6': 2 }
  *
- * _.countBy([4.3, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
+ * _.countBy([4.3, 6.1, 6.4], function(n) { return this.floor(n); }, Math);
  * // => { '4': 1, '6': 2 }
  *
  * _.countBy(['one', 'two', 'three'], 'length');

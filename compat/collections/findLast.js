@@ -25,9 +25,7 @@ var baseEachRight = require('../internals/baseEachRight'),
  * @returns {*} Returns the matched element, else `undefined`.
  * @example
  *
- * _.findLast([1, 2, 3, 4], function(num) {
- *   return num % 2 == 1;
- * });
+ * _.findLast([1, 2, 3, 4], function(n) { return n % 2 == 1; });
  * // => 3
  */
 function findLast(collection, predicate, thisArg) {
