@@ -147,13 +147,16 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
         return stackB[length];
       }
     }
-    result = isArr ? Ctor(value.length) : new Ctor();
+    result = isArr ? Ctor(value.length) : new Ctor;
   }
   else {
     result = isArr ? slice(value) : baseAssign({}, value);
   }
+  if (className == argsClass) {
+    result.length = value.length;
+  }
   // add array properties assigned by `RegExp#exec`
-  if (isArr) {
+  else if (isArr) {
     if (hasOwnProperty.call(value, 'index')) {
       result.index = value.index;
     }
