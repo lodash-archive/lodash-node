@@ -9,6 +9,7 @@
 var arrayEach = require('./arrayEach'),
     baseAssign = require('./baseAssign'),
     baseForOwn = require('./baseForOwn'),
+    cloneBuffer = require('./cloneBuffer'),
     isArray = require('../objects/isArray'),
     isFunction = require('../objects/isFunction'),
     isObject = require('../objects/isObject'),
@@ -67,6 +68,18 @@ var toString = objectProto.toString;
 /** Native method shortcuts */
 var hasOwnProperty = objectProto.hasOwnProperty;
 
+/** Used to lookup a built-in constructor by [[Class]] */
+var ctorByClass = {};
+ctorByClass[float32Class] = global.Float32Array;
+ctorByClass[float64Class] = global.Float64Array;
+ctorByClass[int8Class] = global.Int8Array;
+ctorByClass[int16Class] = global.Int16Array;
+ctorByClass[int32Class] = global.Int32Array;
+ctorByClass[uint8Class] = global.Uint8Array;
+ctorByClass[uint8ClampedClass] = global.Uint8ClampedArray;
+ctorByClass[uint16Class] = global.Uint16Array;
+ctorByClass[uint32Class] = global.Uint32Array;
+
 /**
  * The base implementation of `_.clone` without support for argument juggling
  * and `this` binding.
@@ -96,7 +109,7 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
     }
     switch (className) {
       case arrayBufferClass:
-        return value.slice(0);
+        return cloneBuffer(value);
 
       case boolClass:
       case dateClass:
@@ -108,7 +121,7 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
       case float32Class: case float64Class:
       case int8Class: case int16Class: case int32Class:
       case uint8Class: case uint8ClampedClass: case uint16Class: case uint32Class:
-        return value.subarray(0);
+        return new ctorByClass[className](cloneBuffer(value.buffer));
 
       case numberClass:
       case stringClass:
@@ -134,7 +147,7 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
         return stackB[length];
       }
     }
-    result = isArr ? Ctor(value.length) : Ctor();
+    result = isArr ? Ctor(value.length) : new Ctor();
   }
   else {
     result = isArr ? slice(value) : baseAssign({}, value);
