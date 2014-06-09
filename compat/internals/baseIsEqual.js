@@ -129,7 +129,7 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
       // treat string primitives and their corresponding object instances as equal
       return value == String(other);
   }
-  if (!support.argsObject) {
+  if (!support.argsClass) {
     valIsArg = isArguments(value);
     othIsArg = isArguments(other);
   }

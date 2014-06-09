@@ -60,15 +60,6 @@ var support = {};
   support.argsClass = toString.call(arguments) == argsClass;
 
   /**
-   * Detect if `arguments` objects are `Object` objects
-   * (all but Narwhal and Opera < 10.5).
-   *
-   * @memberOf _.support
-   * @type boolean
-   */
-  support.argsObject = arguments.constructor == Object && !(arguments instanceof Array);
-
-  /**
    * Detect if `name` or `message` properties of `Error.prototype` are
    * enumerable by default (IE < 9, Safari < 5.1).
    *
