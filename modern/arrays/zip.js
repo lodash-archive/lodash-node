@@ -6,7 +6,8 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var max = require('../collections/max'),
+var isArray = require('../objects/isArray'),
+    max = require('../collections/max'),
     pluck = require('../collections/pluck');
 
 /**
@@ -32,7 +33,7 @@ var max = require('../collections/max'),
 function zip() {
   var array = arguments.length > 1 ? arguments : arguments[0],
       index = -1,
-      length = (array && array.length) ? max(array, 'length').length : 0,
+      length = isArray(length = max(array, 'length')) && length.length || 0,
       result = Array(length);
 
   while (++index < length) {
