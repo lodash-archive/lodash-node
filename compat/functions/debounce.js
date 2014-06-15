@@ -93,7 +93,7 @@ function debounce(func, wait, options) {
     trailing = false;
   } else if (isObject(options)) {
     leading = options.leading;
-    maxWait = 'maxWait' in options && nativeMax(wait, +options.maxWait || 0);
+    maxWait = 'maxWait' in options && nativeMax(+options.maxWait || 0, wait);
     trailing = 'trailing' in options ? options.trailing : trailing;
   }
 
