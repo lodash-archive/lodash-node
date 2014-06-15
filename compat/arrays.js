@@ -8,6 +8,7 @@
  */
 
 module.exports = {
+  'chunk': require('./arrays/chunk'),
   'compact': require('./arrays/compact'),
   'difference': require('./arrays/difference'),
   'drop': require('./arrays/drop'),
