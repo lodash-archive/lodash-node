@@ -6,7 +6,8 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseDifference = require('../internals/baseDifference'),
+var arrayMap = require('../internals/arrayMap'),
+    baseDifference = require('../internals/baseDifference'),
     baseFlatten = require('../internals/baseFlatten'),
     basePick = require('../internals/basePick'),
     createCallback = require('../functions/createCallback'),
@@ -48,13 +49,8 @@ function omit(object, predicate, thisArg) {
   if (typeof predicate == 'function') {
     return basePick(object, negate(createCallback(predicate, thisArg, 3)));
   }
-  var omitProps = baseFlatten(arguments, true, false, 1),
-      length = omitProps.length;
-
-  while (length--) {
-    omitProps[length] = String(omitProps[length]);
-  }
-  return basePick(object, baseDifference(keysIn(object), omitProps));
+  var omitProps = baseFlatten(arguments, true, false, 1);
+  return basePick(object, baseDifference(keysIn(object), arrayMap(omitProps, String)));
 }
 
 module.exports = omit;
