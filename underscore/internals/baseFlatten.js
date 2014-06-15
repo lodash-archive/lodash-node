@@ -23,6 +23,7 @@ var isArguments = require('../objects/isArguments'),
 function baseFlatten(array, isShallow, isStrict, fromIndex) {
   var index = (fromIndex || 0) - 1,
       length = array ? array.length : 0,
+      resIndex = 0,
       result = [];
 
   while (++index < length) {
@@ -35,15 +36,14 @@ function baseFlatten(array, isShallow, isStrict, fromIndex) {
         value = baseFlatten(value, isShallow, isStrict);
       }
       var valIndex = -1,
-          valLength = value.length,
-          resIndex = result.length;
+          valLength = value.length;
 
       result.length += valLength;
       while (++valIndex < valLength) {
         result[resIndex++] = value[valIndex];
       }
     } else if (!isStrict) {
-      result.push(value);
+      result[resIndex++] = value;
     }
   }
   return result;
