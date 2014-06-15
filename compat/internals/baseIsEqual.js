@@ -121,22 +121,22 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
         // but treat `-0` vs. `+0` as not equal
         : (value == 0 ? (1 / value == 1 / other) : value == +other);
 
-    case errorClass:
     case regexpClass:
     case stringClass:
-      // coerce errors (http://es5.github.io/#x15.11.4.4)
-      // and regexes (http://es5.github.io/#x15.10.6.4) to strings
-      // treat string primitives and their corresponding object instances as equal
+      // coerce regexes to strings (http://es5.github.io/#x15.10.6.4) and
+      // treat strings primitives and string objects as equal
       return value == String(other);
   }
+  var isArr = arrayLikeClasses[valClass],
+      isErr = valClass == errorClass;
+
   if (!support.argsClass) {
     valIsArg = isArguments(value);
     othIsArg = isArguments(other);
   }
-  var isArr = arrayLikeClasses[valClass];
   if (!isArr) {
-    // exit for functions and DOM nodes
-    if (valClass != objectClass || (!support.nodeClass && (isNode(value) || isNode(other)))) {
+    // exit for things like functions and DOM nodes
+    if (!(isErr || valClass == objectClass) || (!support.nodeClass && (isNode(value) || isNode(other)))) {
       return false;
     }
     // unwrap any `lodash` wrapped values
@@ -157,6 +157,10 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
       var valCtor = valIsArg ? Object : value.constructor,
           othCtor = othIsArg ? Object : other.constructor;
 
+      // error objects of different types are not equal
+      if (isErr && valCtor.prototype.name != othCtor.prototype.name) {
+        return false;
+      }
       // non `Object` object instances with different constructors are not equal
       if (valCtor != othCtor &&
             !(isFunction(valCtor) && valCtor instanceof valCtor && isFunction(othCtor) && othCtor instanceof othCtor) &&
@@ -190,35 +194,34 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
     length = value.length;
     result = length == othLength;
 
-    if (result || isWhere) {
+    if (result || (isWhere && othLength > length)) {
       // deep compare the contents, ignoring non-numeric properties
       while (++index < length) {
         var valValue = value[index];
         if (isWhere) {
-          var othIndex = -1;
-          while (++othIndex < othLength) {
-            var othValue = other[othIndex];
-            result = baseIsEqual(valValue, othValue, callback, isWhere, stackA, stackB);
+          var othIndex = othLength;
+          while (othIndex--) {
+            result = baseIsEqual(valValue, other[othIndex], callback, isWhere, stackA, stackB);
             if (result) {
               break;
             }
           }
         } else {
-          othValue = other[index];
+          var othValue = other[index];
           result = callback ? callback(valValue, othValue, index) : undefined;
           if (typeof result == 'undefined') {
             result = baseIsEqual(valValue, othValue, callback, isWhere, stackA, stackB);
           }
-          if (!result) {
-            break;
-          }
+        }
+        if (!result) {
+          break;
         }
       }
     }
   }
   else {
-    var valProps = keys(value),
-        othProps = keys(other);
+    var valProps = isErr ? ['message', 'name'] : keys(value),
+        othProps = isErr ? valProps : keys(other);
 
     if (valIsArg) {
       valProps.push('length');
@@ -232,10 +235,11 @@ function baseIsEqual(value, other, callback, isWhere, stackA, stackB) {
     if (result || isWhere) {
       while (++index < length) {
         var key = valProps[index];
-        result = hasOwnProperty.call(other, key);
+        result = isErr || hasOwnProperty.call(other, key);
+
         if (result) {
-          othValue = other[key];
           valValue = value[key];
+          othValue = other[key];
           result = callback ? callback(valValue, othValue, key) : undefined;
           if (typeof result == 'undefined') {
             result = baseIsEqual(valValue, othValue, callback, isWhere, stackA, stackB);
