@@ -46,16 +46,16 @@ var arrayBufferClass = '[object ArrayBuffer]',
 
 /** Used to identify object classifications that `_.clone` supports */
 var cloneableClasses = {};
-cloneableClasses[argsClass] =
-cloneableClasses[arrayClass] = cloneableClasses[arrayBufferClass] =
-cloneableClasses[boolClass] = cloneableClasses[dateClass] =
-cloneableClasses[errorClass] = cloneableClasses[float32Class] =
+cloneableClasses[argsClass] = cloneableClasses[arrayClass] =
+cloneableClasses[arrayBufferClass] = cloneableClasses[boolClass] =
+cloneableClasses[dateClass] = cloneableClasses[float32Class] =
 cloneableClasses[float64Class] = cloneableClasses[int8Class] =
 cloneableClasses[int16Class] = cloneableClasses[int32Class] =
 cloneableClasses[numberClass] = cloneableClasses[objectClass] =
 cloneableClasses[regexpClass] = cloneableClasses[stringClass] =
 cloneableClasses[uint8Class] = cloneableClasses[uint8ClampedClass] =
 cloneableClasses[uint16Class] = cloneableClasses[uint32Class] = true;
+cloneableClasses[errorClass] =
 cloneableClasses[funcClass] = cloneableClasses[mapClass] =
 cloneableClasses[setClass] = cloneableClasses[weakMapClass] = false;
 
@@ -67,18 +67,6 @@ var toString = objectProto.toString;
 
 /** Native method shortcuts */
 var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Used to lookup a built-in constructor by [[Class]] */
-var ctorByClass = {};
-ctorByClass[float32Class] = global.Float32Array;
-ctorByClass[float64Class] = global.Float64Array;
-ctorByClass[int8Class] = global.Int8Array;
-ctorByClass[int16Class] = global.Int16Array;
-ctorByClass[int32Class] = global.Int32Array;
-ctorByClass[uint8Class] = global.Uint8Array;
-ctorByClass[uint8ClampedClass] = global.Uint8ClampedArray;
-ctorByClass[uint16Class] = global.Uint16Array;
-ctorByClass[uint32Class] = global.Uint32Array;
 
 /**
  * The base implementation of `_.clone` without support for argument juggling
@@ -115,13 +103,10 @@ function baseClone(value, isDeep, callback, stackA, stackB) {
       case dateClass:
         return new Ctor(+value);
 
-      case errorClass:
-        return new Ctor(value.message);
-
       case float32Class: case float64Class:
       case int8Class: case int16Class: case int32Class:
       case uint8Class: case uint8ClampedClass: case uint16Class: case uint32Class:
-        return new ctorByClass[className](cloneBuffer(value.buffer));
+        return new Ctor(cloneBuffer(value.buffer));
 
       case numberClass:
       case stringClass:
