@@ -15,7 +15,7 @@ var baseIndexOf = require('./baseIndexOf'),
  * of values to exclude.
  *
  * @private
- * @param {Array} array The array to process.
+ * @param {Array} array The array to inspect.
  * @param {Array} [values] The array of values to exclude.
  * @returns {Array} Returns the new array of filtered values.
  */

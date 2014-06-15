@@ -13,7 +13,7 @@ var baseIndexOf = require('./baseIndexOf');
  * and `this` binding.
  *
  * @private
- * @param {Array} array The array to process.
+ * @param {Array} array The array to inspect.
  * @param {boolean} [isSorted=false] A flag to indicate that `array` is sorted.
  * @param {Function} [callback] The function called per iteration.
  * @returns {Array} Returns the new duplicate-value-free array.

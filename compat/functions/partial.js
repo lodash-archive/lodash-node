@@ -35,9 +35,9 @@ var expando = '__lodash@' + version + '__';
  * @example
  *
  * var greet = function(greeting, name) { return greeting + ' ' + name; };
- * var hi = _.partial(greet, 'hi');
- * hi('fred');
- * // => 'hi fred'
+ * var sayHelloTo = _.partial(greet, 'hello');
+ * sayHelloTo('fred');
+ * // => 'hello fred'
  */
 function partial(func) {
   if (func) {

@@ -22,7 +22,7 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
 /**
  * Checks if a collection is empty. A value is considered empty unless it is
  * an array, array-like object, or string with a length greater than `0` or
- * an object with own properties.
+ * an object with own enumerable properties.
  *
  * @static
  * @memberOf _

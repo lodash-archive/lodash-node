@@ -223,7 +223,7 @@ function template(string, data, options) {
   string.replace(reDelimiters, function(match, escapeValue, interpolateValue, esTemplateValue, evaluateValue, offset) {
     interpolateValue || (interpolateValue = esTemplateValue);
 
-    // escape characters that cannot be included in string literals
+    // escape characters that can't be included in string literals
     source += string.slice(index, offset).replace(reUnescapedString, escapeStringChar);
 
     // replace delimiters with snippets

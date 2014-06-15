@@ -29,9 +29,9 @@ var PARTIAL_FLAG = 16;
  * @example
  *
  * var greet = function(greeting, name) { return greeting + ' ' + name; };
- * var hi = _.partial(greet, 'hi');
- * hi('fred');
- * // => 'hi fred'
+ * var sayHelloTo = _.partial(greet, 'hello');
+ * sayHelloTo('fred');
+ * // => 'hello fred'
  */
 function partial(func) {
   return createWrapper(func, PARTIAL_FLAG, null, null, slice(arguments, 1));

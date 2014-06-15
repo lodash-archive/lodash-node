@@ -28,7 +28,7 @@ var baseUniq = require('../internals/baseUniq'),
  * @memberOf _
  * @alias unique
  * @category Arrays
- * @param {Array} array The array to process.
+ * @param {Array} array The array to inspect.
  * @param {boolean} [isSorted=false] A flag to indicate that `array` is sorted.
  * @param {Function|Object|string} [callback] The function called per iteration.
  *  If a property name or object is provided it is used to create a "_.pluck"
