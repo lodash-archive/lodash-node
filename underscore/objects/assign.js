@@ -36,7 +36,7 @@
  * // => { 'name': 'barney', 'age': 36, 'employer': 'slate' }
  */
 function assign(object) {
-  if (!object) {
+  if (object == null) {
     return object;
   }
   var args = arguments,
