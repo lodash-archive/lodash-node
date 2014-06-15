@@ -6,7 +6,8 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isArguments = require('./isArguments'),
+var arrayEach = require('../internals/arrayEach'),
+    isArguments = require('./isArguments'),
     isArray = require('./isArray'),
     isObject = require('./isObject'),
     isString = require('./isString'),
@@ -47,17 +48,14 @@ nonEnumProps[boolClass] = nonEnumProps[stringClass] = { 'constructor': true, 'to
 nonEnumProps[errorClass] = nonEnumProps[funcClass] = nonEnumProps[regexpClass] = { 'constructor': true, 'toString': true };
 nonEnumProps[objectClass] = { 'constructor': true };
 
-(function() {
-  var length = shadowedProps.length;
-  while (length--) {
-    var key = shadowedProps[length];
-    for (var className in nonEnumProps) {
-      if (hasOwnProperty.call(nonEnumProps, className) && !hasOwnProperty.call(nonEnumProps[className], key)) {
-        nonEnumProps[className][key] = false;
-      }
+arrayEach(shadowedProps, function(key) {
+  for (var className in nonEnumProps) {
+    if (hasOwnProperty.call(nonEnumProps, className)) {
+      var props = nonEnumProps[className];
+      props[key] = hasOwnProperty.call(props, key);
     }
   }
-}());
+});
 
 /**
  * Creates an array of the own and inherited enumerable property names of `object`.
