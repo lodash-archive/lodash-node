@@ -1,6 +1,6 @@
 /**
  * @license
- * Lo-Dash 2.5.0-pre (Custom Build) <http://lodash.com/>
+ * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="node" -o ./modern/`
  * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
@@ -25,7 +25,7 @@ var arrays = require('./arrays'),
     support = require('./support');
 
 /** Used as the semantic version number */
-var version = '2.5.0-pre';
+var version = '3.0.0-pre';
 
 /** Used for native method references */
 var arrayProto = Array.prototype,
