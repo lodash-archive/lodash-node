@@ -50,14 +50,11 @@ var callback = require('../utility/callback'),
  */
 function dropWhile(array, predicate, thisArg) {
   var index = -1,
-      length = array ? array.length : 0,
-      n = 0;
+      length = array ? array.length : 0;
 
   predicate = callback(predicate, thisArg, 3);
-  while (++index < length && predicate(array[index], index, array)) {
-    n++;
-  }
-  return slice(array, n);
+  while (++index < length && predicate(array[index], index, array)) { }
+  return slice(array, index);
 }
 
 module.exports = dropWhile;

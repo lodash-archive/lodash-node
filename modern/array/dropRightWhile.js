@@ -58,8 +58,7 @@ function dropRightWhile(array, predicate, thisArg) {
   while (index-- && predicate(array[index], index, array)) {
     n++;
   }
-  n = length - (n || 0);
-  return slice(array, 0, n < 0 ? 0 : n);
+  return slice(array, 0, length - n);
 }
 
 module.exports = dropRightWhile;

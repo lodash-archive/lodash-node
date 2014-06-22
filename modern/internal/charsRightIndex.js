@@ -19,11 +19,7 @@
 function charsRightIndex(string, chars) {
   var index = string.length;
 
-  while (index--) {
-    if (chars.indexOf(string.charAt(index)) < 0) {
-      break;
-    }
-  }
+  while (index-- && chars.indexOf(string.charAt(index)) > -1) { }
   return index;
 }
 

@@ -57,8 +57,7 @@ function takeRightWhile(array, predicate, thisArg) {
   while (index-- && predicate(array[index], index, array)) {
     n++;
   }
-  n = length - (n || 0);
-  return slice(array, n < 0 ? 0 : n);
+  return slice(array, length - n);
 }
 
 module.exports = takeRightWhile;
