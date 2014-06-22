@@ -39,7 +39,7 @@ var baseFlatten = require('../internal/baseFlatten'),
 function pick(object) {
   return object == null
     ? {}
-    : basePick(object, baseFlatten(arguments, false, false, 1));
+    : basePick(Object(object), baseFlatten(arguments, false, false, 1));
 }
 
 module.exports = pick;

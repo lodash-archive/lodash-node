@@ -44,7 +44,7 @@ function omit(object) {
     return {};
   }
   var omitProps = baseFlatten(arguments, false, false, 1);
-  return basePick(object, baseDifference(keysIn(object), arrayMap(omitProps, String)));
+  return basePick(Object(object), baseDifference(keysIn(object), arrayMap(omitProps, String)));
 }
 
 module.exports = omit;

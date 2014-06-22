@@ -41,7 +41,7 @@ function pick(object, predicate, thisArg) {
   if (object == null) {
     return {};
   }
-  return basePick(object, typeof predicate == 'function'
+  return basePick(Object(object), typeof predicate == 'function'
     ? callback(predicate, thisArg, 3)
     : baseFlatten(arguments, false, false, 1));
 }
