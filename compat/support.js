@@ -6,7 +6,7 @@
  * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var isNative = require('./internals/isNative');
+var isNative = require('./internal/isNative');
 
 /** Used to detect functions containing a `this` reference */
 var reThis = /\bthis\b/;
