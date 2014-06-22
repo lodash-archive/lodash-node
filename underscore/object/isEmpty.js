@@ -51,7 +51,7 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * // => false
  */
 function isEmpty(value) {
-  if (!value) {
+  if (value == null) {
     return true;
   }
   var length = value.length;

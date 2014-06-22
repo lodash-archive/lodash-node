@@ -48,7 +48,7 @@ var maxSafeInteger = Math.pow(2, 53) - 1;
  */
 function isEmpty(value) {
   var result = true;
-  if (!value) {
+  if (value == null) {
     return result;
   }
   var length = value.length;
