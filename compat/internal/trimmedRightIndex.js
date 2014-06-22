@@ -17,6 +17,7 @@
  */
 function trimmedRightIndex(string) {
   var index = string.length;
+
   while (index--) {
     var c = string.charCodeAt(index);
     if (!((c <= 160 && (c >= 9 && c <= 13) || c == 32 || c == 160) || c == 5760 || c == 6158 ||

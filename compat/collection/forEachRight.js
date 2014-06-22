@@ -21,6 +21,7 @@ var baseCallback = require('../internal/baseCallback'),
  */
 function arrayEachRight(array, iterator) {
   var length = array ? array.length : 0;
+
   while (length--) {
     if (iterator(array[length], length, array) === false) {
       break;
