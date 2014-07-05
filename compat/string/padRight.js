@@ -1,12 +1,5 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var createPad = require('../internal/createPad');
+var baseToString = require('../internal/baseToString'),
+    createPad = require('../internal/createPad');
 
 /**
  * Pads `string` on the right side if it is shorter then the given padding
@@ -32,8 +25,8 @@ var createPad = require('../internal/createPad');
  * // => 'abc'
  */
 function padRight(string, length, chars) {
-  string = string == null ? '' : String(string);
-  return string + createPad(string, length, chars);
+  string = baseToString(string);
+  return string && (string + createPad(string, length, chars));
 }
 
 module.exports = padRight;

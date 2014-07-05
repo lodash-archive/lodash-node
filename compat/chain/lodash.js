@@ -1,64 +1,73 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isArray = require('../object/isArray'),
-    lodashWrapper = require('../internal/lodashWrapper');
+var LodashWrapper = require('../internal/LodashWrapper'),
+    arrayCopy = require('../internal/arrayCopy'),
+    isArray = require('../lang/isArray'),
+    isObjectLike = require('../internal/isObjectLike');
 
-/** Used for native method references */
+/** Used for native method references. */
 var objectProto = Object.prototype;
 
-/** Native method shortcuts */
+/** Used to check objects for own properties. */
 var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
- * Creates a `lodash` object which wraps the given value to enable intuitive
- * method chaining.
+ * Creates a `lodash` object which wraps `value` to enable intuitive chaining.
+ * Methods that operate on and return arrays, collections, and functions can
+ * be chained together. Methods that return a boolean or single value will
+ * automatically end the chain returning the unwrapped value. Explicit chaining
+ * may be enabled using `_.chain`. The execution of chained methods is lazy,
+ * that is, execution is deferred until `_#value` is implicitly or explicitly
+ * called.
  *
- * In addition to Lo-Dash methods, wrappers also have the following `Array` methods:
+ * Lazy evaluation allows several methods to support shortcut fusion. Shortcut
+ * fusion is an optimization that merges iteratees to avoid creating intermediate
+ * arrays and reduce the number of iteratee executions.
+ *
+ * Chaining is supported in custom builds as long as the `_#value` method is
+ * directly or indirectly included in the build.
+ *
+ * In addition to lodash methods, wrappers also have the following `Array` methods:
  * `concat`, `join`, `pop`, `push`, `reverse`, `shift`, `slice`, `sort`, `splice`,
  * and `unshift`
  *
- * Chaining is supported in custom builds as long as the `value` method is
- * implicitly or explicitly included in the build.
+ * The wrapper functions that support shortcut fusion are:
+ * `drop`, `dropRight`, `dropRightWhile`, `dropWhile`, `filter`, `first`,
+ * `initial`, `last`, `map`, `pluck`, `reject`, `rest`, `reverse`, `slice`,
+ * `take`, `takeRight`, `takeRightWhile`, `takeWhile`, and `where`
  *
  * The chainable wrapper functions are:
- * `after`, `assign`, `at`, `bind`, `bindAll`, `bindKey`, `callback`, `chain`,
- * `chunk`, `compact`, `compose`, `concat`, `constant`, `countBy`, `create`,
- * `curry`, `debounce`, `defaults`, `defer`, `delay`, `difference`, `drop`,
- * `dropRight`, `dropRightWhile`, `dropWhile`, `filter`, `flatten`, `forEach`,
- * `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`, `functions`,
- * `groupBy`, `indexBy`, `initial`, `intersection`, `invert`, `invoke`, `keys`,
- * `keysIn`, `map`, `mapValues`, `matches`, `memoize`, `merge`, `mixin`,
- * `negate`, `noop`, `omit`, `once`, `pairs`, `partial`, `partialRight`,
- * `partition`, `pick`, `pluck`, `property`, `pull`, `pullAt`, `push`, `range`,
- * `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`, `sortBy`,
- * `splice`, `take`, `takeRight`, `takeRightWhile`, `takeWhile`, `tap`,
- * `throttle`, `times`, `toArray`, `transform`, `union`, `uniq`, `unshift`,
- * `unzip`, `values`, `valuesIn`, `where`, `without`, `wrap`, `xor`, `zip`,
- * and `zipObject`
+ * `after`, `ary`, `assign`, `at`, `before`, `bind`, `bindAll`, `bindKey`,
+ * `callback`, `chain`, `chunk`, `compact`, `concat`, `constant`, `countBy`,
+ * `create`, `curry`, `debounce`, `defaults`, `defer`, `delay`, `difference`,
+ * `drop`, `dropRight`, `dropRightWhile`, `dropWhile`, `filter`, `flatten`,
+ * `flattenDeep`, `flow`, `flowRight`, `forEach`, `forEachRight`, `forIn`,
+ * `forInRight`, `forOwn`, `forOwnRight`, `functions`, `groupBy`, `indexBy`,
+ * `initial`, `intersection`, `invert`, `invoke`, `keys`, `keysIn`, `map`,
+ * `mapValues`, `matches`, `memoize`, `merge`, `mixin`, `negate`, `noop`,
+ * `omit`, `once`, `pairs`, `partial`, `partialRight`, `partition`, `pick`,
+ * `pluck`, `property`, `propertyOf`, `pull`, `pullAt`, `push`, `range`,
+ * `rearg`, `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`,
+ * `sortBy`, `sortByAll`, `splice`, `take`, `takeRight`, `takeRightWhile`,
+ * `takeWhile`, `tap`, `throttle`, `thru`, `times`, `toArray`, `toPlainObject`,
+ * `transform`, `union`, `uniq`, `unshift`, `unzip`, `values`, `valuesIn`,
+ * `where`, `without`, `wrap`, `xor`, `zip`, and `zipObject`
  *
- * The non-chainable wrapper functions are:
- * `camelCase`, `capitalize`, `clone`, `cloneDeep`, `contains`, `endsWith`,
- * `escape`, `escapeRegExp`, `every`, `find`, `findIndex`, `findKey`,
+ * The wrapper functions that are **not** chainable by default are:
+ * `attempt`, `camelCase`, `capitalize`, `clone`, `cloneDeep`, `deburr`,
+ * `endsWith`, `escape`, `escapeRegExp`, `every`, `find`, `findIndex`, `findKey`,
  * `findLast`, `findLastIndex`, `findLastKey`, `findWhere`, `first`, `has`,
- * `identity`, `indexOf`, `isArguments`, `isArray`, `isBoolean`, `isDate`,
- * `isElement`, `isEmpty`, `isEqual`, `isError`, `isFinite`, `isFunction`,
- * `isNaN`, `isNull`, `isNumber`, `isObject`, `isPlainObject`, `isRegExp`,
- * `isString`, `isUndefined`, `join`, `kebabCase`, `last`, `lastIndexOf`,
- * `max`, `min`, `noConflict`, `now`, `pad`, `padLeft`, `padRight`, `parseInt`,
- * `pop`, `random`, `reduce`, `reduceRight`, `repeat`, `result`, `runInContext`,
- * `shift`, `size`, `snakeCase`, `some`, `sortedIndex`, `startsWith`, `template`,
- * `trim`, `trimLeft`, `trimRight`, `trunc`, `unescape`, `uniqueId`, and `value`
+ * `identity`, `includes`, `indexOf`, `isArguments`, `isArray`, `isBoolean`,
+ * `isDate`, `isElement`, `isEmpty`, `isEqual`, `isError`, `isFinite`,
+ * `isFunction`, `isMatch` , `isNative`, `isNaN`, `isNull`, `isNumber`,
+ * `isObject`, `isPlainObject`, `isRegExp`, `isString`, `isUndefined`,
+ * `isTypedArray`, `join`, `kebabCase`, `last`, `lastIndexOf`, `max`, `min`,
+ * `noConflict`, `now`, `pad`, `padLeft`, `padRight`, `parseInt`, `pop`,
+ * `random`, `reduce`, `reduceRight`, `repeat`, `result`, `runInContext`,
+ * `shift`, `size`, `snakeCase`, `some`, `sortedIndex`, `sortedLastIndex`,
+ * `startsWith`, `template`, `trim`, `trimLeft`, `trimRight`, `trunc`,
+ * `unescape`, `uniqueId`, `value`, and `words`
  *
- * The wrapper function `sample` will return a wrapped value when `n` is
- * provided, otherwise it will return an unwrapped value.
- *
- * Explicit chaining can be enabled by using the `_.chain` method.
+ * The wrapper function `sample` will return a wrapped value when `n` is provided,
+ * otherwise an unwrapped value is returned.
  *
  * @name _
  * @constructor
@@ -83,18 +92,18 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * // => true
  */
 function lodash(value) {
-  if (value && typeof value == 'object') {
-    if (value instanceof lodashWrapper) {
+  if (isObjectLike(value) && !isArray(value)) {
+    if (value instanceof LodashWrapper) {
       return value;
     }
-    if (!isArray(value) && hasOwnProperty.call(value, '__wrapped__')) {
-      value = value.__wrapped__;
+    if (hasOwnProperty.call(value, '__wrapped__')) {
+      return new LodashWrapper(value.__wrapped__, value.__chain__, arrayCopy(value.__actions__));
     }
   }
-  return new lodashWrapper(value);
+  return new LodashWrapper(value);
 }
 
-// ensure `new lodashWrapper` is an instance of `lodash`
-lodashWrapper.prototype = lodash.prototype;
+// Ensure `new LodashWrapper` is an instance of `lodash`.
+LodashWrapper.prototype = lodash.prototype;
 
 module.exports = lodash;

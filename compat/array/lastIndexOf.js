@@ -1,27 +1,21 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
+var binaryIndex = require('../internal/binaryIndex'),
+    indexOfNaN = require('../internal/indexOfNaN');
 
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
+/* Native method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max,
     nativeMin = Math.min;
 
 /**
- * Gets the index at which the last occurrence of `value` is found using
- * strict equality for comparisons, i.e. `===`. If `fromIndex` is negative,
- * it is used as the offset from the end of the collection.
+ * This method is like `_.indexOf` except that it iterates over elements of
+ * `array` from right to left.
  *
  * @static
  * @memberOf _
  * @category Array
  * @param {Array} array The array to search.
  * @param {*} value The value to search for.
- * @param {number} [fromIndex=array.length-1] The index to search from.
+ * @param {boolean|number} [fromIndex=array.length-1] The index to search from
+ *  or `true` to perform a binary search on a sorted array.
  * @returns {number} Returns the index of the matched value, else `-1`.
  * @example
  *
@@ -31,11 +25,26 @@ var nativeMax = Math.max,
  * // using `fromIndex`
  * _.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
  * // => 1
+ *
+ * // performing a binary search
+ * _.lastIndexOf([4, 4, 5, 5, 6, 6], 5, true);
+ * // => 3
  */
 function lastIndexOf(array, value, fromIndex) {
-  var index = array ? array.length : 0;
+  var length = array ? array.length : 0;
+  if (!length) {
+    return -1;
+  }
+  var index = length;
   if (typeof fromIndex == 'number') {
-    index = (fromIndex < 0 ? nativeMax(index + fromIndex, 0) : nativeMin(fromIndex || 0, index - 1)) + 1;
+    index = (fromIndex < 0 ? nativeMax(length + fromIndex, 0) : nativeMin(fromIndex || 0, length - 1)) + 1;
+  } else if (fromIndex) {
+    index = binaryIndex(array, value, true) - 1;
+    var other = array[index];
+    return (value === value ? value === other : other !== other) ? index : -1;
+  }
+  if (value !== value) {
+    return indexOfNaN(array, index, true);
   }
   while (index--) {
     if (array[index] === value) {

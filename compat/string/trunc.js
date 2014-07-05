@@ -1,15 +1,13 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isObject = require('../object/isObject'),
-    isRegExp = require('../object/isRegExp');
+var baseToString = require('../internal/baseToString'),
+    isIterateeCall = require('../internal/isIterateeCall'),
+    isObject = require('../lang/isObject'),
+    isRegExp = require('../lang/isRegExp');
 
-/** Used to match `RegExp` flags from their coerced string values */
+/** Used as default options for `_.trunc`. */
+var DEFAULT_TRUNC_LENGTH = 30,
+    DEFAULT_TRUNC_OMISSION = '...';
+
+/** Used to match `RegExp` flags from their coerced string values. */
 var reFlags = /\w*$/;
 
 /**
@@ -23,8 +21,9 @@ var reFlags = /\w*$/;
  * @param {string} [string=''] The string to truncate.
  * @param {Object|number} [options] The options object or maximum string length.
  * @param {number} [options.length=30] The maximum string length.
- * @param {string} [options.omission='...'] The string used to indicate text is omitted.
+ * @param {string} [options.omission='...'] The string to indicate text is omitted.
  * @param {RegExp|string} [options.separator] The separator pattern to truncate to.
+ * @param- {Object} [guard] Enables use as a callback for functions like `_.map`.
  * @returns {string} Returns the truncated string.
  * @example
  *
@@ -43,19 +42,23 @@ var reFlags = /\w*$/;
  * _.trunc('hi-diddly-ho there, neighborino', { 'omission': ' [...]' });
  * // => 'hi-diddly-ho there, neig [...]'
  */
-function trunc(string, options) {
-  var length = 30,
-      omission = '...';
+function trunc(string, options, guard) {
+  if (guard && isIterateeCall(string, options, guard)) {
+    options = null;
+  }
+  var length = DEFAULT_TRUNC_LENGTH,
+      omission = DEFAULT_TRUNC_OMISSION;
 
-  if (isObject(options)) {
-    var separator = 'separator' in options ? options.separator : separator;
-    length = 'length' in options ? +options.length || 0 : length;
-    omission = 'omission' in options ? String(options.omission) : omission;
+  if (options != null) {
+    if (isObject(options)) {
+      var separator = 'separator' in options ? options.separator : separator;
+      length = 'length' in options ? +options.length || 0 : length;
+      omission = 'omission' in options ? baseToString(options.omission) : omission;
+    } else {
+      length = +options || 0;
+    }
   }
-  else if (options != null) {
-    length = +options || 0;
-  }
-  string = string == null ? '' : String(string);
+  string = baseToString(string);
   if (length >= string.length) {
     return string;
   }

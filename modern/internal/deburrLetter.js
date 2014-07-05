@@ -1,40 +1,26 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * Used to convert latin-1 supplement letters to basic latin (ASCII) letters.
- * See [Wikipedia](http://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
- * for more details.
- */
+/** Used to map latin-1 supplementary letters to basic latin letters. */
 var deburredLetters = {
-  '\xC0': 'A',  '\xC1': 'A', '\xC2': 'A', '\xC3': 'A', '\xC4': 'A', '\xC5': 'A',
-  '\xE0': 'a',  '\xE1': 'a', '\xE2': 'a', '\xE3': 'a', '\xE4': 'a', '\xE5': 'a',
-  '\xC7': 'C',  '\xE7': 'c',
-  '\xD0': 'D',  '\xF0': 'd',
-  '\xC8': 'E',  '\xC9': 'E', '\xCA': 'E', '\xCB': 'E',
-  '\xE8': 'e',  '\xE9': 'e', '\xEA': 'e', '\xEB': 'e',
-  '\xCC': 'I',  '\xCD': 'I', '\xCE': 'I', '\xCF': 'I',
-  '\xEC': 'i',  '\xED': 'i', '\xEE': 'i', '\xEF': 'i',
-  '\xD1': 'N',  '\xF1': 'n',
-  '\xD2': 'O',  '\xD3': 'O', '\xD4': 'O', '\xD5': 'O', '\xD6': 'O', '\xD8': 'O',
-  '\xF2': 'o',  '\xF3': 'o', '\xF4': 'o', '\xF5': 'o', '\xF6': 'o', '\xF8': 'o',
-  '\xD9': 'U',  '\xDA': 'U', '\xDB': 'U', '\xDC': 'U',
-  '\xF9': 'u',  '\xFA': 'u', '\xFB': 'u', '\xFC': 'u',
-  '\xDD': 'Y',  '\xFD': 'y', '\xFF': 'y',
-  '\xC6': 'AE', '\xE6': 'ae',
-  '\xDE': 'Th', '\xFE': 'th',
-  '\xDF': 'ss', '\xD7': ' ', '\xF7': ' '
+  '\xc0': 'A',  '\xc1': 'A', '\xc2': 'A', '\xc3': 'A', '\xc4': 'A', '\xc5': 'A',
+  '\xe0': 'a',  '\xe1': 'a', '\xe2': 'a', '\xe3': 'a', '\xe4': 'a', '\xe5': 'a',
+  '\xc7': 'C',  '\xe7': 'c',
+  '\xd0': 'D',  '\xf0': 'd',
+  '\xc8': 'E',  '\xc9': 'E', '\xca': 'E', '\xcb': 'E',
+  '\xe8': 'e',  '\xe9': 'e', '\xea': 'e', '\xeb': 'e',
+  '\xcC': 'I',  '\xcd': 'I', '\xce': 'I', '\xcf': 'I',
+  '\xeC': 'i',  '\xed': 'i', '\xee': 'i', '\xef': 'i',
+  '\xd1': 'N',  '\xf1': 'n',
+  '\xd2': 'O',  '\xd3': 'O', '\xd4': 'O', '\xd5': 'O', '\xd6': 'O', '\xd8': 'O',
+  '\xf2': 'o',  '\xf3': 'o', '\xf4': 'o', '\xf5': 'o', '\xf6': 'o', '\xf8': 'o',
+  '\xd9': 'U',  '\xda': 'U', '\xdb': 'U', '\xdc': 'U',
+  '\xf9': 'u',  '\xfa': 'u', '\xfb': 'u', '\xfc': 'u',
+  '\xdd': 'Y',  '\xfd': 'y', '\xff': 'y',
+  '\xc6': 'Ae', '\xe6': 'ae',
+  '\xde': 'Th', '\xfe': 'th',
+  '\xdf': 'ss'
 };
 
 /**
- * Used by `createCompounder` to convert latin-1 supplement letters to basic
- * latin (ASCII) letters.
+ * Used by `_.deburr` to convert latin-1 supplementary letters to basic latin letters.
  *
  * @private
  * @param {string} letter The matched letter to deburr.

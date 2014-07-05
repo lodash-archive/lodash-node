@@ -1,40 +1,30 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
+var baseProperty = require('../internal/baseProperty');
 
 /**
- * Creates a "_.pluck" style function which returns the `key` value of a
- * given object.
+ * Creates a function which returns the property value of `key` on a given object.
  *
  * @static
  * @memberOf _
  * @category Utility
- * @param {string} key The name of the property to retrieve.
+ * @param {string} key The key of the property to get.
  * @returns {Function} Returns the new function.
  * @example
  *
- * var characters = [
- *   { 'name': 'fred',   'age': 40 },
- *   { 'name': 'barney', 'age': 36 }
+ * var users = [
+ *   { 'user': 'fred' },
+ *   { 'user': 'barney' }
  * ];
  *
- * var getName = _.property('name');
+ * var getName = _.property('user');
  *
- * _.map(characters, getName);
+ * _.map(users, getName);
+ * // => ['fred', barney']
+ *
+ * _.pluck(_.sortBy(users, getName), 'user');
  * // => ['barney', 'fred']
- *
- * _.sortBy(characters, getName);
- * // => [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred',   'age': 40 }]
  */
 function property(key) {
-  return function(object) {
-    return object == null ? undefined : object[key];
-  };
+  return baseProperty(key + '');
 }
 
 module.exports = property;

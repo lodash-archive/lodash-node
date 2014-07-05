@@ -1,18 +1,10 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseCallback = require('../internal/baseCallback'),
-    baseFor = require('../internal/baseFor'),
+var baseFor = require('../internal/baseFor'),
+    bindCallback = require('../internal/bindCallback'),
     keysIn = require('./keysIn');
 
 /**
- * Iterates over own and inherited enumerable properties of an object executing
- * `iterator` for each property. The `iterator` is bound to `thisArg` and invoked
+ * Iterates over own and inherited enumerable properties of an object invoking
+ * `iteratee` for each property. The `iteratee` is bound to `thisArg` and invoked
  * with three arguments; (value, key, object). Iterator functions may exit
  * iteration early by explicitly returning `false`.
  *
@@ -20,28 +12,28 @@ var baseCallback = require('../internal/baseCallback'),
  * @memberOf _
  * @category Object
  * @param {Object} object The object to iterate over.
- * @param {Function} [iterator=identity] The function called per iteration.
- * @param {*} [thisArg] The `this` binding of `iterator`.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
  * @returns {Object} Returns `object`.
  * @example
  *
- * function Shape() {
- *   this.x = 0;
- *   this.y = 0;
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
  * }
  *
- * Shape.prototype.z = 0;
+ * Foo.prototype.c = 3;
  *
- * _.forIn(new Shape, function(value, key) {
+ * _.forIn(new Foo, function(value, key) {
  *   console.log(key);
  * });
- * // => logs 'x', 'y', and 'z' (property order is not guaranteed across environments)
+ * // => logs 'a', 'b', and 'c' (iteration order is not guaranteed)
  */
-function forIn(object, iterator, thisArg) {
-  if (typeof iterator != 'function' || typeof thisArg != 'undefined') {
-    iterator = baseCallback(iterator, thisArg, 3);
+function forIn(object, iteratee, thisArg) {
+  if (typeof iteratee != 'function' || typeof thisArg != 'undefined') {
+    iteratee = bindCallback(iteratee, thisArg, 3);
   }
-  return baseFor(object, iterator, keysIn);
+  return baseFor(object, iteratee, keysIn);
 }
 
 module.exports = forIn;

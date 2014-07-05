@@ -1,56 +1,55 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
 var arrayEach = require('../internal/arrayEach'),
-    isArguments = require('./isArguments'),
-    isArray = require('./isArray'),
-    isString = require('./isString'),
+    isArguments = require('../lang/isArguments'),
+    isArray = require('../lang/isArray'),
+    isIndex = require('../internal/isIndex'),
+    isLength = require('../internal/isLength'),
+    isObject = require('../lang/isObject'),
+    isString = require('../lang/isString'),
     support = require('../support');
 
-/** Used to fix the JScript `[[DontEnum]]` bug */
-var shadowedProps = [
+/** `Object#toString` result references. */
+var arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    numberTag = '[object Number]',
+    objectTag = '[object Object]',
+    regexpTag = '[object RegExp]',
+    stringTag = '[object String]';
+
+/** Used to fix the JScript `[[DontEnum]]` bug. */
+var shadowProps = [
   'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable',
   'toLocaleString', 'toString', 'valueOf'
 ];
 
-/** `Object#toString` result shortcuts */
-var arrayClass = '[object Array]',
-    boolClass = '[object Boolean]',
-    dateClass = '[object Date]',
-    errorClass = '[object Error]',
-    funcClass = '[object Function]',
-    numberClass = '[object Number]',
-    objectClass = '[object Object]',
-    regexpClass = '[object RegExp]',
-    stringClass = '[object String]';
-
-/** Used for native method references */
+/** Used for native method references. */
 var errorProto = Error.prototype,
     objectProto = Object.prototype,
     stringProto = String.prototype;
 
-/** Used to resolve the internal `[[Class]]` of values */
-var toString = objectProto.toString;
-
-/** Native method shortcuts */
+/** Used to check objects for own properties. */
 var hasOwnProperty = objectProto.hasOwnProperty;
 
-/** Used to avoid iterating over non-enumerable properties in IE < 9 */
-var nonEnumProps = {};
-nonEnumProps[arrayClass] = nonEnumProps[dateClass] = nonEnumProps[numberClass] = { 'constructor': true, 'toLocaleString': true, 'toString': true, 'valueOf': true };
-nonEnumProps[boolClass] = nonEnumProps[stringClass] = { 'constructor': true, 'toString': true, 'valueOf': true };
-nonEnumProps[errorClass] = nonEnumProps[funcClass] = nonEnumProps[regexpClass] = { 'constructor': true, 'toString': true };
-nonEnumProps[objectClass] = { 'constructor': true };
+/**
+ * Used to resolve the `toStringTag` of values.
+ * See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+ * for more details.
+ */
+var objToString = objectProto.toString;
 
-arrayEach(shadowedProps, function(key) {
-  for (var className in nonEnumProps) {
-    if (hasOwnProperty.call(nonEnumProps, className)) {
-      var props = nonEnumProps[className];
+/** Used to avoid iterating over non-enumerable properties in IE < 9. */
+var nonEnumProps = {};
+nonEnumProps[arrayTag] = nonEnumProps[dateTag] = nonEnumProps[numberTag] = { 'constructor': true, 'toLocaleString': true, 'toString': true, 'valueOf': true };
+nonEnumProps[boolTag] = nonEnumProps[stringTag] = { 'constructor': true, 'toString': true, 'valueOf': true };
+nonEnumProps[errorTag] = nonEnumProps[funcTag] = nonEnumProps[regexpTag] = { 'constructor': true, 'toString': true };
+nonEnumProps[objectTag] = { 'constructor': true };
+
+arrayEach(shadowProps, function(key) {
+  for (var tag in nonEnumProps) {
+    if (hasOwnProperty.call(nonEnumProps, tag)) {
+      var props = nonEnumProps[tag];
       props[key] = hasOwnProperty.call(props, key);
     }
   }
@@ -59,6 +58,8 @@ arrayEach(shadowedProps, function(key) {
 /**
  * Creates an array of the own and inherited enumerable property names of `object`.
  *
+ * **Note:** Non-object values are coerced to objects.
+ *
  * @static
  * @memberOf _
  * @category Object
@@ -66,63 +67,66 @@ arrayEach(shadowedProps, function(key) {
  * @returns {Array} Returns the array of property names.
  * @example
  *
- * function Shape() {
- *   this.x = 0;
- *   this.y = 0;
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
  * }
  *
- * Shape.prototype.z = 0;
+ * Foo.prototype.c = 3;
  *
- * _.keysIn(new Shape);
- * // => ['x', 'y', 'z'] (property order is not guaranteed across environments)
+ * _.keysIn(new Foo);
+ * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
  */
 function keysIn(object) {
   if (object == null) {
     return [];
   }
-  object = Object(object);
-
+  if (!isObject(object)) {
+    object = Object(object);
+  }
   var length = object.length;
-  length = (typeof length == 'number' && length > 0 &&
-    (isArray(object) || (support.nonEnumStrings && isString(object)) ||
-      (support.nonEnumArgs && isArguments(object))) && length) >>> 0;
 
-  var keyIndex,
-      Ctor = object.constructor,
+  length = (length && isLength(length) &&
+    (isArray(object) || (support.nonEnumStrings && isString(object)) ||
+      (support.nonEnumArgs && isArguments(object))) && length) || 0;
+
+  var Ctor = object.constructor,
       index = -1,
-      isProto = Ctor && object === Ctor.prototype,
-      maxIndex = length - 1,
+      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto,
+      isProto = proto === object,
       result = Array(length),
       skipIndexes = length > 0,
       skipErrorProps = support.enumErrorProps && (object === errorProto || object instanceof Error),
       skipProto = support.enumPrototypes && typeof object == 'function';
 
   while (++index < length) {
-    result[index] = String(index);
+    result[index] = (index + '');
   }
-  // Lo-Dash skips the `constructor` property when it infers it's iterating
+  // lodash skips the `constructor` property when it infers it is iterating
   // over a `prototype` object because IE < 9 can't set the `[[Enumerable]]`
   // attribute of an existing property and the `constructor` property of a
   // prototype defaults to non-enumerable.
   for (var key in object) {
-    if (!(isProto && key == 'constructor') &&
-        !(skipProto && key == 'prototype') &&
+    if (!(skipProto && key == 'prototype') &&
         !(skipErrorProps && (key == 'message' || key == 'name')) &&
-        !(skipIndexes && (keyIndex = +key, keyIndex > -1 && keyIndex <= maxIndex && keyIndex % 1 == 0))) {
+        !(skipIndexes && isIndex(key, length)) &&
+        !(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
       result.push(key);
     }
   }
   if (support.nonEnumShadows && object !== objectProto) {
-    index = -1;
-    length = shadowedProps.length;
+    var tag = object === stringProto ? stringTag : object === errorProto ? errorTag : objToString.call(object),
+        nonEnums = nonEnumProps[tag] || nonEnumProps[objectTag];
 
-    if (isProto) {
-      var className = object === stringProto ? stringClass : object === errorProto ? errorClass : toString.call(object),
-          nonEnum = nonEnumProps[className];
+    if (tag == objectTag) {
+      proto = objectProto;
     }
-    while (++index < length) {
-      key = shadowedProps[index];
-      if (!(nonEnum && nonEnum[key]) && hasOwnProperty.call(object, key)) {
+    length = shadowProps.length;
+    while (length--) {
+      key = shadowProps[length];
+      var nonEnum = nonEnums[key];
+      if (!(isProto && nonEnum) &&
+          (nonEnum ? hasOwnProperty.call(object, key) : object[key] !== proto[key])) {
         result.push(key);
       }
     }

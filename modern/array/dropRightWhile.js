@@ -1,64 +1,54 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var callback = require('../utility/callback'),
-    slice = require('./slice');
+var baseCallback = require('../internal/baseCallback'),
+    baseSlice = require('../internal/baseSlice');
 
 /**
  * Creates a slice of `array` excluding elements dropped from the end.
- * Elements are dropped until the predicate returns falsey. The predicate is
+ * Elements are dropped until `predicate` returns falsey. The predicate is
  * bound to `thisArg` and invoked with three arguments; (value, index, array).
  *
- * If a property name is provided for `predicate` the created "_.pluck" style
- * callback returns the property value of the given element.
+ * If a property name is provided for `predicate` the created "_.property"
+ * style callback returns the property value of the given element.
  *
- * If an object is provided for `predicate` the created "_.where" style callback
- * returns `true` for elements that have the properties of the given object,
- * else `false`.
+ * If an object is provided for `predicate` the created "_.matches" style
+ * callback returns `true` for elements that have the properties of the given
+ * object, else `false`.
  *
  * @static
  * @memberOf _
  * @type Function
  * @category Array
  * @param {Array} array The array to query.
- * @param {Function|Object|string} [predicate=identity] The function called
+ * @param {Function|Object|string} [predicate=_.identity] The function invoked
  *  per element.
- * @param- {Object} [guard] Enables use as a callback for functions like `_.map`.
+ * @param {*} [thisArg] The `this` binding of `predicate`.
  * @returns {Array} Returns the slice of `array`.
  * @example
  *
  * _.dropRightWhile([1, 2, 3], function(n) { return n > 1; });
  * // => [1]
  *
- * var characters = [
- *   { 'name': 'barney',  'employer': 'slate' },
- *   { 'name': 'fred',    'employer': 'slate', 'blocked': true },
- *   { 'name': 'pebbles', 'employer': 'na',    'blocked': true }
+ * var users = [
+ *   { 'user': 'barney',  'status': 'busy', 'active': false },
+ *   { 'user': 'fred',    'status': 'busy', 'active': true },
+ *   { 'user': 'pebbles', 'status': 'away', 'active': true }
  * ];
  *
- * // using "_.pluck" callback shorthand
- * _.pluck(_.dropRightWhile(characters, 'blocked'), 'name');
+ * // using the "_.property" callback shorthand
+ * _.pluck(_.dropRightWhile(users, 'active'), 'user');
  * // => ['barney']
  *
- * // using "_.where" callback shorthand
- * _.pluck(_.dropRightWhile(characters, { 'employer': 'na' }), 'name');
+ * // using the "_.matches" callback shorthand
+ * _.pluck(_.dropRightWhile(users, { 'status': 'away' }), 'user');
  * // => ['barney', 'fred']
  */
 function dropRightWhile(array, predicate, thisArg) {
-  var length = array ? array.length : 0,
-      index = length,
-      n = 0;
-
-  predicate = callback(predicate, thisArg, 3);
-  while (index-- && predicate(array[index], index, array)) {
-    n++;
+  var length = array ? array.length : 0;
+  if (!length) {
+    return [];
   }
-  return slice(array, 0, length - n);
+  predicate = baseCallback(predicate, thisArg, 3);
+  while (length-- && predicate(array[length], length, array)) {}
+  return baseSlice(array, 0, length + 1);
 }
 
 module.exports = dropRightWhile;

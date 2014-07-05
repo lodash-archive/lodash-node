@@ -1,18 +1,12 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
+var baseToString = require('../internal/baseToString');
 
 /**
  * Used to match `RegExp` special characters.
  * See this [article on `RegExp` characters](http://www.regular-expressions.info/characters.html#special)
  * for more details.
  */
-var reRegExpChars = /[.*+?^${}()|[\]\/\\]/g;
+var reRegExpChars = /[.*+?^${}()|[\]\/\\]/g,
+    reHasRegExpChars = RegExp(reRegExpChars.source);
 
 /**
  * Escapes the `RegExp` special characters "\", "^", "$", ".", "|", "?", "*",
@@ -25,11 +19,14 @@ var reRegExpChars = /[.*+?^${}()|[\]\/\\]/g;
  * @returns {string} Returns the escaped string.
  * @example
  *
- * _.escapeRegExp('[lodash](http://lodash.com)');
- * // => '\[lodash\]\(http://lodash\.com\)'
+ * _.escapeRegExp('[lodash](https://lodash.com/)');
+ * // => '\[lodash\]\(https://lodash\.com/\)'
  */
 function escapeRegExp(string) {
-  return string == null ? '' : String(string).replace(reRegExpChars, '\\$&');
+  string = baseToString(string);
+  return (string && reHasRegExpChars.test(string))
+    ? string.replace(reRegExpChars, '\\$&')
+    : string;
 }
 
 module.exports = escapeRegExp;

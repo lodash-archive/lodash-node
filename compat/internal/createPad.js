@@ -1,17 +1,10 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var repeat = require('../string/repeat');
+var baseToString = require('./baseToString'),
+    repeat = require('../string/repeat');
 
-/** Native method shortcuts */
+/** Native method references. */
 var ceil = Math.ceil;
 
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
+/* Native method references for those with the same name as other `lodash` methods. */
 var nativeIsFinite = global.isFinite;
 
 /**
@@ -33,7 +26,7 @@ function createPad(string, length, chars) {
     return '';
   }
   var padLength = length - strLength;
-  chars = chars == null ? ' ' : String(chars);
+  chars = chars == null ? ' ' : baseToString(chars);
   return repeat(chars, ceil(padLength / chars.length)).slice(0, padLength);
 }
 

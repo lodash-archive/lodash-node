@@ -1,29 +1,23 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isFunction = require('../object/isFunction');
+var MapCache = require('../internal/MapCache'),
+    isFunction = require('../lang/isFunction');
 
-/** Used as the TypeError message for "Functions" methods */
-var funcErrorText = 'Expected a function';
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
 
 /**
  * Creates a function that memoizes the result of `func`. If `resolver` is
  * provided it determines the cache key for storing the result based on the
  * arguments provided to the memoized function. By default, the first argument
- * provided to the memoized function is used as the cache key. The `func` is
- * executed with the `this` binding of the memoized function. The result cache
- * is exposed as the `cache` property on the memoized function.
+ * provided to the memoized function is coerced to a string and used as the
+ * cache key. The `func` is invoked with the `this` binding of the memoized
+ * function.
+ *
+ * **Note:** The cache is exposed as the `cache` property on the memoized
+ * function. Its creation may be customized by replacing the `_.memoize.Cache`
+ * constructor with one whose instances implement the ES `Map` method interface
+ * of `get`, `has`, and `set`. See the
+ * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-properties-of-the-map-prototype-object)
+ * for more details.
  *
  * @static
  * @memberOf _
@@ -33,14 +27,6 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @returns {Function} Returns the new memoizing function.
  * @example
  *
- * var fibonacci = _.memoize(function(n) {
- *   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
- * });
- *
- * fibonacci(9)
- * // => 34
- *
- * // modifying the result cache
  * var upperCase = _.memoize(function(string) {
  *   return string.toUpperCase();
  * });
@@ -48,26 +34,49 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * upperCase('fred');
  * // => 'FRED'
  *
- * upperCase.cache.fred = 'BARNEY'
+ * // modifying the result cache
+ * upperCase.cache.set('fred, 'BARNEY');
  * upperCase('fred');
  * // => 'BARNEY'
+ *
+ * // replacing `_.memoize.Cache`
+ * var object = { 'user': 'fred' };
+ * var other = { 'user': 'barney' };
+ * var identity = _.memoize(_.identity);
+ *
+ * identity(object);
+ * // => { 'user': 'fred' }
+ * identity(other);
+ * // => { 'user': 'fred' }
+ *
+ * _.memoize.Cache = WeakMap;
+ * var identity = _.memoize(_.identity);
+ *
+ * identity(object);
+ * // => { 'user': 'fred' }
+ * identity(other);
+ * // => { 'user': 'barney' }
  */
 function memoize(func, resolver) {
   if (!isFunction(func) || (resolver && !isFunction(resolver))) {
-    throw new TypeError(funcErrorText);
+    throw new TypeError(FUNC_ERROR_TEXT);
   }
   var memoized = function() {
-    var key = resolver ? resolver.apply(this, arguments) : arguments[0];
-    if (key == '__proto__') {
-      return func.apply(this, arguments);
+    var cache = memoized.cache,
+        key = resolver ? resolver.apply(this, arguments) : arguments[0];
+
+    if (cache.has(key)) {
+      return cache.get(key);
     }
-    var cache = memoized.cache;
-    return hasOwnProperty.call(cache, key)
-      ? cache[key]
-      : (cache[key] = func.apply(this, arguments));
-  }
-  memoized.cache = {};
+    var result = func.apply(this, arguments);
+    cache.set(key, result);
+    return result;
+  };
+  memoized.cache = new memoize.Cache;
   return memoized;
 }
+
+// Assign cache to `_.memoize`.
+memoize.Cache = MapCache;
 
 module.exports = memoize;

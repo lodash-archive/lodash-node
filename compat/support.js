@@ -1,38 +1,33 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isNative = require('./internal/isNative');
+var isNative = require('./lang/isNative');
 
-/** Used to detect functions containing a `this` reference */
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    objectTag = '[object Object]';
+
+/** Used to detect functions containing a `this` reference. */
 var reThis = /\bthis\b/;
 
-/** `Object#toString` result shortcuts */
-var argsClass = '[object Arguments]',
-    objectClass = '[object Object]';
-
-/** Used for native method references */
+/** Used for native method references. */
 var arrayProto = Array.prototype,
     errorProto = Error.prototype,
     objectProto = Object.prototype;
 
-/** Used to detect DOM support */
+/** Used to detect DOM support. */
 var document = (document = global.window) && document.document;
 
-/** Used to resolve the internal `[[Class]]` of values */
-var toString = objectProto.toString;
+/**
+ * Used to resolve the `toStringTag` of values.
+ * See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+ * for more details.
+ */
+var objToString = objectProto.toString;
 
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty,
-    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+/** Native method references. */
+var propertyIsEnumerable = objectProto.propertyIsEnumerable,
     splice = arrayProto.splice;
 
 /**
- * An object used to flag environments features.
+ * An object environment feature flags.
  *
  * @static
  * @memberOf _
@@ -47,17 +42,15 @@ var support = {};
 
   Ctor.prototype = { 'valueOf': 1, 'y': 1 };
   for (var key in new Ctor) { props.push(key); }
-  for (var argsKey in arguments) { }
-  for (var strKey in 'x') { }
 
   /**
-   * Detect if the `[[Class]]` of `arguments` objects is resolvable
+   * Detect if the `toStringTag` of `arguments` objects is resolvable
    * (all but Firefox < 4, IE < 9).
    *
    * @memberOf _.support
    * @type boolean
    */
-  support.argsClass = toString.call(arguments) == argsClass;
+  support.argsTag = objToString.call(arguments) == argsTag;
 
   /**
    * Detect if `name` or `message` properties of `Error.prototype` are
@@ -74,7 +67,7 @@ var support = {};
    *
    * Firefox < 3.6, Opera > 9.50 - Opera < 11.60, and Safari < 5.1
    * (if the prototype or a property on the prototype has been set)
-   * incorrectly sets the `[[Enumerable]]` value of a function's `prototype`
+   * incorrectly set the `[[Enumerable]]` value of a function's `prototype`
    * property to `true`.
    *
    * @memberOf _.support
@@ -101,13 +94,21 @@ var support = {};
   support.funcNames = typeof Function.name == 'string';
 
   /**
+   * Detect if the `toStringTag` of DOM nodes is resolvable (all but IE < 9).
+   *
+   * @memberOf _.support
+   * @type boolean
+   */
+  support.nodeTag = objToString.call(document) != objectTag;
+
+  /**
    * Detect if string indexes are non-enumerable
    * (IE < 9, RingoJS, Rhino, Narwhal).
    *
    * @memberOf _.support
    * @type boolean
    */
-  support.nonEnumStrings = strKey != '0';
+  support.nonEnumStrings = !propertyIsEnumerable.call('x', 0);
 
   /**
    * Detect if properties shadowing those on `Object.prototype` are
@@ -122,8 +123,7 @@ var support = {};
   support.nonEnumShadows = !/valueOf/.test(props);
 
   /**
-   * Detect if own properties are iterated after inherited properties
-   * (all but IE < 9).
+   * Detect if own properties are iterated after inherited properties (IE < 9).
    *
    * @memberOf _.support
    * @type boolean
@@ -134,12 +134,11 @@ var support = {};
    * Detect if `Array#shift` and `Array#splice` augment array-like objects
    * correctly.
    *
-   * Firefox < 10, IE compatibility mode, and IE < 9 have buggy Array `shift()`
+   * Firefox < 10, compatibility modes of IE 8, and IE < 9 have buggy Array `shift()`
    * and `splice()` functions that fail to remove the last element, `value[0]`,
    * of array-like objects even though the `length` property is set to `0`.
-   * The `shift()` method is buggy in IE 8 compatibility mode, while `splice()`
-   * is buggy regardless of mode in IE < 9 and buggy in compatibility mode
-   * in IE 9.
+   * The `shift()` method is buggy in compatibility modes of IE 8, while `splice()`
+   * is buggy regardless of mode in IE < 9.
    *
    * @memberOf _.support
    * @type boolean
@@ -170,20 +169,6 @@ var support = {};
   }
 
   /**
-   * Detect if the `[[Class]]` of DOM nodes is resolvable (all but IE < 9)
-   * and that the JS engine errors when attempting to coerce an object to a
-   * string without a `toString` function.
-   *
-   * @memberOf _.support
-   * @type boolean
-   */
-  try {
-    support.nodeClass = !(toString.call(document) == objectClass && !({ 'toString': 0 } + ''));
-  } catch(e) {
-    support.nodeClass = true;
-  }
-
-  /**
    * Detect if `arguments` object indexes are non-enumerable.
    *
    * In Firefox < 4, IE < 9, PhantomJS, and Safari < 5.1 `arguments` object
@@ -196,8 +181,7 @@ var support = {};
    * @type boolean
    */
   try {
-    support.nonEnumArgs = !(argsKey == '1' && hasOwnProperty.call(arguments, argsKey) &&
-      propertyIsEnumerable.call(arguments, argsKey));
+    support.nonEnumArgs = !propertyIsEnumerable.call(arguments, 1);
   } catch(e) {
     support.nonEnumArgs = true;
   }

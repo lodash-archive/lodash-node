@@ -1,32 +1,24 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isFunction = require('../object/isFunction');
+var isFunction = require('../lang/isFunction');
 
 /**
- * The base implementation of `_.functions` that creates an array of function
- * property names from those returned by `keysFunc`.
+ * The base implementation of `_.functions` which creates an array of
+ * `object` function property names filtered from those provided.
  *
  * @private
  * @param {Object} object The object to inspect.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @returns {Array} Returns the new sorted array of property names.
+ * @param {Array} props The property names to filter.
+ * @returns {Array} Returns the new array of filtered property names.
  */
-function baseFunctions(object, keysFunc) {
+function baseFunctions(object, props) {
   var index = -1,
-      props = keysFunc(object),
       length = props.length,
+      resIndex = -1,
       result = [];
 
   while (++index < length) {
     var key = props[index];
     if (isFunction(object[key])) {
-      result.push(key);
+      result[++resIndex] = key;
     }
   }
   return result;

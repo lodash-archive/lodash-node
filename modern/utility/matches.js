@@ -1,25 +1,9 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseIsEqual = require('../internal/baseIsEqual'),
-    isObject = require('../object/isObject'),
-    keys = require('../object/keys');
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
+var baseMatches = require('../internal/baseMatches');
 
 /**
- * Creates a "_.where" style predicate function which performs a deep comparison
- * between a given object and the `source` object, returning `true` if the given
- * object has equivalent property values, else `false`.
+ * Creates a function which performs a deep comparison between a given object
+ * and `source`, returning `true` if the given object has equivalent property
+ * values, else `false`.
  *
  * @static
  * @memberOf _
@@ -28,51 +12,21 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @returns {Function} Returns the new function.
  * @example
  *
- * var characters = [
- *   { 'name': 'fred',   'age': 40 },
- *   { 'name': 'barney', 'age': 36 }
+ * var users = [
+ *   { 'user': 'fred',   'age': 40 },
+ *   { 'user': 'barney', 'age': 36 }
  * ];
  *
  * var matchesAge = _.matches({ 'age': 36 });
  *
- * _.filter(characters, matchesAge);
- * // => [{ 'name': 'barney', 'age': 36 }]
+ * _.filter(users, matchesAge);
+ * // => [{ 'user': 'barney', 'age': 36 }]
  *
- * _.find(characters, matchesAge);
- * // => { 'name': 'barney', 'age': 36 }
+ * _.find(users, matchesAge);
+ * // => { 'user': 'barney', 'age': 36 }
  */
 function matches(source) {
-  var props = keys(source),
-      propsLength = props.length,
-      key = props[0],
-      value = propsLength && source[key];
-
-  // fast path the common case of providing an object with a single
-  // property containing a primitive value
-  if (propsLength == 1 && value === value && !isObject(value)) {
-    return function(object) {
-      if (object == null) {
-        return false;
-      }
-      // treat `-0` vs. `+0` as not equal
-      var other = object[key];
-      return value === other && (value !== 0 || (1 / value == 1 / other)) && hasOwnProperty.call(object, key);
-    };
-  }
-  return function(object) {
-    var length = propsLength;
-    if (length && object == null) {
-      return false;
-    }
-    while (length--) {
-      var key = props[length];
-      if (!(hasOwnProperty.call(object, key) &&
-            baseIsEqual(source[key], object[key], null, true))) {
-        return false;
-      }
-    }
-    return true;
-  };
+  return baseMatches(source, true);
 }
 
 module.exports = matches;

@@ -1,33 +1,26 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
 var arrayEach = require('../internal/arrayEach'),
+    baseCallback = require('../internal/baseCallback'),
     baseCreate = require('../internal/baseCreate'),
     baseForOwn = require('../internal/baseForOwn'),
-    callback = require('../utility/callback'),
-    isArrayLike = require('../internal/isArrayLike'),
-    isObject = require('./isObject');
+    isArray = require('../lang/isArray'),
+    isObject = require('../lang/isObject'),
+    isTypedArray = require('../lang/isTypedArray');
 
 /**
  * An alternative to `_.reduce`; this method transforms `object` to a new
- * `accumulator` object which is the result of running each of its own
- * enumerable properties through `iterator`, with each execution potentially
- * mutating the `accumulator` object. The `iterator` is bound to `thisArg`
- * and invoked with four arguments; (accumulator, value, key, object). Iterator
- * functions may exit iteration early by explicitly returning `false`.
+ * `accumulator` object which is the result of running each of its own enumerable
+ * properties through `iteratee`, with each invocation potentially mutating
+ * the `accumulator` object. The `iteratee` is bound to `thisArg` and invoked
+ * with four arguments; (accumulator, value, key, object). Iterator functions
+ * may exit iteration early by explicitly returning `false`.
  *
  * @static
  * @memberOf _
  * @category Object
  * @param {Array|Object} object The object to iterate over.
- * @param {Function} [iterator=identity] The function called per iteration.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
  * @param {*} [accumulator] The custom accumulator value.
- * @param {*} [thisArg] The `this` binding of `iterator`.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
  * @returns {*} Returns the accumulated value.
  * @example
  *
@@ -44,25 +37,25 @@ var arrayEach = require('../internal/arrayEach'),
  * });
  * // => { 'a': 3, 'b': 6, 'c': 9 }
  */
-function transform(object, iterator, accumulator, thisArg) {
-  var isArr = isArrayLike(object);
+function transform(object, iteratee, accumulator, thisArg) {
+  var isArr = isArray(object) || isTypedArray(object);
+  iteratee = baseCallback(iteratee, thisArg, 4);
+
   if (accumulator == null) {
-    if (isArr) {
-      accumulator = [];
-    } else {
-      if (isObject(object)) {
-        var Ctor = object.constructor,
-            proto = Ctor && Ctor.prototype;
+    if (isArr || isObject(object)) {
+      var Ctor = object.constructor;
+      if (isArr) {
+        accumulator = isArray(object) ? new Ctor : [];
+      } else {
+        accumulator = baseCreate(typeof Ctor == 'function' && Ctor.prototype);
       }
-      accumulator = baseCreate(proto);
+    } else {
+      accumulator = {};
     }
   }
-  if (iterator) {
-    iterator = callback(iterator, thisArg, 4);
-    (isArr ? arrayEach : baseForOwn)(object, function(value, index, object) {
-      return iterator(accumulator, value, index, object);
-    });
-  }
+  (isArr ? arrayEach : baseForOwn)(object, function(value, index, object) {
+    return iteratee(accumulator, value, index, object);
+  });
   return accumulator;
 }
 

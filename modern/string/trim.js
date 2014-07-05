@@ -1,13 +1,7 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var charsLeftIndex = require('../internal/charsLeftIndex'),
+var baseToString = require('../internal/baseToString'),
+    charsLeftIndex = require('../internal/charsLeftIndex'),
     charsRightIndex = require('../internal/charsRightIndex'),
+    isIterateeCall = require('../internal/isIterateeCall'),
     trimmedLeftIndex = require('../internal/trimmedLeftIndex'),
     trimmedRightIndex = require('../internal/trimmedRightIndex');
 
@@ -19,24 +13,29 @@ var charsLeftIndex = require('../internal/charsLeftIndex'),
  * @category String
  * @param {string} [string=''] The string to trim.
  * @param {string} [chars=whitespace] The characters to trim.
+ * @param- {Object} [guard] Enables use as a callback for functions like `_.map`.
  * @returns {string} Returns the trimmed string.
  * @example
  *
- * _.trim('  fred  ');
- * // => 'fred'
+ * _.trim('  abc  ');
+ * // => 'abc'
  *
- * _.trim('-_-fred-_-', '_-');
- * // => 'fred'
+ * _.trim('-_-abc-_-', '_-');
+ * // => 'abc'
+ *
+ * _.map(['  foo  ', '  bar  '], _.trim);
+ * // => ['foo', 'bar]
  */
-function trim(string, chars) {
-  string = string == null ? '' : String(string);
+function trim(string, chars, guard) {
+  var value = string;
+  string = baseToString(string);
   if (!string) {
     return string;
   }
-  if (chars == null) {
+  if (guard ? isIterateeCall(value, chars, guard) : chars == null) {
     return string.slice(trimmedLeftIndex(string), trimmedRightIndex(string) + 1);
   }
-  chars = String(chars);
+  chars = baseToString(chars);
   return string.slice(charsLeftIndex(string, chars), charsRightIndex(string, chars) + 1);
 }
 

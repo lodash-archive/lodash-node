@@ -1,20 +1,8 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isFunction = require('../object/isFunction'),
-    slice = require('../array/slice');
-
-/** Used as the TypeError message for "Functions" methods */
-var funcErrorText = 'Expected a function';
+var baseDelay = require('../internal/baseDelay');
 
 /**
- * Defers executing the `func` function until the current call stack has
- * cleared. Additional arguments are provided to `func` when it is invoked.
+ * Defers invoking the `func` until the current call stack has cleared. Any
+ * additional arguments are provided to `func` when it is invoked.
  *
  * @static
  * @memberOf _
@@ -28,11 +16,7 @@ var funcErrorText = 'Expected a function';
  * // logs 'deferred' after one or more milliseconds
  */
 function defer(func) {
-  if (!isFunction(func)) {
-    throw new TypeError(funcErrorText);
-  }
-  var args = slice(arguments, 1);
-  return setTimeout(function() { func.apply(undefined, args); }, 1);
+  return baseDelay(func, 1, arguments, 1);
 }
 
 module.exports = defer;

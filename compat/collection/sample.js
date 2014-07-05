@@ -1,22 +1,13 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
 var baseRandom = require('../internal/baseRandom'),
-    isString = require('../object/isString'),
+    isIterateeCall = require('../internal/isIterateeCall'),
     shuffle = require('./shuffle'),
-    support = require('../support'),
-    values = require('../object/values');
+    toIterable = require('../internal/toIterable');
 
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
+/* Native method references for those with the same name as other `lodash` methods. */
 var nativeMin = Math.min;
 
 /**
- * Retrieves a random element or `n` random elements from a collection.
+ * Gets a random element or `n` random elements from a collection.
  *
  * @static
  * @memberOf _
@@ -34,13 +25,9 @@ var nativeMin = Math.min;
  * // => [3, 1]
  */
 function sample(collection, n, guard) {
-  if (collection && typeof collection.length != 'number') {
-    collection = values(collection);
-  } else if (support.unindexedChars && isString(collection)) {
-    collection = collection.split('');
-  }
-  if (n == null || guard) {
-    var length = collection ? collection.length : 0;
+  if (guard ? isIterateeCall(collection, n, guard) : n == null) {
+    collection = toIterable(collection);
+    var length = collection.length;
     return length > 0 ? collection[baseRandom(0, length - 1)] : undefined;
   }
   var result = shuffle(collection);

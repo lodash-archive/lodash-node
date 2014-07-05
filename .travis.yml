@@ -13,8 +13,10 @@ before_install:
   - "nvm use $TRAVIS_NODE_VERSION"
   - "npm config set loglevel error"
   - "npm i -g npm@\"^2.0.0\""
-  - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash && cd ./node_modules/lodash && npm i && cd ../../"
-  - "npm i -g coveralls@\"^2.0.0\" && npm i istanbul@\"0.3.2\""
+  - "npm i -g coveralls@\"^2.0.0\" && npm i istanbul@\"0.3.5\""
+  - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash && cd $_ && sed -i'' 's|\"lodash\"|\"lodash-compat\"|' ./package.json && npm i && cd ../../"
+  - "git clone --depth=10 --branch=master git://github.com/lodash/lodash-cli.git ./node_modules/lodash-cli && mkdir $_/node_modules && cd $_ && ln -s ../../lodash/ ./lodash-compat && cd ../ && npm i && cd ../../"
+  - "node ./node_modules/lodash-cli/bin/lodash modularize modern exports=node -o ./modern"
 script:
   - "nvm install 0.11.11 && node --harmony ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js"
   - "([ $TRAVIS_SECURE_ENV_VARS == true ] && nvm use $TRAVIS_NODE_VERSION && cat ./coverage/lcov.info | coveralls) || true"

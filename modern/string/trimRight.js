@@ -1,12 +1,6 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var charsRightIndex = require('../internal/charsRightIndex'),
+var baseToString = require('../internal/baseToString'),
+    charsRightIndex = require('../internal/charsRightIndex'),
+    isIterateeCall = require('../internal/isIterateeCall'),
     trimmedRightIndex = require('../internal/trimmedRightIndex');
 
 /**
@@ -17,25 +11,26 @@ var charsRightIndex = require('../internal/charsRightIndex'),
  * @category String
  * @param {string} [string=''] The string to trim.
  * @param {string} [chars=whitespace] The characters to trim.
+ * @param- {Object} [guard] Enables use as a callback for functions like `_.map`.
  * @returns {string} Returns the trimmed string.
  * @example
  *
- * _.trimRight('  fred  ');
- * // => '  fred'
+ * _.trimRight('  abc  ');
+ * // => '  abc'
  *
- * _.trimRight('-_-fred-_-', '_-');
- * // => '-_-fred'
+ * _.trimRight('-_-abc-_-', '_-');
+ * // => '-_-abc'
  */
-function trimRight(string, chars) {
-  string = string == null ? '' : String(string);
+function trimRight(string, chars, guard) {
+  var value = string;
+  string = baseToString(string);
   if (!string) {
     return string;
   }
-  if (chars == null) {
+  if (guard ? isIterateeCall(value, chars, guard) : chars == null) {
     return string.slice(0, trimmedRightIndex(string) + 1)
   }
-  chars = String(chars);
-  return string.slice(0, charsRightIndex(string, chars) + 1);
+  return string.slice(0, charsRightIndex(string, baseToString(chars)) + 1);
 }
 
 module.exports = trimRight;

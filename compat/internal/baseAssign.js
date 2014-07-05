@@ -1,16 +1,9 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var keys = require('../object/keys');
+var baseCopy = require('./baseCopy'),
+    keys = require('../object/keys');
 
 /**
  * The base implementation of `_.assign` without support for argument juggling,
- * multiple sources, and `this` binding.
+ * multiple sources, and `this` binding `customizer` functions.
  *
  * @private
  * @param {Object} object The destination object.
@@ -19,13 +12,22 @@ var keys = require('../object/keys');
  * @returns {Object} Returns the destination object.
  */
 function baseAssign(object, source, customizer) {
+  var props = keys(source);
+  if (!customizer) {
+    return baseCopy(source, object, props);
+  }
   var index = -1,
-      props = keys(source),
-      length = props.length;
+      length = props.length
 
   while (++index < length) {
-    var key = props[index];
-    object[key] = customizer ? customizer(object[key], source[key], key, object, source) : source[key];
+    var key = props[index],
+        value = object[key],
+        result = customizer(value, source[key], key, object, source);
+
+    if ((result === result ? result !== value : value === value) ||
+        (typeof value == 'undefined' && !(key in object))) {
+      object[key] = result;
+    }
   }
   return object;
 }

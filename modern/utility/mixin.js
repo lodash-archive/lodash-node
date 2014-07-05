@@ -1,20 +1,13 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseFunctions = require('../internal/baseFunctions'),
-    isFunction = require('../object/isFunction'),
-    isObject = require('../object/isObject'),
+var arrayCopy = require('../internal/arrayCopy'),
+    baseFunctions = require('../internal/baseFunctions'),
+    isFunction = require('../lang/isFunction'),
+    isObject = require('../lang/isObject'),
     keys = require('../object/keys');
 
-/** Used for native method references */
+/** Used for native method references. */
 var arrayProto = Array.prototype;
 
-/** Native method shortcuts */
+/** Native method references. */
 var push = arrayProto.push;
 
 /**
@@ -51,39 +44,36 @@ var push = arrayProto.push;
  * // => ['e']
  */
 function mixin(object, source, options) {
+  var methodNames = baseFunctions(source, keys(source));
+
   var chain = true,
-      methodNames = source && baseFunctions(source, keys);
+      index = -1,
+      isFunc = isFunction(object),
+      length = methodNames.length;
 
   if (options === false) {
     chain = false;
   } else if (isObject(options) && 'chain' in options) {
     chain = options.chain;
   }
-  var index = -1,
-      isFunc = isFunction(object),
-      length = methodNames ? methodNames.length : 0;
-
   while (++index < length) {
     var methodName = methodNames[index],
-        func = object[methodName] = source[methodName];
+        func = source[methodName];
 
+    object[methodName] = func;
     if (isFunc) {
       object.prototype[methodName] = (function(func) {
         return function() {
-          var chainAll = this.__chain__,
-              value = this.__wrapped__,
-              args = [value];
-
-          push.apply(args, arguments);
-          var result = func.apply(object, args);
+          var chainAll = this.__chain__;
           if (chain || chainAll) {
-            if (value === result && isObject(result)) {
-              return this;
-            }
-            result = new object(result);
+            var result = object(this.__wrapped__);
+            (result.__actions__ = arrayCopy(this.__actions__)).push({ 'func': func, 'args': arguments, 'thisArg': object });
             result.__chain__ = chainAll;
+            return result;
           }
-          return result;
+          var args = [this.value()];
+          push.apply(args, arguments);
+          return func.apply(object, args);
         };
       }(func));
     }

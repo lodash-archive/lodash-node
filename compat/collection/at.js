@@ -1,27 +1,19 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
 var baseAt = require('../internal/baseAt'),
     baseFlatten = require('../internal/baseFlatten'),
-    isString = require('../object/isString'),
-    support = require('../support');
+    isLength = require('../internal/isLength'),
+    toIterable = require('../internal/toIterable');
 
 /**
- * Creates an array of elements corresponding to the specified keys, or indexes,
- * of the collection. Keys may be specified as individual arguments or as arrays
+ * Creates an array of elements corresponding to the given keys, or indexes,
+ * of `collection`. Keys may be specified as individual arguments or as arrays
  * of keys.
  *
  * @static
  * @memberOf _
  * @category Collection
  * @param {Array|Object|string} collection The collection to iterate over.
- * @param {...(number|number[]|string|string[])} [keys] The keys of elements
- *  to pick, specified as individual keys or arrays of keys.
+ * @param {...(number|number[]|string|string[])} [props] The property names
+ *  or indexes of elements to pick, specified individually or in arrays.
  * @returns {Array} Returns the new array of picked elements.
  * @example
  *
@@ -32,8 +24,9 @@ var baseAt = require('../internal/baseAt'),
  * // => ['fred', 'pebbles']
  */
 function at(collection) {
-  if (support.unindexedChars && isString(collection)) {
-    collection = collection.split('');
+  var length = collection ? collection.length : 0;
+  if (isLength(length)) {
+    collection = toIterable(collection);
   }
   return baseAt(collection, baseFlatten(arguments, false, false, 1));
 }

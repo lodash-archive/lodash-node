@@ -1,1 +1,1 @@
-module.exports = require('./compat/index.js');
+module.exports = require('./modern/index.js');

@@ -1,46 +1,39 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache');
 
 /**
- * The base implementation of `_.difference` that accepts a single array
+ * The base implementation of `_.difference` which accepts a single array
  * of values to exclude.
  *
  * @private
  * @param {Array} array The array to inspect.
- * @param {Array} [values] The array of values to exclude.
+ * @param {Array} values The values to exclude.
  * @returns {Array} Returns the new array of filtered values.
  */
 function baseDifference(array, values) {
-  var length = array ? array.length : 0;
+  var length = array ? array.length : 0,
+      result = [];
+
   if (!length) {
-    return [];
+    return result;
   }
   var index = -1,
       indexOf = baseIndexOf,
-      prereq = indexOf === baseIndexOf,
-      isLarge = prereq && createCache && values && values.length >= 200,
-      isCommon = prereq && !isLarge,
-      result = [],
-      valuesLength = values ? values.length : 0;
+      isCommon = true,
+      cache = isCommon && values.length >= 200 && createCache(values),
+      valuesLength = values.length;
 
-  if (isLarge) {
+  if (cache) {
     indexOf = cacheIndexOf;
-    values = createCache(values);
+    isCommon = false;
+    values = cache;
   }
   outer:
   while (++index < length) {
     var value = array[index];
 
-    if (isCommon) {
+    if (isCommon && value === value) {
       var valuesIndex = valuesLength;
       while (valuesIndex--) {
         if (values[valuesIndex] === value) {

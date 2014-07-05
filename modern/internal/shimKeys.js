@@ -1,20 +1,14 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="node" -o ./modern/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isArguments = require('../object/isArguments'),
-    isArray = require('../object/isArray'),
+var isArguments = require('../lang/isArguments'),
+    isArray = require('../lang/isArray'),
+    isIndex = require('./isIndex'),
+    isLength = require('./isLength'),
     keysIn = require('../object/keysIn'),
     support = require('../support');
 
-/** Used for native method references */
+/** Used for native method references. */
 var objectProto = Object.prototype;
 
-/** Native method shortcuts */
+/** Used to check objects for own properties. */
 var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
@@ -26,21 +20,19 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * @returns {Array} Returns the array of property names.
  */
 function shimKeys(object) {
-  var keyIndex,
-      index = -1,
-      props = keysIn(object),
-      length = props.length,
-      objLength = length && object.length,
-      maxIndex = objLength - 1,
-      result = [];
+  var props = keysIn(object),
+      propsLength = props.length,
+      length = propsLength && object.length;
 
-  var allowIndexes = typeof objLength == 'number' && objLength > 0 &&
+  var allowIndexes = length && isLength(length) &&
     (isArray(object) || (support.nonEnumArgs && isArguments(object)));
 
-  while (++index < length) {
+  var index = -1,
+      result = [];
+
+  while (++index < propsLength) {
     var key = props[index];
-    if ((allowIndexes && (keyIndex = +key, keyIndex > -1 && keyIndex <= maxIndex && keyIndex % 1 == 0)) ||
-        hasOwnProperty.call(object, key)) {
+    if ((allowIndexes && isIndex(key, length)) || hasOwnProperty.call(object, key)) {
       result.push(key);
     }
   }

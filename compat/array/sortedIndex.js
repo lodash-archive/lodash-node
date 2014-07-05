@@ -1,73 +1,56 @@
-/**
- * Lo-Dash 3.0.0-pre (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize exports="node" -o ./compat/`
- * Copyright 2012-2014 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.6.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var callback = require('../utility/callback'),
-    identity = require('../utility/identity');
+var baseCallback = require('../internal/baseCallback'),
+    binaryIndex = require('../internal/binaryIndex'),
+    binaryIndexBy = require('../internal/binaryIndexBy');
 
 /**
- * Uses a binary search to determine the smallest index at which a value
- * should be inserted into a given sorted array in order to maintain the sort
- * order of the array. If an iterator function is provided it is executed for
- * `value` and each element of `array` to compute their sort ranking. The
- * iterator function is bound to `thisArg` and invoked with one argument; (value).
+ * Uses a binary search to determine the lowest index at which `value` should
+ * be inserted into `array` in order to maintain its sort order. If an iteratee
+ * function is provided it is invoked for `value` and each element of `array`
+ * to compute their sort ranking. The iteratee is bound to `thisArg` and
+ * invoked with one argument; (value).
  *
- * If a property name is provided for `iterator` the created "_.pluck" style
- * callback returns the property value of the given element.
+ * If a property name is provided for `predicate` the created "_.property"
+ * style callback returns the property value of the given element.
  *
- * If an object is provided for `iterator` the created "_.where" style callback
- * returns `true` for elements that have the properties of the given object,
- * else `false`.
+ * If an object is provided for `predicate` the created "_.matches" style
+ * callback returns `true` for elements that have the properties of the given
+ * object, else `false`.
  *
  * @static
  * @memberOf _
  * @category Array
- * @param {Array} array The array to inspect.
+ * @param {Array} array The sorted array to inspect.
  * @param {*} value The value to evaluate.
- * @param {Function|Object|string} [iterator=identity] The function called
+ * @param {Function|Object|string} [iteratee=_.identity] The function invoked
  *  per iteration. If a property name or object is provided it is used to
- *  create a "_.pluck" or "_.where" style callback respectively.
- * @param {*} [thisArg] The `this` binding of `iterator`.
+ *  create a "_.property" or "_.matches" style callback respectively.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
  * @returns {number} Returns the index at which `value` should be inserted
  *  into `array`.
  * @example
  *
- * _.sortedIndex([20, 30, 50], 40);
+ * _.sortedIndex([30, 50], 40);
+ * // => 1
+ *
+ * _.sortedIndex([4, 4, 5, 5, 6, 6], 5);
  * // => 2
  *
- * var dict = {
- *   'wordToNumber': { 'twenty': 20, 'thirty': 30, 'forty': 40, 'fifty': 50 }
- * };
+ * var dict = { 'data': { 'thirty': 30, 'forty': 40, 'fifty': 50 } };
  *
- * // using an iterator function
- * _.sortedIndex(['twenty', 'thirty', 'fifty'], 'forty', function(word) {
- *   return this.wordToNumber[word];
+ * // using an iteratee function
+ * _.sortedIndex(['thirty', 'fifty'], 'forty', function(word) {
+ *   return this.data[word];
  * }, dict);
- * // => 2
+ * // => 1
  *
- * // using "_.pluck" callback shorthand
- * _.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
- * // => 2
+ * // using the "_.property" callback shorthand
+ * _.sortedIndex([{ 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
+ * // => 1
  */
-function sortedIndex(array, value, iterator, thisArg) {
-  var low = 0,
-      high = array ? array.length : low;
-
-  // explicitly reference `identity` for better inlining in Firefox
-  iterator = iterator ? callback(iterator, thisArg, 1) : identity;
-  value = iterator(value);
-
-  while (low < high) {
-    var mid = (low + high) >>> 1;
-    (iterator(array[mid]) < value)
-      ? (low = mid + 1)
-      : (high = mid);
-  }
-  return low;
+function sortedIndex(array, value, iteratee, thisArg) {
+  return iteratee == null
+    ? binaryIndex(array, value)
+    : binaryIndexBy(array, value, baseCallback(iteratee, thisArg, 1));
 }
 
 module.exports = sortedIndex;
