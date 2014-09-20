@@ -21,7 +21,7 @@ branches:
 before_install:
   - "nvm use $TRAVIS_NODE_VERSION && mkdir ~/.npm"
   - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash"
-  - "[ $ISTANBUL == false ] || (npm i -g coveralls@\"^2.11.0\" && npm i istanbul@\"^0.3.0\")"
+  - "[ $ISTANBUL == false ] || (npm i -g coveralls@\"^2.11.0\" && npm i istanbul@\"0.3.2\")"
 script:
   - "[ $ISTANBUL == false ] || (nvm install 0.11.11 && node --harmony ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js)"
   - "([ $ISTANBUL == true ] && [ $TRAVIS_SECURE_ENV_VARS == true ] && nvm use $TRAVIS_NODE_VERSION && cat ./coverage/lcov.info | coveralls) || true"
