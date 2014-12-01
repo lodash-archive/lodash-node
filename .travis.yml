@@ -25,7 +25,7 @@ before_install:
   - "nvm use $TRAVIS_NODE_VERSION"
   - "npm config set loglevel error"
   - "npm i -g npm@\"$NPM_VERSION\""
-  - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash"
+  - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash && cd ./node_modules/lodash && npm i && cd ../../"
   - "[ $ISTANBUL == false ] || (npm i -g coveralls@\"^2.0.0\" && npm i istanbul@\"0.3.2\")"
 script:
   - "[ $ISTANBUL == false ] || (nvm install 0.11.11 && node --harmony ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js)"
