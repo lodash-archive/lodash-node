@@ -3,18 +3,7 @@ node_js:
   - "0.10"
 env:
   global:
-    - BUILD="compat" ISTANBUL=false NPM_VERSION="^2.0.0"
     - secure: "b4ZKDjezf7wDMt2VAtTAgeJWZBtPG0KTdGkvmpHpxTSx+f+S9K+DCK1W+wC6ApX1MCA6i9bw9fYtGeh4A21CTOPeBqhQ/oMkhqWLe5DxMhvj1s2yPMRnlbJtayuDgW5/PwTmEZ2AFHRZ2mBQ6vyCCkg9RsV37lrzm7ify53tzJY="
-  matrix:
-    - BUILD="compat"
-    - BUILD="modern"
-    - BUILD="modern" ISTANBUL=true
-matrix:
-  include:
-    - node_js: "0.8"
-      env: NPM_VERSION="~1.4.0"
-    - node_js: "0.8"
-      env: BUILD="modern" NPM_VERSION="~1.4.0"
 git:
   depth: 10
 branches:
@@ -23,10 +12,9 @@ branches:
 before_install:
   - "nvm use $TRAVIS_NODE_VERSION"
   - "npm config set loglevel error"
-  - "npm i -g npm@\"$NPM_VERSION\""
+  - "npm i -g npm@\"^2.0.0\""
   - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash && cd ./node_modules/lodash && npm i && cd ../../"
-  - "[ $ISTANBUL == false ] || (npm i -g coveralls@\"^2.0.0\" && npm i istanbul@\"0.3.2\")"
+  - "npm i -g coveralls@\"^2.0.0\" && npm i istanbul@\"0.3.2\""
 script:
-  - "[ $ISTANBUL == false ] || (nvm install 0.11.11 && node --harmony ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js)"
-  - "([ $ISTANBUL == true ] && [ $TRAVIS_SECURE_ENV_VARS == true ] && nvm use $TRAVIS_NODE_VERSION && cat ./coverage/lcov.info | coveralls) || true"
-  - "[ $ISTANBUL == true ]  || node ./node_modules/lodash/test/test.js ./$BUILD"
+  - "nvm install 0.11.11 && node --harmony ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js"
+  - "([ $TRAVIS_SECURE_ENV_VARS == true ] && nvm use $TRAVIS_NODE_VERSION && cat ./coverage/lcov.info | coveralls) || true"
