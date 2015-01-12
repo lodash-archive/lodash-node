@@ -5,7 +5,6 @@
   "homepage": "https://lodash.com/custom-builds",
   "license": "MIT",
   "main": "modern/index.js",
-  "keywords": "customize, functional, lodash, modules, server, util",
   "author": "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)",
   "contributors": [
     "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)",
@@ -16,5 +15,5 @@
   ],
   "bugs": "https://github.com/lodash/lodash-cli/issues",
   "repository": "lodash/lodash-node",
-  "scripts": { "test": "echo \"See https://travis-ci.org/lodash/lodash-node for testing details.\"" }
+  "scripts": { "test": "echo \"See https://travis-ci.org/lodash/lodash-cli for testing details.\"" }
 }
