@@ -1,4 +1,4 @@
-# lodash-node v3.0.0-pre
+# lodash-node v3.0.0
 
 The [compatibility & modern builds](https://github.com/lodash/lodash/wiki/Build-Differences) of [lodash](https://lodash.com/) exported as [Node.js](http://nodejs.org/)/[io.js](https://iojs.org/) modules.
 
@@ -26,13 +26,10 @@ In Node.js/io.js:
 ```js
 // load the modern build
 var _ = require('lodash-node');
-
 // or the compatibility build
 var _ = require('lodash-node/compat');
-
 // or a method category
 var array = require('lodash-node/modern/array');
-
 // or a method
 var chunk = require('lodash-node/compat/array/chunk');
 ```

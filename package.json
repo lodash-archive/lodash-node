@@ -1,6 +1,6 @@
 {
   "name": "lodash-node",
-  "version": "3.0.0-pre",
+  "version": "3.0.0",
   "description": "lodash module bundles for Node.js/io.js.",
   "homepage": "https://lodash.com/",
   "icon": "https://lodash.com/icon.svg",
