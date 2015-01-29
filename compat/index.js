@@ -1,6 +1,6 @@
 /**
  * @license
- * lodash 3.0.0 (Custom Build) <https://lodash.com/>
+ * lodash 3.0.1 (Custom Build) <https://lodash.com/>
  * Build: `lodash compat exports="node" -d -o ./compat/index.js`
  * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.7.0 <http://underscorejs.org/LICENSE>
@@ -13,7 +13,7 @@
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '3.0.0';
+  var VERSION = '3.0.1';
 
   /** Used to compose bitmasks for wrapper metadata. */
   var BIND_FLAG = 1,
@@ -521,7 +521,7 @@
    */
   var isHostObject = (function() {
     try {
-      baseToString({ 'toString': 0 });
+      Object({ 'toString': 0 } + '');
     } catch(e) {
       return function() { return false; };
     }
@@ -1217,11 +1217,14 @@
      * @returns {Object} Returns the new reversed `LazyWrapper` object.
      */
     function lazyReverse() {
-      var filtered = this.filtered,
-          result = filtered ? new LazyWrapper(this) : this.clone();
-
-      result.dir = this.dir * -1;
-      result.filtered = filtered;
+      if (this.filtered) {
+        var result = new LazyWrapper(this);
+        result.dir = -1;
+        result.filtered = true;
+      } else {
+        result = this.clone();
+        result.dir *= -1;
+      }
       return result;
     }
 
@@ -1240,12 +1243,12 @@
       }
       var dir = this.dir,
           isRight = dir < 0,
-          length = array.length,
-          view = getView(0, length, this.views),
+          view = getView(0, array.length, this.views),
           start = view.start,
           end = view.end,
+          length = end - start,
           dropCount = this.dropCount,
-          takeCount = nativeMin(end - start, this.takeCount - dropCount),
+          takeCount = nativeMin(length, this.takeCount - dropCount),
           index = isRight ? end : start - 1,
           iteratees = this.iteratees,
           iterLength = iteratees ? iteratees.length : 0,
@@ -1281,7 +1284,7 @@
           result[resIndex++] = value;
         }
       }
-      return isRight ? result.reverse() : result;
+      return result;
     }
 
     /*------------------------------------------------------------------------*/
@@ -1802,7 +1805,7 @@
       // Handle "_.property" and "_.matches" style callback shorthands.
       return type == 'object'
         ? baseMatches(func, !argCount)
-        : baseProperty(argCount ? baseToString(func) : func);
+        : baseProperty(func + '');
     }
 
     /**
@@ -2535,6 +2538,9 @@
             ? toPlainObject(value)
             : (isPlainObject(value) ? value : {});
         }
+        else {
+          isCommon = false;
+        }
       }
       // Add the source value to the stack of traversed objects and associate
       // it with its merged value.
@@ -2656,7 +2662,8 @@
       if (end < 0) {
         end += length;
       }
-      length = start > end ? 0 : (end - start);
+      length = start > end ? 0 : (end - start) >>> 0;
+      start >>>= 0;
 
       var result = Array(length);
       while (++index < length) {
@@ -3263,7 +3270,7 @@
         return '';
       }
       var padLength = length - strLength;
-      chars = chars == null ? ' ' : baseToString(chars);
+      chars = chars == null ? ' ' : (chars + '');
       return repeat(chars, ceil(padLength / chars.length)).slice(0, padLength);
     }
 
@@ -3456,7 +3463,7 @@
         case stringTag:
           // Coerce regexes to strings and treat strings primitives and string
           // objects as equal. See https://es5.github.io/#x15.10.6.4 for more details.
-          return object == baseToString(other);
+          return object == (other + '');
       }
       return false;
     }
@@ -5500,6 +5507,9 @@
     function wrapperReverse() {
       var value = this.__wrapped__;
       if (value instanceof LazyWrapper) {
+        if (this.__actions__.length) {
+          value = new LazyWrapper(this);
+        }
         return new LodashWrapper(value.reverse());
       }
       return this.thru(function(value) {
@@ -5875,7 +5885,7 @@
      * @returns {Array|Object|string} Returns `collection`.
      * @example
      *
-     * _([1, 2, 3]).forEach(function(n) { console.log(n); });
+     * _([1, 2, 3]).forEach(function(n) { console.log(n); }).value();
      * // => logs each value from left to right and returns the array
      *
      * _.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function(n, key) { console.log(n, key); });
@@ -7291,7 +7301,7 @@
      * // => 'FRED'
      *
      * // modifying the result cache
-     * upperCase.cache.set('fred, 'BARNEY');
+     * upperCase.cache.set('fred', 'BARNEY');
      * upperCase('fred');
      * // => 'BARNEY'
      *
@@ -9419,7 +9429,7 @@
 
     /**
      * Converts `string` to kebab case (a.k.a. spinal case).
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Letter_case#Computers) for
+     * See [Wikipedia](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles) for
      * more details.
      *
      * @static
@@ -10903,7 +10913,8 @@
 
     // Add `LazyWrapper` methods to `lodash.prototype`.
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
-      var retUnwrapped = /^(?:first|last)$/.test(methodName);
+      var lodashFunc = lodash[methodName],
+          retUnwrapped = /^(?:first|last)$/.test(methodName);
 
       lodash.prototype[methodName] = function() {
         var value = this.__wrapped__,
@@ -10916,12 +10927,12 @@
         if (retUnwrapped && !chainAll) {
           return onlyLazy
             ? func.call(value)
-            : lodash[methodName](this.value());
+            : lodashFunc.call(lodash, this.value());
         }
         var interceptor = function(value) {
           var otherArgs = [value];
           push.apply(otherArgs, args);
-          return lodash[methodName].apply(lodash, otherArgs);
+          return lodashFunc.apply(lodash, otherArgs);
         };
         if (isLazy || isArray(value)) {
           var wrapper = onlyLazy ? value : new LazyWrapper(this),
