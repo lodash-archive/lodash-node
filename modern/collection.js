@@ -38,5 +38,6 @@ module.exports = {
   'some': require('./collection/some'),
   'sortBy': require('./collection/sortBy'),
   'sortByAll': require('./collection/sortByAll'),
+  'sortOrder': require('./collection/sortOrder'),
   'where': require('./collection/where')
 };
