@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "0.10"
+  - "0.12"
 env:
   global:
     - secure: "b4ZKDjezf7wDMt2VAtTAgeJWZBtPG0KTdGkvmpHpxTSx+f+S9K+DCK1W+wC6ApX1MCA6i9bw9fYtGeh4A21CTOPeBqhQ/oMkhqWLe5DxMhvj1s2yPMRnlbJtayuDgW5/PwTmEZ2AFHRZ2mBQ6vyCCkg9RsV37lrzm7ify53tzJY="
@@ -18,5 +18,5 @@ before_install:
   - "git clone --depth=10 --branch=master git://github.com/lodash/lodash-cli.git ./node_modules/lodash-cli && mkdir $_/node_modules && cd $_ && ln -s ../../lodash/ ./lodash-compat && cd ../ && npm i && cd ../../"
   - "node ./node_modules/lodash-cli/bin/lodash modularize modern exports=node -o ./modern"
 script:
-  - "nvm install 0.11.11 && node --harmony ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js"
-  - "([ $TRAVIS_SECURE_ENV_VARS == true ] && nvm use $TRAVIS_NODE_VERSION && cat ./coverage/lcov.info | coveralls) || true"
+  - "node ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js"
+  - "[ $TRAVIS_SECURE_ENV_VARS == false ] || (cat ./coverage/lcov.info | coveralls)"

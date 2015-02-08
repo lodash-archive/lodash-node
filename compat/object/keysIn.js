@@ -1,6 +1,7 @@
 var arrayEach = require('../internal/arrayEach'),
     isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
+    isFunction = require('../lang/isFunction'),
     isIndex = require('../internal/isIndex'),
     isLength = require('../internal/isLength'),
     isObject = require('../lang/isObject'),
@@ -92,12 +93,12 @@ function keysIn(object) {
 
   var Ctor = object.constructor,
       index = -1,
-      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto,
+      proto = (isFunction(Ctor) && Ctor.prototype) || objectProto,
       isProto = proto === object,
       result = Array(length),
       skipIndexes = length > 0,
       skipErrorProps = support.enumErrorProps && (object === errorProto || object instanceof Error),
-      skipProto = support.enumPrototypes && typeof object == 'function';
+      skipProto = support.enumPrototypes && isFunction(object);
 
   while (++index < length) {
     result[index] = (index + '');
