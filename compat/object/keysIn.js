@@ -116,7 +116,7 @@ function keysIn(object) {
     }
   }
   if (support.nonEnumShadows && object !== objectProto) {
-    var tag = object === stringProto ? stringTag : object === errorProto ? errorTag : objToString.call(object),
+    var tag = object === stringProto ? stringTag : (object === errorProto ? errorTag : objToString.call(object)),
         nonEnums = nonEnumProps[tag] || nonEnumProps[objectTag];
 
     if (tag == objectTag) {

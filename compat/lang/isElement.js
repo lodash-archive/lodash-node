@@ -31,7 +31,7 @@ var objToString = objectProto.toString;
  */
 function isElement(value) {
   return (value && value.nodeType === 1 && isObjectLike(value) &&
-    (support.nodeTag ? objToString.call(value).indexOf('Element') > -1 : isHostObject(value))) || false;
+    (support.nodeTag ? (objToString.call(value).indexOf('Element') > -1) : isHostObject(value))) || false;
 }
 // Fallback for environments without DOM support.
 if (!support.dom) {

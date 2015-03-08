@@ -40,7 +40,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
         length = object.length;
   }
   if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
-     (typeof object == 'function' ? support.enumPrototypes : (length && isLength(length)))) {
+      (typeof object == 'function' ? support.enumPrototypes : (length && isLength(length)))) {
     return shimKeys(object);
   }
   return isObject(object) ? nativeKeys(object) : [];
