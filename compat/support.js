@@ -1,11 +1,6 @@
-var isNative = require('./lang/isNative');
-
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]',
     objectTag = '[object Object]';
-
-/** Used to detect functions containing a `this` reference. */
-var reThis = /\bthis\b/;
 
 /** Used for native method references. */
 var arrayProto = Array.prototype,
@@ -16,9 +11,8 @@ var arrayProto = Array.prototype,
 var document = (document = global.window) && document.document;
 
 /**
- * Used to resolve the `toStringTag` of values.
- * See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
- * for more details.
+ * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+ * of values.
  */
 var objToString = objectProto.toString;
 
@@ -83,7 +77,7 @@ var support = {};
    * @memberOf _.support
    * @type boolean
    */
-  support.funcDecomp = !isNative(global.WinRTError) && reThis.test(function() { return this; });
+  support.funcDecomp = /\bthis\b/.test(function() { return this; });
 
   /**
    * Detect if `Function#name` is supported (all but IE).
