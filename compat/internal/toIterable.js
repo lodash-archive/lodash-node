@@ -1,4 +1,5 @@
-var isLength = require('./isLength'),
+var getLength = require('./getLength'),
+    isLength = require('./isLength'),
     isObject = require('../lang/isObject'),
     isString = require('../lang/isString'),
     support = require('../support'),
@@ -15,7 +16,7 @@ function toIterable(value) {
   if (value == null) {
     return [];
   }
-  if (!isLength(value.length)) {
+  if (!isLength(getLength(value))) {
     return values(value);
   }
   if (support.unindexedChars && isString(value)) {

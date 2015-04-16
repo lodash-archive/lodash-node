@@ -1,14 +1,13 @@
 var arrayCopy = require('./arrayCopy'),
     arrayEach = require('./arrayEach'),
-    baseCopy = require('./baseCopy'),
+    baseAssign = require('./baseAssign'),
     baseForOwn = require('./baseForOwn'),
     initCloneArray = require('./initCloneArray'),
     initCloneByTag = require('./initCloneByTag'),
     initCloneObject = require('./initCloneObject'),
     isArray = require('../lang/isArray'),
     isHostObject = require('./isHostObject'),
-    isObject = require('../lang/isObject'),
-    keys = require('../object/keys');
+    isObject = require('../lang/isObject');
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]',
@@ -79,7 +78,7 @@ function baseClone(value, isDeep, customizer, key, object, stackA, stackB) {
   if (customizer) {
     result = object ? customizer(value, key, object) : customizer(value);
   }
-  if (typeof result != 'undefined') {
+  if (result !== undefined) {
     return result;
   }
   if (!isObject(value)) {
@@ -101,7 +100,7 @@ function baseClone(value, isDeep, customizer, key, object, stackA, stackB) {
       }
       result = initCloneObject(isFunc ? {} : value);
       if (!isDeep) {
-        return baseCopy(value, result, keys(value));
+        return baseAssign(result, value);
       }
     } else {
       return cloneableTags[tag]

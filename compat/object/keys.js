@@ -17,7 +17,7 @@ var nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
  * @static
  * @memberOf _
  * @category Object
- * @param {Object} object The object to inspect.
+ * @param {Object} object The object to query.
  * @returns {Array} Returns the array of property names.
  * @example
  *
@@ -40,7 +40,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
         length = object.length;
   }
   if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
-      (typeof object == 'function' ? support.enumPrototypes : (length && isLength(length)))) {
+      (typeof object == 'function' ? support.enumPrototypes : isLength(length))) {
     return shimKeys(object);
   }
   return isObject(object) ? nativeKeys(object) : [];

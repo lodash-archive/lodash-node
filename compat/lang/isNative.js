@@ -6,7 +6,7 @@ var escapeRegExp = require('../string/escapeRegExp'),
 var funcTag = '[object Function]';
 
 /** Used to detect host constructors (Safari > 5). */
-var reHostCtor = /^\[object .+?Constructor\]$/;
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
 
 /** Used for native method references. */
 var objectProto = Object.prototype;
@@ -21,7 +21,7 @@ var fnToString = Function.prototype.toString;
 var objToString = objectProto.toString;
 
 /** Used to detect if a method is native. */
-var reNative = RegExp('^' +
+var reIsNative = RegExp('^' +
   escapeRegExp(objToString)
   .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
 );
@@ -47,9 +47,9 @@ function isNative(value) {
     return false;
   }
   if (objToString.call(value) == funcTag) {
-    return reNative.test(fnToString.call(value));
+    return reIsNative.test(fnToString.call(value));
   }
-  return isObjectLike(value) && (isHostObject(value) ? reNative : reHostCtor).test(value);
+  return isObjectLike(value) && (isHostObject(value) ? reIsNative : reIsHostCtor).test(value);
 }
 
 module.exports = isNative;
