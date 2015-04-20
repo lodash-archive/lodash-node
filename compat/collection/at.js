@@ -1,7 +1,6 @@
 var baseAt = require('../internal/baseAt'),
     baseFlatten = require('../internal/baseFlatten'),
-    getLength = require('../internal/getLength'),
-    isLength = require('../internal/isLength'),
+    isArrayLike = require('../internal/isArrayLike'),
     restParam = require('../function/restParam'),
     toIterable = require('../internal/toIterable');
 
@@ -26,8 +25,7 @@ var baseAt = require('../internal/baseAt'),
  * // => ['barney', 'pebbles']
  */
 var at = restParam(function(collection, props) {
-  var length = collection ? getLength(collection) : 0;
-  if (isLength(length)) {
+  if (isArrayLike(collection)) {
     collection = toIterable(collection);
   }
   return baseAt(collection, baseFlatten(props));

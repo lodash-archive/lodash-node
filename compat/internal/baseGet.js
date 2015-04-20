@@ -22,9 +22,9 @@ function baseGet(object, path, pathKey) {
       length = path.length;
 
   while (object != null && ++index < length) {
-    var result = object = toObject(object)[path[index]];
+    object = toObject(object)[path[index]];
   }
-  return result;
+  return (index && index == length) ? object : undefined;
 }
 
 module.exports = baseGet;

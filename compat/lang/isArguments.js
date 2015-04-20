@@ -1,4 +1,4 @@
-var isLength = require('../internal/isLength'),
+var isArrayLike = require('../internal/isArrayLike'),
     isObjectLike = require('../internal/isObjectLike'),
     support = require('../support');
 
@@ -37,15 +37,13 @@ var propertyIsEnumerable = objectProto.propertyIsEnumerable;
  * // => false
  */
 function isArguments(value) {
-  var length = isObjectLike(value) ? value.length : undefined;
-  return isLength(length) && objToString.call(value) == argsTag;
+  return isObjectLike(value) && isArrayLike(value) && objToString.call(value) == argsTag;
 }
 // Fallback for environments without a `toStringTag` for `arguments` objects.
 if (!support.argsTag) {
   isArguments = function(value) {
-    var length = isObjectLike(value) ? value.length : undefined;
-    return isLength(length) && hasOwnProperty.call(value, 'callee') &&
-      !propertyIsEnumerable.call(value, 'callee');
+    return isObjectLike(value) && isArrayLike(value) &&
+      hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
   };
 }
 
