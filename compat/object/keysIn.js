@@ -87,8 +87,7 @@ function keysIn(object) {
   var length = object.length;
 
   length = (length && isLength(length) &&
-    (isArray(object) || (support.nonEnumStrings && isString(object)) ||
-      (support.nonEnumArgs && isArguments(object))) && length) || 0;
+    (isArray(object) || isArguments(object) || isString(object)) && length) || 0;
 
   var Ctor = object.constructor,
       index = -1,

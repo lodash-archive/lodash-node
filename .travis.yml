@@ -15,7 +15,7 @@ before_install:
   - "nvm use $TRAVIS_NODE_VERSION"
   - "npm config set loglevel error"
   - "npm i -g npm@\"^2.0.0\""
-  - "npm i -g coveralls@\"^2.0.0\" && npm i istanbul@\"0.3.13\""
+  - "npm i -g coveralls@\"^2.0.0\" && npm i istanbul@\"0.3.14\""
   - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash && cd $_ && perl -pi -e 's|\"lodash\"|\"lodash-compat\"|' ./package.json && npm i && cd ../../"
   - "git clone --depth=10 --branch=master git://github.com/lodash/lodash-cli.git ./node_modules/lodash-cli && mkdir $_/node_modules && cd $_ && ln -s ../../lodash/ ./lodash-compat && cd ../ && npm i && cd ../../"
   - "node ./node_modules/lodash-cli/bin/lodash modularize modern exports=node -o ./modern"

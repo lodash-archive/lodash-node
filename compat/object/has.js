@@ -1,10 +1,12 @@
 var baseGet = require('../internal/baseGet'),
     baseSlice = require('../internal/baseSlice'),
+    isArguments = require('../lang/isArguments'),
+    isArray = require('../lang/isArray'),
     isIndex = require('../internal/isIndex'),
     isKey = require('../internal/isKey'),
+    isLength = require('../internal/isLength'),
     isString = require('../lang/isString'),
     last = require('../array/last'),
-    support = require('../support'),
     toPath = require('../internal/toPath');
 
 /** Used for native method references. */
@@ -43,10 +45,14 @@ function has(object, path) {
   if (!result && !isKey(path)) {
     path = toPath(path);
     object = path.length == 1 ? object : baseGet(object, baseSlice(path, 0, -1));
+    if (object == null) {
+      return false;
+    }
     path = last(path);
-    result = object != null && hasOwnProperty.call(object, path);
+    result = hasOwnProperty.call(object, path);
   }
-  return result || (support.nonEnumStrings && isString(object) && isIndex(path, object.length));
+  return result || (isLength(object.length) && isIndex(path, object.length) &&
+    (isArray(object) || isArguments(object) || isString(object)));
 }
 
 module.exports = has;

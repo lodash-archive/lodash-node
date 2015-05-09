@@ -3,7 +3,7 @@ var isObject = require('../lang/isObject'),
     support = require('../support');
 
 /**
- * Converts `value` to an object if it is not one.
+ * Converts `value` to an object if it's not one.
  *
  * @private
  * @param {*} value The value to process.

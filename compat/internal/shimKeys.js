@@ -3,8 +3,7 @@ var isArguments = require('../lang/isArguments'),
     isIndex = require('./isIndex'),
     isLength = require('./isLength'),
     isString = require('../lang/isString'),
-    keysIn = require('../object/keysIn'),
-    support = require('../support');
+    keysIn = require('../object/keysIn');
 
 /** Used for native method references. */
 var objectProto = Object.prototype;
@@ -25,9 +24,8 @@ function shimKeys(object) {
       propsLength = props.length,
       length = propsLength && object.length;
 
-  var allowIndexes = length && isLength(length) &&
-    (isArray(object) || (support.nonEnumStrings && isString(object)) ||
-      (support.nonEnumArgs && isArguments(object)));
+  var allowIndexes = !!length && isLength(length) &&
+    (isArray(object) || isArguments(object) || isString(object));
 
   var index = -1,
       result = [];
