@@ -1,4 +1,4 @@
-# lodash-node v3.9.3
+# lodash-node v3.10.0
 
 The [compatibility & modern builds](https://github.com/lodash/lodash/wiki/Build-Differences) of [lodash](https://lodash.com/) exported as [Node.js](http://nodejs.org/)/[io.js](https://iojs.org/) modules.
 
@@ -34,7 +34,7 @@ var array = require('lodash-node/modern/array');
 var chunk = require('lodash-node/compat/array/chunk');
 ```
 
-See the [package source](https://github.com/lodash/lodash-node/tree/3.9.3) for more details.
+See the [package source](https://github.com/lodash/lodash-node/tree/3.10.0) for more details.
 
 **Note:**<br>
 Don’t assign values to the [special variable](http://nodejs.org/api/repl.html#repl_repl_features) `_` when in the REPL.<br>

@@ -21,6 +21,9 @@ var arrayBufferTag = '[object ArrayBuffer]',
 /** Used to match `RegExp` flags from their coerced string values. */
 var reFlags = /\w*$/;
 
+/** Native method references. */
+var Uint8Array = global.Uint8Array;
+
 /** Used to lookup a type array constructors by `toStringTag`. */
 var ctorByTag = {};
 ctorByTag[float32Tag] = global.Float32Array;
@@ -28,7 +31,7 @@ ctorByTag[float64Tag] = global.Float64Array;
 ctorByTag[int8Tag] = global.Int8Array;
 ctorByTag[int16Tag] = global.Int16Array;
 ctorByTag[int32Tag] = global.Int32Array;
-ctorByTag[uint8Tag] = global.Uint8Array;
+ctorByTag[uint8Tag] = Uint8Array;
 ctorByTag[uint8ClampedTag] = global.Uint8ClampedArray;
 ctorByTag[uint16Tag] = global.Uint16Array;
 ctorByTag[uint32Tag] = global.Uint32Array;

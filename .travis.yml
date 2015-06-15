@@ -3,8 +3,7 @@ node_js:
   - "0.12"
 env:
   global:
-    - PATTERN1="s|^.+?!support\.funcNames\b[\s\S]+?\.name\b[\s\S]+?\}\n||m"
-    - PATTERN2="s|\s*else\s*\{\s*iteratee\(index\);\s*\}||"
+    - PATTERN="s|\s*else\s*\{\s*iteratee\(index\);\s*\}||"
     - secure: "b4ZKDjezf7wDMt2VAtTAgeJWZBtPG0KTdGkvmpHpxTSx+f+S9K+DCK1W+wC6ApX1MCA6i9bw9fYtGeh4A21CTOPeBqhQ/oMkhqWLe5DxMhvj1s2yPMRnlbJtayuDgW5/PwTmEZ2AFHRZ2mBQ6vyCCkg9RsV37lrzm7ify53tzJY="
 git:
   depth: 10
@@ -15,11 +14,11 @@ before_install:
   - "nvm use $TRAVIS_NODE_VERSION"
   - "npm config set loglevel error"
   - "npm i -g npm@\"^2.0.0\""
-  - "npm i -g coveralls@\"^2.0.0\" && npm i istanbul@\"0.3.14\""
-  - "git clone --depth=10 --branch=master git://github.com/lodash/lodash.git ./node_modules/lodash && cd $_ && perl -pi -e 's|\"lodash\"|\"lodash-compat\"|' ./package.json && npm i && cd ../../"
-  - "git clone --depth=10 --branch=master git://github.com/lodash/lodash-cli.git ./node_modules/lodash-cli && mkdir $_/node_modules && cd $_ && ln -s ../../lodash/ ./lodash-compat && cd ../ && npm i && cd ../../"
+  - "npm i -g coveralls@\"^2.0.0\" && npm i istanbul@\"0.3.17\""
+  - "git clone --depth=10 --branch=master git://github.com/lodash/lodash ./node_modules/lodash && cd $_ && perl -pi -e 's|\"lodash\"|\"lodash-compat\"|' ./package.json && npm i && cd ../../"
+  - "git clone --depth=10 --branch=master git://github.com/lodash/lodash-cli ./node_modules/lodash-cli && mkdir $_/node_modules && cd $_ && ln -s ../../lodash/ ./lodash-compat && cd ../ && npm i && cd ../../"
   - "node ./node_modules/lodash-cli/bin/lodash modularize modern exports=node -o ./modern"
-  - "perl -0pi -e \"$PATTERN1\" ./modern/internal/getFuncName.js && perl -0pi -e \"$PATTERN2\" ./modern/utility/times.js"
+  - "perl -0pi -e \"$PATTERN\" ./modern/utility/times.js"
 script:
   - "node ./node_modules/istanbul/lib/cli.js cover --report lcovonly ./node_modules/lodash/test/test.js -- ./modern/index.js"
-  - "[ $TRAVIS_SECURE_ENV_VARS == false ] || (cat ./coverage/lcov.info | coveralls)"
+  - "[ $TRAVIS_SECURE_ENV_VARS == false ] || (cat ./coverage/lcov.info | coveralls) || true"

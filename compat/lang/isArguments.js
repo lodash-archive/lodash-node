@@ -1,21 +1,11 @@
 var isArrayLike = require('../internal/isArrayLike'),
-    isObjectLike = require('../internal/isObjectLike'),
-    support = require('../support');
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]';
+    isObjectLike = require('../internal/isObjectLike');
 
 /** Used for native method references. */
 var objectProto = Object.prototype;
 
 /** Used to check objects for own properties. */
 var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
- * of values.
- */
-var objToString = objectProto.toString;
 
 /** Native method references. */
 var propertyIsEnumerable = objectProto.propertyIsEnumerable;
@@ -37,14 +27,8 @@ var propertyIsEnumerable = objectProto.propertyIsEnumerable;
  * // => false
  */
 function isArguments(value) {
-  return isObjectLike(value) && isArrayLike(value) && objToString.call(value) == argsTag;
-}
-// Fallback for environments without a `toStringTag` for `arguments` objects.
-if (!support.argsTag) {
-  isArguments = function(value) {
-    return isObjectLike(value) && isArrayLike(value) &&
-      hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
-  };
+  return isObjectLike(value) && isArrayLike(value) &&
+    hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
 }
 
 module.exports = isArguments;
