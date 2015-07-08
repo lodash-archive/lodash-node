@@ -101,7 +101,7 @@ function keysIn(object) {
   while (++index < length) {
     result[index] = (index + '');
   }
-  // lodash skips the `constructor` property when it infers it is iterating
+  // lodash skips the `constructor` property when it infers it's iterating
   // over a `prototype` object because IE < 9 can't set the `[[Enumerable]]`
   // attribute of an existing property and the `constructor` property of a
   // prototype defaults to non-enumerable.
